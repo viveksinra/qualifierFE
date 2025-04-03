@@ -17,7 +17,7 @@ import {
 	TablePagination,
 	Input,
 	Divider,
-} from "@material-ui/core";
+} from "@mui/material";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import axios from "axios";
 import { MdSearch, MdDoneAll, MdClearAll, MdPanorama, MdImportantDevices } from "react-icons/md";

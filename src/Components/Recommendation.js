@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Slider from "infinite-react-carousel";
-import { makeStyles, Card, Divider, withWidth, Typography, Button, CardActions, LinearProgress } from "@material-ui/core";
+import { makeStyles, Card, Divider, withWidth, Typography, Button, CardActions, LinearProgress } from "@mui/material";
 import axios from "axios";
 import { Link } from "react-router-dom";
 

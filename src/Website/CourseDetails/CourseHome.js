@@ -1,50 +1,50 @@
 import React from "react";
 import {
-	makeStyles,
-	ExpansionPanel,
-	ExpansionPanelSummary,
+	styled,
+	Accordion,
+	AccordionSummary,
 	Button,
-	ExpansionPanelDetails,
+	AccordionDetails,
 	Table,
 	TableContainer,
 	TableRow,
 	Typography,
 	TableBody,
 	TableCell,
-} from "@material-ui/core";
+} from "@mui/material";
 import { MdExpandMore, MdLock } from "react-icons/md";
 import { Link } from "react-router-dom";
-const useStyles = makeStyles((theme) => ({
-	root: {
-		width: "100%",
-		marginTop: theme.spacing(),
-	},
-	heading: {
-		fontSize: theme.typography.pxToRem(15),
-		fontWeight: theme.typography.fontWeightRegular,
-	},
-	grow: {
-		flexGrow: 1,
-	},
+
+const RootContainer = styled('div')(({ theme }) => ({
+	width: "100%",
+	marginTop: theme.spacing(),
+}));
+
+const StyledAccordionSummary = styled(AccordionSummary)({
+	flexGrow: 1,
+});
+
+const HeadingTypography = styled(Typography)(({ theme }) => ({
+	fontSize: theme.typography.pxToRem(15),
+	fontWeight: theme.typography.fontWeightRegular,
 }));
 
 export default function CourseHome({ data, match }) {
-	const classes = useStyles();
 	return (
-		<div className={classes.root}>
+		<RootContainer>
 			{data.sub &&
 				data.sub.map((s, k) => (
-					<ExpansionPanel key={k}>
-						<ExpansionPanelSummary expandIcon={<MdExpandMore />} aria-controls="course-data" id="course-data">
-							<Typography className={classes.heading}>{s.subjectTitle}</Typography>
-							<span className={classes.grow} />
+					<Accordion key={k}>
+						<StyledAccordionSummary expandIcon={<MdExpandMore />} aria-controls="course-data" id="course-data">
+							<HeadingTypography>{s.subjectTitle}</HeadingTypography>
+							<span style={{ flexGrow: 1 }} />
 							<Link to={`/practice/${match.params.catlink}/${match.params.corslink}/${s.link}`}>
 								<Button color="primary">Start</Button>
 							</Link>
-						</ExpansionPanelSummary>
+						</StyledAccordionSummary>
 						{s.chap &&
 							s.chap.map((c, i) => (
-								<ExpansionPanelDetails key={i}>
+								<AccordionDetails key={i}>
 									<TableContainer>
 										<Table size="small" style={{ maxWidth: 1040, marginLeft: "auto", marginRight: "auto" }} aria-label="Chapter List">
 											<TableBody>
@@ -69,10 +69,10 @@ export default function CourseHome({ data, match }) {
 											</TableBody>
 										</Table>
 									</TableContainer>
-								</ExpansionPanelDetails>
+								</AccordionDetails>
 							))}
-					</ExpansionPanel>
+					</Accordion>
 				))}
-		</div>
+		</RootContainer>
 	);
 }

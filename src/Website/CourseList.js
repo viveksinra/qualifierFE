@@ -1,42 +1,41 @@
 import React, { useState, useEffect, lazy } from "react";
 import { Nav } from "../Components/Navigation/Nav";
-import { makeStyles, Typography, Grid, Chip, Card } from "@material-ui/core";
+import { styled, Typography, Grid, Chip, Card } from "@mui/material";
 import { Link } from "react-router-dom";
 import orbit from "../img/orbit.svg";
 import axios from "axios";
 const MyDrawer = lazy(() => import("../Components/Navigation/MyDrawer"));
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		display: "flex",
-		paddingLeft: "10px",
-		paddingRight: "10px",
-	},
-	toolbar: theme.mixins.toolbar,
-	content: {
-		flexGrow: 1,
-		marginTop: theme.spacing(2),
-		background: `url(${orbit})`,
-		width: "100%",
-		minHeight: 650,
-		backgroundSize: "cover",
-	},
-	card: {
-		height: 140,
-		display: "flex",
-		boxShadow: "0 5px 20px 2px rgba(0,0,0,.12)",
-		alignItems: "center",
-		justifyContent: "center",
-		flexDirection: "column",
-	},
-	logo: {
-		height: 80,
-		padding: theme.spacing(),
-	},
+const RootContainer = styled('div')(({ theme }) => ({
+	display: "flex",
+	paddingLeft: "10px",
+	paddingRight: "10px",
+}));
+
+const ContentContainer = styled('main')(({ theme }) => ({
+	flexGrow: 1,
+	marginTop: theme.spacing(2),
+	background: `url(${orbit})`,
+	width: "100%",
+	minHeight: 650,
+	backgroundSize: "cover",
+}));
+
+const StyledCard = styled(Card)(({ theme }) => ({
+	height: 140,
+	display: "flex",
+	boxShadow: "0 5px 20px 2px rgba(0,0,0,.12)",
+	alignItems: "center",
+	justifyContent: "center",
+	flexDirection: "column",
+}));
+
+const LogoImage = styled('img')(({ theme }) => ({
+	height: 80,
+	padding: theme.spacing(),
 }));
 
 export default function CourseList({ match }) {
-	const classes = useStyles();
 	const [catg, setCatg] = useState({});
 	document.title = `${catg.categoryTitle} : Qualifier - Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE`;
 
@@ -47,11 +46,11 @@ export default function CourseList({ match }) {
 			.catch((err) => console.log(err));
 	}, [match.params.catlink]);
 	return (
-		<div className={classes.root}>
+		<RootContainer>
 			<Nav />
 			<MyDrawer />
-			<main className={classes.content}>
-				<div className={classes.toolbar} />
+			<ContentContainer>
+				<div style={{ ...theme.mixins.toolbar }} />
 				<Grid container>
 					<Grid item xs={12}>
 						<center>
@@ -71,16 +70,16 @@ export default function CourseList({ match }) {
 							catg.cour.map((d) => (
 								<Grid item xs={12} key={d._id} md={3}>
 									<Link to={`${match.url}/${d.link}`}>
-										<Card className={classes.card}>
-											<img src={d.logo} alt={d.courseTitle} className={classes.logo} />
+										<StyledCard>
+											<LogoImage src={d.logo} alt={d.courseTitle} />
 											<Chip variant="outlined" color="primary" label={d.courseTitle} />
-										</Card>
+										</StyledCard>
 									</Link>
 								</Grid>
 							))}
 					</Grid>
 				</Grid>
-			</main>
-		</div>
+			</ContentContainer>
+		</RootContainer>
 	);
 }

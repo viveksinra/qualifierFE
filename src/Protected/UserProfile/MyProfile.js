@@ -21,7 +21,7 @@ import {
 	TableBody,
 	TableRow,
 	TableCell,
-} from "@material-ui/core";
+} from "@mui/material";
 import { FaIdCard, FaUserTag, FaReceipt, FaTelegramPlane, FaMale, FaFemale, FaUser } from "react-icons/fa";
 import axios from "axios";
 const MyDrawer = lazy(() => import("../../Components/Navigation/MyDrawer"));

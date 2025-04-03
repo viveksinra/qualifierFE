@@ -3,7 +3,7 @@ import { FullNav } from "../Components/Navigation/Nav";
 import Footer from "../Components/Footer/Footer";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Container, Typography, makeStyles, Paper, Grid, Table, Fab, TableRow, TableCell, TableBody } from "@material-ui/core";
+import { Container, Typography, makeStyles, Paper, Grid, Table, Fab, TableRow, TableCell, TableBody } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
 	topBg: {

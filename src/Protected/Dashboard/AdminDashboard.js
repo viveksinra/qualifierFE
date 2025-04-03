@@ -2,7 +2,7 @@ import React, { Fragment, useContext } from "react";
 import { Link } from "react-router-dom";
 import { LOGOUT_USER } from "../../Components/Context/types";
 import { MainContext } from "../../Components/Context/MainContext";
-import { Grid, Container, Button } from "@material-ui/core";
+import { Grid, Container, Button } from "@mui/material";
 import { FcImport } from "react-icons/fc";
 
 export default function AdminDashboard() {

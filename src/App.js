@@ -1,5 +1,5 @@
 import React, { lazy, Suspense, Fragment } from "react";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import TopTray from "./Components/Decoration/TopTray";
 import MainRoute from "./Components/Routes/MainRoute";
 

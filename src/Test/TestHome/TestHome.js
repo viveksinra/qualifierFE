@@ -18,7 +18,7 @@ import {
 	Divider,
 	List,
 	ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 import clsx from "clsx";
 import axios from "axios";
 import { FullNav } from "../../Components/Navigation/Nav";

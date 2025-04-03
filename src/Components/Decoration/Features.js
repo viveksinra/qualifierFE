@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, makeStyles, Grid, Divider, List, ListItem, ListItemAvatar, Avatar, ListItemText } from "@material-ui/core";
+import { Container, makeStyles, Grid, Divider, List, ListItem, ListItemAvatar, Avatar, ListItemText } from "@mui/material";
 import pcSvg from "../../img/pc.svg";
 import clock from "../../img/clock.svg";
 import chart from "../../img/chart.svg";

@@ -4,7 +4,7 @@ import { MainContext } from "../Components/Context/MainContext";
 import { TestContext } from "../Components/Context/TestContext/TestContext";
 import { drawerWidth } from "./TestNav";
 import clsx from "clsx";
-import { makeStyles, Avatar, Typography, Drawer, Button, Badge, Hidden, SwipeableDrawer } from "@material-ui/core";
+import { makeStyles, Avatar, Typography, Drawer, Button, Badge, Hidden, SwipeableDrawer } from "@mui/material";
 import { MdCheck } from "react-icons/md";
 
 const drawerStyle = makeStyles((theme) => ({

@@ -1,45 +1,52 @@
 import React, { useState, useEffect } from "react";
-import { Container, makeStyles, Typography, Avatar, Card, withWidth } from "@material-ui/core";
+import { Container, Typography, Avatar, Card, useMediaQuery } from "@mui/material";
+import { styled, useTheme } from "@mui/material/styles";
 import Slider from "infinite-react-carousel";
-import Rating from "@material-ui/lab/Rating";
+import Rating from "@mui/material/Rating";
 import { FaHeart } from "react-icons/fa";
 import axios from "axios";
-const useStyles = makeStyles((theme) => ({
-	area: {
-		minHeight: "40vh",
-		paddingTop: theme.spacing(5),
-		paddingBottom: theme.spacing(5),
-		background: "linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(241,243,245,1) 100%)",
-	},
-	paper: {
-		backgroundColor: "rgba(241, 243, 245, 0.6)",
-		padding: theme.spacing(3, 2),
-		borderRadius: "10px",
-	},
-	card: {
-		marginTop: theme.spacing(3),
-		paddingTop: theme.spacing(3),
-		boxShadow: "-5px 10px 2px 5px rgba(0,0,0,.12)",
-		paddingBottom: theme.spacing(2),
-		maxWidth: "90%",
-		minHeight: "280px",
-	},
-	avtar: {
-		width: theme.spacing(10),
-		height: theme.spacing(10),
-		marginLeft: "auto",
-		marginRight: "auto",
-	},
-	textArea: {
-		height: 115,
-		paddingLeft: theme.spacing(),
-		paddingRight: theme.spacing(),
-		overflowY: "hidden",
-	},
+
+const Area = styled('div')(({ theme }) => ({
+	minHeight: "40vh",
+	paddingTop: theme.spacing(5),
+	paddingBottom: theme.spacing(5),
+	background: "linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(241,243,245,1) 100%)",
 }));
 
-function Testimonial(props) {
-	const classes = useStyles();
+const Paper = styled('div')(({ theme }) => ({
+	backgroundColor: "rgba(241, 243, 245, 0.6)",
+	padding: theme.spacing(3, 2),
+	borderRadius: "10px",
+}));
+
+const StyledCard = styled(Card)(({ theme }) => ({
+	marginTop: theme.spacing(3),
+	paddingTop: theme.spacing(3),
+	boxShadow: "-5px 10px 2px 5px rgba(0,0,0,.12)",
+	paddingBottom: theme.spacing(2),
+	maxWidth: "90%",
+	minHeight: "280px",
+}));
+
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+	width: theme.spacing(10),
+	height: theme.spacing(10),
+	marginLeft: "auto",
+	marginRight: "auto",
+}));
+
+const TextArea = styled(Typography)(({ theme }) => ({
+	height: 115,
+	paddingLeft: theme.spacing(),
+	paddingRight: theme.spacing(),
+	overflowY: "hidden",
+}));
+
+function Testimonial() {
+	const theme = useTheme();
+	const isXs = useMediaQuery(theme.breakpoints.down('sm'));
+	const isSm = useMediaQuery(theme.breakpoints.between('sm', 'md'));
+	
 	const [data, setData] = useState([{}]);
 	useEffect(() => {
 		let active = true;
@@ -58,16 +65,16 @@ function Testimonial(props) {
 		autoplayScroll: 1,
 		autoplaySpeed: 6000,
 		centerPadding: 40,
-		arrows: props.width === "xs" ? false : true,
+		arrows: !isXs,
 		dots: true,
 		overScan: 1,
 		pauseOnHover: true,
-		slidesToShow: props.width === "xs" || props.width === "sm" ? 1 : 3,
+		slidesToShow: isXs || isSm ? 1 : 3,
 	};
 	return (
-		<div className={classes.area}>
+		<Area>
 			<Container>
-				<div className={classes.paper}>
+				<Paper>
 					<Typography align="center" variant="subtitle1" color="primary">
 						Your Feedback <FaHeart /> Our Strength
 					</Typography>
@@ -76,12 +83,12 @@ function Testimonial(props) {
 					</Typography>
 					<Slider {...settings}>
 						{data.map((t, i) => (
-							<Card key={i} className={classes.card}>
-								<Avatar alt={t.name} src={t.image} className={classes.avtar} />
+							<StyledCard key={i}>
+								<StyledAvatar alt={t.name} src={t.image} />
 
-								<Typography paragraph color="textSecondary" className={classes.textArea} align="center">
+								<TextArea paragraph color="textSecondary" align="center">
 									{t.review}
-								</Typography>
+								</TextArea>
 
 								<Typography color="primary" align="center">
 									{t.name}
@@ -92,13 +99,13 @@ function Testimonial(props) {
 								<center>
 									<Rating name="rating" value={+t.rating} readOnly />
 								</center>
-							</Card>
+							</StyledCard>
 						))}
 					</Slider>
-				</div>
+				</Paper>
 			</Container>
-		</div>
+		</Area>
 	);
 }
 
-export default withWidth()(Testimonial);
+export default Testimonial;

@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/material";
 import { fetchData } from "../Api";
 const img = fetchData("/api/general/myimage/offer");
 const fullImg = fetchData("/api/general/myimage/test-series-buy");

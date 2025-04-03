@@ -13,7 +13,7 @@ import {
 	ListItemText,
 	Button,
 	withWidth,
-} from "@material-ui/core";
+} from "@mui/material";
 import "../TestHome/common.css";
 import { Link } from "react-router-dom";
 import { FullOffer } from "../../Components/Decoration/OfferCard";

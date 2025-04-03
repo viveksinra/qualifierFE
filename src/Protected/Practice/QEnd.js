@@ -1,6 +1,6 @@
 import React from "react";
 import { FullNav } from "../../Components/Navigation/Nav";
-import { AppBar, Container } from "@material-ui/core";
+import { AppBar, Container } from "@mui/material";
 
 function QEnd() {
 	return (

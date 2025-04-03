@@ -1,5 +1,5 @@
 import React, { useRef, useContext, useEffect, useState } from "react";
-import { LinearProgress, Grid } from "@material-ui/core";
+import { LinearProgress, Grid } from "@mui/material";
 import Timer from "../../Components/Timer/Timer";
 import { PracContext } from "../../Components/Context/PracticeContext/PracticeContext";
 import { TIMETAKEN } from "../../Components/Context/types";

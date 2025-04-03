@@ -1,34 +1,32 @@
 import React, { useState } from "react";
-import { SpeedDial, SpeedDialAction, SpeedDialIcon } from "@material-ui/lab/";
-import { makeStyles, Hidden } from "@material-ui/core";
+import { SpeedDial, SpeedDialAction, SpeedDialIcon, Box } from "@mui/material";
+import { styled } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FcInspection, FcOrgUnit, FcHome, FcBookmark, FcManager } from "react-icons/fc";
 
-const useStyles = makeStyles((theme) => ({
-	speed: {
-		position: "fixed",
-		bottom: 0,
-		zIndex: 100,
-		right: 0,
+const SpeedContainer = styled("div")(({ theme }) => ({
+	position: "fixed",
+	bottom: 0,
+	zIndex: 100,
+	right: 0,
+}));
+
+const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+	position: "absolute",
+	"&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
+		bottom: theme.spacing(2),
+		right: theme.spacing(2),
 	},
-	speedDial: {
-		position: "absolute",
-		"&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft": {
-			bottom: theme.spacing(2),
-			right: theme.spacing(2),
-		},
-		"&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
-			top: theme.spacing(2),
-			left: theme.spacing(2),
-		},
-		"& span": {
-			fontSize: 22,
-		},
+	"&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight": {
+		top: theme.spacing(2),
+		left: theme.spacing(2),
+	},
+	"& span": {
+		fontSize: 22,
 	},
 }));
 
 function SpeedNav() {
-	const classes = useStyles();
 	const [open, setOpen] = useState(true);
 
 	const actions = [
@@ -38,12 +36,12 @@ function SpeedNav() {
 		{ icon: <FcManager />, name: "My Profile", link: "/profile" },
 		{ icon: <FcHome />, name: "Dashboard", link: "/dashboard" },
 	];
+
 	return (
-		<Hidden mdDown>
-			<div className={classes.speed}>
-				<SpeedDial
+		<Box sx={{ display: { md: "block", xs: "none" } }}>
+			<SpeedContainer>
+				<StyledSpeedDial
 					ariaLabel="SpeedDial"
-					className={classes.speedDial}
 					icon={<SpeedDialIcon style={{ fontSize: 0 }} />}
 					onClose={() => setOpen(false)}
 					onOpen={() => setOpen(true)}
@@ -51,11 +49,16 @@ function SpeedNav() {
 					open={open}
 				>
 					{actions.map((a) => (
-						<SpeedDialAction key={a.name} icon={<Link to={a.link}>{a.icon}</Link>} tooltipTitle={a.name} onClick={() => setOpen(false)} />
+						<SpeedDialAction 
+							key={a.name} 
+							icon={<Link to={a.link}>{a.icon}</Link>} 
+							tooltipTitle={a.name} 
+							onClick={() => setOpen(false)} 
+						/>
 					))}
-				</SpeedDial>
-			</div>
-		</Hidden>
+				</StyledSpeedDial>
+			</SpeedContainer>
+		</Box>
 	);
 }
 

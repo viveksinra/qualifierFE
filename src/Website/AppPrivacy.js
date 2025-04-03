@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import { makeStyles, Paper, Container, Grid, Divider, Typography } from "@material-ui/core";
+import { makeStyles, Paper, Container, Grid, Divider, Typography } from "@mui/material";
 import { FullNav, HideOnScroll } from "../Components/Navigation/Nav";
 import Footer from "../Components/Footer/Footer";
 import Typewriter from "typewriter-effect";

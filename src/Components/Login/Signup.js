@@ -17,7 +17,7 @@ import {
 	DialogContent,
 	DialogContentText,
 	DialogActions,
-} from "@material-ui/core";
+} from "@mui/material";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 

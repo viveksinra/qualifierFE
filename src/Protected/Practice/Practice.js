@@ -5,7 +5,7 @@ import QuesArea from "./QuesArea";
 import End from "./QEnd";
 import { PracContext } from "../../Components/Context/PracticeContext/PracticeContext";
 import { GETQUES } from "../../Components/Context/types";
-import { Grid, makeStyles, Container, Paper, AppBar, Divider, CircularProgress } from "@material-ui/core";
+import { Grid, makeStyles, Container, Paper, AppBar, Divider, CircularProgress } from "@mui/material";
 import { Prompt } from "react-router-dom";
 import axios from "axios";
 const ChatBox = lazy(() => import("./ChatBox"));

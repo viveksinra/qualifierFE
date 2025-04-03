@@ -3,7 +3,7 @@ import Chat from "../img/Chat.svg";
 import Footer from "../Components/Footer/Footer";
 import MySnackbar from "../Components/MySnackbar";
 import { FullNav, HideOnScroll } from "../Components/Navigation/Nav";
-import { makeStyles, Grid, Paper, Card, Container, Divider, TextField, Fab, Typography } from "@material-ui/core";
+import { styled, Grid, Paper, Card, Container, Divider, TextField, Fab, Typography } from "@mui/material";
 import axios from "axios";
 // <!--Start of Tawk.to Script-->
 // <script type="text/javascript">
@@ -19,31 +19,30 @@ import axios from "axios";
 // </script>
 // Direct Chat Link : https://tawk.to/chat/5e270a298e78b86ed8aa5fd2/default
 // <!--End of Tawk.to Script-->
-const useStyles = makeStyles((theme) => ({
-	contactTopBg: {
-		backgroundColor: "#ffffff",
-		paddingTop: theme.spacing(12),
-		backgroundImage:
-			"url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' %3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2348fcff'/%3E%3Cstop offset='1' stop-color='%238eff8c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpattern id='b' width='24' height='24' patternUnits='userSpaceOnUse'%3E%3Ccircle fill='%23a44fff' cx='12' cy='12' r='12'/%3E%3C/pattern%3E%3Crect width='100%25' height='100%25' fill='url(%23a)'/%3E%3Crect width='100%25' height='100%25' fill='url(%23b)' fill-opacity='0.1'/%3E%3C/svg%3E\")",
-		backgroundAttachment: "fixed",
-		backgroundSize: "cover",
-		fontSize: "2rem",
-		textAlign: "center",
-		height: "20vh",
-	},
-	container: {
-		marginTop: theme.spacing(-10),
-		padding: theme.spacing(2),
-	},
-	form: {
-		padding: theme.spacing(2),
-		border: "1px solid rgba(33,150,243,0.3)",
-		maxWidth: "410px",
-	},
+const ContactTopBg = styled('div')(({ theme }) => ({
+	backgroundColor: "#ffffff",
+	paddingTop: theme.spacing(12),
+	backgroundImage:
+		"url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' %3E%3Cdefs%3E%3ClinearGradient id='a' x1='0' x2='0' y1='0' y2='1'%3E%3Cstop offset='0' stop-color='%2348fcff'/%3E%3Cstop offset='1' stop-color='%238eff8c'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpattern id='b' width='24' height='24' patternUnits='userSpaceOnUse'%3E%3Ccircle fill='%23a44fff' cx='12' cy='12' r='12'/%3E%3C/pattern%3E%3Crect width='100%25' height='100%25' fill='url(%23a)'/%3E%3Crect width='100%25' height='100%25' fill='url(%23b)' fill-opacity='0.1'/%3E%3C/svg%3E\")",
+	backgroundAttachment: "fixed",
+	backgroundSize: "cover",
+	fontSize: "2rem",
+	textAlign: "center",
+	height: "20vh",
+}));
+
+const StyledContainer = styled(Container)(({ theme }) => ({
+	marginTop: theme.spacing(-10),
+	padding: theme.spacing(2),
+}));
+
+const FormCard = styled(Card)(({ theme }) => ({
+	padding: theme.spacing(2),
+	border: "1px solid rgba(33,150,243,0.3)",
+	maxWidth: "410px",
 }));
 
 export default function Contact() {
-	const classes = useStyles();
 	const [name, setName] = useState("");
 	const [mobile, setMobile] = useState("");
 	const [email, setEmail] = useState("");
@@ -78,10 +77,10 @@ export default function Contact() {
 			<HideOnScroll>
 				<FullNav />
 			</HideOnScroll>
-			<div className={classes.contactTopBg}>Contact Us </div>
-			<Container className={classes.container}>
+			<ContactTopBg>Contact Us </ContactTopBg>
+			<StyledContainer>
 				<Paper>
-					<Grid container justify="center" spacing={4}>
+					<Grid container justifyContent="center" spacing={4}>
 						<Grid item xs={12} md={6} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 							<img src={Chat} alt="Contact-Svg" />
 
@@ -104,7 +103,7 @@ export default function Contact() {
 						</Grid>
 
 						<Grid item xs={12} md={6} style={{ display: "flex", justifyContent: "center" }}>
-							<Card elevation={3} className={classes.form}>
+							<FormCard elevation={3}>
 								<form onSubmit={(e) => handleSubmit(e)}>
 									<Grid container spacing={2}>
 										<Grid item xs={12}>
@@ -176,11 +175,11 @@ export default function Contact() {
 										</Grid>
 									</Grid>
 								</form>
-							</Card>
+							</FormCard>
 						</Grid>
 					</Grid>
 				</Paper>
-			</Container>
+			</StyledContainer>
 			<MySnackbar ref={snackRef} />
 			<Footer />
 		</Fragment>

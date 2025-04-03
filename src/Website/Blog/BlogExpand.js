@@ -11,7 +11,7 @@ import {
 	Avatar,
 	ListItemAvatar,
 	ListItemText,
-} from "@material-ui/core";
+} from "@mui/material";
 import { FcAdvance } from "react-icons/fc";
 import { FullNav, HideOnScroll } from "../../Components/Navigation/Nav";
 import axios from "axios";

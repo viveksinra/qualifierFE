@@ -4,7 +4,7 @@ import {
 	Avatar,
 	Divider,
 	Typography,
-	makeStyles,
+	styled,
 	Input,
 	List,
 	ListItem,
@@ -14,41 +14,39 @@ import {
 	Zoom,
 	InputAdornment,
 	ListItemSecondaryAction,
-} from "@material-ui/core";
+	Rating
+} from "@mui/material";
 import axios from "axios";
-import Rating from "@material-ui/lab/Rating";
 import { FaTelegramPlane, FaPaperclip, FaFileImage } from "react-icons/fa";
 
-const chatStyles = makeStyles((theme) => ({
-	rSide: {
-		marginTop: theme.spacing(2),
-		marginBottom: theme.spacing(2),
-		padding: theme.spacing(),
-		overflowX: "hidden",
-		position: "sticky",
-		top: 50,
-		maxWidth: 310,
-		height: "100%",
-		marginLeft: "auto",
-		marginRight: "auto",
-		boxShadow: "inset -6px -6px 10px rgba(255,255,255,0.5), inset 6px 6px 20px rgba(0,0,0,0.05)",
-		overflowY: "auto",
-	},
-	rating: {
-		width: 200,
-		display: "flex",
-		alignItems: "center",
-	},
+const ChatSideContainer = styled('div')(({ theme }) => ({
+	marginTop: theme.spacing(2),
+	marginBottom: theme.spacing(2),
+	padding: theme.spacing(),
+	overflowX: "hidden",
+	position: "sticky",
+	top: 50,
+	maxWidth: 310,
+	height: "100%",
+	marginLeft: "auto",
+	marginRight: "auto",
+	boxShadow: "inset -6px -6px 10px rgba(255,255,255,0.5), inset 6px 6px 20px rgba(0,0,0,0.05)",
+	overflowY: "auto",
+}));
+
+const RatingContainer = styled('div')(({ theme }) => ({
+	width: 200,
+	display: "flex",
+	alignItems: "center",
 }));
 
 function ChatBox() {
-	const classes = chatStyles();
 	const { Pstate } = useContext(PracContext);
 	const [mycom, setMyCom] = useState("");
 	const [solImg] = useState("");
 	const [chatData, setChatData] = useState([]);
 	const [userData, setUserData] = useState({});
-	const [rating, setRating] = useState(0);
+	const [ratingValue, setRatingValue] = useState(0);
 
 	const getChatData = useCallback(() => {
 		let qid = Pstate.question._id;
@@ -77,7 +75,7 @@ function ChatBox() {
 	const handleRating = (v) => {
 		axios
 			.post("/api/private/qrating", { questionId: Pstate.question._id, rating: +v })
-			.then(() => setRating(v))
+			.then(() => setRatingValue(v))
 			.catch((err) => console.log(err));
 	};
 	const imgUpload = async (e) => {
@@ -99,17 +97,17 @@ function ChatBox() {
 	};
 	return (
 		<Zoom in={Pstate.submitted}>
-			<div className={classes.rSide}>
+			<ChatSideContainer>
 				<Typography component="legend" color="textSecondary">
 					Rate the Question
 				</Typography>
-				<div className={classes.rating}>
-					<Rating name="hover-side" value={rating} precision={0.5} onChange={(e, v) => handleRating(v)} />
+				<RatingContainer>
+					<Rating name="hover-side" value={ratingValue} precision={0.5} onChange={(e, v) => handleRating(v)} />
 					{"\u00A0"}
-					<Typography variant="subtitle2" className={classes.extendedIcon}>
-						{RatingLabels[rating]}
+					<Typography variant="subtitle2" sx={{ ml: 1 }}>
+						{RatingLabels[ratingValue]}
 					</Typography>
-				</div>
+				</RatingContainer>
 				<br />
 				<br />
 				<Typography component="legend" color="textSecondary">
@@ -184,7 +182,7 @@ function ChatBox() {
 						</ListItemSecondaryAction>
 					</ListItem>
 				</List>
-			</div>
+			</ChatSideContainer>
 		</Zoom>
 	);
 }

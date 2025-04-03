@@ -9,7 +9,7 @@ import {
 	Container,
 	ExpansionPanel,
 	ExpansionPanelSummary,
-} from "@material-ui/core";
+} from "@mui/material";
 import { FcExpand, FcFullTrash } from "react-icons/fc";
 import NoContent from "../Components/NoContent";
 import axios from "axios";

@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListItem, ListItemText, ListSubheader } from "@material-ui/core";
+import { List, ListItem, ListItemText, ListSubheader } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FcReading, FcInspection, FcGraduationCap, FcAdvance } from "react-icons/fc";
 import { fetchData } from "../../Components/Api";

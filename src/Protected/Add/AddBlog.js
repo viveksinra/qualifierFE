@@ -21,7 +21,7 @@ import {
 	TablePagination,
 	Input,
 	Divider,
-} from "@material-ui/core";
+} from "@mui/material";
 import CKEditor from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import Autocomplete from "@material-ui/lab/Autocomplete";

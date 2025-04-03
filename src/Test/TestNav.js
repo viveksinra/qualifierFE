@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { SETSECTION, MARKED, SAVENEXT, CLEARANS } from "../Components/Context/types";
 import { TestContext } from "../Components/Context/TestContext/TestContext";
 import TestTimer from "../Components/Timer/TestTimer";
-import { makeStyles, AppBar, Toolbar, Typography, Button, Hidden, Divider, Paper, Tabs, Tab, Menu, MenuItem } from "@material-ui/core";
+import { makeStyles, AppBar, Toolbar, Typography, Button, Hidden, Divider, Paper, Tabs, Tab, Menu, MenuItem } from "@mui/material";
 import { Link } from "react-router-dom";
 import { MdArrowBack, MdArrowForward, MdFullscreen, MdFullscreenExit, MdReportProblem } from "react-icons/md";
 import axios from "axios";

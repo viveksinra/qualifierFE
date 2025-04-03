@@ -2,7 +2,7 @@ import React, { Fragment, useState, Suspense } from "react";
 import bankSvg from "./bank.svg";
 import cbsc from "./cbsc.svg";
 import placement from "./placement.svg";
-import { makeStyles, withStyles, Tooltip, Grid, List, ListItem, ListItemAvatar, Avatar, ListItemText } from "@material-ui/core";
+import { makeStyles, withStyles, Tooltip, Grid, List, ListItem, ListItemAvatar, Avatar, ListItemText } from "@mui/material";
 import { FcNext } from "react-icons/fc";
 
 import { Link } from "react-router-dom";

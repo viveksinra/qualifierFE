@@ -2,8 +2,7 @@ import React, { useEffect, useState, useContext, lazy } from "react";
 import { Nav } from "../Components/Navigation/Nav";
 import { MainContext } from "../Components/Context/MainContext";
 import {
-	makeStyles,
-	withStyles,
+	styled,
 	Card,
 	Grid,
 	CardHeader,
@@ -17,44 +16,49 @@ import {
 	TableBody,
 	TableRow,
 	TableCell,
-} from "@material-ui/core";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+	Autocomplete
+} from "@mui/material";
 import axios from "axios";
 import CourseAnalysis from "../Website/CourseDetails/CourseAnalysis";
 const MyDrawer = lazy(() => import("../Components/Navigation/MyDrawer"));
-const useStyles = makeStyles((theme) => ({
-	root: {
-		display: "flex",
-	},
-	toolbar: theme.mixins.toolbar,
-	content: {
-		flexGrow: 1,
-		padding: theme.spacing(2),
-	},
-	topCard: {
-		width: "100%",
-		padding: 20,
-		backgroundRepeat: "repeat",
-		backgroundImage: 'url("https://i.ibb.co/sq4v7RN/cloud-bg.png")',
-	},
-	section: {
-		overflowX: "auto",
-		maxWidth: "90vw",
-	},
-	emptyCard: {
-		marginLeft: "auto",
-		marginRight: "auto",
-		borderRadius: "1px solid red",
-		height: 210,
-		backgroundRepeat: "no-repeat",
-		backgroundSize: "cover",
-		backgroundPosition: `50% 100%`,
-		background: "url(https://res.cloudinary.com/qualifier/image/upload/v1586014502/Default/foam-cyan_gedffk.svg)",
-	},
+
+const ReportRoot = styled('div')(({ theme }) => ({
+	display: "flex",
+}));
+
+const ReportToolbar = styled('div')(({ theme }) => ({
+	...theme.mixins.toolbar,
+}));
+
+const ReportContent = styled('main')(({ theme }) => ({
+	flexGrow: 1,
+	padding: theme.spacing(2),
+}));
+
+const TopCard = styled(Card)(({ theme }) => ({
+	width: "100%",
+	padding: 20,
+	backgroundRepeat: "repeat",
+	backgroundImage: 'url("https://i.ibb.co/sq4v7RN/cloud-bg.png")',
+}));
+
+const SectionArea = styled('div')(({ theme }) => ({
+	overflowX: "auto",
+	maxWidth: "90vw",
+}));
+
+const EmptyCard = styled(Card)(({ theme }) => ({
+	marginLeft: "auto",
+	marginRight: "auto",
+	borderRadius: "1px solid red",
+	height: 210,
+	backgroundRepeat: "no-repeat",
+	backgroundSize: "cover",
+	backgroundPosition: `50% 100%`,
+	background: "url(https://res.cloudinary.com/qualifier/image/upload/v1586014502/Default/foam-cyan_gedffk.svg)",
 }));
 
 export default function Report({ match }) {
-	const classes = useStyles();
 	const [category, setCategory] = useState(null);
 	const [course, setCourse] = useState(null);
 	const [subject, setSubject] = useState(null);
@@ -106,12 +110,12 @@ export default function Report({ match }) {
 	};
 
 	return (
-		<div className={classes.root}>
+		<ReportRoot>
 			<Nav />
 			<MyDrawer />
-			<main className={classes.content}>
-				<div className={classes.toolbar} />
-				<Card className={classes.topCard}>
+			<ReportContent>
+				<ReportToolbar />
+				<TopCard>
 					<CardHeader
 						avatar={<Avatar alt="Remy Sharp" src={state.userImage} />}
 						title={<Typography color="primary">{state.name}</Typography>}
@@ -157,16 +161,15 @@ export default function Report({ match }) {
 							/>
 						</Grid>
 					</Grid>
-				</Card>
+				</TopCard>
 				<CourseAnalysis link={course ? `course/${course.link}` : ""} />
 				<SectionBreakdown subLink={subject ? subject.link : null} courLink={course ? course.link : null} />
-			</main>
-		</div>
+			</ReportContent>
+		</ReportRoot>
 	);
 }
 
 export function SectionBreakdown(props) {
-	const classes = useStyles();
 	const [sectionData, setSectionData] = useState([]);
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {

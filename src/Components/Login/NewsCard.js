@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { makeStyles, Typography, Divider } from "@material-ui/core";
+import { makeStyles, Typography, Divider } from "@mui/material";
 import { Link } from "react-router-dom";
 import { fetchData } from "../Api";
 const resource = fetchData("/api/blog/get/two");

@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import TopTray from "../../Components/Decoration/TopTray";
-import { makeStyles, CircularProgress, Fab, Hidden } from "@material-ui/core";
+import { makeStyles, CircularProgress, Fab, Hidden } from "@mui/material";
 import { FullNav } from "../../Components/Navigation/Nav";
 import lp from "./lp.png";
 import { Head } from "../../Components/NameExp";

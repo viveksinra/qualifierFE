@@ -11,7 +11,7 @@ import {
 	ListItemText,
 	ListItemSecondaryAction,
 	IconButton,
-} from "@material-ui/core";
+} from "@mui/material";
 import shield from "./shield.svg";
 import exam from "./exam.svg";
 import doubt from "./computer.svg";

@@ -1,0 +1,127 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# MUI v7 Migration Plan
+
+## Import Path Changes
+
+1. Change all imports from:
+   - `@material-ui/core` → `@mui/material`
+   - `@material-ui/icons` → `@mui/icons-material`
+   - `@material-ui/lab` → `@mui/lab` (some components moved to main package)
+   - `@material-ui/core/styles` → `@mui/material/styles`
+
+2. Update component-specific imports to consolidated imports:
+   ```javascript
+   // Before
+   import Button from "@material-ui/core/Button";
+   import TextField from "@material-ui/core/TextField";
+   
+   // After
+   import { Button, TextField } from "@mui/material";
+   ```
+
+## API Changes
+
+1. Replace `makeStyles` with `styled` API:
+   ```javascript
+   // Before
+   const useStyles = makeStyles((theme) => ({
+     root: {
+       backgroundColor: theme.palette.primary.main,
+     },
+   }));
+   
+   function MyComponent() {
+     const classes = useStyles();
+     return <div className={classes.root}>Content</div>;
+   }
+   
+   // After
+   const StyledRoot = styled('div')(({ theme }) => ({
+     backgroundColor: theme.palette.primary.main,
+   }));
+   
+   function MyComponent() {
+     return <StyledRoot>Content</StyledRoot>;
+   }
+   ```
+
+2. Replace `withStyles` with `styled` API:
+   ```javascript
+   // Before
+   const StyledComponent = withStyles((theme) => ({
+     root: { margin: theme.spacing(1) },
+   }))(MyComponent);
+   
+   // After
+   const StyledComponent = styled(MyComponent)(({ theme }) => ({
+     margin: theme.spacing(1),
+   }));
+   ```
+
+3. Update theming:
+   ```javascript
+   // Before
+   import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+   
+   // After
+   import { ThemeProvider, createTheme } from "@mui/material/styles";
+   ```
+
+4. Replace CSS property names with camelCase:
+   ```javascript
+   // Before
+   "-webkit-font-smoothing": "antialiased",
+   
+   // After
+   WebkitFontSmoothing: "antialiased",
+   ```
+
+5. Update breakpoint usage:
+   ```javascript
+   // Before
+   [theme.breakpoints.down("md")]: {
+     // styles
+   }
+   
+   // After
+   [`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+     // styles
+   }
+   ```
+
+6. Replace lab components with their counterparts in the main package:
+   - Some components like `Rating` have moved from lab to the main package
+
+7. Use the `sx` prop for one-off styling:
+   ```javascript
+   // Before
+   <div className={classes.root}>Content</div>
+   
+   // After
+   <Box sx={{ /* styles */ }}>Content</Box>
+   ```
+
+## Components to Update
+
+This is a list of files that require updates:
+
+1. src/Components/Decoration/TopTray.js ✅
+2. src/Components/Backdrop.js ✅
+3. src/Components/Navigation/BackToTop.js ✅
+4. src/Website/Sitemap.js ✅
+5. src/Website/PrivacyPolicy.js
+6. src/Website/Pricing.js
+...
+
+## Recommended Migration Approach
+
+1. Start with the core layout components (Nav, Layout, etc.)
+2. Update commonly used utilities and wrappers
+3. Update page components
+4. Test each major section after updates
+5. Update any custom themes or global styles
+6. Final testing of the entire application

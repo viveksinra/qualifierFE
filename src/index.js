@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { MuiThemeProvider, createMuiTheme, withStyles } from "@material-ui/core/styles";
+import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
 // import * as serviceWorker from "./serviceWorker";
-import { deepPurple, blue } from "@material-ui/core/colors";
+import { deepPurple, blue } from "@mui/material/colors";
 import MainRoute from "./Components/Routes/MainRoute";
 import { MainProvider } from "./Components/Context/MainContext";
+import { GlobalStyles } from "@mui/material";
 
-const theme = createMuiTheme({
+const theme = createTheme({
 	palette: {
 		primary: blue,
 		secondary: deepPurple,
@@ -17,77 +18,68 @@ const theme = createMuiTheme({
 	},
 	typography: {
 		fontFamily: ["Roboto", "system-ui"].join(","),
-		overrides: {
-			MuiCssBaseline: {
-				"@global": {
-					"@letter-spacing": "1px",
-				},
-			},
-		},
 	},
 });
 
-const GlobalCSS = withStyles({
-	"@global": {
-		"*": {
-			margin: 0,
-			"-webkit-font-smoothing": "antialiased",
-			"-moz-osx-font-smoothing": "grayscale",
-			"&::-webkit-scrollbar": {
-				width: "12px",
-			},
-			"&::-webkit-scrollbar-track": {
-				"-webkit-box-shadow": "inset 0 0 6px rgba(0, 0, 0, 0.3)",
-				borderRadius: 10,
-			},
-			"&::-webkit-scrollbar-thumb": {
-				"-webkit-box-shadow": "inset 0 0 6px rgba(0, 0, 0, 0.5)",
-				borderRadius: 10,
-			},
-			"& a": {
-				textDecoration: "none",
-				color: "rgb(0, 110, 255)",
-				transition: "all 0.3s ease 0s",
-			},
+const globalStyles = {
+	"*": {
+		margin: 0,
+		WebkitFontSmoothing: "antialiased",
+		MozOsxFontSmoothing: "grayscale",
+		"&::-webkit-scrollbar": {
+			width: "12px",
 		},
-		".center": {
-			display: "flex",
-			justifyContent: "center",
-			alignItems: "center",
+		"&::-webkit-scrollbar-track": {
+			WebkitBoxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.3)",
+			borderRadius: 10,
 		},
-		".typewriter": {
-			fontSize: "2rem",
-			color: "blueviolet",
+		"&::-webkit-scrollbar-thumb": {
+			WebkitBoxShadow: "inset 0 0 6px rgba(0, 0, 0, 0.5)",
+			borderRadius: 10,
 		},
-		".typewriter2": {
-			fontSize: "1.5rem",
-			color: "blue",
-		},
-
-		"#logo": {
-			width: "14vw",
-			backgroundAttachment: "fixed",
-		},
-		[theme.breakpoints.down("md")]: {
-			"#logo": {
-				width: "150px !important",
-			},
-			".hideInMob": {
-				display: "none",
-			},
+		"& a": {
+			textDecoration: "none",
+			color: "rgb(0, 110, 255)",
+			transition: "all 0.3s ease 0s",
 		},
 	},
-})(() => null);
+	".center": {
+		display: "flex",
+		justifyContent: "center",
+		alignItems: "center",
+	},
+	".typewriter": {
+		fontSize: "2rem",
+		color: "blueviolet",
+	},
+	".typewriter2": {
+		fontSize: "1.5rem",
+		color: "blue",
+	},
+
+	"#logo": {
+		width: "14vw",
+		backgroundAttachment: "fixed",
+	},
+	[`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+		"#logo": {
+			width: "150px !important",
+		},
+		".hideInMob": {
+			display: "none",
+		},
+	},
+};
 
 ReactDOM.render(
-	<MuiThemeProvider theme={theme}>
-		<GlobalCSS />
+	<ThemeProvider theme={theme}>
+		<GlobalStyles styles={globalStyles} />
 		<BrowserRouter>
 			<MainProvider>
 				<MainRoute />
 			</MainProvider>
 		</BrowserRouter>
-	</MuiThemeProvider>,
+	</ThemeProvider>,
 	document.getElementById("root"),
 );
 

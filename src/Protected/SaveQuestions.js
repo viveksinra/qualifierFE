@@ -1,7 +1,7 @@
 import React, { lazy } from "react";
 import { Nav } from "../Components/Navigation/Nav";
 import SavedQuestion from "../Website/CourseDetails/SavedQuestion";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/material";
 const MyDrawer = lazy(() => import("../Components/Navigation/MyDrawer"));
 
 const useStyles = makeStyles((theme) => ({

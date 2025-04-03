@@ -2,7 +2,7 @@ import React, { useContext, Suspense } from "react";
 import { DRAWER, LOGOUT_USER } from "../Context/types";
 import { MainContext } from "../Context/MainContext";
 import { Link } from "react-router-dom";
-import { makeStyles, Hidden, SwipeableDrawer, Drawer, Chip, Divider, List, ListItem, ListItemText } from "@material-ui/core";
+import { makeStyles, Hidden, SwipeableDrawer, Drawer, Chip, Divider, List, ListItem, ListItemText } from "@mui/material";
 import { MdCopyright } from "react-icons/md";
 import {
 	FcHome,

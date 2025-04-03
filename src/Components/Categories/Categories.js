@@ -1,7 +1,7 @@
 import React, { Fragment, Suspense } from "react";
 import "./categories.css";
 import { Link } from "react-router-dom";
-import { Container, Grid, List, ListItem, ListItemText, Typography, SvgIcon, CircularProgress } from "@material-ui/core";
+import { Container, Grid, List, ListItem, ListItemText, Typography, SvgIcon, CircularProgress } from "@mui/material";
 import { fetchData } from "../Api";
 const resource = fetchData("/api/public/getcourse/getall");
 

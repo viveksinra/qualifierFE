@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Nav } from "../../Components/Navigation/Nav";
-import { makeStyles, Grid, LinearProgress } from "@material-ui/core";
+import { makeStyles, Grid, LinearProgress } from "@mui/material";
 import { Link } from "react-router-dom";
 import HomeSlider from "../../Components/Decoration/HomeSlider";
 import { OfferCard } from "../../Components/Decoration/OfferCard";

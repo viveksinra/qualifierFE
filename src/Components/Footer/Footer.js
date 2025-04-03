@@ -4,7 +4,7 @@ import visa from "./visa.svg";
 import masterCard from "./mastercard.svg";
 import cardSvg from "./card-payment.svg";
 import upi from "./upi.svg";
-import { Grid, Container, makeStyles, Divider, Typography, List, ListItem, ListItemText, Avatar, Chip } from "@material-ui/core";
+import { Grid, Container, makeStyles, Divider, Typography, List, ListItem, ListItemText, Avatar, Chip } from "@mui/material";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaWhatsapp, FaGooglePlay, FaHeadset } from "react-icons/fa";
 import { FcFeedback, FcDepartment } from "react-icons/fc";
 import { Link } from "react-router-dom";

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { QuesContext } from "../../../Components/Context/AddQuesContext/QuestionContext";
-import { Input, Dialog, DialogTitle, DialogContent, Table, TableRow, TableCell, TableBody, TableFooter, TablePagination } from "@material-ui/core";
+import { Input, Dialog, DialogTitle, DialogContent, Table, TableRow, TableCell, TableBody, TableFooter, TablePagination } from "@mui/material";
 import useStyles from "../useStyles";
 import NoContent from "../../../Components/NoContent";
 import ReactHtmlParser from "react-html-parser";

@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, Typography } from "@material-ui/core";
+import { Container, Grid, Typography } from "@mui/material";
 
 export default function TopTray() {
 	return (

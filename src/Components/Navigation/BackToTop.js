@@ -1,28 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
-import Fab from "@material-ui/core/Fab";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import Zoom from "@material-ui/core/Zoom";
+import { 
+	AppBar, 
+	Toolbar, 
+	Typography, 
+	CssBaseline, 
+	Box, 
+	Container, 
+	Fab, 
+	Zoom 
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { useScrollTrigger } from "@mui/material";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		position: "fixed",
-		bottom: theme.spacing(2),
-		right: theme.spacing(2),
-	},
+const ScrollTopRoot = styled('div')(({ theme }) => ({
+	position: "fixed",
+	bottom: theme.spacing(2),
+	right: theme.spacing(2),
 }));
 
 function ScrollTop(props) {
 	const { children, window } = props;
-	const classes = useStyles();
 	// Note that you normally won't need to set the window ref as useScrollTrigger
 	// will default to window.
 	// This is only being set here because the demo is in an iframe.
@@ -42,9 +41,9 @@ function ScrollTop(props) {
 
 	return (
 		<Zoom in={trigger}>
-			<div onClick={handleClick} role="presentation" className={classes.root}>
+			<ScrollTopRoot onClick={handleClick} role="presentation">
 				{children}
-			</div>
+			</ScrollTopRoot>
 		</Zoom>
 	);
 }

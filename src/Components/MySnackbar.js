@@ -1,10 +1,9 @@
-import React, { useImperativeHandle, Suspense } from "react";
+import React, { useImperativeHandle, Suspense, useState, forwardRef } from "react";
 import clsx from "clsx";
-import { makeStyles, IconButton, Snackbar, SnackbarContent } from "@material-ui/core/";
-import { amber, green } from "@material-ui/core/colors";
+import { IconButton, Snackbar, SnackbarContent } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { amber, green } from "@mui/material/colors";
 import { MdError, MdInfo, MdClose, MdWarning, MdCheckCircle } from "react-icons/md";
-import { useState } from "react";
-import { forwardRef } from "react";
 
 const variantIcon = {
 	success: MdCheckCircle,
@@ -13,40 +12,38 @@ const variantIcon = {
 	info: MdInfo,
 };
 
-const useStyles = makeStyles((theme) => ({
-	success: {
-		backgroundColor: green[600],
-	},
-	error: {
-		backgroundColor: theme.palette.error.dark,
-	},
-	info: {
-		backgroundColor: theme.palette.primary.main,
-	},
-	warning: {
-		backgroundColor: amber[700],
-	},
-	icon: {
-		fontSize: 20,
-	},
-	iconVariant: {
-		opacity: 0.9,
-		marginRight: theme.spacing(1),
-	},
-	message: {
-		display: "flex",
-		alignItems: "center",
-	},
-	margin: {
-		margin: theme.spacing(1),
-	},
+const StyledSnackbarContent = styled(SnackbarContent)(({ theme, variant }) => ({
+	backgroundColor: 
+		variant === 'success' ? green[600] :
+		variant === 'error' ? theme.palette.error.dark :
+		variant === 'info' ? theme.palette.primary.main :
+		variant === 'warning' ? amber[700] : undefined,
+}));
+
+const Icon = styled('span')(({ theme }) => ({
+	fontSize: 20,
+}));
+
+const IconVariant = styled('span')(({ theme }) => ({
+	opacity: 0.9,
+	marginRight: theme.spacing(1),
+	fontSize: 20,
+}));
+
+const Message = styled('span')(({ theme }) => ({
+	display: "flex",
+	alignItems: "center",
+}));
+
+const Margin = styled('div')(({ theme }) => ({
+	margin: theme.spacing(1),
 }));
 
 const MySnackbar = forwardRef((props, ref) => {
-	const classes = useStyles();
 	const [data, setData] = useState({ message: "", variant: "success" });
 	const [open, setOpen] = useState(false);
-	const Icon = variantIcon[data.variant];
+	const VariantIcon = variantIcon[data.variant];
+	
 	useImperativeHandle(ref, () => ({
 		handleSnack(a) {
 			setData(a);
@@ -65,18 +62,18 @@ const MySnackbar = forwardRef((props, ref) => {
 				onClose={() => setOpen(false)}
 				autoHideDuration={5000}
 			>
-				<SnackbarContent
-					className={clsx(classes[data.variant], classes)}
+				<StyledSnackbarContent
+					variant={data.variant}
 					aria-describedby="client-snackbar"
 					message={
-						<span id="client-snackbar" className={classes.message}>
-							<Icon className={clsx(classes.icon, classes.iconVariant)} />
+						<Message id="client-snackbar">
+							<IconVariant><VariantIcon /></IconVariant>
 							{data.message}
-						</span>
+						</Message>
 					}
 					action={[
 						<IconButton key="close" aria-label="close" color="inherit" onClick={() => setOpen(false)}>
-							<MdClose className={classes.icon} />
+							<Icon><MdClose /></Icon>
 						</IconButton>,
 					]}
 				/>

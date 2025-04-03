@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react";
 import { Nav } from "../../Components/Navigation/Nav";
-import { makeStyles, Grid, Typography, CircularProgress } from "@material-ui/core";
+import { makeStyles, Grid, Typography, CircularProgress } from "@mui/material";
 
 const MyDrawer = lazy(() => import("../../Components/Navigation/MyDrawer"));
 const CourseCard = lazy(() => import("./CourseCard"));

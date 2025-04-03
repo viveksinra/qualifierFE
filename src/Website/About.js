@@ -1,6 +1,6 @@
 import React from "react";
 import Footer from "../Components/Footer/Footer";
-import { Container, makeStyles, Typography, Grid, Card, Avatar } from "@material-ui/core";
+import { Container, makeStyles, Typography, Grid, Card, Avatar } from "@mui/material";
 import { HideOnScroll, FullNav } from "../Components/Navigation/Nav";
 const useStyles = makeStyles((theme) => ({
 	topBanner: {

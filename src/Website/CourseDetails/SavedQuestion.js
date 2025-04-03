@@ -1,56 +1,55 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import { OptionNo } from "../../img/numbers/numbers";
 import {
-	makeStyles,
-	Typography,
 	Card,
 	CardHeader,
+	CardContent,
 	Grid,
 	IconButton,
 	List,
 	ListItem,
 	ListItemIcon,
 	ListItemText,
-	Tabs,
 	TextField,
+	Typography,
+	Tabs,
 	Tab,
-	CardContent,
 	CircularProgress,
-	ExpansionPanel,
-	ExpansionPanelSummary,
-	ExpansionPanelDetails,
-} from "@material-ui/core";
+	Accordion,
+	AccordionSummary,
+	AccordionDetails,
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 import axios from "axios";
 import MySnackbar from "../../Components/MySnackbar";
 import ReactHtmlParser from "react-html-parser";
 
 import { MdBookmark, MdExpandMore } from "react-icons/md";
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import Autocomplete from "@mui/material/Autocomplete";
 import NoContent from "../../Components/NoContent";
 
-const useStyles = makeStyles((theme) => ({
-	qCard: {
-		minHeight: 170,
-		border: "1px solid rgba(33,150,243,0.25)",
-		[theme.breakpoints.up("md")]: {
-			padding: theme.spacing(2),
-		},
+const QCard = styled(Card)(({ theme }) => ({
+	minHeight: 170,
+	border: "1px solid rgba(33,150,243,0.25)",
+	[`@media (min-width:${theme.breakpoints.values.md}px)`]: {
+		padding: theme.spacing(2),
 	},
-	loading: {
-		marginTop: theme.spacing(20),
-	},
-	optList: {
-		"&:hover": {
-			backgroundColor: theme.palette.grey[300],
-			borderRadius: "10px",
-			color: "#0f84dd",
-			cursor: "grab",
-		},
+}));
+
+const LoadingStyle = styled('div')(({ theme }) => ({
+	marginTop: theme.spacing(20),
+}));
+
+const OptList = styled(ListItem)(({ theme }) => ({
+	"&:hover": {
+		backgroundColor: theme.palette.grey[300],
+		borderRadius: "10px",
+		color: "#0f84dd",
+		cursor: "grab",
 	},
 }));
 
 export default function SavedQuestion({ link }) {
-	const classes = useStyles();
 	const [allData, setAllData] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [tabVal, setTabVal] = useState(0);
@@ -102,13 +101,6 @@ export default function SavedQuestion({ link }) {
 		}
 	};
 
-	// if (loading) {
-	// 	return (
-	// 		<center>
-	// 			<CircularProgress className={classes.loading} />
-	// 		</center>
-	// 	);
-	// }
 	return (
 		<Fragment>
 			<Grid container>
@@ -144,13 +136,13 @@ export default function SavedQuestion({ link }) {
 			</Grid>
 			{loading ? (
 				<center>
-					<CircularProgress className={classes.loading} />
+					<CircularProgress sx={{ mt: 20 }} />
 				</center>
 			) : allData.length !== 0 ? (
 				<Grid container spacing={2}>
 					{allData.map((q, qi) => (
 						<Grid item xs={12} key={q.qid}>
-							<Card className={classes.qCard}>
+							<QCard>
 								<CardHeader
 									avatar={<img style={{ width: 40 }} alt={q.number} src={q.avatar} />}
 									action={
@@ -164,15 +156,15 @@ export default function SavedQuestion({ link }) {
 									title={q.address}
 									subheader={`Saved Date : ${q.savedDate}`}
 								/>
-								<ExpansionPanel elevation={0}>
-									<ExpansionPanelSummary expandIcon={<MdExpandMore />} aria-controls="panel1a-content">
+								<Accordion elevation={0}>
+									<AccordionSummary expandIcon={<MdExpandMore />} aria-controls="panel1a-content">
 										<CardContent>{ReactHtmlParser(q.question)}</CardContent>
-									</ExpansionPanelSummary>
-									<ExpansionPanelDetails>
+									</AccordionSummary>
+									<AccordionDetails>
 										<List style={{ width: "100%" }}>
 											{q.options &&
 												q.options.map((o, i) => (
-													<ListItem key={i} onClick={() => (q.submitted !== true ? handleSubmit(o.number, qi) : null)} className={classes.optList}>
+													<OptList key={i} onClick={() => (q.submitted !== true ? handleSubmit(o.number, qi) : null)}>
 														<ListItemIcon>
 															<OptionNo index={i} />
 														</ListItemIcon>
@@ -185,12 +177,12 @@ export default function SavedQuestion({ link }) {
 																	<AnsIcon ans="wrong" />
 																</ListItemIcon>,
 															)} */}
-													</ListItem>
+													</OptList>
 												))}
 										</List>
-									</ExpansionPanelDetails>
-								</ExpansionPanel>
-							</Card>
+									</AccordionDetails>
+								</Accordion>
+							</QCard>
 						</Grid>
 					))}
 				</Grid>

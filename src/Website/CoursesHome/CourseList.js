@@ -1,34 +1,37 @@
 import React from "react";
-import { makeStyles, Grid, Card, CardMedia, Divider, Typography, CardActions, CardContent, Button, withWidth } from "@material-ui/core";
+import { styled, Grid, Card, CardMedia, Divider, Typography, CardActions, CardContent, Button } from "@mui/material";
 import Slider from "infinite-react-carousel";
 import { Link } from "react-router-dom";
 import { fetchData } from "../../Components/Api";
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 const resource = fetchData("/api/public/getcourse/getall");
 
-const useStyles = makeStyles((theme) => ({
-	courseCard: {
-		minHeight: "280px",
-		maxWidth: "90%",
-		marginLeft: "20px",
-		"&:hover": {
-			boxShadow: "inset -6px -6px 10px rgba(255,255,255,0.5), inset 6px 6px 20px rgba(0,0,0,0.05)",
-			borderBottom: "2px solid rgba(217,33,33,0.4)",
-		},
-	},
-	courseImg: {
-		height: 210,
-	},
-	topCross: {
-		position: "absolute",
-		left: "50px",
-		top: "30px",
-		transform: "rotate(-30deg)",
+const CourseCard = styled(Card)(({ theme }) => ({
+	minHeight: "280px",
+	maxWidth: "90%",
+	marginLeft: "20px",
+	"&:hover": {
+		boxShadow: "inset -6px -6px 10px rgba(255,255,255,0.5), inset 6px 6px 20px rgba(0,0,0,0.05)",
+		borderBottom: "2px solid rgba(217,33,33,0.4)",
 	},
 }));
 
-const CourseList = (props) => {
-	const classes = useStyles();
+const CourseImg = styled(CardMedia)(({ theme }) => ({
+	height: 210,
+}));
+
+const TopCrossTypography = styled(Typography)(({ theme }) => ({
+	position: "absolute",
+	left: "50px",
+	top: "30px",
+	transform: "rotate(-30deg)",
+}));
+
+const CourseList = () => {
 	const course = resource.data.read();
+	const theme = useTheme();
+	const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 	const settings = {
 		autoplay: true,
@@ -36,17 +39,17 @@ const CourseList = (props) => {
 		dots: true,
 		autoplaySpeed: 6000,
 		overScan: 1,
-		slidesToShow: props.width === "xs" || props.width === "sm" ? 1 : 3,
+		slidesToShow: isSmallScreen ? 1 : 3,
 	};
 	return (
 		<Grid container spacing={4}>
 			{course.map((d, i) => (
 				<Grid item key={i} xs={12}>
-					<Grid container justify="space-between">
+					<Grid container justifyContent="space-between">
 						<Grid item className="hideInMob">
-							<Typography variant="subtitle1" className={classes.topCross} color="secondary">
+							<TopCrossTypography variant="subtitle1" color="secondary">
 								{d.highlight}
-							</Typography>
+							</TopCrossTypography>
 						</Grid>
 						<Grid item>
 							<Typography align="center" variant="h6" color="primary">
@@ -67,9 +70,9 @@ const CourseList = (props) => {
 
 					<Slider {...settings}>
 						{d.cour.map((c, j) => (
-							<Card key={j} className={classes.courseCard}>
+							<CourseCard key={j}>
 								<Link to={`/practice/${d.link}/${c.link}`}>
-									<CardMedia className={classes.courseImg} image={c.image} title={c.courseTitle} />
+									<CourseImg image={c.image} title={c.courseTitle} />
 								</Link>
 
 								<CardContent style={{ height: 90 }}>
@@ -120,7 +123,7 @@ const CourseList = (props) => {
 									</Link>
 									<span style={{ flexGrow: 1 }} />
 								</CardActions>
-							</Card>
+							</CourseCard>
 						))}
 					</Slider>
 				</Grid>
@@ -129,4 +132,4 @@ const CourseList = (props) => {
 	);
 };
 
-export default withWidth()(CourseList);
+export default CourseList;

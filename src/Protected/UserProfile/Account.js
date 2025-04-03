@@ -14,7 +14,7 @@ import {
 	TableRow,
 	TableCell,
 	Chip,
-} from "@material-ui/core";
+} from "@mui/material";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({

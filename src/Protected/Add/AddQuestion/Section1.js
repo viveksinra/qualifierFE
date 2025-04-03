@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, Suspense } from "react";
-import { Grid, TextField, FormControlLabel, Switch, Tooltip, Fab, CircularProgress } from "@material-ui/core";
+import { Grid, TextField, FormControlLabel, Switch, Tooltip, Fab, CircularProgress } from "@mui/material";
 import { QuesContext } from "../../../Components/Context/AddQuesContext/QuestionContext";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import CKEditor from "@ckeditor/ckeditor5-react";

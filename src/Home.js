@@ -6,7 +6,7 @@ import { HideOnScroll, FullNav } from "./Components/Navigation/Nav";
 import { MainContext } from "./Components/Context/MainContext";
 import { Link } from "react-router-dom";
 import SpeedNav from "./Components/Navigation/SpeedNav";
-import { makeStyles, Grid, Typography, Fab, Avatar, Chip, IconButton, Hidden, CircularProgress } from "@material-ui/core";
+import { makeStyles, Grid, Typography, Fab, Avatar, Chip, IconButton, Hidden, CircularProgress } from "@mui/material";
 import { FaAngleDown, FaUserCircle, FaArrowAltCircleRight, FaBars } from "react-icons/fa";
 import { Head, Typewriter } from "./Components/NameExp";
 const DataCard = lazy(() => import("./Components/DataCard/DataCard"));

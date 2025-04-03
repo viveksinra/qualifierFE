@@ -1,19 +1,24 @@
 import React from "react";
-import { makeStyles, ExpansionPanel, ExpansionPanelSummary, Container, ExpansionPanelDetails, Typography } from "@material-ui/core";
+import { 
+	Accordion, 
+	AccordionSummary, 
+	Container, 
+	AccordionDetails, 
+	Typography 
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { FaAngleDown } from "react-icons/fa";
-const useStyles = makeStyles((theme) => ({
-	faqBg: {
-		background: "radial-gradient(circle, rgba(174,238,219,0.5749650201877626) 0%, rgba(210,227,247,0.4125000341933649) 100%)",
-		minHeight: "30vh",
-		paddingTop: "30px",
-		paddingBottom: "30px",
-	},
+
+const FaqBackground = styled('div')(({ theme }) => ({
+	background: "radial-gradient(circle, rgba(174,238,219,0.5749650201877626) 0%, rgba(210,227,247,0.4125000341933649) 100%)",
+	minHeight: "30vh",
+	paddingTop: "30px",
+	paddingBottom: "30px",
 }));
 
 export default function FAQ() {
-	const classes = useStyles();
 	return (
-		<div className={classes.faqBg}>
+		<FaqBackground>
 			<Container>
 				<center>
 					<Typography variant="subtitle1" gutterBottom color="secondary">
@@ -21,21 +26,22 @@ export default function FAQ() {
 					</Typography>
 				</center>
 				{faqData.map((f, i) => (
-					<ExpansionPanel key={i}>
-						<ExpansionPanelSummary expandIcon={<FaAngleDown />} aria-controls="panel1a-content" id="panel1a-header">
-							<Typography color="primary" className={classes.heading}>
+					<Accordion key={i}>
+						<AccordionSummary expandIcon={<FaAngleDown />} aria-controls="panel1a-content" id="panel1a-header">
+							<Typography color="primary">
 								{f.title}
 							</Typography>
-						</ExpansionPanelSummary>
-						<ExpansionPanelDetails>
+						</AccordionSummary>
+						<AccordionDetails>
 							<Typography color="textSecondary">{f.ans}</Typography>
-						</ExpansionPanelDetails>
-					</ExpansionPanel>
+						</AccordionDetails>
+					</Accordion>
 				))}
 			</Container>
-		</div>
+		</FaqBackground>
 	);
 }
+
 const faqData = [
 	{
 		title: 'Do I have to pay to "Qualifier" or It is FREE ?',

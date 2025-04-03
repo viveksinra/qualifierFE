@@ -1,18 +1,16 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { makeStyles, Dialog, Button, Slide, DialogActions, CircularProgress, DialogContent, Typography } from "@material-ui/core";
+import { styled, Dialog, Button, Slide, DialogActions, CircularProgress, DialogContent, Typography } from "@mui/material";
 import { FcFlashOn, FcAdvance } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import axios from "axios";
-const useStyles = makeStyles((theme) => ({
-	img: {
-		maxWidth: "100%",
-		maxHeight: "100%",
-		display: "block",
-	},
-}));
+
+const StyledImage = styled('img')({
+	maxWidth: "100%",
+	maxHeight: "100%",
+	display: "block",
+});
 
 function Notify({ notify, onClose, match }) {
-	const classes = useStyles();
 	const [data, setData] = useState({ image: "", courseTitle: "", description: "Please Wait, The Data is Loading...", title: "Now" });
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
@@ -43,7 +41,7 @@ function Notify({ notify, onClose, match }) {
 						</div>
 					) : (
 						<div className="center">
-							<img src={data.image} className={classes.img} alt={data.courseTitle} />
+							<StyledImage src={data.image} alt={data.courseTitle} />
 						</div>
 					)}
 

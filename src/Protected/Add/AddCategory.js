@@ -17,7 +17,7 @@ import {
 	TablePagination,
 	Input,
 	Divider,
-} from "@material-ui/core";
+} from "@mui/material";
 import axios from "axios";
 import { MdSearch, MdDoneAll, MdClearAll, MdPanorama } from "react-icons/md";
 

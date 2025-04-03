@@ -13,7 +13,7 @@ import {
 	List,
 	ListItem,
 	ListItemIcon,
-} from "@material-ui/core";
+} from "@mui/material";
 import { FcCheckmark } from "react-icons/fc";
 import ReactHtmlParser from "react-html-parser";
 import axios from "axios";

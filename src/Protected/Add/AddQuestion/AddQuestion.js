@@ -1,6 +1,6 @@
 import React, { Fragment, useContext, useState, useEffect, useRef, lazy, Suspense } from "react";
 import { QuesProvider, QuesContext } from "../../../Components/Context/AddQuesContext/QuestionContext";
-import { Chip, Paper, Container, makeStyles, Stepper, Step, StepLabel, StepContent, Button, CircularProgress } from "@material-ui/core";
+import { Chip, Paper, Container, makeStyles, Stepper, Step, StepLabel, StepContent, Button, CircularProgress } from "@mui/material";
 import Section2 from "./Section2";
 import Section3 from "./Section3";
 import QuesSearch from "./QuesSearch";

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { PracContext } from "../../Components/Context/PracticeContext/PracticeContext";
-import { makeStyles, AppBar, Toolbar, Fab, Typography, Fade, Breadcrumbs, IconButton, Tooltip, Hidden } from "@material-ui/core";
+import { makeStyles, AppBar, Toolbar, Fab, Typography, Fade, Breadcrumbs, IconButton, Tooltip, Hidden } from "@mui/material";
 import clsx from "clsx";
 import { NEXTQUES } from "../../Components/Context/types";
 import TimeSlider from "./TimeSlider";

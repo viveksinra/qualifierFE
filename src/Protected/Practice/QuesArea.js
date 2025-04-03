@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { PracContext } from "../../Components/Context/PracticeContext/PracticeContext";
 import { SUBMITANS, SHOWSOL } from "../../Components/Context/types";
-import { makeStyles, List, ListItem, ListItemIcon, MenuItem, Fab, Fade, Divider, Tooltip, Toolbar, IconButton, Menu, Paper } from "@material-ui/core";
+import { makeStyles, List, ListItem, ListItemIcon, MenuItem, Fab, Fade, Divider, Tooltip, Toolbar, IconButton, Menu, Paper } from "@mui/material";
 import ReactHtmlParser from "react-html-parser";
 import { FaFeatherAlt } from "react-icons/fa";
 import { FcAbout } from "react-icons/fc";

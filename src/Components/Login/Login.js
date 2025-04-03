@@ -21,7 +21,7 @@ import {
 	DialogTitle,
 	DialogContent,
 	DialogActions,
-} from "@material-ui/core";
+} from "@mui/material";
 import axios from "axios";
 export default function Login({ match }) {
 	const [loginId, setLoginId] = useState("");

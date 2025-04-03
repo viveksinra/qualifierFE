@@ -1,5 +1,5 @@
-import { makeStyles } from "@material-ui/core";
-import { fade } from "@material-ui/core/styles/colorManipulator";
+import { makeStyles } from "@mui/material";
+import { fade } from "@mui/material/styles/colorManipulator";
 
 const useStyles = makeStyles((theme) => ({
 	entryArea: {

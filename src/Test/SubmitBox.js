@@ -13,7 +13,7 @@ import {
 	TableCell,
 	Typography,
 	CircularProgress,
-} from "@material-ui/core";
+} from "@mui/material";
 import axios from "axios";
 import { Redirect } from "react-router-dom";
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TestTopNav, drawerWidth, TestBNav, SectionNav } from "./TestNav";
 import TestDrawer from "./TestDrawer";
 import QuestionArea from "./QuestionArea";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles } from "@mui/material";
 import { TestIntro } from "./Instructions";
 import QPaper from "./QPaper";
 import { Prompt } from "react-router-dom";
