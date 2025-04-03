@@ -12,12 +12,12 @@ import {
 	List,
 	ListItem,
 	ListItemIcon,
+	Autocomplete,
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { FcCheckmark } from "react-icons/fc";
-import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 import axios from "axios";
-import Autocomplete from "@mui/lab/Autocomplete";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
 	width: "100%",
@@ -141,7 +141,7 @@ function TransferQues() {
 							<ListItemIcon>
 								<Checkbox checked={checked.indexOf(value) !== -1} tabIndex={-1} disableRipple inputProps={{ "aria-labelledby": labelId }} />
 							</ListItemIcon>
-							{ReactHtmlParser(value.questionTitle)}
+							{parse(value.questionTitle)}
 						</ListItem>
 					);
 				})}

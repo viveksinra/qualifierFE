@@ -1,31 +1,77 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
-import useStyles from "./useStyles";
-import MySnackbar from "../../Components/MySnackbar";
+import { styled } from "@mui/material/styles";
 import {
-	Grid,
-	Chip,
-	Paper,
-	TextField,
-	Table,
-	TableHead,
-	TableRow,
-	Tooltip,
-	Fab,
-	FormControlLabel,
-	Switch,
-	TableCell,
-	TableBody,
-	TableFooter,
-	TablePagination,
-	Input,
-	MenuItem,
-	Divider,
+  Grid,
+  Chip,
+  Paper,
+  TextField,
+  Button,
+  Box,
+  Table,
+  TableHead,
+  TableRow,
+  Tooltip,
+  Fab,
+  FormControlLabel,
+  Switch,
+  TableCell,
+  TableBody,
+  TableFooter,
+  TablePagination,
+  Input,
+  MenuItem,
+  Divider
 } from "@mui/material";
+import MySnackbar from "../../Components/MySnackbar";
 import axios from "axios";
 import { MdSearch, MdDoneAll, MdClearAll, MdPanorama } from "react-icons/md";
 
+// Styled components to replace useStyles
+const EntryAreaPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(2),
+  margin: theme.spacing(1),
+  backgroundColor: theme.palette.background.paper
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  margin: theme.spacing(1)
+}));
+
+const SearchResultDiv = styled('div')(({ theme }) => ({
+  maxHeight: '80vh',
+  overflow: 'auto',
+  margin: theme.spacing(1)
+}));
+
+// Search styles
+const SearchContainer = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  marginLeft: 0,
+  width: '100%'
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
+
+const StyledInput = styled(Input)(({ theme }) => ({
+  color: 'inherit',
+  width: '100%',
+  '& .MuiInputBase-input': {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    width: '100%'
+  }
+}));
+
 export default function AddTestSeries() {
-	const classes = useStyles();
 	const [id, setId] = useState("");
 	const [title, setTitle] = useState("");
 	const [shortTitle, setST] = useState("");
@@ -111,7 +157,7 @@ export default function AddTestSeries() {
 		<Fragment>
 			<Grid container>
 				<Grid item xs={12} md={9}>
-					<Paper className={classes.entryArea}>
+					<Paper sx={EntryAreaPaper}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
 								<Grid item xs={4}></Grid>
@@ -217,19 +263,19 @@ export default function AddTestSeries() {
 								<Grid item xs={12}>
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
-											<Fab color="primary" type="submit" className={classes.button}>
+											<Fab color="primary" type="submit" sx={StyledButton}>
 												<MdDoneAll />
 											</Fab>
 										</Tooltip>
 										<Tooltip title="Clear All">
-											<Fab size="small" color="secondary" onClick={() => handleClear()} className={classes.button}>
+											<Fab size="small" color="secondary" onClick={() => handleClear()} sx={StyledButton}>
 												<MdClearAll />
 											</Fab>
 										</Tooltip>
 										{logo !== "" && (
 											<a href={logo} target="_blank" rel="noopener noreferrer">
 												<Tooltip title="Logo">
-													<Fab size="small" color="secondary" className={classes.button}>
+													<Fab size="small" color="secondary" sx={StyledButton}>
 														<MdPanorama />
 													</Fab>
 												</Tooltip>
@@ -243,21 +289,17 @@ export default function AddTestSeries() {
 				</Grid>
 				<Grid item xs={12} md={3}>
 					{/* Search Section */}
-					<div className={classes.search}>
-						<div className={classes.searchIcon}>
+					<SearchContainer>
+						<SearchIconWrapper>
 							<MdSearch />
-						</div>
-						<Input
+						</SearchIconWrapper>
+						<StyledInput
 							placeholder="Search Test Series"
 							onChange={(e) => getData(e.target.value)}
 							disableUnderline
-							classes={{
-								root: classes.inputRoot,
-								input: classes.inputInput,
-							}}
 						/>
-					</div>
-					<div className={classes.searchResult}>
+					</SearchContainer>
+					<Box sx={SearchResultDiv}>
 						<Paper>
 							<Table>
 								<TableHead>
@@ -289,7 +331,7 @@ export default function AddTestSeries() {
 								</TableFooter>
 							</Table>
 						</Paper>
-					</div>
+					</Box>
 				</Grid>
 			</Grid>
 			<MySnackbar ref={snackRef} />

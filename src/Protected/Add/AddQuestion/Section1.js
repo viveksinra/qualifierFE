@@ -1,8 +1,7 @@
 import React, { useContext, useState, useEffect, Suspense } from "react";
-import { Grid, TextField, FormControlLabel, Switch, Tooltip, Fab, CircularProgress } from "@mui/material";
+import { Grid, TextField, FormControlLabel, Switch, Tooltip, Fab, CircularProgress, Autocomplete } from "@mui/material";
 import { QuesContext } from "../../../Components/Context/AddQuesContext/QuestionContext";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-import CKEditor from "@ckeditor/ckeditor5-react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { imgUpload } from "./Section3";
 import axios from "axios";

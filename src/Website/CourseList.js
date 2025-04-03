@@ -1,6 +1,6 @@
 import React, { useState, useEffect, lazy } from "react";
 import { Nav } from "../Components/Navigation/Nav";
-import { styled, Typography, Grid, Chip, Card } from "@mui/material";
+import { styled, Typography, Grid, Chip, Card, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import orbit from "../img/orbit.svg";
 import axios from "axios";
@@ -37,6 +37,7 @@ const LogoImage = styled('img')(({ theme }) => ({
 
 export default function CourseList({ match }) {
 	const [catg, setCatg] = useState({});
+	const theme = useTheme();
 	document.title = `${catg.categoryTitle} : Qualifier - Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE`;
 
 	useEffect(() => {

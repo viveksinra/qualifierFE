@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Slider from "infinite-react-carousel";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Card, Divider, Typography, Button, CardActions, LinearProgress, useTheme, useMediaQuery } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import axios from "axios";
@@ -13,8 +14,9 @@ const StyledBgDiv = styled('div')(({ theme }) => ({
 	paddingBottom: 10,
 }));
 
-const StyledSlider = styled(Slider)(({ theme }) => ({
+const StyledSlider = styled('div')(({ theme }) => ({
 	width: "100%",
+	padding: "0 20px",
 }));
 
 const StyledCard = styled(Card)(({ theme }) => ({
@@ -92,15 +94,17 @@ function Recommendation(props) {
 		return () => (active = false);
 	}, []);
 
-	const setting = {
-		autoplay: true,
-		autoplayScroll: 1,
-		arrows: !isXsSm,
-		centerPadding: 40,
-		autoplaySpeed: 6000,
-		overScan: 1,
-		dots: true,
-		slidesToShow: isXsSm ? 1 : 4,
+	const carouselSettings = {
+		autoPlay: true,
+		infiniteLoop: true,
+		interval: 6000,
+		showStatus: false,
+		showThumbs: false,
+		useKeyboardArrows: true,
+		emulateTouch: true,
+		centerMode: true,
+		centerSlidePercentage: isXsSm ? 100 : 25,
+		showArrows: !isXsSm,
 	};
 
 	return (
@@ -114,55 +118,59 @@ function Recommendation(props) {
 					<LinearProgress color="secondary" />
 				</center>
 			) : (
-				<StyledSlider {...setting}>
-					{recom.map((d, i) => (
-						<Link to={`/practice/${d.categoryLink}/${d.link}`} key={i}>
-							<StyledCard elevation={3}>
-								<StyledCardLogoImg alt={d.courseTitle} src={d.logo} />
-								<Typography align="center" color="primary" noWrap variant="body2">
-									{d.courseTitle}
-								</Typography>
-								<Typography gutterBottom align="center" noWrap color="textSecondary" variant="body2">
-									{d.categoryTitle}
-								</Typography>
+				<StyledSlider>
+					<Carousel {...carouselSettings}>
+						{recom.map((d, i) => (
+							<div key={i}>
+								<Link to={`/practice/${d.categoryLink}/${d.link}`}>
+									<StyledCard elevation={3}>
+										<StyledCardLogoImg alt={d.courseTitle} src={d.logo} />
+										<Typography align="center" color="primary" noWrap variant="body2">
+											{d.courseTitle}
+										</Typography>
+										<Typography gutterBottom align="center" noWrap color="textSecondary" variant="body2">
+											{d.categoryTitle}
+										</Typography>
 
-								<center>
-									<Button size="small" variant="outlined" color="secondary">
-										Get Started
-									</Button>
-								</center>
-								<br />
-								<StyledCardActions disableSpacing>
-									<span>
-										<Typography align="center" color="secondary" variant="subtitle1">
-											{d.noOfQues}
-										</Typography>
-										<Typography align="center" color="textSecondary" variant="caption">
-											Questions
-										</Typography>
-									</span>
-									<Divider orientation="vertical" flexItem style={{ backgroundColor: "##abacab" }} />
-									<span>
-										<Typography align="center" color="secondary" variant="subtitle1">
-											{d.noOfChap}
-										</Typography>
-										<Typography align="center" color="textSecondary" variant="caption">
-											Chapters
-										</Typography>
-									</span>
-									<Divider orientation="vertical" flexItem style={{ backgroundColor: "##abacab" }} />
-									<span>
-										<Typography align="center" color="secondary" variant="subtitle1">
-											{d.noOfSub}
-										</Typography>
-										<Typography align="center" color="textSecondary" variant="caption">
-											Subjects
-										</Typography>
-									</span>
-								</StyledCardActions>
-							</StyledCard>
-						</Link>
-					))}
+										<center>
+											<Button size="small" variant="outlined" color="secondary">
+												Get Started
+											</Button>
+										</center>
+										<br />
+										<StyledCardActions disableSpacing>
+											<span>
+												<Typography align="center" color="secondary" variant="subtitle1">
+													{d.noOfQues}
+												</Typography>
+												<Typography align="center" color="textSecondary" variant="caption">
+													Questions
+												</Typography>
+											</span>
+											<Divider orientation="vertical" flexItem style={{ backgroundColor: "##abacab" }} />
+											<span>
+												<Typography align="center" color="secondary" variant="subtitle1">
+													{d.noOfChap}
+												</Typography>
+												<Typography align="center" color="textSecondary" variant="caption">
+													Chapters
+												</Typography>
+											</span>
+											<Divider orientation="vertical" flexItem style={{ backgroundColor: "##abacab" }} />
+											<span>
+												<Typography align="center" color="secondary" variant="subtitle1">
+													{d.noOfSub}
+												</Typography>
+												<Typography align="center" color="textSecondary" variant="caption">
+													Subjects
+												</Typography>
+											</span>
+										</StyledCardActions>
+									</StyledCard>
+								</Link>
+							</div>
+						))}
+					</Carousel>
 				</StyledSlider>
 			)}
 		</StyledBgDiv>

@@ -1,15 +1,66 @@
 import React, { useContext, useEffect, useState } from "react";
 import { QuesContext } from "../../../Components/Context/AddQuesContext/QuestionContext";
-import { Input, Dialog, DialogTitle, DialogContent, Table, TableRow, TableCell, TableBody, TableFooter, TablePagination } from "@mui/material";
-import useStyles from "../useStyles";
+import { Input, Dialog, DialogTitle, DialogContent, Table, TableRow, TableCell, TableBody, TableFooter, TablePagination, Paper } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import NoContent from "../../../Components/NoContent";
-import ReactHtmlParser from "react-html-parser";
-
+import parse from "html-react-parser";
 import { FcSearch } from "react-icons/fc";
 import axios from "axios";
+import { Fab, TextField, Button, Chip } from "@mui/material";
+import { MdSearch } from "react-icons/md";
+
+// Styled components
+const SearchContainer = styled('div')(({ theme }) => ({
+	position: 'relative',
+	borderRadius: theme.shape.borderRadius,
+	backgroundColor: theme.palette.common.white,
+	'&:hover': {
+		backgroundColor: theme.palette.grey[100],
+	},
+	marginRight: theme.spacing(2),
+	marginLeft: 0,
+	width: '100%',
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+	padding: theme.spacing(0, 2),
+	height: '100%',
+	position: 'absolute',
+	pointerEvents: 'none',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+}));
+
+const StyledInput = styled(Input)(({ theme }) => ({
+	color: 'inherit',
+	width: '100%',
+	'& .MuiInputBase-input': {
+		padding: theme.spacing(1, 1, 1, 0),
+		// vertical padding + font size from searchIcon
+		paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+		transition: theme.transitions.create('width'),
+		width: '100%',
+	},
+}));
+
+const SearchResultDiv = styled('div')(({ theme }) => ({
+	maxHeight: '80vh',
+	overflow: 'auto',
+	margin: theme.spacing(1)
+}));
+
+const EntryAreaPaper = styled(Paper)(({ theme }) => ({
+	padding: theme.spacing(2),
+	margin: theme.spacing(1),
+	backgroundColor: theme.palette.background.paper
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+	margin: theme.spacing(1)
+}));
 
 function QuesSearch() {
-	const classes = useStyles();
 	const { Qstate, Qdispatch } = useContext(QuesContext);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -58,20 +109,18 @@ function QuesSearch() {
 	return (
 		<Dialog open={Qstate.openSearchBox} onClose={() => Qdispatch({ type: "TOGGLESEARCH" })} aria-labelledby="form-dialog-title">
 			<DialogTitle id="search-Question">
-				<div className={classes.search}>
-					<div className={classes.searchIcon}>
-						<FcSearch />
-					</div>
-					<Input
-						placeholder="Search Question..."
-						onChange={(e) => getData(Qstate.chapter[0] && Qstate.chapter[0].link, e.target.value)}
-						disableUnderline
-						classes={{
-							root: classes.inputRoot,
-							input: classes.inputInput,
-						}}
-					/>
-				</div>
+				<SearchResultDiv>
+					<SearchContainer>
+						<SearchIconWrapper>
+							<FcSearch />
+						</SearchIconWrapper>
+						<StyledInput
+							placeholder="Search Question..."
+							onChange={(e) => getData(Qstate.chapter[0] && Qstate.chapter[0].link, e.target.value)}
+							disableUnderline
+						/>
+					</SearchContainer>
+				</SearchResultDiv>
 			</DialogTitle>
 			<DialogContent>
 				{allQuestion.length !== 0 ? (
@@ -81,7 +130,7 @@ function QuesSearch() {
 								<TableRow key={data._id} onClick={() => setData(data._id)} hover>
 									<TableCell size="small" padding="none" align="left">{`${i + 1})`}</TableCell>
 									<TableCell component="td" scope="row">
-										{ReactHtmlParser(data.questionTitle.slice(0, 200))}
+										{parse(data.questionTitle.slice(0, 200))}
 									</TableCell>
 								</TableRow>
 							))}
@@ -92,8 +141,8 @@ function QuesSearch() {
 									count={allQuestion.length}
 									rowsPerPage={rowsPerPage}
 									page={page}
-									onChangePage={(e, page) => setPage(page)}
-									onChangeRowsPerPage={(r) => setRowsPerPage(r.target.value)}
+									onPageChange={(e, page) => setPage(page)}
+									onRowsPerPageChange={(r) => setRowsPerPage(r.target.value)}
 								/>
 							</TableRow>
 						</TableFooter>

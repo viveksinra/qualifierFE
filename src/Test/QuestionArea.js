@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect, Fragment } from "react";
-import { RadioGroup, Radio, FormControlLabel, Hidden } from "@mui/material";
-import { styled } from '@mui/material/styles';
+import { RadioGroup, Radio, FormControlLabel, useMediaQuery } from "@mui/material";
+import { styled, useTheme } from '@mui/material/styles';
 import { SUBMITANS, TOGGLEDRAWER } from "../Components/Context/types";
 import { QuestionNav } from "./TestNav";
-import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 import SubmitBox from "./SubmitBox";
 import { TestContext } from "../Components/Context/TestContext/TestContext";
 import { MdPlaylistPlay } from "react-icons/md";
@@ -44,6 +44,8 @@ const StyledFragment = styled(Fragment)(({ theme }) => ({
 
 function QuestionArea() {
 	const { Tstate, Tdispatch } = useContext(TestContext);
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 	const [acQues, setQ] = useState(null);
 	const [sec, setSec] = useState({});
 	useEffect(() => {
@@ -65,21 +67,21 @@ function QuestionArea() {
 				<br />
 				{acQues && (
 					<>
-						{ReactHtmlParser(acQues.question)}
+						{parse(acQues.question)}
 						{acQues.questionImg && <img src={acQues.questionImg} className={classes.img} alt="Question" />}
 						<br />
 						<div className={classes.options}>
 							<RadioGroup aria-label="option" value={+acQues.ansGiven} onChange={handdleAns}>
 								{acQues.options.map((o, i) => (
-									<FormControlLabel key={i} value={+o.number} control={<Radio color="primary" />} label={ReactHtmlParser(o.title)} />
+									<FormControlLabel key={i} value={+o.number} control={<Radio color="primary" />} label={parse(o.title)} />
 								))}
 							</RadioGroup>
 						</div>
 					</>
 				)}
-				<Hidden smUp>
+				{isMobile && (
 					<MdPlaylistPlay onClick={() => Tdispatch({ type: TOGGLEDRAWER })} className={classes.drawIcon} />
-				</Hidden>
+				)}
 			</div>
 
 			<SubmitBox />

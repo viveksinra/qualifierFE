@@ -54,9 +54,9 @@ function PublicRoutes() {
 			<Route path="/paymentverify/:paymentCompany/:status/:paymentId" element={<PaymentVerify />} />
 			<Route path="/practice" element={
 				<Routes>
-					<Route path="/practice/start/:catlink/:corslink" element={<UserPrivateRoute component={PracticeExp} />} />
-					<Route path="/practice/start/:catlink/:corslink/:sublink" element={<UserPrivateRoute component={PracticeExp} />} />
-					<Route path="/practice/start/:catlink/:corslink/:sublink/:chaplink" element={<UserPrivateRoute component={PracticeExp} />} />
+					<Route path="/practice/start/:catlink/:corslink" element={<UserPrivateRoute><PracticeExp /></UserPrivateRoute>} />
+					<Route path="/practice/start/:catlink/:corslink/:sublink" element={<UserPrivateRoute><PracticeExp /></UserPrivateRoute>} />
+					<Route path="/practice/start/:catlink/:corslink/:sublink/:chaplink" element={<UserPrivateRoute><PracticeExp /></UserPrivateRoute>} />
 					<Route exact path="/practice" element={<PracticeHome />} />
 					<Route path="/practice/:catlink" element={<CourseList />} />
 					<Route path="/practice/:catlink/:corslink" element={<Course />} />
@@ -70,31 +70,31 @@ function PublicRoutes() {
 					<Route path="/test/:serieslink" element={<TestHome />} />
 					<Route path="/test/:serieslink/:testlink/instruction" element={
 						<TestProvider>
-							<UserPrivateRoute component={Instructions} />
+							<UserPrivateRoute><Instructions /></UserPrivateRoute>
 						</TestProvider>
 					} />
 					<Route path="/test/:serieslink/:testlink/on" element={
 						<TestProvider>
-							<UserPrivateRoute component={RealTest} />
+							<UserPrivateRoute><RealTest /></UserPrivateRoute>
 						</TestProvider>
 					} />
 					<Route path="/test/:serieslink/:testlink/report" element={
 						<TestProvider>
-							<UserPrivateRoute component={TestReport} />
+							<UserPrivateRoute><TestReport /></UserPrivateRoute>
 						</TestProvider>
 					} />
 				</Routes>
 			} />
-			<Route path="/dashboard" element={<UserPrivateRoute component={UserDashboard} />} />
-			<Route path="/savequestion" element={<UserPrivateRoute component={SaveQuestions} />} />
-			<Route path="/mycourses" element={<UserPrivateRoute component={MyCourses} />} />
-			<Route path="/profile" element={<UserPrivateRoute component={MyProfile} />} />
+			<Route path="/dashboard" element={<UserPrivateRoute><UserDashboard /></UserPrivateRoute>} />
+			<Route path="/savequestion" element={<UserPrivateRoute><SaveQuestions /></UserPrivateRoute>} />
+			<Route path="/mycourses" element={<UserPrivateRoute><MyCourses /></UserPrivateRoute>} />
+			<Route path="/profile" element={<UserPrivateRoute><MyProfile /></UserPrivateRoute>} />
 			<Route path="/report" element={
 				<Routes>
-					<Route path="/report" element={<UserPrivateRoute component={Report} />} />
-					<Route path="/report/:catlink/:corslink/:sublink/:chaplink" element={<UserPrivateRoute component={Report} />} />
-					<Route path="/report/:catlink/:corslink/:sublink" element={<UserPrivateRoute component={Report} />} />
-					<Route path="/report/:catlink/:corslink" element={<UserPrivateRoute component={Report} />} />
+					<Route path="/report" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
+					<Route path="/report/:catlink/:corslink/:sublink/:chaplink" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
+					<Route path="/report/:catlink/:corslink/:sublink" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
+					<Route path="/report/:catlink/:corslink" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
 				</Routes>
 			} />
 			<Route path="/invite/:ref" element={<Invite />} />

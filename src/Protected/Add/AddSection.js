@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
-import useStyles from "./useStyles";
+import { styled } from "@mui/material/styles";
 import MySnackbar from "../../Components/MySnackbar";
 import {
 	Grid,
@@ -16,18 +16,35 @@ import {
 	MenuItem,
 	TablePagination,
 	Divider,
+	Autocomplete,
+	Box
 } from "@mui/material";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import { allTypes, allSubTypes } from "./AddTest";
-import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 import axios from "axios";
 import { MdDoneAll, MdClearAll, MdDelete } from "react-icons/md";
 
+// Styled components to replace useStyles
+const EntryAreaPaper = styled(Paper)(({ theme }) => ({
+	padding: theme.spacing(2),
+	margin: theme.spacing(1),
+	backgroundColor: theme.palette.background.paper
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+	margin: theme.spacing(1)
+}));
+
+const SearchResultDiv = styled('div')(({ theme }) => ({
+	maxHeight: '80vh',
+	overflow: 'auto',
+	margin: theme.spacing(1)
+}));
+
 export default function AddSection() {
-	const classes = useStyles();
 	const [id, setId] = useState("");
 	const [title, setTitle] = useState("");
 	const [testBundle, setTs] = useState(null);
@@ -182,7 +199,7 @@ export default function AddSection() {
 		<Fragment>
 			<Grid container>
 				<Grid item xs={12} md={9}>
-					<Paper className={classes.entryArea}>
+					<EntryAreaPaper>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
 								<Grid item xs={4}></Grid>
@@ -347,7 +364,7 @@ export default function AddSection() {
 									<Carousel showThumbs={false} useKeyboardArrows={true}>
 										{allQuestion.map((q, i) => (
 											<Paper key={i} elevation={2}>
-												{ReactHtmlParser(q.questionTitle)}
+												{parse(q.questionTitle)}
 												{q.options && (
 													<>
 														<span>
@@ -355,32 +372,30 @@ export default function AddSection() {
 														</span>
 														<ol>
 															{q.options.map((o, j) => (
-																<li key={j}>{ReactHtmlParser(o.title)}</li>
+																<li key={j}>{parse(o.title)}</li>
 															))}
 														</ol>
 														<center>
 															{questions.filter((f) => f._id === q._id).length === 0 ? (
-																<Button
+																<StyledButton
 																	size="small"
 																	variant="contained"
 																	startIcon={<MdDoneAll />}
-																	className={classes.button}
 																	onClick={() => handleAdd(q, i, "a")}
 																	color="primary"
 																>
 																	Add IT
-																</Button>
+																</StyledButton>
 															) : (
-																<Button
+																<StyledButton
 																	size="small"
 																	variant="contained"
 																	startIcon={<MdDelete />}
-																	className={classes.button}
 																	onClick={() => handleAdd(q, i, "r")}
 																	color="secondary"
 																>
 																	Remove it
-																</Button>
+																</StyledButton>
 															)}
 														</center>
 													</>
@@ -392,27 +407,26 @@ export default function AddSection() {
 								<Grid item xs={12}>
 									<Divider />
 									<center>
-										<Button size="small" variant="contained" startIcon={<MdDoneAll />} className={classes.button} type="submit" color="secondary">
+										<StyledButton size="small" variant="contained" startIcon={<MdDoneAll />} type="submit" color="secondary">
 											{id ? "Update Section" : "Create New Section"}
-										</Button>
-										<Button
+										</StyledButton>
+										<StyledButton
 											size="small"
 											startIcon={<MdClearAll />}
 											variant="outlined"
-											className={classes.button}
 											onClick={() => handleClear()}
 											color="secondary"
 										>
 											Clear All
-										</Button>
+										</StyledButton>
 									</center>
 								</Grid>
 							</Grid>
 						</form>
-					</Paper>
+					</EntryAreaPaper>
 				</Grid>
 				<Grid item xs={12} md={3}>
-					<div className={classes.searchResult}>
+					<SearchResultDiv>
 						<Paper>
 							<Table>
 								<TableHead>
@@ -426,7 +440,7 @@ export default function AddSection() {
 									{questions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
 										<TableRow key={data._id} onClick={() => setData(data._id)} hover>
 											<TableCell component="td" scope="row">
-												{ReactHtmlParser(data.questionTitle.slice(0, 100))}
+												{parse(data.questionTitle.slice(0, 100))}
 											</TableCell>
 										</TableRow>
 									))}
@@ -437,14 +451,14 @@ export default function AddSection() {
 											count={questions.length}
 											rowsPerPage={rowsPerPage}
 											page={page}
-											onChangePage={(e, page) => setPage(page)}
-											onChangeRowsPerPage={(r) => setRowsPerPage(r.target.value)}
+											onPageChange={(e, page) => setPage(page)}
+											onRowsPerPageChange={(r) => setRowsPerPage(r.target.value)}
 										/>
 									</TableRow>
 								</TableFooter>
 							</Table>
 						</Paper>
-					</div>
+					</SearchResultDiv>
 				</Grid>
 			</Grid>
 			<MySnackbar ref={snackRef} />

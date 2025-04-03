@@ -3,7 +3,7 @@ import "./login.css";
 import { MainContext } from "../Context/MainContext";
 import { LOGIN_USER } from "../Context/types";
 import MySnackbar from "../MySnackbar";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import NewsCard from "./NewsCard";
 import { MdSend, MdRemoveRedEye, MdVisibilityOff } from "react-icons/md";
 import {
@@ -23,7 +23,7 @@ import {
 	DialogActions,
 } from "@mui/material";
 import axios from "axios";
-export default function Login({ match }) {
+export default function Login() {
 	const [loginId, setLoginId] = useState("");
 	const [password, setPassword] = useState("");
 	const [showPass, setShowPass] = useState(false);
@@ -36,6 +36,7 @@ export default function Login({ match }) {
 	const [newPass, setNewPass] = useState("");
 	const { state, dispatch } = useContext(MainContext);
 	const snackRef = useRef();
+	const params = useParams();
 	document.title = "Login | Qualifier : Online Test Series & Practice - Railway, SSC, Banking, Placement Exams & CBSE Exams For FREE";
 
 	const handleSubmit = async (e) => {
@@ -53,10 +54,9 @@ export default function Login({ match }) {
 			.catch((err) => console.log(err));
 	};
 	useEffect(() => {
-
-		if (match.params.token) {
+		if (params.token) {
 			if (state.referral){
-				dispatch({ type: LOGIN_USER, payload: { token: match.params.token } });
+				dispatch({ type: LOGIN_USER, payload: { token: params.token } });
 				axios
 					.get(`/api/auth/google/getdata/${state.referral}`)
 					.then((res) => {
@@ -65,7 +65,7 @@ export default function Login({ match }) {
 					.catch((err) => console.log(err));
 		
 			} else {
-				dispatch({ type: LOGIN_USER, payload: { token: match.params.token } });
+				dispatch({ type: LOGIN_USER, payload: { token: params.token } });
 				axios
 					.get(`/api/auth/google/getdata/}`)
 					.then((res) => {
@@ -73,8 +73,8 @@ export default function Login({ match }) {
 					})
 					.catch((err) => console.log(err));
 			}
-				}
-	}, [match.params.token, dispatch]);
+		}
+	}, [params.token, dispatch]);
 	const sendOTP = () => {
 		axios.post(`api/auth/getfotp/${forgotData}`).then((res) => {
 			if (res.data.variant === "success") {
@@ -123,14 +123,14 @@ export default function Login({ match }) {
 	if (state.isAuthenticated) {
 		switch (state.designation) {
 			case "User":
-				return <Redirect to="/dashboard" />;
+				return <Navigate to="/dashboard" replace />;
 			case "Admin":
-				return <Redirect to="/admin/dashboard" />;
+				return <Navigate to="/admin/dashboard" replace />;
 			case "Manager":
-				return <Redirect to="/admin/dashboard" />;
+				return <Navigate to="/admin/dashboard" replace />;
 
 			default:
-				return <Redirect to="/login" />;
+				return <Navigate to="/login" replace />;
 		}
 	}
 	return (

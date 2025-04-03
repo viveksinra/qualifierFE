@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { DRAWER } from "../Context/types";
 import { MainContext } from "../Context/MainContext";
 import { CssBaseline, Container, useScrollTrigger, 
-	Hidden, AppBar, Toolbar, IconButton, Avatar, Slide } from "@mui/material";
+	useMediaQuery, AppBar, Toolbar, IconButton, Avatar, Slide } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { MdMenu, MdExpandMore, MdAccountCircle } from "react-icons/md";
 import { Link } from "react-router-dom";
@@ -56,6 +56,7 @@ const StyledDrawerContainerDiv = styled('div')(({ theme }) => ({
 
 export function Nav() {
 	const { state, dispatch } = useContext(MainContext);
+	const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));
 	const handleDrawerToggle = () => {
 		dispatch({ type: DRAWER });
 	};
@@ -76,7 +77,7 @@ export function Nav() {
 					</Link>
 					<StyledGrowDiv />
 
-					<Hidden mdDown>
+					{!isMobile && (
 						<ul>
 							<StyledLi>
 								<MegaMenu>
@@ -95,12 +96,14 @@ export function Nav() {
 								<Link to="/practice">Practice</Link>
 							</StyledLi>
 						</ul>
+					)}
 
-						{state.isAuthenticated ? (
-							<Link to="/dashboard">
-								<Avatar alt="User" src={state.userImage} />
-							</Link>
-						) : (
+					{state.isAuthenticated ? (
+						<Link to="/dashboard">
+							<Avatar alt="User" src={state.userImage} />
+						</Link>
+					) : (
+						!isMobile && (
 							<span id="loginBtn">
 								<ul>
 									<StyledLi>
@@ -111,21 +114,16 @@ export function Nav() {
 									</StyledLi>
 								</ul>
 							</span>
-						)}
-					</Hidden>
-					<Hidden lgUp>
-						{state.isAuthenticated ? (
-							<Link to="/dashboard">
-								<Avatar alt="User" src={state.userImage} />
-							</Link>
-						) : (
-							<Link to="/login">
-								<IconButton aria-label="Login Up" aria-haspopup="true" color="secondary">
-									<MdAccountCircle />
-								</IconButton>
-							</Link>
-						)}
-					</Hidden>
+						)
+					)}
+
+					{isMobile && !state.isAuthenticated && (
+						<Link to="/login">
+							<IconButton aria-label="Login Up" aria-haspopup="true" color="secondary">
+								<MdAccountCircle />
+							</IconButton>
+						</Link>
+					)}
 				</Toolbar>
 			</StyledAppBar>
 		</StyledRootDiv>
@@ -134,6 +132,8 @@ export function Nav() {
 
 export function FullNav(props) {
 	const { state, dispatch } = useContext(MainContext);
+	const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+	const isMediumDown = useMediaQuery(theme => theme.breakpoints.down('md'));
 	const handleDrawerToggle = () => {
 		dispatch({ type: DRAWER });
 	};
@@ -155,7 +155,7 @@ export function FullNav(props) {
 								/>
 							</Link>
 							<StyledGrowDiv component="span" />
-							<Hidden smDown>
+							{!isMobile && (
 								<ul>
 									<StyledLi>
 										<MegaMenu>
@@ -180,8 +180,10 @@ export function FullNav(props) {
 										<Link to="/contact">Contact</Link>
 									</StyledLi>
 								</ul>
+							)}
 
-								{state.isAuthenticated ? (
+							{!isMobile && (
+								state.isAuthenticated ? (
 									<Link to="/dashboard">
 										<Avatar alt="User" src={state.userImage} />
 									</Link>
@@ -196,12 +198,14 @@ export function FullNav(props) {
 											</StyledLi>
 										</ul>
 									</span>
-								)}
-							</Hidden>
+								)
+							)}
 
-							<Hidden mdUp>
+							{isMediumDown && (
 								<StyledGrowDiv component="span" />
-								{state.isAuthenticated ? (
+							)}
+							{isMediumDown && (
+								state.isAuthenticated ? (
 									<Link to="/dashboard">
 										<Avatar alt="User" src={state.userImage} />
 									</Link>
@@ -211,14 +215,14 @@ export function FullNav(props) {
 											<MdAccountCircle />
 										</IconButton>
 									</Link>
-								)}
-							</Hidden>
+								)
+							)}
 						</Toolbar>
 					</Container>
 				</AppBar>
-				<StyledDrawerContainerDiv>
+				{isMobile && (
 					<MyDrawer />
-				</StyledDrawerContainerDiv>
+				)}
 			</StyledRootDiv>
 		</Suspense>
 	);

@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { TestContext } from "../Components/Context/TestContext/TestContext";
 import { ListSubheader, List, Divider } from "@mui/material";
 import { styled } from '@mui/material/styles';
-import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 
 const PREFIX = 'QPaper';
 const classes = {
@@ -52,10 +52,10 @@ function QPaper() {
 							<ListSubheader>{`Section Name  :  ${s.title}`} </ListSubheader>
 							{s.questions.map((q, i) => (
 								<div key={i}>
-									{ReactHtmlParser(`Q.${i + 1}) ${q.question}`)}
+									{parse(`Q.${i + 1}) ${q.question}`)}
 									<ol className={classes.option}>
 										{q.options.map((o) => (
-											<li key={o.number}>{ReactHtmlParser(o.title)}</li>
+											<li key={o.number}>{parse(o.title)}</li>
 										))}
 									</ol>
 									<Divider light />

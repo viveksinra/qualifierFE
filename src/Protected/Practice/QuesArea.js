@@ -3,7 +3,7 @@ import { PracContext } from "../../Components/Context/PracticeContext/PracticeCo
 import { SUBMITANS, SHOWSOL } from "../../Components/Context/types";
 import { List, ListItem, ListItemIcon, MenuItem, Fab, Fade, Divider, Tooltip, Toolbar, IconButton, Menu, Paper } from "@mui/material";
 import { styled } from '@mui/material/styles';
-import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 import { FaFeatherAlt } from "react-icons/fa";
 import { FcAbout } from "react-icons/fc";
 import axios from "axios";
@@ -105,7 +105,7 @@ function QuesArea() {
 	return (
 		<StyledRoot className={classes.qArea}>
 			<div className={classes.center}>
-				{ReactHtmlParser(Pstate.question.questionTitle)}
+				{parse(Pstate.question.questionTitle)}
 				{Pstate.question.highlight && (
 					<span style={{ display: "flex", alignSelf: "flex-end" }}>
 						<b>~ {Pstate.question.highlight}</b>
@@ -131,7 +131,7 @@ function QuesArea() {
 							<ListItemIcon className={classes.optionIcon}>
 								<OptionNo index={i} />
 							</ListItemIcon>
-							{ReactHtmlParser(o.title)}
+							{parse(o.title)}
 						</ListItem>
 					))}
 			</List>
@@ -165,7 +165,7 @@ function QuesArea() {
 			<Fade in={Pstate.showSol} unmountOnExit>
 				<Paper className={classes.paper}>
 					<div className={classes.center}>
-						{ReactHtmlParser(Pstate.question.solTitle)}
+						{parse(Pstate.question.solTitle)}
 						{Pstate.question.solImage && <img className={classes.img} src={Pstate.question.solImage} alt="Solution" />}
 					</div>
 				</Paper>

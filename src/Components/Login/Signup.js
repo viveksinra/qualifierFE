@@ -3,8 +3,8 @@ import "./login.css";
 import NewsCard from "./NewsCard";
 import { MainContext } from "../Context/MainContext";
 import { REFERRAL } from "../Context/types";
-import Alert from "@material-ui/lab/Alert";
-import { Link, Redirect } from "react-router-dom";
+import { Alert } from "@mui/material";
+import { Link, Navigate } from "react-router-dom";
 import {
 	Grid,
 	Button,
@@ -18,6 +18,7 @@ import {
 	DialogContentText,
 	DialogActions,
 } from "@mui/material";
+import Autocomplete from "@mui/material/Autocomplete";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
@@ -103,7 +104,7 @@ export default function Signup() {
 	};
 
 	if (redirect) {
-		return <Redirect to="/login" />;
+		return <Navigate to="/login" replace />;
 	}
 	return (
 		<Fragment>

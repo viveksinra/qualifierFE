@@ -231,6 +231,9 @@ const StyledLogoMobDiv = styled('div')(({ theme }) => ({
 
 function AppNav() {
 	const { dispatch } = useContext(MainContext);
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
 	const handleDrawerToggle = () => {
 		dispatch({ type: DRAWER });
 	};
@@ -242,12 +245,12 @@ function AppNav() {
 			</StyledLogoMobDiv>
 
 			<span style={{ flexGrow: 0.7 }} />
-			<Hidden mdUp>
+			{isMobile && (
 				<IconButton onClick={handleDrawerToggle} edge="start" color="primary" aria-label="menu">
 					<FaBars />
 				</IconButton>
-			</Hidden>
-			<Hidden smDown>
+			)}
+			{isDesktop && (
 				<StyledUl>
 					<StyledLi>
 						<MegaMenu>
@@ -284,7 +287,7 @@ function AppNav() {
 						</StyledLiLink>
 					</StyledLi>
 				</StyledUl>
-			</Hidden>
+			)}
 		</StyledAppNavGrid>
 	);
 }

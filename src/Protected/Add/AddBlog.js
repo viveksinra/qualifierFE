@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
-import useStyles from "./useStyles";
+import { styled } from "@mui/material/styles";
 import MySnackbar from "../../Components/MySnackbar";
 import {
 	Grid,
@@ -21,15 +21,61 @@ import {
 	TablePagination,
 	Input,
 	Divider,
+	Autocomplete,
+	Button,
+	Box
 } from "@mui/material";
-import CKEditor from "@ckeditor/ckeditor5-react";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import Autocomplete from "@material-ui/lab/Autocomplete";
 import axios from "axios";
 import { MdSearch, MdDoneAll, MdClearAll, MdPanorama, MdLock, MdPublic, MdDeleteForever } from "react-icons/md";
 
+// Styled components to replace useStyles
+const EntryAreaPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(2),
+  margin: theme.spacing(1),
+  backgroundColor: theme.palette.background.paper
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  margin: theme.spacing(1)
+}));
+
+const SearchResultDiv = styled('div')(({ theme }) => ({
+  maxHeight: '80vh',
+  overflow: 'auto',
+  margin: theme.spacing(1)
+}));
+
+// Search styles
+const SearchDiv = styled('div')(({ theme }) => ({
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  marginBottom: theme.spacing(2)
+}));
+
+const SearchIconWrapper = styled('div')(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: '100%',
+  position: 'absolute',
+  pointerEvents: 'none',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
+
+const InputRoot = styled('div')(({ theme }) => ({
+  color: 'inherit',
+  width: '100%'
+}));
+
+const InputInput = styled(Input)(({ theme }) => ({
+  padding: theme.spacing(1, 1, 1, 0),
+  paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+  width: '100%'
+}));
+
 export default function AddBlog() {
-	const classes = useStyles();
 	const [id, setId] = useState("");
 	const [text, setText] = useState("");
 	const [title, setTitle] = useState("");
@@ -143,7 +189,11 @@ export default function AddBlog() {
 		<Fragment>
 			<Grid container>
 				<Grid item xs={12} md={9}>
-					<Paper className={classes.entryArea}>
+					<Paper sx={{
+                        padding: theme => theme.spacing(2),
+                        margin: theme => theme.spacing(1),
+                        backgroundColor: theme => theme.palette.background.paper
+                    }}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
 								<Grid item xs={4}>
@@ -266,18 +316,18 @@ export default function AddBlog() {
 								<Grid item xs={12}>
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
-											<Fab color="primary" type="submit" className={classes.button}>
+											<Fab color="primary" type="submit" sx={{ margin: theme => theme.spacing(1) }}>
 												<MdDoneAll />
 											</Fab>
 										</Tooltip>
 										<Tooltip title="Clear All">
-											<Fab size="small" color="secondary" onClick={() => handleClear()} className={classes.button}>
+											<Fab size="small" color="secondary" onClick={() => handleClear()} sx={{ margin: theme => theme.spacing(1) }}>
 												<MdClearAll />
 											</Fab>
 										</Tooltip>
 										{id !== "" && (
 											<Tooltip title="Delete Forever">
-												<Fab size="small" color="secondary" onClick={() => handleDelete(id)} className={classes.button}>
+												<Fab size="small" color="secondary" onClick={() => handleDelete(id)} sx={{ margin: theme => theme.spacing(1) }}>
 													<MdDeleteForever />
 												</Fab>
 											</Tooltip>
@@ -285,7 +335,7 @@ export default function AddBlog() {
 										{image !== "" && (
 											<a href={image} target="_blank" rel="noopener noreferrer">
 												<Tooltip title="Image">
-													<Fab size="small" color="secondary" className={classes.button}>
+													<Fab size="small" color="secondary" sx={{ margin: theme => theme.spacing(1) }}>
 														<MdPanorama />
 													</Fab>
 												</Tooltip>
@@ -299,53 +349,47 @@ export default function AddBlog() {
 				</Grid>
 				<Grid item xs={12} md={3}>
 					{/* Search Section */}
-					<div className={classes.search}>
-						<div className={classes.searchIcon}>
+					<SearchDiv>
+						<SearchIconWrapper>
 							<MdSearch />
-						</div>
-						<Input
+						</SearchIconWrapper>
+						<InputInput
 							placeholder="Search Blog..."
 							onChange={(e) => getData(e.target.value)}
 							disableUnderline
-							classes={{
-								root: classes.inputRoot,
-								input: classes.inputInput,
-							}}
 						/>
-					</div>
-					<div className={classes.searchResult}>
-						<Paper>
-							<Table>
-								<TableHead>
-									<TableRow>
-										<TableCell component="th" scope="row">
-											Search Results
+					</SearchDiv>
+					<Paper sx={{ maxHeight: '80vh', overflow: 'auto', margin: theme => theme.spacing(1) }}>
+						<Table>
+							<TableHead>
+								<TableRow>
+									<TableCell component="th" scope="row">
+										Search Results
+									</TableCell>
+								</TableRow>
+							</TableHead>
+							<TableBody>
+								{allBlog.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
+									<TableRow key={data._id} onClick={() => setData(data._id)} hover>
+										<TableCell component="td" scope="row">
+											Title : {data.title} <br />
 										</TableCell>
 									</TableRow>
-								</TableHead>
-								<TableBody>
-									{allBlog.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
-										<TableRow key={data._id} onClick={() => setData(data._id)} hover>
-											<TableCell component="td" scope="row">
-												Title : {data.title} <br />
-											</TableCell>
-										</TableRow>
-									))}
-								</TableBody>
-								<TableFooter>
-									<TableRow>
-										<TablePagination
-											count={allBlog.length}
-											rowsPerPage={rowsPerPage}
-											page={page}
-											onChangePage={(e, page) => setPage(page)}
-											onChangeRowsPerPage={(r) => setRowsPerPage(r.target.value)}
-										/>
-									</TableRow>
-								</TableFooter>
-							</Table>
-						</Paper>
-					</div>
+								))}
+							</TableBody>
+							<TableFooter>
+								<TableRow>
+									<TablePagination
+										count={allBlog.length}
+										rowsPerPage={rowsPerPage}
+										page={page}
+										onPageChange={(e, page) => setPage(page)}
+										onRowsPerPageChange={(r) => setRowsPerPage(r.target.value)}
+									/>
+								</TableRow>
+							</TableFooter>
+						</Table>
+					</Paper>
 				</Grid>
 			</Grid>
 			<MySnackbar ref={snackRef} />

@@ -1,11 +1,11 @@
 import React, { Suspense, lazy } from "react";
 import TopTray from "../../Components/Decoration/TopTray";
-import { CircularProgress, Fab, Hidden } from "@mui/material";
+import { CircularProgress, Fab, useMediaQuery } from "@mui/material";
 import { FullNav } from "../../Components/Navigation/Nav";
 import lp from "./lp.png";
 import { Head } from "../../Components/NameExp";
 import { FcElectricalSensor } from "react-icons/fc";
-import { styled } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 const SeriesList = lazy(() => import("./SeriesList"));
 const Features2 = lazy(() => import("../../Components/Decoration/Features2"));
 const Footer = lazy(() => import("../../Components/Footer/Footer"));
@@ -82,6 +82,9 @@ const StyledDiv = styled('div')(({ theme }) => ({
 }));
 
 function TestSeries() {
+	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+	
 	const scrollDown = (event) => {
 		const anchor = (event.target.ownerDocument || document).querySelector("#bundle");
 		if (anchor) {
@@ -120,9 +123,9 @@ function TestSeries() {
 					<p className={classes.smallText}>*Free & Simple, no hidden cost.</p>
 				</div>
 			</div>
-			<Hidden mdDown>
+			{isDesktop && (
 				<img src={lp} className={classes.topImg} alt="Laptop" />
-			</Hidden>
+			)}
 			<Suspense
 				fallback={
 					<div className="center">

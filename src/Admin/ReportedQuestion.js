@@ -14,7 +14,7 @@ import { FcExpand, FcFullTrash } from "react-icons/fc";
 import NoContent from "../Components/NoContent";
 import axios from "axios";
 import MySnackbar from "../Components/MySnackbar";
-import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 
 const StyledHeadingTypography = styled(Typography)(({ theme }) => ({
 	fontSize: theme.typography.pxToRem(15),
@@ -99,7 +99,7 @@ function ReportedQuestion() {
 											<b> Question</b>
 										</Typography>
 										{d.image && <StyledImg src={d.image} alt="Solution" />}
-										{ReactHtmlParser(d.questionTitle)}
+										{parse(d.questionTitle)}
 										<ol>
 											{d.options.map((o) => (
 												<li key={o.number}> {o.title} </li>
@@ -112,7 +112,7 @@ function ReportedQuestion() {
 										</Typography>
 										{d.solImage && <StyledImg src={d.solImage} alt="Solution" />}
 
-										{ReactHtmlParser(d.solTitle)}
+										{parse(d.solTitle)}
 										<br />
 										<center>
 											<Button color="secondary" endIcon={<FcFullTrash />} size="small" variant="outlined" onClick={() => handleDelete(d.reportId)}>

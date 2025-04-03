@@ -4,7 +4,7 @@ import { MainContext } from "../Components/Context/MainContext";
 import { TestContext } from "../Components/Context/TestContext/TestContext";
 import { drawerWidth } from "./TestNav";
 import clsx from "clsx";
-import { Avatar, Typography, Drawer, Button, Badge, Hidden, SwipeableDrawer } from "@mui/material";
+import { useMediaQuery, useTheme, Avatar, Typography, Drawer, Button, Badge, SwipeableDrawer } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { MdCheck } from "react-icons/md";
 
@@ -137,6 +137,9 @@ function TestDrawer({ test, sw, setShow }) {
 	const { Tstate, Tdispatch } = useContext(TestContext);
 	const [count, setCount] = useState({ A: 0, M: 0, NV: 0, MA: 0, NA: 0 });
 	const [ques, setQues] = useState([]);
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+	
 	const handleTD = () => {
 		Tdispatch({ type: TESTDRAWER });
 	};
@@ -248,7 +251,7 @@ function TestDrawer({ test, sw, setShow }) {
 	if (test) {
 		return (
 			<StyledDrawerContainer className={drawerClasses.root}>
-				<Hidden smUp implementation="css">
+				{isMobile ? (
 					<SwipeableDrawer
 						open={Tstate.testDrawer}
 						onClose={handleTD}
@@ -262,9 +265,7 @@ function TestDrawer({ test, sw, setShow }) {
 					>
 						<DrawerData />
 					</SwipeableDrawer>
-				</Hidden>
-
-				<Hidden xsDown implementation="css">
+				) : (
 					<Drawer
 						className={drawerClasses.drawer}
 						variant="permanent"
@@ -276,14 +277,14 @@ function TestDrawer({ test, sw, setShow }) {
 					>
 						<DrawerData />
 					</Drawer>
-				</Hidden>
+				)}
 			</StyledDrawerContainer>
 		);
 	} else
 		return (
 			<div className={drawerClasses.root}>
 				<div style={{ flexGrow: 1 }}>
-					<Hidden xsDown implementation="css">
+					{!isMobile && (
 						<Drawer
 							className={drawerClasses.drawer}
 							variant="permanent"
@@ -300,7 +301,7 @@ function TestDrawer({ test, sw, setShow }) {
 								</Typography>
 							</div>
 						</Drawer>
-					</Hidden>
+					)}
 				</div>
 			</div>
 		);

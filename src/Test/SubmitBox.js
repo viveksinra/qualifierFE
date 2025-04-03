@@ -15,7 +15,7 @@ import {
 	CircularProgress,
 } from "@mui/material";
 import axios from "axios";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 // const quesStyle = makeStyles((theme) => ({
 // 	qArea: {
@@ -87,7 +87,7 @@ function SubmitBox() {
 	};
 
 	if (goReport) {
-		return <Redirect to={`/test/${Tstate.TseriesLink}/${Tstate.testLink}/report`} />;
+		return <Navigate to={`/test/${Tstate.TseriesLink}/${Tstate.testLink}/report`} replace />;
 	} else
 		return (
 			<div>

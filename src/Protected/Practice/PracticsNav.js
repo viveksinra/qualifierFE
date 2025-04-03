@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { PracContext } from "../../Components/Context/PracticeContext/PracticeContext";
-import { AppBar, Toolbar, Fab, Typography, Fade, Breadcrumbs, IconButton, Tooltip, Hidden } from "@mui/material";
-import { styled } from '@mui/material/styles';
+import { AppBar, Toolbar, Fab, Typography, Fade, Breadcrumbs, IconButton, Tooltip, useMediaQuery } from "@mui/material";
+import { styled, useTheme } from '@mui/material/styles';
 import clsx from "clsx";
 import { NEXTQUES } from "../../Components/Context/types";
 import TimeSlider from "./TimeSlider";
@@ -34,6 +34,8 @@ const StyledAppBar = styled(AppBar)(({ theme }) => ({
 
 export function TimeNav() {
 	const { Pstate } = useContext(PracContext);
+	const theme = useTheme();
+	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
 	const timeFormat = (s) => {
 		let minutes = Math.floor(+s / 60);
@@ -49,23 +51,25 @@ export function TimeNav() {
 	if (Pstate.submitted) {
 		return (
 			<Toolbar variant="dense">
-				<Hidden mdDown>
-					<Breadcrumbs separator="›" aria-label="breadcrumb">
-						<Typography variant="body2" color="textSecondary">
-							{Pstate.category && Pstate.category.categoryTitle}
-						</Typography>
-						<Typography variant="body2" color="textSecondary">
-							{Pstate.course && Pstate.course.courseTitle}
-						</Typography>
-						<Typography variant="body2" color="textSecondary">
-							{Pstate.subject && Pstate.subject.subjectTitle}
-						</Typography>
-						<Typography variant="body2" color="textSecondary">
-							{Pstate.chapter && Pstate.chapter.chapterTitle}
-						</Typography>
-					</Breadcrumbs>
-					<span style={{ flexGrow: 0.5 }} />
-				</Hidden>
+				{isDesktop && (
+					<>
+						<Breadcrumbs separator="›" aria-label="breadcrumb">
+							<Typography variant="body2" color="textSecondary">
+								{Pstate.category && Pstate.category.categoryTitle}
+							</Typography>
+							<Typography variant="body2" color="textSecondary">
+								{Pstate.course && Pstate.course.courseTitle}
+							</Typography>
+							<Typography variant="body2" color="textSecondary">
+								{Pstate.subject && Pstate.subject.subjectTitle}
+							</Typography>
+							<Typography variant="body2" color="textSecondary">
+								{Pstate.chapter && Pstate.chapter.chapterTitle}
+							</Typography>
+						</Breadcrumbs>
+						<span style={{ flexGrow: 0.5 }} />
+					</>
+				)}
 
 				<Typography variant="body2" color="secondary">
 					{Pstate.level}

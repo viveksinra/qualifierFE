@@ -1,16 +1,20 @@
-import React, { useContext } from "react";
+import React from "react";
 import { MainContext } from "../Context/MainContext";
-import { Route, Redirect } from "react-router-dom";
+import { useContext } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 
-const UserPrivateRoute = ({ component: Component, auth, ...rest }) => {
+const UserPrivateRoute = () => {
 	const { state } = useContext(MainContext);
-	let isAuthenticated = state.isAuthenticated && state.designation === "User" ? true : false;
-	return <Route {...rest} render={(props) => (isAuthenticated === true ? <Component {...props} /> : <Redirect to="/login" />)} />;
+	const isAuthenticated = state.isAuthenticated && state.designation === "User";
+	
+	return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
 };
-const AdminPrivateRoute = ({ component: Component, auth, ...rest }) => {
+
+const AdminPrivateRoute = ({ children }) => {
 	const { state } = useContext(MainContext);
-	let isAuthenticated = state.isAuthenticated && (state.designation === "Admin" || state.designation === "Manager") ? true : false;
-	return <Route {...rest} render={(props) => (isAuthenticated === true ? <Component {...props} /> : <Redirect to="/login" />)} />;
+	const isAuthenticated = state.isAuthenticated && (state.designation === "Admin" || state.designation === "Manager");
+	
+	return isAuthenticated ? (children || <Outlet />) : <Navigate to="/login" replace />;
 };
 
 export { UserPrivateRoute, AdminPrivateRoute };

@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { SETSECTION, MARKED, SAVENEXT, CLEARANS } from "../Components/Context/types";
 import { TestContext } from "../Components/Context/TestContext/TestContext";
 import TestTimer from "../Components/Timer/TestTimer";
-import { AppBar, Toolbar, Typography, Button, Hidden, Divider, Paper, Tabs, Tab, Menu, MenuItem } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Divider, Paper, Tabs, Tab, Menu, MenuItem, useMediaQuery, useTheme } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import { MdArrowBack, MdArrowForward, MdFullscreen, MdFullscreenExit, MdReportProblem } from "react-icons/md";
@@ -60,6 +60,9 @@ const StyledQuestionNavContainer = styled('div')(({ theme }) => ({
 export function TestTopNav({ test }) {
 	const { Tstate } = useContext(TestContext);
 	const [fullSrn, setSrn] = useState(true);
+	const theme = useTheme();
+	const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
+	
 	document.title = `${Tstate.testName} | Online Test - Qualifier.co.in `;
 
 	const handleScreen = () => {
@@ -86,16 +89,14 @@ export function TestTopNav({ test }) {
 					/>
 					<span style={{ flexGrow: 0.1 }} />
 
-					<Hidden xsDown implementation="css">
+					{!isSmallScreen && (
 						<Typography style={{ flexGrow: 1 }} color="primary">
 							{Tstate.loading ? "Test is Loading..." : Tstate.testName}
 						</Typography>
-					</Hidden>
+					)}
 
 					<span style={{ flexGrow: 0.7 }} />
-					<Hidden xsDown implementation="css">
-						{test && <TestTimer m={Tstate.totalTime} />}
-					</Hidden>
+					{!isSmallScreen && test && <TestTimer m={Tstate.totalTime} />}
 					<span style={{ flexGrow: 0.2 }} />
 					<Button
 						variant="outlined"

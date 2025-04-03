@@ -63,6 +63,14 @@ const EmptyCard = styled(Card)(({ theme }) => ({
 	background: "url(https://res.cloudinary.com/qualifier/image/upload/v1586014502/Default/foam-cyan_gedffk.svg)",
 }));
 
+const SectionWrapper = styled('div')(({ theme }) => ({
+	marginTop: 30,
+}));
+
+const SectionTable = styled(Table)(({ theme }) => ({
+	minWidth: 650,
+}));
+
 export default function Report({ match }) {
 	const [category, setCategory] = useState(null);
 	const [course, setCourse] = useState(null);
@@ -207,19 +215,19 @@ export function SectionBreakdown(props) {
 		return <LinearProgress style={{ marginTop: 30 }} />;
 	}
 	return (
-		<div className={classes.section}>
+		<SectionWrapper>
 			<br />
 			<Typography gutterBottom variant="subtitle1" align="center" color="secondary">
 				Section-Wise Breakdown
 			</Typography>
 			{sectionData.length === 0 ? (
-				<div className={classes.emptyCard}>
+				<EmptyCard>
 					<Typography align="center" color="textSecondary">
 						Select a Course or Subject for Section wise Summary
 					</Typography>
-				</div>
+				</EmptyCard>
 			) : (
-				<Table className={classes.secTable} aria-label="Transaction-Data">
+				<SectionTable aria-label="Transaction-Data">
 					<TableHead>
 						<TableRow hover>
 							<TableCell>
@@ -278,9 +286,9 @@ export function SectionBreakdown(props) {
 							</TableRow>
 						))}
 					</TableBody>
-				</Table>
+				</SectionTable>
 			)}
-		</div>
+		</SectionWrapper>
 	);
 }
 

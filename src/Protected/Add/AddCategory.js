@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
-import useStyles from "./useStyles";
+import { styled } from "@mui/material/styles";
 import MySnackbar from "../../Components/MySnackbar";
 import {
 	Grid,
@@ -17,12 +17,30 @@ import {
 	TablePagination,
 	Input,
 	Divider,
+	Button,
+	Box
 } from "@mui/material";
 import axios from "axios";
 import { MdSearch, MdDoneAll, MdClearAll, MdPanorama } from "react-icons/md";
 
+// Styled components to replace useStyles
+const EntryAreaPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(2),
+  margin: theme.spacing(1),
+  backgroundColor: theme.palette.background.paper
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+  margin: theme.spacing(1)
+}));
+
+const SearchResultDiv = styled('div')(({ theme }) => ({
+  maxHeight: '80vh',
+  overflow: 'auto',
+  margin: theme.spacing(1)
+}));
+
 export default function AddCategory() {
-	const classes = useStyles();
 	const [id, setId] = useState("");
 	const [title, setTitle] = useState("");
 	const [link, setLink] = useState("");
@@ -108,7 +126,7 @@ export default function AddCategory() {
 		<Fragment>
 			<Grid container>
 				<Grid item xs={12} md={9}>
-					<Paper className={classes.entryArea}>
+					<EntryAreaPaper>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
 								<Grid item xs={4}></Grid>
@@ -185,51 +203,27 @@ export default function AddCategory() {
 								</Grid>
 								<Grid item xs={12}>
 									<Divider />
-								</Grid>
-								<Grid item xs={12}>
 									<center>
-										<Tooltip title={id === "" ? "Save" : "Update"}>
-											<Fab color="primary" type="submit" className={classes.button}>
-												<MdDoneAll />
-											</Fab>
-										</Tooltip>
-										<Tooltip title="Clear All">
-											<Fab size="small" color="secondary" onClick={() => handleClear()} className={classes.button}>
-												<MdClearAll />
-											</Fab>
-										</Tooltip>
-										{image !== "" && (
-											<a href={image} target="_blank" rel="noopener noreferrer">
-												<Tooltip title="Image">
-													<Fab size="small" color="secondary" className={classes.button}>
-														<MdPanorama />
-													</Fab>
-												</Tooltip>
-											</a>
-										)}
+										<StyledButton size="small" variant="contained" startIcon={<MdDoneAll />} type="submit" color="secondary">
+											{id ? "Update Category" : "Create New Category"}
+										</StyledButton>
+										<StyledButton
+											size="small"
+											startIcon={<MdClearAll />}
+											variant="outlined"
+											onClick={() => handleClear()}
+											color="secondary"
+										>
+											Clear All
+										</StyledButton>
 									</center>
 								</Grid>
 							</Grid>
 						</form>
-					</Paper>
+					</EntryAreaPaper>
 				</Grid>
 				<Grid item xs={12} md={3}>
-					{/* Search Section */}
-					<div className={classes.search}>
-						<div className={classes.searchIcon}>
-							<MdSearch />
-						</div>
-						<Input
-							placeholder="Search Category..."
-							onChange={(e) => getData(e.target.value)}
-							disableUnderline
-							classes={{
-								root: classes.inputRoot,
-								input: classes.inputInput,
-							}}
-						/>
-					</div>
-					<div className={classes.searchResult}>
+					<SearchResultDiv>
 						<Paper>
 							<Table>
 								<TableHead>
@@ -261,7 +255,7 @@ export default function AddCategory() {
 								</TableFooter>
 							</Table>
 						</Paper>
-					</div>
+					</SearchResultDiv>
 				</Grid>
 			</Grid>
 			<MySnackbar ref={snackRef} />

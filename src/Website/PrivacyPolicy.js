@@ -277,14 +277,14 @@ export default function PrivacyPolicy() {
 					</Typography>
 					<b />
 				</Paper>
-				<div className={classes.charity} alt="charity-water">
-					<div className={classes.charText}>
+				<StyledCharity>
+					<StyledCharText>
 						<h4>Let's make the Nation a better place</h4>
 						<p>
 							At <strong>Qualifier</strong>, We strongly believe in supporting the needy youth.
 						</p>
-					</div>
-				</div>
+					</StyledCharText>
+				</StyledCharity>
 			</Container>
 			<br /> <br />
 			<Footer />

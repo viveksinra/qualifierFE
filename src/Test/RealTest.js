@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TestTopNav, drawerWidth, TestBNav, SectionNav } from "./TestNav";
 import TestDrawer from "./TestDrawer";
 import QuestionArea from "./QuestionArea";
 import { styled } from '@mui/material/styles';
 import { TestIntro } from "./Instructions";
 import QPaper from "./QPaper";
-import { Prompt } from "react-router-dom";
 
 const StyledRoot = styled('div')(({ theme }) => ({
 	flexGrow: 1,
@@ -28,6 +27,22 @@ const StyledToolbarSpacer = styled('div')(({ theme }) => theme.mixins.toolbar);
 function RealTest() {
 	const [sw, setShow] = useState("q");
 
+	useEffect(() => {
+		// Handle the confirmation dialog when leaving the page
+		const handleBeforeUnload = (e) => {
+			e.preventDefault();
+			const message = "Leaving Test will lose all data. Are you sure to skip the Test?";
+			e.returnValue = message;
+			return message;
+		};
+		
+		window.addEventListener('beforeunload', handleBeforeUnload);
+		
+		return () => {
+			window.removeEventListener('beforeunload', handleBeforeUnload);
+		};
+	}, []);
+
 	return (
 		<StyledRoot>
 			<TestTopNav test={true} />
@@ -36,7 +51,6 @@ function RealTest() {
 			<StyledMain>{sw === "q" ? <QuestionArea /> : sw === "i" ? <TestIntro /> : <QPaper />}</StyledMain>
 			<TestDrawer test={true} sw={sw} setShow={setShow} />
 			<TestBNav />
-			<Prompt message="Leaving Test will loss all data. Are you sure to skip the Test ?" />
 		</StyledRoot>
 	);
 }

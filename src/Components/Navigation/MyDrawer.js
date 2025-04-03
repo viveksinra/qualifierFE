@@ -2,7 +2,7 @@ import React, { useContext, Suspense } from "react";
 import { DRAWER, LOGOUT_USER } from "../Context/types";
 import { MainContext } from "../Context/MainContext";
 import { Link } from "react-router-dom";
-import { Hidden, SwipeableDrawer, Drawer, Chip, Divider, List, ListItem, ListItemText } from "@mui/material";
+import { useMediaQuery, SwipeableDrawer, Drawer, Chip, Divider, List, ListItem, ListItemText } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { MdCopyright } from "react-icons/md";
 import {
@@ -77,6 +77,8 @@ const listData2 = [
 export default function MyDrawer(props) {
 	const { container } = props;
 	const { state, dispatch } = useContext(MainContext);
+	const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
+	
 	const handleDrawerToggle = () => {
 		dispatch({ type: DRAWER });
 	};
@@ -147,8 +149,7 @@ export default function MyDrawer(props) {
 		<Suspense fallback={<nav />}>
 			<StyledRootDiv>
 				<StyledNav aria-label="mailbox folders">
-					{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-					<Hidden smUp implementation="css">
+					{isMobile ? (
 						<SwipeableDrawer
 							container={container}
 							variant="temporary"
@@ -163,8 +164,7 @@ export default function MyDrawer(props) {
 						>
 							<DrawerData mobile={true} />
 						</SwipeableDrawer>
-					</Hidden>
-					<Hidden xsDown implementation="css">
+					) : (
 						<Drawer
 							sx={{ "& .MuiDrawer-paper": drawerPaperStyles }}
 							variant="permanent"
@@ -173,7 +173,7 @@ export default function MyDrawer(props) {
 						>
 							<DrawerData mobile={false} />
 						</Drawer>
-					</Hidden>
+					)}
 				</StyledNav>
 			</StyledRootDiv>
 		</Suspense>

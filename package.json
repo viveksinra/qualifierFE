@@ -9,6 +9,8 @@
 		"government jobs"
 	],
 	"dependencies": {
+		"@ckeditor/ckeditor5-build-classic": "^44.3.0",
+		"@ckeditor/ckeditor5-react": "^9.5.0",
 		"@emotion/react": "^11.14.0",
 		"@emotion/styled": "^11.14.0",
 		"@mui/icons-material": "^7.0.1",
@@ -24,7 +26,6 @@
 		"react-chartjs-2": "^5.3.0",
 		"react-dom": "^18.3.1",
 		"react-helmet-async": "^2.0.4",
-		"react-html-parser": "^2.0.2",
 		"react-icons": "^5.5.0",
 		"react-responsive-carousel": "^3.2.23",
 		"react-router-dom": "^7.4.1",
