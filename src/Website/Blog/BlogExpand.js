@@ -15,7 +15,7 @@ import { FcAdvance } from "react-icons/fc";
 import { FullNav, HideOnScroll } from "../../Components/Navigation/Nav";
 import axios from "axios";
 
-import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 import { Link } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 
@@ -140,7 +140,7 @@ export default function BlogExpand({ match }) {
 						</div>
 					)}
 					{data.img && <img src={data.img} alt="blog" className={classes.img} />}
-					{ReactHtmlParser(data.text)}
+					{parse(data.text)}
 				</Paper>
 			</Container>
 			<Zoom in={trigger} timeout={2000}>

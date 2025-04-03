@@ -2,7 +2,8 @@ import React, { useContext, Suspense, lazy } from "react";
 import PropTypes from "prop-types";
 import { DRAWER } from "../Context/types";
 import { MainContext } from "../Context/MainContext";
-import { CssBaseline, Container, useScrollTrigger, Hidden, AppBar, Toolbar, IconButton, Avatar, Slide } from "@mui/material";
+import { CssBaseline, Container, useScrollTrigger, 
+	Hidden, AppBar, Toolbar, IconButton, Avatar, Slide } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { MdMenu, MdExpandMore, MdAccountCircle } from "react-icons/md";
 import { Link } from "react-router-dom";

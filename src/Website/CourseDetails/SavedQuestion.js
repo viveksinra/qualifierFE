@@ -22,7 +22,7 @@ import {
 import { styled } from "@mui/material/styles";
 import axios from "axios";
 import MySnackbar from "../../Components/MySnackbar";
-import ReactHtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 
 import { MdBookmark, MdExpandMore } from "react-icons/md";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -158,7 +158,7 @@ export default function SavedQuestion({ link }) {
 								/>
 								<Accordion elevation={0}>
 									<AccordionSummary expandIcon={<MdExpandMore />} aria-controls="panel1a-content">
-										<CardContent>{ReactHtmlParser(q.question)}</CardContent>
+										<CardContent>{parse(q.question)}</CardContent>
 									</AccordionSummary>
 									<AccordionDetails>
 										<List style={{ width: "100%" }}>

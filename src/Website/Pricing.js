@@ -19,7 +19,7 @@ import FAQ from "../Components/FAQ";
 import Footer from "../Components/Footer/Footer";
 import { MainContext } from "../Components/Context/MainContext";
 import right from "../img/right.svg";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import Typewriter from "typewriter-effect";
 import clsx from "clsx";
 import { FaRupeeSign, FaArrowCircleRight, FaTrash, FaSketch } from "react-icons/fa";
@@ -164,7 +164,7 @@ export const PriceCard = () => {
 	};
 
 	if (redirect) {
-		return <Redirect to="/login" />;
+		return <Navigate to="/login" />;
 	}
 	return (
 		<div className={pricingBg}>

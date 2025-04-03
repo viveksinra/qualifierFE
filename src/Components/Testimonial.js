@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Container, Typography, Avatar, Card, useMediaQuery } from "@mui/material";
 import { styled, useTheme } from "@mui/material/styles";
-import Slider from "infinite-react-carousel";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Rating from "@mui/material/Rating";
 import { FaHeart } from "react-icons/fa";
 import axios from "axios";
@@ -26,6 +27,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
 	paddingBottom: theme.spacing(2),
 	maxWidth: "90%",
 	minHeight: "280px",
+	margin: "0 auto",
 }));
 
 const StyledAvatar = styled(Avatar)(({ theme }) => ({
@@ -60,17 +62,9 @@ function Testimonial() {
 			.catch((err) => console.log(err));
 		return () => (active = false);
 	}, []);
-	const settings = {
-		autoplay: true,
-		autoplayScroll: 1,
-		autoplaySpeed: 6000,
-		centerPadding: 40,
-		arrows: !isXs,
-		dots: true,
-		overScan: 1,
-		pauseOnHover: true,
-		slidesToShow: isXs || isSm ? 1 : 3,
-	};
+
+	const centerSlidePercentage = isXs || isSm ? 100 : 33.33;
+
 	return (
 		<Area>
 			<Container>
@@ -81,7 +75,17 @@ function Testimonial() {
 					<Typography align="center" paragraph color="textSecondary">
 						At Qualifier, our passion drives us to work hard and deliver outstanding practice set, Your appreciation is always motivational.
 					</Typography>
-					<Slider {...settings}>
+					<Carousel 
+						autoPlay 
+						infiniteLoop 
+						showStatus={false} 
+						showThumbs={false} 
+						showArrows={!isXs} 
+						showIndicators={true}
+						centerMode={true}
+						centerSlidePercentage={centerSlidePercentage}
+						interval={6000}
+					>
 						{data.map((t, i) => (
 							<StyledCard key={i}>
 								<StyledAvatar alt={t.name} src={t.image} />
@@ -101,7 +105,7 @@ function Testimonial() {
 								</center>
 							</StyledCard>
 						))}
-					</Slider>
+					</Carousel>
 				</Paper>
 			</Container>
 		</Area>

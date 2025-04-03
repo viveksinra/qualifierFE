@@ -3,7 +3,8 @@ import { styled, Paper, Container, Fab, CircularProgress } from "@mui/material";
 import CourseList from "./CourseList";
 import { FullNav, HideOnScroll } from "../../Components/Navigation/Nav";
 import Footer from "../../Components/Footer/Footer";
-import Particles from "react-particles-js";
+import { Particles } from "react-tsparticles";
+import { loadFull } from "tsparticles";
 
 const TopSection = styled('div')(({ theme }) => ({
 	position: "absolute",
@@ -37,6 +38,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 function CoursesHome() {
 	document.title = "Course List - Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
 
+	const particlesInit = async (engine) => {
+		await loadFull(engine);
+	};
+
 	return (
 		<Fragment>
 			<FullNav />
@@ -45,7 +50,20 @@ function CoursesHome() {
 			</HideOnScroll>
 			<TopSection>
 				<SkewedBg />
-				<Particles />
+				<Particles 
+					init={particlesInit}
+					options={{
+						particles: {
+							number: {
+								value: 80,
+								density: {
+									enable: true,
+									value_area: 800
+								}
+							}
+						}
+					}}
+				/>
 			</TopSection>
 			<div style={{ display: "flex", position: "absolute", marginTop: "4%", width: "100%", justifyContent: "center" }}>
 				<Fab color="primary" variant="extended" size="medium">

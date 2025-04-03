@@ -6,8 +6,8 @@ import { HideOnScroll, FullNav } from "./Components/Navigation/Nav";
 import { MainContext } from "./Components/Context/MainContext";
 import { Link } from "react-router-dom";
 import SpeedNav from "./Components/Navigation/SpeedNav";
-import { Grid, Typography, Fab, Avatar, Chip, IconButton, Hidden, CircularProgress } from "@mui/material";
-import { styled } from '@mui/material/styles';
+import { Grid, Typography, Fab, Avatar, Chip, IconButton, CircularProgress, useMediaQuery } from "@mui/material";
+import { styled, useTheme } from '@mui/material/styles';
 import { FaAngleDown, FaUserCircle, FaArrowAltCircleRight, FaBars } from "react-icons/fa";
 import { Head, Typewriter } from "./Components/NameExp";
 const DataCard = lazy(() => import("./Components/DataCard/DataCard"));
@@ -17,7 +17,7 @@ const Features2 = lazy(() => import("./Components/Decoration/Features2"));
 const Features = lazy(() => import("./Components/Decoration/Features"));
 const Testimonial = lazy(() => import("./Components/Testimonial"));
 const Footer = lazy(() => import("./Components/Footer/Footer"));
-const Particles = lazy(() => import("react-particles-js"));
+const Particles = lazy(() => import("react-tsparticles"));
 
 const StyledHeroDiv = styled('div')(({ theme }) => ({
 	backgroundImage: `url(${bg})`,
@@ -49,6 +49,10 @@ const StyledTextBoxDiv = styled('div')(({ theme }) => ({
 }));
 
 function Home(props) {
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+	const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
+
 	return (
 		<Fragment>
 			<Head>
@@ -71,9 +75,25 @@ function Home(props) {
 					<AppNav />
 				</Suspense>
 				<Suspense fallback={null}>
-					<Particles height="500px" />
+					<Particles height="500px" options={{
+						fpsLimit: 60,
+						particles: {
+							color: {
+								value: "#000000"
+							},
+							links: {
+								enable: true,
+								color: "#000000",
+								distance: 150
+							},
+							move: {
+								enable: true,
+								speed: 2
+							}
+						}
+					}} />
 				</Suspense>
-				<Hidden smUp>
+				{isMobile && (
 					<StyledMobBtnDiv>
 						<Link to="/practice">
 							<Chip size="small" color="primary" variant="outlined" label="Online Exam Practice" />
@@ -96,8 +116,8 @@ function Home(props) {
 							/>
 						</Link>
 					</StyledMobBtnDiv>
-				</Hidden>
-				<Hidden mdDown>
+				)}
+				{isDesktop && (
 					<StyledTextBoxDiv>
 						<Grid container justify="center" direction="column" alignItems="center">
 							<Typewriter
@@ -151,7 +171,7 @@ function Home(props) {
 							</Link>
 						</Grid>
 					</StyledTextBoxDiv>
-				</Hidden>
+				)}
 			</StyledHeroDiv>
 			<SpeedNav />
 			<Suspense fallback={<CircularProgress />}>

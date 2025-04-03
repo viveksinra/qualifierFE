@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, lazy, Suspense } from "react";
+import React, { useContext, useEffect, useState, lazy, Suspense, useCallback } from "react";
 import { FullNav } from "../../Components/Navigation/Nav";
 import { TimeNav, PracBtmNav } from "./PracticsNav";
 import QuesArea from "./QuesArea";
@@ -7,7 +7,7 @@ import { PracContext } from "../../Components/Context/PracticeContext/PracticeCo
 import { GETQUES } from "../../Components/Context/types";
 import { Grid, Container, Paper, AppBar, Divider, CircularProgress } from "@mui/material";
 import { styled } from '@mui/material/styles';
-import { Prompt } from "react-router-dom";
+import { useBeforeUnload, useNavigate } from "react-router-dom";
 import axios from "axios";
 const ChatBox = lazy(() => import("./ChatBox"));
 
@@ -46,6 +46,35 @@ const StyledRoot = styled('div')(({ theme }) => ({
 export default function Practice({ match }) {
 	const { Pstate, Pdispatch } = useContext(PracContext);
 	const [newlink] = useState(makeLink(Pstate.level, Pstate.ansRight, match));
+	const navigate = useNavigate();
+	
+	// Handle beforeunload event
+	useBeforeUnload(
+		useCallback((event) => {
+			if (!Pstate.end) {
+				event.preventDefault();
+				return "Are you sure you want to leave Practice?";
+			}
+		}, [Pstate.end])
+	);
+	
+	// Handle back/forward navigation
+	useEffect(() => {
+		const handleBeforeNavigate = (event) => {
+			if (!Pstate.end) {
+				if (window.confirm("Are you sure you want to leave Practice?")) {
+					return;
+				}
+				event.preventDefault();
+			}
+		};
+		
+		window.addEventListener("beforeunload", handleBeforeNavigate);
+		return () => {
+			window.removeEventListener("beforeunload", handleBeforeNavigate);
+		};
+	}, [Pstate.end, navigate]);
+	
 	useEffect(() => {
 		if (Pstate.loading) {
 			axios
@@ -95,7 +124,6 @@ export default function Practice({ match }) {
 				)}
 			</Container>
 			<PracBtmNav />
-			<Prompt message="Are you sure you want to leave Practice?" />
 		</StyledRoot>
 	);
 }

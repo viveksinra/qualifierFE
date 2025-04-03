@@ -7,6 +7,7 @@ import SavedQuestion from "./SavedQuestion";
 import { MainContext } from "../../Components/Context/MainContext";
 import { styled, Fab, Tabs, Tab, Badge } from "@mui/material";
 import axios from "axios";
+import { useTheme } from '@mui/material/styles';
 const MyDrawer = lazy(() => import("../../Components/Navigation/MyDrawer"));
 const Notify = lazy(() => import("./Notify"));
 
@@ -54,6 +55,7 @@ export default function Course({ match }) {
 	const [tab, setTab] = useState(0);
 	const [loading, setLoading] = useState(false);
 	const [notify, setNotify] = useState({ open: false, link: "" });
+	const theme = useTheme();
 	document.title = `${course.courseTitle} - Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE`;
 
 	useEffect(() => {

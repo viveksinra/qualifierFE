@@ -1,6 +1,7 @@
 import React from "react";
 import { styled, Grid, Card, CardMedia, Divider, Typography, CardActions, CardContent, Button } from "@mui/material";
-import Slider from "infinite-react-carousel";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 import { fetchData } from "../../Components/Api";
 import { useTheme } from '@mui/material/styles';
@@ -34,12 +35,14 @@ const CourseList = () => {
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
 	const settings = {
-		autoplay: true,
-		autoplayScroll: 1,
-		dots: true,
-		autoplaySpeed: 6000,
-		overScan: 1,
-		slidesToShow: isSmallScreen ? 1 : 3,
+		autoPlay: true,
+		infiniteLoop: true,
+		showThumbs: false,
+		showStatus: false,
+		showIndicators: true,
+		interval: 6000,
+		centerMode: true,
+		centerSlidePercentage: isSmallScreen ? 100 : 33.33,
 	};
 	return (
 		<Grid container spacing={4}>
@@ -68,7 +71,7 @@ const CourseList = () => {
 						</Grid>
 					</Grid>
 
-					<Slider {...settings}>
+					<Carousel {...settings}>
 						{d.cour.map((c, j) => (
 							<CourseCard key={j}>
 								<Link to={`/practice/${d.link}/${c.link}`}>
@@ -125,7 +128,7 @@ const CourseList = () => {
 								</CardActions>
 							</CourseCard>
 						))}
-					</Slider>
+					</Carousel>
 				</Grid>
 			))}
 		</Grid>

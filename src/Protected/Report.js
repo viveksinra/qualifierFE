@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, lazy } from "react";
+import React, { useEffect, useState, useContext, lazy, Suspense } from "react";
 import { Nav } from "../Components/Navigation/Nav";
 import { MainContext } from "../Components/Context/MainContext";
 import {
@@ -11,15 +11,20 @@ import {
 	LinearProgress,
 	TextField,
 	Table,
-	lighten,
+	Autocomplete,
+	CircularProgress,
+	Backdrop,
+	Button,
+	Divider,
+	Container,
 	TableHead,
 	TableBody,
 	TableRow,
-	TableCell,
-	Autocomplete
+	TableCell
 } from "@mui/material";
 import axios from "axios";
 import CourseAnalysis from "../Website/CourseDetails/CourseAnalysis";
+import { lighten } from "@mui/material/styles";
 const MyDrawer = lazy(() => import("../Components/Navigation/MyDrawer"));
 
 const ReportRoot = styled('div')(({ theme }) => ({
@@ -279,26 +284,26 @@ export function SectionBreakdown(props) {
 	);
 }
 
-const CorrectLinearProgress = withStyles({
+const CorrectLinearProgress = styled(LinearProgress)(({ theme }) => ({
 	root: {
 		height: 20,
 		width: "60%",
 		backgroundColor: lighten("#0a9e07", 0.5),
 	},
-	bar: {
+	"& .MuiLinearProgress-bar": {
 		borderRadius: 5,
 		backgroundColor: "#0a9e07",
 	},
-})(LinearProgress);
+}));
 
-const AccuracyLinearProgress = withStyles({
+const AccuracyLinearProgress = styled(LinearProgress)(({ theme }) => ({
 	root: {
 		height: 20,
 		width: "60%",
 		backgroundColor: lighten("#00cbff", 0.5),
 	},
-	bar: {
+	"& .MuiLinearProgress-bar": {
 		borderRadius: 5,
 		backgroundColor: "#00cbff",
 	},
-})(LinearProgress);
+}));
