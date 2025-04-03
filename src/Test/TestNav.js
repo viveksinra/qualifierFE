@@ -2,41 +2,58 @@ import React, { useContext, useState, useEffect } from "react";
 import { SETSECTION, MARKED, SAVENEXT, CLEARANS } from "../Components/Context/types";
 import { TestContext } from "../Components/Context/TestContext/TestContext";
 import TestTimer from "../Components/Timer/TestTimer";
-import { makeStyles, AppBar, Toolbar, Typography, Button, Hidden, Divider, Paper, Tabs, Tab, Menu, MenuItem } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, Hidden, Divider, Paper, Tabs, Tab, Menu, MenuItem } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import { MdArrowBack, MdArrowForward, MdFullscreen, MdFullscreenExit, MdReportProblem } from "react-icons/md";
 import axios from "axios";
 export const drawerWidth = 260;
 
-const navStyle = makeStyles((theme) => ({
-	secNav: {
-		width: "100%",
-		position: "fixed",
-		borderTopColor: "#fff",
-		[theme.breakpoints.up("sm")]: {
-			width: `calc(100% - ${drawerWidth}px)`,
-			marginRight: drawerWidth,
-		},
+const StyledSectionPaper = styled(Paper)(({ theme }) => ({
+	width: "100%",
+	position: "fixed",
+	borderTopColor: "#fff",
+	height: 45,
+	top: 52,
+	background: "#fcfdff",
+	[theme.breakpoints.up("sm")]: {
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginRight: drawerWidth,
 	},
-	mark: {
-		color: "#fff",
-		borderRadius: 10,
-		padding: theme.spacing(0.2, 1),
-		fontSize: 12,
-		fontFamily: "sans-serif",
+}));
+
+const StyledBottomAppBar = styled(AppBar)(({ theme }) => ({
+	top: "auto",
+	bottom: 0,
+	[theme.breakpoints.up("sm")]: {
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginRight: drawerWidth,
 	},
-	bottomNav: {
-		top: "auto",
-		bottom: 0,
-		[theme.breakpoints.up("sm")]: {
-			width: `calc(100% - ${drawerWidth}px)`,
-			marginRight: drawerWidth,
-		},
+}));
+
+const StyledNavButton = styled(Button)(({ theme }) => ({
+	[theme.breakpoints.down("sm")]: {
+		fontSize: 8,
 	},
-	btn: {
-		[theme.breakpoints.down("sm")]: {
-			fontSize: 8,
-		},
+}));
+
+const StyledMarkSpan = styled('span')(({ theme }) => ({
+	color: "#fff",
+	borderRadius: 10,
+	padding: theme.spacing(0.2, 1),
+	fontSize: 12,
+	fontFamily: "sans-serif",
+}));
+
+const StyledQuestionNavContainer = styled('div')(({ theme }) => ({
+	position: 'fixed',
+	width: '100%',
+	top: 102,
+	height: 45,
+	borderBottom: "1px solid #cde4f7",
+	[theme.breakpoints.up("sm")]: {
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginRight: drawerWidth,
 	},
 }));
 
@@ -96,9 +113,8 @@ export function TestTopNav({ test }) {
 }
 
 export function IntroBNav({ loading, showGen, setInst, agree, TseriesLink, testLink }) {
-	const classes = navStyle();
 	return (
-		<AppBar position="fixed" color="default" className={classes.bottomNav}>
+		<StyledBottomAppBar position="fixed" color="default">
 			<Toolbar variant="dense">
 				{showGen ? (
 					<>
@@ -126,12 +142,11 @@ export function IntroBNav({ loading, showGen, setInst, agree, TseriesLink, testL
 					</>
 				)}
 			</Toolbar>
-		</AppBar>
+		</StyledBottomAppBar>
 	);
 }
 
 export function TestBNav() {
-	const classes = navStyle();
 	const { Tdispatch } = useContext(TestContext);
 	const handleMark = () => {
 		Tdispatch({ type: MARKED });
@@ -153,32 +168,31 @@ export function TestBNav() {
 		}
 	}, []);
 	return (
-		<AppBar position="fixed" color="default" className={classes.bottomNav}>
+		<StyledBottomAppBar position="fixed" color="default">
 			<Toolbar variant="dense">
-				<Button size="small" className={classes.btn} onClick={handleMark} variant="contained" color="primary">
+				<StyledNavButton size="small" onClick={handleMark} variant="contained" color="primary">
 					Mark for Review & Next
-				</Button>
+				</StyledNavButton>
 				<span style={{ flexGrow: 0.05 }} />
-				<Button onClick={handleClear} className={classes.btn} size="small" variant="outlined" color="primary">
+				<StyledNavButton onClick={handleClear} size="small" variant="outlined" color="primary">
 					Clear Response
-				</Button>
+				</StyledNavButton>
 				<span style={{ flexGrow: 1 }} />
-				<Button onClick={handleSave} className={classes.btn} endIcon={<MdArrowForward />} size="small" variant="contained" color="secondary">
+				<StyledNavButton onClick={handleSave} endIcon={<MdArrowForward />} size="small" variant="contained" color="secondary">
 					Save & Next
-				</Button>
+				</StyledNavButton>
 			</Toolbar>
-		</AppBar>
+		</StyledBottomAppBar>
 	);
 }
 
 export function SectionNav() {
-	const classes = navStyle();
 	const { Tstate, Tdispatch } = useContext(TestContext);
 	const changeSection = (v) => {
 		return Tdispatch({ type: SETSECTION, payload: v });
 	};
 	return (
-		<Paper className={classes.secNav} style={{ height: 45, top: 52, background: "#fcfdff" }} elevation={2}>
+		<StyledSectionPaper elevation={2}>
 			<div style={{ display: "flex", alignItems: "center", paddingLeft: 15, paddingRight: 15 }}>
 				<Typography variant="caption">SECTIONS </Typography>
 				<Divider orientation="vertical" flexItem style={{ height: 30, marginLeft: 20, marginRight: 20, marginTop: 7.5 }} />
@@ -190,12 +204,11 @@ export function SectionNav() {
 					</Tabs>
 				)}
 			</div>
-		</Paper>
+		</StyledSectionPaper>
 	);
 }
 
 export function QuestionNav({ qNo, qId, marks }) {
-	const classes = navStyle();
 	const [rMenu, setMenu] = useState(null);
 
 	const handleReport = (issue) => {
@@ -206,7 +219,7 @@ export function QuestionNav({ qNo, qId, marks }) {
 		setMenu(null);
 	};
 	return (
-		<div className={classes.secNav} style={{ top: 102, height: 45, borderBottom: "1px solid #cde4f7" }}>
+		<StyledQuestionNavContainer>
 			<Toolbar variant="dense">
 				<Typography variant="body2">
 					<b>Question No. {qNo} </b>
@@ -215,13 +228,13 @@ export function QuestionNav({ qNo, qId, marks }) {
 				<div style={{ display: "flex", flexDirection: "column", marginTop: -8 }}>
 					<Typography variant="caption">Marks</Typography>
 					<span>
-						<span className={classes.mark} style={{ background: "#27ae60" }}>
+						<StyledMarkSpan style={{ background: "#27ae60" }}>
 							+{marks && marks.correct}
-						</span>
+						</StyledMarkSpan>
 						{"\u00A0"}
-						<span className={classes.mark} style={{ background: "#c0392b" }}>
+						<StyledMarkSpan style={{ background: "#c0392b" }}>
 							-{marks && marks.incorrect}
-						</span>
+						</StyledMarkSpan>
 					</span>
 				</div>
 				<span style={{ flexGrow: 0.06 }} />
@@ -235,6 +248,6 @@ export function QuestionNav({ qNo, qId, marks }) {
 					<MenuItem onClick={() => handleReport("Other")}>Other Problem</MenuItem>
 				</Menu>
 			</Toolbar>
-		</div>
+		</StyledQuestionNavContainer>
 	);
 }

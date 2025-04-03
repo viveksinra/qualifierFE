@@ -1,6 +1,7 @@
 import React, { Fragment, useContext, useState, useEffect, useRef, lazy, Suspense } from "react";
 import { QuesProvider, QuesContext } from "../../../Components/Context/AddQuesContext/QuestionContext";
-import { Chip, Paper, Container, makeStyles, Stepper, Step, StepLabel, StepContent, Button, CircularProgress } from "@mui/material";
+import { Chip, Paper, Container, Stepper, Step, StepLabel, StepContent, Button, CircularProgress } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import Section2 from "./Section2";
 import Section3 from "./Section3";
 import QuesSearch from "./QuesSearch";
@@ -9,28 +10,29 @@ import { FcSearch } from "react-icons/fc";
 const Section1 = lazy(() => import("./Section1"));
 const MySnackbar = lazy(() => import("../../../Components/MySnackbar"));
 
-const queStyles = makeStyles((theme) => ({
-	root: {
-		width: "100%",
-		marginTop: theme.spacing(),
-		background: "linear-gradient(to right, #dae2f8, #93EDC7)",
-		borderRadius: theme.spacing(),
-	},
-	actionsContainer: {
-		marginBottom: theme.spacing(2),
-	},
-	button: {
-		marginTop: theme.spacing(1),
-		marginRight: theme.spacing(1),
-	},
-	search: {
-		fontSize: 25,
-		position: "absolute",
-		float: "right",
-		right: "12%",
-		top: 15,
-		cursor: "pointer",
-	},
+const StyledPaper = styled(Paper)(({ theme }) => ({
+	width: "100%",
+	marginTop: theme.spacing(),
+	background: "linear-gradient(to right, #dae2f8, #93EDC7)",
+	borderRadius: theme.spacing(),
+}));
+
+const ActionsContainer = styled('div')(({ theme }) => ({
+	marginBottom: theme.spacing(2),
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+	marginTop: theme.spacing(1),
+	marginRight: theme.spacing(1),
+}));
+
+const StyledFcSearch = styled(FcSearch)(({ theme }) => ({
+	fontSize: 25,
+	position: "absolute",
+	float: "right",
+	right: "12%",
+	top: 15,
+	cursor: "pointer",
 }));
 
 function getSteps() {
@@ -50,7 +52,6 @@ function getStepContent(step) {
 	}
 }
 function Question() {
-	const classes = queStyles();
 	const { Qstate, Qdispatch } = useContext(QuesContext);
 	const [activeStep, setStep] = useState(0);
 	const steps = getSteps();
@@ -115,37 +116,37 @@ function Question() {
 	return (
 		<Fragment>
 			<Container>
-				<Paper elevation={3} className={classes.root}>
+				<StyledPaper elevation={3}>
 					<center>
 						<Chip color="primary" label="Add Question" style={{ marginTop: 5, marginBottom: 5 }} />
 					</center>
-					<FcSearch className={classes.search} onClick={() => Qdispatch({ type: "TOGGLESEARCH" })} />
+					<StyledFcSearch onClick={() => Qdispatch({ type: "TOGGLESEARCH" })} />
 					<Stepper activeStep={activeStep} orientation="vertical">
 						{steps.map((label, index) => (
 							<Step key={label}>
 								<StepLabel>{label}</StepLabel>
 								<StepContent>
 									{getStepContent(index)}
-									<div className={classes.actionsContainer}>
+									<ActionsContainer>
 										<div>
-											<Button disabled={activeStep === 0} onClick={handleBack} className={classes.button}>
+											<StyledButton disabled={activeStep === 0} onClick={handleBack}>
 												Back
-											</Button>
-											<Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
+											</StyledButton>
+											<StyledButton variant="contained" color="primary" onClick={handleNext}>
 												{activeStep === steps.length - 1 ? (Qstate.id ? "Update Question" : "Add Question") : "Next"}
-											</Button>
+											</StyledButton>
 											{Qstate.id && (
-												<Button color="secondary" onClick={() => handleDelete(Qstate.id)} className={classes.button}>
+												<StyledButton color="secondary" onClick={() => handleDelete(Qstate.id)}>
 													Delete
-												</Button>
+												</StyledButton>
 											)}
 										</div>
-									</div>
+									</ActionsContainer>
 								</StepContent>
 							</Step>
 						))}
 					</Stepper>
-				</Paper>
+				</StyledPaper>
 			</Container>
 			<QuesSearch />
 			<MySnackbar ref={snackRef} />

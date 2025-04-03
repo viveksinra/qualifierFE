@@ -1,6 +1,5 @@
 import React, { Suspense, useState, useEffect } from "react";
 import {
-	makeStyles,
 	Paper,
 	Container,
 	Grid,
@@ -14,33 +13,36 @@ import {
 	ListItem,
 	ListItemIcon,
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { FcCheckmark } from "react-icons/fc";
 import ReactHtmlParser from "react-html-parser";
 import axios from "axios";
-import Autocomplete from "@material-ui/lab/Autocomplete";
-const useStyles = makeStyles((theme) => ({
-	root: {
-		width: "100%",
-		marginTop: theme.spacing(),
-		padding: theme.spacing(),
-		background: "linear-gradient(to right, #dae2f8, #93EDC7)",
-		borderRadius: theme.spacing(),
-	},
-	cardHeader: {
-		padding: theme.spacing(1, 2),
-	},
-	list: {
-		width: 500,
-		height: 500,
-		backgroundColor: theme.palette.background.paper,
-		overflow: "auto",
-	},
-	button: {
-		margin: theme.spacing(0.5, 0),
-	},
+import Autocomplete from "@mui/lab/Autocomplete";
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+	width: "100%",
+	marginTop: theme.spacing(),
+	padding: theme.spacing(),
+	background: "linear-gradient(to right, #dae2f8, #93EDC7)",
+	borderRadius: theme.spacing(),
 }));
+
+const StyledCardHeader = styled(CardHeader)(({ theme }) => ({
+	padding: theme.spacing(1, 2),
+}));
+
+const StyledList = styled(List)(({ theme }) => ({
+	width: 500,
+	height: 500,
+	backgroundColor: theme.palette.background.paper,
+	overflow: "auto",
+}));
+
+const StyledButton = styled(Button)(({ theme }) => ({
+	margin: theme.spacing(0.5, 0),
+}));
+
 function TransferQues() {
-	const classes = useStyles();
 	const [checked, setChecked] = useState([]);
 	const [category, setCategory] = useState({ from: null, to: null });
 	const [course, setCourse] = useState({ from: null, to: null });
@@ -101,8 +103,7 @@ function TransferQues() {
 	};
 	const customList = (title, items) => (
 		<Card>
-			<CardHeader
-				className={classes.cardHeader}
+			<StyledCardHeader
 				avatar={
 					<Checkbox
 						onClick={handleToggleAll(items)}
@@ -131,7 +132,7 @@ function TransferQues() {
 			/>
 
 			<Divider />
-			<List className={classes.list} dense component="div" role="list">
+			<StyledList dense component="div" role="list">
 				{items.map((value, i) => {
 					const labelId = `transfer-list-all-item-${value}-label`;
 
@@ -145,7 +146,7 @@ function TransferQues() {
 					);
 				})}
 				<ListItem />
-			</List>
+			</StyledList>
 		</Card>
 	);
 
@@ -246,7 +247,7 @@ function TransferQues() {
 	return (
 		<Suspense fallback={null}>
 			<Container>
-				<Paper elevation={3} className={classes.root}>
+				<StyledPaper elevation={3}>
 					<Grid container spacing={2} justify="center" alignItems="center" style={{ margn: "auto" }}>
 						<Grid item xs={12} sm={6}>
 							{Section("from")}
@@ -257,31 +258,29 @@ function TransferQues() {
 						<Grid item>{customList("Choices (From)", left)}</Grid>
 						<Grid item>
 							<Grid container direction="column" alignItems="center">
-								<Button
+								<StyledButton
 									variant="outlined"
 									size="small"
-									className={classes.button}
 									onClick={handleCheckedRight}
 									disabled={leftChecked.length === 0}
 									aria-label="move selected right"
 								>
 									&gt;
-								</Button>
-								<Button
+								</StyledButton>
+								<StyledButton
 									variant="outlined"
 									size="small"
-									className={classes.button}
 									onClick={handleCheckedLeft}
 									disabled={rightChecked.length === 0}
 									aria-label="move selected left"
 								>
 									&lt;
-								</Button>
+								</StyledButton>
 							</Grid>
 						</Grid>
 						<Grid item>{customList("Chosen (To)", right)}</Grid>
 					</Grid>
-				</Paper>
+				</StyledPaper>
 			</Container>
 		</Suspense>
 	);

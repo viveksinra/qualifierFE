@@ -1,25 +1,33 @@
 import React, { useContext, useState } from "react";
 import { PracContext } from "../../Components/Context/PracticeContext/PracticeContext";
-import { makeStyles, AppBar, Toolbar, Fab, Typography, Fade, Breadcrumbs, IconButton, Tooltip, Hidden } from "@mui/material";
+import { AppBar, Toolbar, Fab, Typography, Fade, Breadcrumbs, IconButton, Tooltip, Hidden } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import clsx from "clsx";
 import { NEXTQUES } from "../../Components/Context/types";
 import TimeSlider from "./TimeSlider";
 import { MdBookmark, MdBookmarkBorder, MdNearMe, MdFullscreenExit, MdFullscreen } from "react-icons/md";
 import axios from "axios";
 
-const navStyle = makeStyles((theme) => ({
-	maxSize: {
+const PREFIX = 'PracticsNav';
+const navClasses = {
+	maxSize: `${PREFIX}-maxSize`,
+	bottomNav: `${PREFIX}-bottomNav`,
+	extendedIcon: `${PREFIX}-extendedIcon`
+};
+
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+	[`&.${navClasses.maxSize}`]: {
 		[theme.breakpoints.up("sm")]: {
 			maxWidth: `calc(100% - ${22}vw)`,
 			marginRight: "11vw",
 			marginLeft: "11vw",
 		},
 	},
-	bottomNav: {
+	[`&.${navClasses.bottomNav}`]: {
 		top: "auto",
 		bottom: 0,
 	},
-	extendedIcon: {
+	[`& .${navClasses.extendedIcon}`]: {
 		marginLeft: theme.spacing(1),
 	},
 }));
@@ -86,7 +94,6 @@ export function TimeNav() {
 }
 
 export function PracBtmNav() {
-	const classes = navStyle();
 	const [fullSrn, setSrn] = useState(false);
 	const [save, setSave] = useState(false);
 	const { Pstate, Pdispatch } = useContext(PracContext);
@@ -112,7 +119,7 @@ export function PracBtmNav() {
 	};
 
 	return (
-		<AppBar position="fixed" elevation={3} color="default" className={clsx(classes.bottomNav, classes.maxSize)}>
+		<StyledAppBar position="fixed" elevation={3} color="default" className={clsx(navClasses.bottomNav, navClasses.maxSize)}>
 			<Toolbar variant="dense">
 				<Tooltip title="Full Screen">
 					<IconButton color="primary" onClick={setScrn} aria-label="Screen">
@@ -126,10 +133,10 @@ export function PracBtmNav() {
 				</Tooltip>
 				<span style={{ flexGrow: 1 }} />
 				<Fab color="secondary" onClick={handleNext} disabled={Pstate.loading} size="small" variant="extended">
-					<span className={classes.extendedIcon}>{Pstate.loading ? "Loading" : Pstate.submitted ? "Next" : "Skip"}</span>
-					<MdNearMe className={classes.extendedIcon} />
+					<span className={navClasses.extendedIcon}>{Pstate.loading ? "Loading" : Pstate.submitted ? "Next" : "Skip"}</span>
+					<MdNearMe className={navClasses.extendedIcon} />
 				</Fab>
 			</Toolbar>
-		</AppBar>
+		</StyledAppBar>
 	);
 }

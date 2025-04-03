@@ -3,7 +3,6 @@ import TopTray from "../../Components/Decoration/TopTray";
 import "./common.css";
 import { OfferCard } from "../../Components/Decoration/OfferCard";
 import {
-	makeStyles,
 	CircularProgress,
 	Container,
 	Breadcrumbs,
@@ -19,6 +18,7 @@ import {
 	List,
 	ListItemText,
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import clsx from "clsx";
 import axios from "axios";
 import { FullNav } from "../../Components/Navigation/Nav";
@@ -29,16 +29,27 @@ import i3 from "./analytics.svg";
 import { FcClock, FcInspection, FcKindle, FcLock, FcApproval, FcComboChart } from "react-icons/fc";
 import { MainContext } from "../../Components/Context/MainContext";
 const Footer = lazy(() => import("../../Components/Footer/Footer"));
-const testSyle = makeStyles((theme) => ({
-	titleBg: {
+
+// Styles for TestHome component
+const testHomePrefix = 'TestHome';
+const testHomeClasses = {
+	titleBg: `${testHomePrefix}-titleBg`,
+	listBg: `${testHomePrefix}-listBg`,
+	seriesCard: `${testHomePrefix}-seriesCard`,
+	avatar: `${testHomePrefix}-avatar`,
+	icon: `${testHomePrefix}-icon`
+};
+
+const StyledTestHomeContainer = styled('div')(({ theme }) => ({
+	[`& .${testHomeClasses.titleBg}`]: {
 		paddingTop: theme.spacing(2),
 		paddingBottom: theme.spacing(3),
 	},
-	listBg: {
+	[`& .${testHomeClasses.listBg}`]: {
 		minHeight: 600,
 		background: "linear-gradient(to top,#e3fcf7, #ffffff )",
 	},
-	seriesCard: {
+	[`& .${testHomeClasses.seriesCard}`]: {
 		height: 310,
 		maxWidth: 250,
 		padding: theme.spacing(2),
@@ -52,10 +63,10 @@ const testSyle = makeStyles((theme) => ({
 			transform: "scale(1.02)",
 		},
 	},
-	avatar: {
+	[`& .${testHomeClasses.avatar}`]: {
 		height: theme.spacing(7),
 	},
-	icon: {
+	[`& .${testHomeClasses.icon}`]: {
 		width: 75,
 		height: 75,
 		marginRight: 10,
@@ -63,7 +74,6 @@ const testSyle = makeStyles((theme) => ({
 }));
 
 function TestHome({ match }) {
-	const classes = testSyle();
 	const [tab, setTab] = useState("All");
 	const [seriesData, setSD] = useState({ desp: [], tests: [] });
 	const [type, setType] = useState([]);
@@ -102,10 +112,10 @@ function TestHome({ match }) {
 		return setType(ty);
 	}, [seriesData]);
 	return (
-		<div>
+		<StyledTestHomeContainer>
 			<TopTray />
 			<FullNav />
-			<div className={classes.titleBg}>
+			<div className={testHomeClasses.titleBg}>
 				<Container>
 					<Breadcrumbs separator="›" aria-label="breadcrumb">
 						<Link to="/">Home</Link>
@@ -120,7 +130,7 @@ function TestHome({ match }) {
 				</Container>
 			</div>
 
-			<div className={classes.listBg}>
+			<div className={testHomeClasses.listBg}>
 				<Container>
 					<Grid container spacing={4}>
 						<Grid item md={9}>
@@ -143,7 +153,7 @@ function TestHome({ match }) {
 									<Grid item sm={4} key={f.title}>
 										<List dense>
 											<ListItem>
-												<img alt={f.logo} src={f.logo} className={classes.icon} />
+												<img alt={f.logo} src={f.logo} className={testHomeClasses.icon} />
 												<ListItemText
 													primary={<Typography color="primary"> {f.title}</Typography>}
 													secondary={
@@ -174,8 +184,8 @@ function TestHome({ match }) {
 							<br /> <br />
 						</Grid>
 						<Grid item md={3} style={{ marginLeft: "auto", marginRight: "auto" }}>
-							<Card className={clsx(classes.seriesCard, "shine")} elevation={2}>
-								<img className={classes.avatar} src={seriesData.logo} alt="logo" />
+							<Card className={clsx(testHomeClasses.seriesCard, "shine")} elevation={2}>
+								<img className={testHomeClasses.avatar} src={seriesData.logo} alt="logo" />
 								<Typography noWrap variant="h6">
 									{seriesData.title}
 								</Typography>
@@ -220,50 +230,59 @@ function TestHome({ match }) {
 			<Suspense fallback={<CircularProgress />}>
 				<Footer />
 			</Suspense>
-		</div>
+		</StyledTestHomeContainer>
 	);
 }
 
 export default TestHome;
 
-const cardStyle = makeStyles((theme, data) => ({
-	freeCard: {
+// Styles for TestCard component
+const testCardPrefix = 'TestCard';
+const testCardClasses = {
+	freeCard: `${testCardPrefix}-freeCard`,
+	trans: `${testCardPrefix}-trans`,
+	cross: `${testCardPrefix}-cross`,
+	free: `${testCardPrefix}-free`,
+	lock: `${testCardPrefix}-lock`,
+	righBnr: `${testCardPrefix}-righBnr`,
+	mob: `${testCardPrefix}-mob`,
+	botmBtn: `${testCardPrefix}-botmBtn`,
+};
+
+const StyledTestCard = styled(Card)(({ theme, data }) => ({
+	[`&.${testCardClasses.freeCard}`]: {
 		marginTop: theme.spacing(2),
 		height: 80,
-		border: (data) => (data.free ? "1px solid greenyellow" : data.isLock ? "1px solid fuchsia" : null),
+		border: data.free ? "1px solid greenyellow" : data.isLock ? "1px solid fuchsia" : null,
 		paddingLeft: theme.spacing(2),
 		paddingRight: theme.spacing(),
 	},
-	trans: {
-		transform: (data) => !data.free && !data.isLock && "translateY(40%)",
+	[`& .${testCardClasses.trans}`]: {
+		transform: !data.free && !data.isLock && "translateY(40%)",
 		[theme.breakpoints.down("xs")]: {
-			transform: (data) =>
-				data.isReport ? "translateY(-10%)" : !data.isLock && !data.free ? "translateY(5%)" : !data.isLock ? "translateY(-30%)" : null,
+			transform: data.isReport ? "translateY(-10%)" : !data.isLock && !data.free ? "translateY(5%)" : !data.isLock ? "translateY(-30%)" : null,
 		},
 	},
-	cross: {
+	[`& .${testCardClasses.cross}`]: {
 		left: "-3em",
 		top: "0.9em",
 		fontSize: "10px",
 		lineHeight: 1.5,
 		textAlign: "center",
 		width: "6em",
-		position: "relative",
-		letterSpacing: 1,
-		zIndex: 20,
-		transform: "rotate(-45deg)",
+		height: "2.5em",
 		color: "#fff",
-		// [theme.breakpoints.up("sm")]: {
-		// 	// top: "-0.7em",
-		// },
+		position: "absolute",
+		transform: "rotate(-45deg)",
+		background: data.free ? "mediumseagreen" : "deeppink",
 	},
-	free: {
+	[`& .${testCardClasses.free}`]: {
 		background: "linear-gradient(45deg,#72d042 17%,#25cc71 70%)",
 	},
-	lock: {
+	[`& .${testCardClasses.lock}`]: {
 		background: "linear-gradient(45deg,#f73888 17%,#d63ed8 70%)",
 	},
-	righBnr: {
+	[`& .${testCardClasses.righBnr}`]: {
 		fontSize: "10px",
 		width: "fit-content",
 		right: 0,
@@ -275,12 +294,12 @@ const cardStyle = makeStyles((theme, data) => ({
 		color: "#fff",
 		background: "linear-gradient(to right, #4BC0C8, #6441A5)",
 	},
-	mob: {
+	[`& .${testCardClasses.mob}`]: {
 		[theme.breakpoints.up("sm")]: {
 			display: "none",
 		},
 	},
-	botmBtn: {
+	[`& .${testCardClasses.botmBtn}`]: {
 		background: "linear-gradient(45deg,#00c6ff, #b3ffab)",
 		color: "navy",
 		borderRadius: 10,
@@ -292,93 +311,71 @@ const cardStyle = makeStyles((theme, data) => ({
 }));
 
 function TestCard({ data, serieslink }) {
-	const classes = cardStyle(data);
-	return (
-		<Card className={classes.freeCard}>
-			{data.free && <div className={clsx(classes.cross, classes.free)}>FREE</div>}
-			{data.isLock && <div className={clsx(classes.cross, classes.lock)}>LOCK</div>}
-			{!data.isReport && <div className={clsx(classes.righBnr, classes.mob)}>{data.isLock ? "BUY" : "START"}</div>}
-			<Grid container alignItems="center" className={classes.trans}>
-				<Grid item>
-					<Link to={data.isLock === false ? `/test/${serieslink}/${data.testLink}/instruction` : "/pricing"}>
-						<Typography color="primary" noWrap>
-							{data.free || data.isLock ? <>&nbsp; &nbsp;</> : null}
-							{data.testName}
-						</Typography>
-					</Link>
-					<div style={{ display: "flex", justifyContent: "space-between", width: 300 }}>
-						<Typography variant="caption" color="textSecondary">
-							<FcKindle /> {`${data.totalQuestion} Total Question`}
-						</Typography>
-						<Typography variant="caption" color="textSecondary">
-							<FcInspection /> {`${data.totalMarks} Total Marks`}
-						</Typography>
-						<Typography variant="caption" color="textSecondary">
-							<FcClock /> {data.totalTime}
-						</Typography>
-					</div>
-					{data.isReport && (
-						<center>
-							<Link to={`/test/${serieslink}/${data.testLink}/instruction`}>
-								<span className={clsx(classes.botmBtn, classes.mob)}>REATTEMPT</span>
-							</Link>
-							&nbsp; &nbsp;&nbsp;
-							<Link to={`/test/${serieslink}/${data.testLink}/report`}>
-								<span className={clsx(classes.botmBtn, classes.mob)}>SEE REPORT</span>
-							</Link>
-						</center>
-					)}
-				</Grid>
+	const { state } = useContext(MainContext);
 
-				<span style={{ flexGrow: 1 }} />
-				<Grid item className="hideInMob">
-					{data.isLock ? (
-						<Link to={`/pricing`}>
-							<Button variant="outlined" startIcon={<FcLock />} color="secondary">
-								UnLock
-							</Button>
-						</Link>
-					) : data.isReport ? (
-						<>
-							<Link to={`/test/${serieslink}/${data.testLink}/report`}>
-								<Button variant="outlined" startIcon={<FcComboChart />} color="secondary">
-									Report
-								</Button>
-							</Link>
-							&nbsp; &nbsp;
-							<Link to={`/test/${serieslink}/${data.testLink}/instruction`}>
-								<Button variant="contained" color="primary">
-									Reattempt
-								</Button>
-							</Link>
-						</>
-					) : (
-						<Link to={`/test/${serieslink}/${data.testLink}/instruction`}>
-							<Button variant="contained" color="primary">
-								Start Now
-							</Button>
-						</Link>
-					)}
+	return (
+		<StyledTestCard className={testCardClasses.freeCard} data={data} elevation={1}>
+			{(data.free || data.isLock) && (
+				<div className={testCardClasses.cross}>{data.free ? "Free" : "Locked"}</div>
+			)}
+			<Grid container alignItems="center">
+				<Grid item xs={12} sm={6}>
+					<ListItem style={{ marginLeft: 15 }}>
+						<img alt={data.title} className="examIcon" src={data.icon} />
+						<ListItemText
+							primary={data.title}
+							secondary={`${data.details.ques} Ques | ${data.details.marks} marks | ${data.details.time} min`}
+						/>
+					</ListItem>
+				</Grid>
+				<span style={{ flexGrow: 0.1 }} />
+				<Grid item xs={12} sm={5}>
+					<Grid container spacing={1} className={testCardClasses.trans}>
+						{data.isReport ? (
+							<Grid item>
+								<Link to={`/report/${serieslink}/${data.link}`}>
+									<Button endIcon={<FcComboChart />} variant="outlined" color="primary" size="small">
+										View Report
+									</Button>
+								</Link>
+							</Grid>
+						) : (
+							<>
+								<Grid item>
+									<Link to={data.isLock ? "/pricing" : `/instruction/${serieslink}/${data.link}`}>
+										<Button
+											startIcon={data.isLock && <FcLock />}
+											endIcon={<FcKindle />}
+											variant="contained"
+											color={data.isLock ? "default" : "primary"}
+											size="small"
+										>
+											{data.isLock ? "Unlock" : data.attempt > 0 ? "Re-Attempt" : "Start Test"}
+										</Button>
+									</Link>
+								</Grid>
+								<Grid item>
+									<Button
+										variant="text"
+										color="primary"
+										size="small"
+										startIcon={data.isReport && <FcInspection />}
+										endIcon={<FcClock />}
+									>
+										Time Left
+									</Button>
+								</Grid>
+							</>
+						)}
+					</Grid>
 				</Grid>
 			</Grid>
-		</Card>
+		</StyledTestCard>
 	);
 }
 
 const features = [
-	{
-		logo: i1,
-		title: "All India Rank",
-		desc: "Get a rank prediction on behalf of your score.",
-	},
-	{
-		logo: i2,
-		title: "Exam Relevant Questions",
-		desc: "Only selected questions by our expert faculties.",
-	},
-	{
-		logo: i3,
-		title: "In-depth Reporting",
-		desc: "Analysis of your weak & strong zone by graphs.",
-	},
+	{ logo: i1, title: "Exam Interface", desc: "Interface is same as actual exam interface." },
+	{ logo: i2, title: "Quality Questions", desc: "Selected question by experienced teacher & Toppers" },
+	{ logo: i3, title: "Detail Analysis", desc: "Know your accuracy, percentile, weak & strong area." },
 ];

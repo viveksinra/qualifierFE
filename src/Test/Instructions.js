@@ -1,18 +1,31 @@
 import React, { Fragment, useState, useEffect, useContext } from "react";
 import { LOADTEST, LOADING } from "../Components/Context/types";
-import { makeStyles, Typography, Checkbox, Paper, FormControlLabel, Badge } from "@mui/material";
+import { Typography, Checkbox, Paper, FormControlLabel, Badge } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { TestTopNav, IntroBNav, drawerWidth } from "./TestNav";
 import { TestContext } from "../Components/Context/TestContext/TestContext";
 import { MdCheck } from "react-icons/md";
 import TestDrawer from "./TestDrawer";
 import axios from "axios";
-const instStyle = makeStyles((theme) => ({
-	root: {
+
+const PREFIX = 'Instructions';
+const classes = {
+	root: `${PREFIX}-root`,
+	content: `${PREFIX}-content`,
+	toolbar: `${PREFIX}-toolbar`,
+	inst: `${PREFIX}-inst`,
+	markLine: `${PREFIX}-markLine`,
+	comm: `${PREFIX}-comm`,
+	li: `${PREFIX}-li`
+};
+
+const StyledRoot = styled('div')(({ theme }) => ({
+	[`&.${classes.root}`]: {
 		flexGrow: 1,
 		background: "#fff",
 		minHeight: `calc(100vh - ${52}px)`,
 	},
-	content: {
+	[`& .${classes.content}`]: {
 		flexGrow: 1,
 		padding: theme.spacing(0, 2),
 		[theme.breakpoints.up("sm")]: {
@@ -21,8 +34,8 @@ const instStyle = makeStyles((theme) => ({
 			minHeight: `calc(100vh - ${52}px)`,
 		},
 	},
-	toolbar: theme.mixins.toolbar,
-	inst: {
+	[`& .${classes.toolbar}`]: theme.mixins.toolbar,
+	[`& .${classes.inst}`]: {
 		fontFamily: "sans-serif",
 		fontSize: 14,
 		marginBottom: 52,
@@ -30,22 +43,20 @@ const instStyle = makeStyles((theme) => ({
 			margin: theme.spacing(),
 		},
 	},
-	markLine: {
+	[`& .${classes.markLine}`]: {
 		display: "flex",
 		alignItems: "center",
 		marginTop: 5,
 	},
-	comm: {
+	[`& .${classes.comm}`]: {
 		width: 25,
 		height: 20,
 		marginRight: 5,
 	},
-
-	li: { margin: theme.spacing() },
+	[`& .${classes.li}`]: { margin: theme.spacing() },
 }));
 
 function Instructions({ match }) {
-	const classes = instStyle();
 	const [showGen, setInst] = useState(true);
 	const [agree, setAgree] = useState(false);
 
@@ -65,15 +76,15 @@ function Instructions({ match }) {
 	}, [Tdispatch, match.params]);
 
 	return (
-		<div className={classes.root}>
+		<StyledRoot className={classes.root}>
 			<TestTopNav />
 			<div className={classes.toolbar} />
 			<main className={classes.content}>
 				{showGen ? (
-					<GeneralIntro />
+					<GeneralIntro classes={classes} />
 				) : (
 					<>
-						<TestIntro />
+						<TestIntro classes={classes} />
 						<br />
 						<br />
 						<Paper style={{ padding: 10 }} elevation={3}>
@@ -96,14 +107,13 @@ function Instructions({ match }) {
 				/>
 				<TestDrawer />
 			</main>
-		</div>
+		</StyledRoot>
 	);
 }
 
 export default Instructions;
 
-function GeneralIntro() {
-	const classes = instStyle();
+function GeneralIntro({ classes }) {
 	return (
 		<Fragment>
 			<div className={classes.inst}>
@@ -263,35 +273,33 @@ function GeneralIntro() {
 	);
 }
 
-export function TestIntro() {
-	const classes = instStyle();
+export function TestIntro({ classes }) {
 	const { Tstate } = useContext(TestContext);
 	return (
-		<Fragment>
-			<div className={classes.inst}>
-				<Typography gutterBottom variant="h5" align="center" color="primary">
-					{Tstate.testName}
-				</Typography>
-				<div style={{ display: "flex" }}>
-					<Typography variant="subtitle1">
-						Duration : <b>{Tstate.totalTime} Minutes</b>
-					</Typography>
-					<span style={{ flexGrow: 1 }} />
-					<Typography variant="subtitle1">
-						Maximun Marks : <b>{Tstate.totalMarks}</b>
-					</Typography>
-				</div>
-				<Typography variant="subtitle1" color="primary">
-					Read the following instructions carefully.
-				</Typography>
-				<ol>
-					{Tstate.instructions.map((i, j) => (
-						<li key={j} className={classes.li}>
-							{i.instruction}
-						</li>
+		<div className={classes.inst}>
+			<Typography gutterBottom variant="h6">
+				Other Important Instructions :-
+			</Typography>
+			<Paper style={{ padding: 15, fontSize: 14 }} elevation={3}>
+				{Tstate.sections &&
+					Tstate.sections.map((s, i) => (
+						<p key={i}>
+							{`Section Name : ${s.title}`} <br />
+							{`Correct Marks : +${s.marks.correct}`} <br />
+							{`Incorrect Marks : -${s.marks.incorrect}`}
+						</p>
 					))}
-				</ol>
-			</div>
-		</Fragment>
+				<br /> Total Time: {Tstate.totalTime} Minuts.
+			</Paper>
+			<br />
+			<Typography variant="subtitle1" color="primary">
+				Choose your default language:
+			</Typography>
+			<Typography variant="caption">
+				Please note all questions will appear in your default language. This language can be changed for a particular question later on.
+			</Typography>
+			{/* Language Selection Logic Here */}
+			<br />
+		</div>
 	);
 }

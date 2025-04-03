@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
 import {
-	makeStyles,
 	Paper,
 	Container,
 	AppBar,
@@ -18,9 +17,22 @@ import axios from "axios";
 
 import ReactHtmlParser from "react-html-parser";
 import { Link } from "react-router-dom";
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-	blogTopBg: {
+const PREFIX = 'BlogExpand';
+const classes = {
+	blogTopBg: `${PREFIX}-blogTopBg`,
+	blogContainer: `${PREFIX}-blogContainer`,
+	paper: `${PREFIX}-paper`,
+	titleBox: `${PREFIX}-titleBox`,
+	metaText: `${PREFIX}-metaText`,
+	textBox: `${PREFIX}-textBox`,
+	bottomNav: `${PREFIX}-bottomNav`,
+	img: `${PREFIX}-img`
+};
+
+const StyledFragment = styled(Fragment)(({ theme }) => ({
+	[`& .${classes.blogTopBg}`]: {
 		backgroundColor: "#ffffff",
 		paddingTop: theme.spacing(12),
 		backgroundImage:
@@ -30,10 +42,10 @@ const useStyles = makeStyles((theme) => ({
 
 		height: "20vh",
 	},
-	blogContainer: {
+	[`& .${classes.blogContainer}`]: {
 		marginTop: theme.spacing(-10),
 	},
-	paper: {
+	[`& .${classes.paper}`]: {
 		boxShadow: "0 30px 50px 0 rgba(1,1,1,.15)",
 		padding: theme.spacing(),
 		marginBottom: 100,
@@ -41,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.up("sm")]: {
 			padding: theme.spacing(8, 12),
 		},
-		"& > img": {
+		[`& > .${classes.img}`]: {
 			width: "90%",
 			display: "block",
 			marginTop: theme.spacing(2),
@@ -50,7 +62,7 @@ const useStyles = makeStyles((theme) => ({
 			maxHeight: "100%",
 		},
 	},
-	titleBox: {
+	[`& .${classes.titleBox}`]: {
 		textAlign: "center",
 		color: "darkblue",
 		paddingBottom: theme.spacing(),
@@ -63,16 +75,16 @@ const useStyles = makeStyles((theme) => ({
 			fontSize: "2rem",
 		},
 	},
-	metaText: {
+	[`& .${classes.metaText}`]: {
 		color: "slateblue",
 		textAlign: "center",
 	},
-	textBox: {
+	[`& .${classes.textBox}`]: {
 		display: "flex",
 		flexDirection: "column",
 		justifyContent: "center",
 	},
-	bottomNav: {
+	[`& .${classes.bottomNav}`]: {
 		top: "auto",
 		bottom: 0,
 		color: theme.palette.primary[800],
@@ -81,7 +93,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function BlogExpand({ match }) {
-	const classes = useStyles();
 	const [data, setData] = useState({
 		author: { name: "Qualifier", designation: "Admin", image: "https://vetdeniz.com/wp-content/uploads/2017/10/default-user.jpg" },
 		category: { id: "", catgName: "" },
@@ -112,7 +123,7 @@ export default function BlogExpand({ match }) {
 		disableHysteresis: true,
 	});
 	return (
-		<Fragment>
+		<StyledFragment>
 			<FullNav />
 			<HideOnScroll>
 				<FullNav />
@@ -148,7 +159,7 @@ export default function BlogExpand({ match }) {
 					</Toolbar>
 				</AppBar>
 			</Zoom>
-		</Fragment>
+		</StyledFragment>
 	);
 }
 

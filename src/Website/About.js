@@ -1,9 +1,23 @@
 import React from "react";
 import Footer from "../Components/Footer/Footer";
-import { Container, makeStyles, Typography, Grid, Card, Avatar } from "@mui/material";
+import { Container, Typography, Grid, Card, Avatar } from "@mui/material";
 import { HideOnScroll, FullNav } from "../Components/Navigation/Nav";
-const useStyles = makeStyles((theme) => ({
-	topBanner: {
+import { styled } from '@mui/material/styles';
+
+const PREFIX = 'About';
+
+const classes = {
+	topBanner: `${PREFIX}-topBanner`,
+	conatiner: `${PREFIX}-conatiner`,
+	charity: `${PREFIX}-charity`,
+	charText: `${PREFIX}-charText`,
+	joyImg: `${PREFIX}-joyImg`,
+	card: `${PREFIX}-card`,
+	avatar: `${PREFIX}-avatar`
+};
+
+const StyledDiv = styled('div')(({ theme }) => ({
+	[`& .${classes.topBanner}`]: {
 		background: "url(https://i.ibb.co/CWnH4H4/bg.jpg)",
 		backgroundRepeat: "no-repeat",
 		backgroundPosition: "center",
@@ -11,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 		height: "40vh",
 		zIndex: -1,
 	},
-	conatiner: {
+	[`& .${classes.conatiner}`]: {
 		background: "#fff",
 		zIndex: 2,
 		padding: "20px",
@@ -21,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 		borderTopLeftRadius: "20px",
 		borderTopRightRadius: "20px",
 	},
-	charity: {
+	[`& .${classes.charity}`]: {
 		[theme.breakpoints.down("md")]: {
 			backgroundPosition: "0 0",
 		},
@@ -31,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 		backgroundSize: "cover",
 		height: "400px",
 	},
-	charText: {
+	[`& .${classes.charText}`]: {
 		textAlign: "center",
 		paddingTop: 130,
 		[theme.breakpoints.up("md")]: {
@@ -40,13 +54,13 @@ const useStyles = makeStyles((theme) => ({
 		},
 		color: "#fff",
 	},
-	joyImg: {
+	[`& .${classes.joyImg}`]: {
 		width: "80%",
 		display: "block",
 		marginLeft: "auto",
 		marginRight: "auto",
 	},
-	card: {
+	[`& .${classes.card}`]: {
 		width: 100,
 		height: 150,
 		borderRadius: 10,
@@ -56,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
 			border: "1px dashed blue",
 		},
 	},
-	avatar: {
+	[`& .${classes.avatar}`]: {
 		width: theme.spacing(8),
 		height: theme.spacing(8),
 		marginLeft: "auto",
@@ -65,11 +79,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function About(props) {
-	const classes = useStyles();
 	document.title = "About - Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
 
 	return (
-		<div>
+		<StyledDiv>
 			<FullNav />
 			<div className={classes.topBanner}></div>
 			<Container className={classes.conatiner}>
@@ -125,7 +138,7 @@ export default function About(props) {
 				<FullNav />
 			</HideOnScroll>
 			<Footer />
-		</div>
+		</StyledDiv>
 	);
 }
 

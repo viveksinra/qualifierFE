@@ -1,51 +1,55 @@
 import React, { useEffect, useState } from "react";
 import Slider from "infinite-react-carousel";
-import { makeStyles, Card, Divider, withWidth, Typography, Button, CardActions, LinearProgress } from "@mui/material";
+import { Card, Divider, Typography, Button, CardActions, LinearProgress, useTheme, useMediaQuery } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-	bg: {
-		width: "100%",
-		backgroundImage: 'url("https://res.cloudinary.com/qualifier/image/upload/v1586008563/Default/dottedBG_p2fzfo.webp")',
-		marginTop: 10,
-		paddingTop: 20,
-		paddingBottom: 10,
-	},
-	slider: {
-		width: "100%",
-	},
-	card: {
-		height: 250,
-		maxWidth: "90%",
-		borderRadius: 10,
-		textAlign: "center",
-		marginLeft: "auto",
-		marginRight: "auto",
-		boxShadow: "inset -6px -6px 10px rgba(255,255,255,0.5), inset 6px 6px 20px rgba(0,0,0,0.05)",
-		"&:hover": {
-			boxShadow: "-6px -6px 20px rgba(255,255,255,1), 6px 6px 20px rgba(0,0,0,0.1)",
-		},
-	},
-	cardLogo: {
-		height: 70,
-		margin: theme.spacing(),
-		marginLeft: "auto",
-		marginRight: "auto",
-		marginBottom: theme.spacing(),
-	},
-	action: {
-		display: "flex",
-		justifyContent: "space-around",
-		background: "#e5f8ff",
-		borderTop: "1px solid rgba(0, 0, 0, 0.12)",
-		position: "absolute",
-		bottom: 0,
-		width: "90%",
-		borderBottomRightRadius: 10,
-		borderBottomLeftRadius: 10,
+const StyledBgDiv = styled('div')(({ theme }) => ({
+	width: "100%",
+	backgroundImage: 'url("https://res.cloudinary.com/qualifier/image/upload/v1586008563/Default/dottedBG_p2fzfo.webp")',
+	marginTop: 10,
+	paddingTop: 20,
+	paddingBottom: 10,
+}));
+
+const StyledSlider = styled(Slider)(({ theme }) => ({
+	width: "100%",
+}));
+
+const StyledCard = styled(Card)(({ theme }) => ({
+	height: 250,
+	maxWidth: "90%",
+	borderRadius: 10,
+	textAlign: "center",
+	marginLeft: "auto",
+	marginRight: "auto",
+	boxShadow: "inset -6px -6px 10px rgba(255,255,255,0.5), inset 6px 6px 20px rgba(0,0,0,0.05)",
+	"&:hover": {
+		boxShadow: "-6px -6px 20px rgba(255,255,255,1), 6px 6px 20px rgba(0,0,0,0.1)",
 	},
 }));
+
+const StyledCardLogoImg = styled('img')(({ theme }) => ({
+	height: 70,
+	margin: theme.spacing(),
+	marginLeft: "auto",
+	marginRight: "auto",
+	marginBottom: theme.spacing(),
+}));
+
+const StyledCardActions = styled(CardActions)(({ theme }) => ({
+	display: "flex",
+	justifyContent: "space-around",
+	background: "#e5f8ff",
+	borderTop: "1px solid rgba(0, 0, 0, 0.12)",
+	position: "absolute",
+	bottom: 0,
+	width: "90%",
+	borderBottomRightRadius: 10,
+	borderBottomLeftRadius: 10,
+}));
+
 function Recommendation(props) {
 	const [recom, setRecom] = useState([
 		{
@@ -59,8 +63,11 @@ function Recommendation(props) {
 			noOfSub: 124,
 		},
 	]);
-	const classes = useStyles();
 	const [loading, setLoading] = useState(true);
+
+	const theme = useTheme();
+	const isXsSm = useMediaQuery(theme.breakpoints.down('md'));
+
 	useEffect(() => {
 		let active = true;
 
@@ -88,16 +95,16 @@ function Recommendation(props) {
 	const setting = {
 		autoplay: true,
 		autoplayScroll: 1,
-		arrows: props.width === "xs" || props.width === "sm" ? false : true,
+		arrows: !isXsSm,
 		centerPadding: 40,
 		autoplaySpeed: 6000,
 		overScan: 1,
 		dots: true,
-		slidesToShow: props.width === "xs" || props.width === "sm" ? 1 : 4,
+		slidesToShow: isXsSm ? 1 : 4,
 	};
 
 	return (
-		<div className={classes.bg}>
+		<StyledBgDiv>
 			<Typography align="center" gutterBottom color="primary" variant="h6">
 				Popular Courses | Dedicated to You
 			</Typography>
@@ -107,11 +114,11 @@ function Recommendation(props) {
 					<LinearProgress color="secondary" />
 				</center>
 			) : (
-				<Slider className={classes.slider} {...setting}>
+				<StyledSlider {...setting}>
 					{recom.map((d, i) => (
 						<Link to={`/practice/${d.categoryLink}/${d.link}`} key={i}>
-							<Card elevation={3} className={classes.card}>
-								<img alt={d.courseTitle} className={classes.cardLogo} src={d.logo} />
+							<StyledCard elevation={3}>
+								<StyledCardLogoImg alt={d.courseTitle} src={d.logo} />
 								<Typography align="center" color="primary" noWrap variant="body2">
 									{d.courseTitle}
 								</Typography>
@@ -125,8 +132,7 @@ function Recommendation(props) {
 									</Button>
 								</center>
 								<br />
-								{/* <Divider variant="fullWidth" /> */}
-								<CardActions disableSpacing className={classes.action}>
+								<StyledCardActions disableSpacing>
 									<span>
 										<Typography align="center" color="secondary" variant="subtitle1">
 											{d.noOfQues}
@@ -153,14 +159,14 @@ function Recommendation(props) {
 											Subjects
 										</Typography>
 									</span>
-								</CardActions>
-							</Card>
+								</StyledCardActions>
+							</StyledCard>
 						</Link>
 					))}
-				</Slider>
+				</StyledSlider>
 			)}
-		</div>
+		</StyledBgDiv>
 	);
 }
 
-export default withWidth()(Recommendation);
+export default Recommendation;

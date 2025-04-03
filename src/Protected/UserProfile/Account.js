@@ -1,7 +1,6 @@
 import React, { useState, Fragment, useEffect } from "react";
 import Right from "../../img/right.svg";
 import {
-	makeStyles,
 	Button,
 	Typography,
 	Divider,
@@ -15,23 +14,32 @@ import {
 	TableCell,
 	Chip,
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
-	shareBox: {
+const PREFIX = 'Account';
+const classes = {
+	shareBox: `${PREFIX}-shareBox`,
+	profileTable: `${PREFIX}-profileTable`,
+	promocard: `${PREFIX}-promocard`,
+	refLi: `${PREFIX}-refLi`
+};
+
+const StyledFragment = styled(Fragment)(({ theme }) => ({
+	[`& .${classes.shareBox}`]: {
 		background: 'url("https://res.cloudinary.com/qualifier/image/upload/v1585249453/share_obofnm.svg")',
 		backgroundSize: "contain",
 		backgroundPositionY: "bottom",
 		backgroundRepeat: "no-repeat",
 		minHeight: 320,
 	},
-	profileTable: {
+	[`& .${classes.profileTable}`]: {
 		marginTop: 20,
 	},
-	promocard: {
+	[`& .${classes.promocard}`]: {
 		width: "100%",
 	},
-	refLi: {
+	[`& .${classes.refLi}`]: {
 		marginLeft: 5,
 		lineHeight: 1.5,
 		fontSize: 16,
@@ -39,7 +47,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Account() {
-	const classes = useStyles();
 	const [accountData, setAccountData] = useState([]);
 	const [promo, setPromo] = useState({ refData: [], promoCode: "", message: "" });
 	useEffect(() => {
@@ -97,7 +104,7 @@ export default function Account() {
 		alert("Promo Code Copied");
 	};
 	return (
-		<Fragment>
+		<StyledFragment>
 			<Grid container spacing={2}>
 				<Grid item xs={12} md={6}>
 					<img
@@ -197,6 +204,6 @@ export default function Account() {
 					</ul>
 				</Grid>
 			</Grid>
-		</Fragment>
+		</StyledFragment>
 	);
 }

@@ -1,28 +1,26 @@
 import React from "react";
-import { Container, makeStyles, Grid, Typography } from "@mui/material";
+import { Container, Grid, Typography } from "@mui/material";
+import { styled } from '@mui/material/styles';
 
-const useStyles = makeStyles((theme) => ({
-	area: {
-		minHeight: 340,
-		display: "flex",
-		alignItems: "center",
-	},
-	card: {
-		display: "flex",
-		flexDirection: "column",
-		alignItems: "center",
-	},
+const StyledAreaDiv = styled('div')(({ theme }) => ({
+	minHeight: 340,
+	display: "flex",
+	alignItems: "center",
+}));
+
+const StyledCardGrid = styled(Grid)(({ theme }) => ({
+	display: "flex",
+	flexDirection: "column",
+	alignItems: "center",
 }));
 
 export default function Testimonial() {
-	const classes = useStyles();
-
 	return (
-		<div className={classes.area}>
+		<StyledAreaDiv>
 			<Container>
 				<Grid container justify="center" alignItems="center" spacing={2}>
 					{cardData.map((d, i) => (
-						<Grid key={i} item xs={12} sm={3} className={classes.card}>
+						<StyledCardGrid key={i} item xs={12} sm={3}>
 							<img src={d.icon} alt={d.text} />
 							<br />
 							<Typography variant="h6" gutterBottom align="center">
@@ -31,11 +29,11 @@ export default function Testimonial() {
 							<Typography gutterBottom align="center" color="textSecondary">
 								{d.subtext}
 							</Typography>
-						</Grid>
+						</StyledCardGrid>
 					))}
 				</Grid>
 			</Container>
-		</div>
+		</StyledAreaDiv>
 	);
 }
 const cardData = [

@@ -2,89 +2,97 @@ import React, { useContext, Suspense, lazy } from "react";
 import PropTypes from "prop-types";
 import { DRAWER } from "../Context/types";
 import { MainContext } from "../Context/MainContext";
-import { makeStyles, CssBaseline, Container, useScrollTrigger, Hidden, AppBar, Toolbar, IconButton, Avatar, Slide } from "@mui/material";
+import { CssBaseline, Container, useScrollTrigger, Hidden, AppBar, Toolbar, IconButton, Avatar, Slide } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { MdMenu, MdExpandMore, MdAccountCircle } from "react-icons/md";
 import { Link } from "react-router-dom";
 const MegaMenu = lazy(() => import("./MegaMenu"));
 const MyDrawer = lazy(() => import("./MyDrawer"));
 
 let drawerWidth = 240;
-const useStyles = makeStyles((theme) => ({
-	root: {
-		display: "flex",
-		"& a": {
-			textDecoration: "none",
-			display: "inline",
-			color: "#0a5494",
-		},
-	},
-	grow: {
-		flexGrow: 1,
-	},
-	logo: {
-		maxHeight: "50px",
-	},
-	appBar: {
-		[theme.breakpoints.up("sm")]: {
-			width: `calc(100% - ${drawerWidth}px)`,
-			marginLeft: drawerWidth,
-		},
-	},
-	menuButtonNav: {
-		[theme.breakpoints.up("sm")]: {
-			display: "none",
-		},
-	},
 
-	li: {
+const StyledRootDiv = styled('div')(({ theme }) => ({
+	display: "flex",
+	"& a": {
+		textDecoration: "none",
 		display: "inline",
-		fontSize: "medium",
-		padding: "1rem",
+		color: "#0a5494",
+	},
+}));
+
+const StyledGrowDiv = styled('div')(({ theme }) => ({
+	flexGrow: 1,
+}));
+
+const StyledLogoImg = styled('img')(({ theme }) => ({
+	maxHeight: "50px",
+}));
+
+const StyledAppBar = styled(AppBar)(({ theme }) => ({
+	[`@media (min-width:${theme.breakpoints.values.sm}px)`]: {
+		width: `calc(100% - ${drawerWidth}px)`,
+		marginLeft: drawerWidth,
+	},
+}));
+
+const StyledMenuButtonNav = styled(IconButton)(({ theme }) => ({
+	[`@media (min-width:${theme.breakpoints.values.sm}px)`]: {
+		display: "none",
+	},
+}));
+
+const StyledLi = styled('li')(({ theme }) => ({
+	display: "inline",
+	fontSize: "medium",
+	padding: "1rem",
+}));
+
+const StyledDrawerContainerDiv = styled('div')(({ theme }) => ({
+	[`@media (min-width:${theme.breakpoints.values.sm}px)`]: {
+		display: "none",
 	},
 }));
 
 export function Nav() {
-	const classes = useStyles();
 	const { state, dispatch } = useContext(MainContext);
 	const handleDrawerToggle = () => {
 		dispatch({ type: DRAWER });
 	};
 	return (
-		<div className={classes.root}>
+		<StyledRootDiv>
 			<CssBaseline />
-			<AppBar id="nav" color="default" className={classes.appBar}>
+			<StyledAppBar id="nav" color="default">
 				<Toolbar>
-					<IconButton edge="start" onClick={handleDrawerToggle} className={classes.menuButtonNav} color="inherit" aria-label="menu">
+					<StyledMenuButtonNav edge="start" onClick={handleDrawerToggle} color="inherit" aria-label="menu">
 						<MdMenu />
-					</IconButton>
+					</StyledMenuButtonNav>
 					<Link to="/">
-						<img
-							className={classes.logo}
+						<StyledLogoImg
 							src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg"
 							alt="Qualifier-logo"
 							border="0"
 						/>
 					</Link>
-					<div className={classes.grow} />
+					<StyledGrowDiv />
 
 					<Hidden mdDown>
 						<ul>
-							<li className={classes.li}>
+							<StyledLi>
 								<MegaMenu>
 									<span style={{ color: "#0a5494" }}>
 										Exam <MdExpandMore />
 									</span>
 								</MegaMenu>
-							</li>
-							<li className={classes.li}>
+							</StyledLi>
+							<StyledLi>
 								<Link to="/online-test-series">Test Series</Link>
-							</li>
-							<li className={classes.li}>
+							</StyledLi>
+							<StyledLi>
 								<Link to="/courses">Courses</Link>
-							</li>
-							<li className={classes.li}>
+							</StyledLi>
+							<StyledLi>
 								<Link to="/practice">Practice</Link>
-							</li>
+							</StyledLi>
 						</ul>
 
 						{state.isAuthenticated ? (
@@ -94,12 +102,12 @@ export function Nav() {
 						) : (
 							<span id="loginBtn">
 								<ul>
-									<li className={classes.li}>
+									<StyledLi>
 										<Link to="/login">Login</Link>
-									</li>
-									<li className={classes.li}>
+									</StyledLi>
+									<StyledLi>
 										<Link to="/signup">Sign Up</Link>
-									</li>
+									</StyledLi>
 								</ul>
 							</span>
 						)}
@@ -118,13 +126,12 @@ export function Nav() {
 						)}
 					</Hidden>
 				</Toolbar>
-			</AppBar>
-		</div>
+			</StyledAppBar>
+		</StyledRootDiv>
 	);
 }
 
 export function FullNav(props) {
-	const classes = useStyles();
 	const { state, dispatch } = useContext(MainContext);
 	const handleDrawerToggle = () => {
 		dispatch({ type: DRAWER });
@@ -132,46 +139,45 @@ export function FullNav(props) {
 
 	return (
 		<Suspense fallback={<div />}>
-			<div className={classes.root}>
+			<StyledRootDiv>
 				<AppBar position="static" style={{ backgroundColor: "rgb(255,255,255)" }}>
 					<Container>
 						<Toolbar disableGutters variant="dense">
-							<IconButton edge="start" onClick={handleDrawerToggle} className={classes.menuButtonNav} color="primary" aria-label="menu">
+							<StyledMenuButtonNav edge="start" onClick={handleDrawerToggle} color="primary" aria-label="menu">
 								<MdMenu />
-							</IconButton>
+							</StyledMenuButtonNav>
 							<Link to="/">
-								<img
-									className={classes.logo}
+								<StyledLogoImg
 									src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg"
 									alt="Qualifier-logo"
 									border="0"
 								/>
 							</Link>
-							<span className={classes.grow} />
+							<StyledGrowDiv component="span" />
 							<Hidden smDown>
 								<ul>
-									<li className={classes.li}>
+									<StyledLi>
 										<MegaMenu>
 											<span style={{ color: "#0a5494" }}>
 												Exam <MdExpandMore />
 											</span>
 										</MegaMenu>
-									</li>
-									<li className={classes.li}>
+									</StyledLi>
+									<StyledLi>
 										<Link to="/online-test-series">Test Series</Link>
-									</li>
-									<li className={classes.li}>
+									</StyledLi>
+									<StyledLi>
 										<Link to="/practice">Practice</Link>
-									</li>
-									<li className={classes.li}>
+									</StyledLi>
+									<StyledLi>
 										<Link to="/blog">Blog & News</Link>
-									</li>
-									<li className={classes.li}>
+									</StyledLi>
+									<StyledLi>
 										<Link to="/pricing">Pricing</Link>
-									</li>
-									<li className={classes.li}>
+									</StyledLi>
+									<StyledLi>
 										<Link to="/contact">Contact</Link>
-									</li>
+									</StyledLi>
 								</ul>
 
 								{state.isAuthenticated ? (
@@ -181,19 +187,19 @@ export function FullNav(props) {
 								) : (
 									<span id="loginBtn">
 										<ul>
-											<li className={classes.li}>
+											<StyledLi>
 												<Link to="/login">Login</Link>
-											</li>
-											<li className={classes.li}>
+											</StyledLi>
+											<StyledLi>
 												<Link to="/signup">Sign Up</Link>
-											</li>
+											</StyledLi>
 										</ul>
 									</span>
 								)}
 							</Hidden>
 
 							<Hidden mdUp>
-								<span className={classes.grow} />
+								<StyledGrowDiv component="span" />
 								{state.isAuthenticated ? (
 									<Link to="/dashboard">
 										<Avatar alt="User" src={state.userImage} />
@@ -209,10 +215,10 @@ export function FullNav(props) {
 						</Toolbar>
 					</Container>
 				</AppBar>
-				<div className={classes.menuButtonNav}>
+				<StyledDrawerContainerDiv>
 					<MyDrawer />
-				</div>
-			</div>
+				</StyledDrawerContainerDiv>
+			</StyledRootDiv>
 		</Suspense>
 	);
 }

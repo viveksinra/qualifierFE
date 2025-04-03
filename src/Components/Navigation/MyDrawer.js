@@ -2,7 +2,8 @@ import React, { useContext, Suspense } from "react";
 import { DRAWER, LOGOUT_USER } from "../Context/types";
 import { MainContext } from "../Context/MainContext";
 import { Link } from "react-router-dom";
-import { makeStyles, Hidden, SwipeableDrawer, Drawer, Chip, Divider, List, ListItem, ListItemText } from "@mui/material";
+import { Hidden, SwipeableDrawer, Drawer, Chip, Divider, List, ListItem, ListItemText } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { MdCopyright } from "react-icons/md";
 import {
 	FcHome,
@@ -20,39 +21,44 @@ import {
 	FcFeedback,
 } from "react-icons/fc";
 let drawerWidth = 240;
-const useStyles = makeStyles((theme) => ({
-	root: {
-		display: "flex",
-	},
-	drawer: {
-		[theme.breakpoints.up("sm")]: {
-			width: drawerWidth,
-			flexShrink: 0,
-		},
-	},
-	icon: {
-		fontSize: 22,
-		marginRight: 16,
-	},
-	toolbar: theme.mixins.toolbar,
-	drawerPaper: {
+
+const StyledRootDiv = styled('div')(({ theme }) => ({
+	display: "flex",
+}));
+
+const StyledNav = styled('nav')(({ theme }) => ({
+	[`@media (min-width:${theme.breakpoints.values.sm}px)`]: {
 		width: drawerWidth,
-		backgroundColor: "#1b1b1b",
-		color: "#ffffff",
-		"& p": {
-			margin: 0,
-		},
-	},
-	drawerLink: {
-		color: "white",
-		textDecoration: "none",
-		"&:hover": {
-			backgroundColor: theme.palette.grey[300],
-			borderRadius: "10px",
-			color: "#2196f3",
-		},
+		flexShrink: 0,
 	},
 }));
+
+const StyledIconSpan = styled('span')(({ theme }) => ({
+	fontSize: 22,
+	marginRight: 16,
+}));
+
+const StyledDrawerLink = styled(Link)(({ theme }) => ({
+	color: "white",
+	textDecoration: "none",
+	"&:hover": {
+		backgroundColor: theme.palette.grey[300],
+		borderRadius: "10px",
+		color: "#2196f3",
+	},
+}));
+
+const toolbarMixins = (theme) => theme.mixins.toolbar;
+
+const drawerPaperStyles = {
+	width: drawerWidth,
+	backgroundColor: "#1b1b1b",
+	color: "#ffffff",
+	"& p": {
+		margin: 0,
+	},
+};
+
 const listData = [
 	{ text: "Dashboard", link: "/dashboard", icon: <FcHome /> },
 	{ text: "Test Series", link: "/online-test-series", icon: <FcInspection /> },
@@ -69,7 +75,6 @@ const listData2 = [
 	{ text: "My Profile", link: "/profile", icon: <FcManager /> },
 ];
 export default function MyDrawer(props) {
-	const classes = useStyles();
 	const { container } = props;
 	const { state, dispatch } = useContext(MainContext);
 	const handleDrawerToggle = () => {
@@ -80,8 +85,7 @@ export default function MyDrawer(props) {
 	};
 
 	const DrawerData = ({ mobile }) => (
-		<div>
-			<div className={classes.toolbar} />
+		<div sx={toolbarMixins}>
 			<center>
 				<Link to="/profile" style={{ textDecoration: "none" }}>
 					<Chip onClick={mobile ? handleDrawerToggle : null} label={`Welcome ${state.isAuthenticated ? state.name : "Guest"}`} color="primary" />
@@ -90,43 +94,43 @@ export default function MyDrawer(props) {
 			<Divider />
 			<List>
 				{listData.map((l) => (
-					<Link to={l.link} key={l.text} className={classes.drawerLink}>
+					<StyledDrawerLink to={l.link} key={l.text}>
 						<ListItem onClick={mobile ? handleDrawerToggle : null}>
-							<span className={classes.icon}>{l.icon} </span>
+							<StyledIconSpan>{l.icon}</StyledIconSpan>
 							<ListItemText primary={l.text} />
 						</ListItem>
-					</Link>
+					</StyledDrawerLink>
 				))}
 			</List>
 			<Divider />
 			<List>
 				{listData2.map((l) => (
-					<Link to={l.link} key={l.text} className={classes.drawerLink}>
+					<StyledDrawerLink to={l.link} key={l.text}>
 						<ListItem onClick={mobile ? handleDrawerToggle : null}>
-							<span className={classes.icon}>{l.icon} </span>
+							<StyledIconSpan>{l.icon}</StyledIconSpan>
 							<ListItemText primary={l.text} />
 						</ListItem>
-					</Link>
+					</StyledDrawerLink>
 				))}
 				<Divider />
 				{state.isAuthenticated ? (
 					<ListItem button onClick={handleLogout}>
-						<span className={classes.icon}>
+						<StyledIconSpan>
 							<FcImport />
-						</span>
+						</StyledIconSpan>
 
 						<ListItemText primary="Log Out" />
 					</ListItem>
 				) : (
-					<Link to="/signup" className={classes.drawerLink}>
+					<StyledDrawerLink to="/signup">
 						<ListItem onClick={mobile ? handleDrawerToggle : null}>
-							<span className={classes.icon}>
+							<StyledIconSpan>
 								<FcFlashOn />
-							</span>
+							</StyledIconSpan>
 
 							<ListItemText primary="Let's Start" />
 						</ListItem>
-					</Link>
+					</StyledDrawerLink>
 				)}
 			</List>
 			<div className="center" style={{ flexDirection: "column" }}>
@@ -141,8 +145,8 @@ export default function MyDrawer(props) {
 
 	return (
 		<Suspense fallback={<nav />}>
-			<div className={classes.root}>
-				<nav className={classes.drawer} aria-label="mailbox folders">
+			<StyledRootDiv>
+				<StyledNav aria-label="mailbox folders">
 					{/* The implementation can be swapped with js to avoid SEO duplication of links. */}
 					<Hidden smUp implementation="css">
 						<SwipeableDrawer
@@ -152,9 +156,7 @@ export default function MyDrawer(props) {
 							open={state.mobileDrawer}
 							onClose={handleDrawerToggle}
 							onOpen={handleDrawerToggle}
-							classes={{
-								paper: classes.drawerPaper,
-							}}
+							sx={{ "& .MuiDrawer-paper": drawerPaperStyles }}
 							ModalProps={{
 								keepMounted: true, // Better open performance on mobile.
 							}}
@@ -164,9 +166,7 @@ export default function MyDrawer(props) {
 					</Hidden>
 					<Hidden xsDown implementation="css">
 						<Drawer
-							classes={{
-								paper: classes.drawerPaper,
-							}}
+							sx={{ "& .MuiDrawer-paper": drawerPaperStyles }}
 							variant="permanent"
 							onClose={handleDrawerToggle}
 							open
@@ -174,8 +174,8 @@ export default function MyDrawer(props) {
 							<DrawerData mobile={false} />
 						</Drawer>
 					</Hidden>
-				</nav>
-			</div>
+				</StyledNav>
+			</StyledRootDiv>
 		</Suspense>
 	);
 }

@@ -1,23 +1,32 @@
 import React, { Suspense, lazy } from "react";
 import TopTray from "../../Components/Decoration/TopTray";
-import { makeStyles, CircularProgress, Fab, Hidden } from "@mui/material";
+import { CircularProgress, Fab, Hidden } from "@mui/material";
 import { FullNav } from "../../Components/Navigation/Nav";
 import lp from "./lp.png";
 import { Head } from "../../Components/NameExp";
 import { FcElectricalSensor } from "react-icons/fc";
+import { styled } from '@mui/material/styles';
 const SeriesList = lazy(() => import("./SeriesList"));
 const Features2 = lazy(() => import("../../Components/Decoration/Features2"));
 const Footer = lazy(() => import("../../Components/Footer/Footer"));
 
-const testSyle = makeStyles((theme) => ({
-	testTop: {
+const PREFIX = 'TestSeries';
+const classes = {
+	testTop: `${PREFIX}-testTop`,
+	topText: `${PREFIX}-topText`,
+	smallText: `${PREFIX}-smallText`,
+	topImg: `${PREFIX}-topImg`
+};
+
+const StyledDiv = styled('div')(({ theme }) => ({
+	[`& .${classes.testTop}`]: {
 		background: "rgba(66,142,218,1)",
 		marginTop: -50,
 		[theme.breakpoints.up("sm")]: {
 			height: 530,
 		},
 	},
-	topText: {
+	[`& .${classes.topText}`]: {
 		marginBotom: 50,
 		paddingTop: 110,
 		marginTop: 50,
@@ -58,12 +67,12 @@ const testSyle = makeStyles((theme) => ({
 			},
 		},
 	},
-	smallText: {
+	[`& .${classes.smallText}`]: {
 		marginLeft: 25,
 		paddingTop: 5,
 		fontSize: 12,
 	},
-	topImg: {
+	[`& .${classes.topImg}`]: {
 		width: 1000,
 		height: 510,
 		position: "absolute",
@@ -73,7 +82,6 @@ const testSyle = makeStyles((theme) => ({
 }));
 
 function TestSeries() {
-	const classes = testSyle();
 	const scrollDown = (event) => {
 		const anchor = (event.target.ownerDocument || document).querySelector("#bundle");
 		if (anchor) {
@@ -82,7 +90,7 @@ function TestSeries() {
 	};
 
 	return (
-		<div>
+		<StyledDiv>
 			<Head>
 				<title>
 					Online Test Series | Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE
@@ -130,7 +138,7 @@ function TestSeries() {
 					<Footer />
 				</Suspense>
 			</Suspense>
-		</div>
+		</StyledDiv>
 	);
 }
 

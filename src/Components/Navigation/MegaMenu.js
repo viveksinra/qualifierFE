@@ -2,24 +2,23 @@ import React, { Fragment, useState, Suspense } from "react";
 import bankSvg from "./bank.svg";
 import cbsc from "./cbsc.svg";
 import placement from "./placement.svg";
-import { makeStyles, withStyles, Tooltip, Grid, List, ListItem, ListItemAvatar, Avatar, ListItemText } from "@mui/material";
+import { Tooltip, Grid, List, ListItem, ListItemAvatar, Avatar, ListItemText } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { FcNext } from "react-icons/fc";
 
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-	subMenu: {
-		textDecoration: "none",
-		color: "#0a5494",
-		margin: 0,
-		"&:hover": {
-			color: "#53ccce",
-		},
+const StyledSubMenuLink = styled(Link)(({ theme }) => ({
+	textDecoration: "none",
+	color: "#0a5494",
+	margin: 0,
+	"&:hover": {
+		color: "#53ccce",
 	},
 }));
 
-const HtmlTooltip = withStyles((theme) => ({
-	tooltip: {
+const StyledHtmlTooltip = styled(Tooltip)(({ theme }) => ({
+	[`& .MuiTooltip-tooltip`]: {
 		backgroundColor: "#f5f5f9",
 		color: "rgba(0, 0, 0, 0.87)",
 		minWidth: "500px",
@@ -28,11 +27,10 @@ const HtmlTooltip = withStyles((theme) => ({
 		boxShadow: "inset -8px -8px 10px rgba(255,255,255,0.5), inset 8px 8px 20px rgba(0,0,0,0.05)",
 		borderRadius: "10px",
 		fontSize: theme.typography.pxToRem(16),
-	},
-}))(Tooltip);
+	}
+}));
 
 export default function MegaMenu(props) {
-	const classes = useStyles();
 	const [menuIndex, setMenuIndex] = useState(0);
 	const [subMenuData, setSubmenuData] = useState([]);
 	const handleHover = (e, i, subMenu) => {
@@ -41,7 +39,7 @@ export default function MegaMenu(props) {
 	};
 	return (
 		<Suspense fallback={<div className={props.className}>{props.children}</div>}>
-			<HtmlTooltip
+			<StyledHtmlTooltip
 				arrow
 				interactive
 				title={
@@ -67,12 +65,12 @@ export default function MegaMenu(props) {
 								<List component="nav" aria-label="main mailbox folders">
 									{subMenuData &&
 										subMenuData.map((s) => (
-											<Link to={`/practice/${s.catLink}/${s.link}`} key={s.course} className={classes.subMenu}>
+											<StyledSubMenuLink to={`/practice/${s.catLink}/${s.link}`} key={s.course}>
 												<ListItem dense>
 													<ListItemText primary={s.course} />
 													<FcNext />
 												</ListItem>
-											</Link>
+											</StyledSubMenuLink>
 										))}
 								</List>
 							</Grid>
@@ -81,7 +79,7 @@ export default function MegaMenu(props) {
 				}
 			>
 				{props.children}
-			</HtmlTooltip>
+			</StyledHtmlTooltip>
 		</Suspense>
 	);
 }

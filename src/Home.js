@@ -6,7 +6,8 @@ import { HideOnScroll, FullNav } from "./Components/Navigation/Nav";
 import { MainContext } from "./Components/Context/MainContext";
 import { Link } from "react-router-dom";
 import SpeedNav from "./Components/Navigation/SpeedNav";
-import { makeStyles, Grid, Typography, Fab, Avatar, Chip, IconButton, Hidden, CircularProgress } from "@mui/material";
+import { Grid, Typography, Fab, Avatar, Chip, IconButton, Hidden, CircularProgress } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { FaAngleDown, FaUserCircle, FaArrowAltCircleRight, FaBars } from "react-icons/fa";
 import { Head, Typewriter } from "./Components/NameExp";
 const DataCard = lazy(() => import("./Components/DataCard/DataCard"));
@@ -18,38 +19,36 @@ const Testimonial = lazy(() => import("./Components/Testimonial"));
 const Footer = lazy(() => import("./Components/Footer/Footer"));
 const Particles = lazy(() => import("react-particles-js"));
 
-const appStyles = makeStyles((theme) => ({
-	hero: {
-		backgroundImage: `url(${bg})`,
-		backgroundRepeat: "no-repeat",
-		backgroundPosition: "50% 35%",
-		backgroundSize: "cover",
-		height: "105vh",
-		[theme.breakpoints.down("md")]: {
-			height: "60vh",
-		},
-	},
-	mobBtn: {
-		position: "absolute",
-		display: "flex",
-		flexDirection: "column",
-		top: "50vh",
-		height: 70,
-		right: 10,
-		alignItems: "center",
-		justifyContent: "space-around",
-	},
-	textBox: {
-		position: "absolute",
-		bottom: "5%",
-		minWidth: 380,
-		right: "16%",
+const StyledHeroDiv = styled('div')(({ theme }) => ({
+	backgroundImage: `url(${bg})`,
+	backgroundRepeat: "no-repeat",
+	backgroundPosition: "50% 35%",
+	backgroundSize: "cover",
+	height: "105vh",
+	[`@media (max-width:${theme.breakpoints.values.md}px)`]: {
+		height: "60vh",
 	},
 }));
 
-function Home(props) {
-	const classes = appStyles();
+const StyledMobBtnDiv = styled('div')(({ theme }) => ({
+	position: "absolute",
+	display: "flex",
+	flexDirection: "column",
+	top: "50vh",
+	height: 70,
+	right: 10,
+	alignItems: "center",
+	justifyContent: "space-around",
+}));
 
+const StyledTextBoxDiv = styled('div')(({ theme }) => ({
+	position: "absolute",
+	bottom: "5%",
+	minWidth: 380,
+	right: "16%",
+}));
+
+function Home(props) {
 	return (
 		<Fragment>
 			<Head>
@@ -67,7 +66,7 @@ function Home(props) {
 				<FullNav />
 			</HideOnScroll>
 
-			<div className={classes.hero}>
+			<StyledHeroDiv>
 				<Suspense fallback={null}>
 					<AppNav />
 				</Suspense>
@@ -75,7 +74,7 @@ function Home(props) {
 					<Particles height="500px" />
 				</Suspense>
 				<Hidden smUp>
-					<div className={classes.mobBtn}>
+					<StyledMobBtnDiv>
 						<Link to="/practice">
 							<Chip size="small" color="primary" variant="outlined" label="Online Exam Practice" />
 						</Link>
@@ -96,10 +95,10 @@ function Home(props) {
 								label="Test Series"
 							/>
 						</Link>
-					</div>
+					</StyledMobBtnDiv>
 				</Hidden>
 				<Hidden mdDown>
-					<div className={classes.textBox}>
+					<StyledTextBoxDiv>
 						<Grid container justify="center" direction="column" alignItems="center">
 							<Typewriter
 								options={{
@@ -151,9 +150,9 @@ function Home(props) {
 								/>
 							</Link>
 						</Grid>
-					</div>
+					</StyledTextBoxDiv>
 				</Hidden>
-			</div>
+			</StyledHeroDiv>
 			<SpeedNav />
 			<Suspense fallback={<CircularProgress />}>
 				<DataCard />
@@ -172,55 +171,55 @@ function Home(props) {
 
 export default Home;
 
-const navStyles = makeStyles((theme) => ({
-	appNav: {
-		flexDirection: "row-reverse",
-		paddingTop: 10,
-		[theme.breakpoints.up("md")]: {
-			flexDirection: "row",
-			paddingTop: 0,
-		},
+const StyledAppNavGrid = styled(Grid)(({ theme }) => ({
+	flexDirection: "row-reverse",
+	paddingTop: 10,
+	[`@media (min-width:${theme.breakpoints.values.md}px)`]: {
+		flexDirection: "row",
+		paddingTop: 0,
 	},
+}));
 
-	ul: {
-		float: "right",
+const StyledUl = styled('ul')(({ theme }) => ({
+	float: "right",
+}));
+
+const StyledLi = styled('li')(({ theme }) => ({
+	listStyle: "none",
+	display: "inline-block",
+	fontSize: "1.3rem",
+	paddingRight: "1.2rem",
+}));
+
+const StyledLiLink = styled(Link)(({ theme }) => ({
+	textDecoration: "none",
+	color: "#fff",
+	"&:hover": {
+		color: "#45C712",
 	},
-	li: {
-		listStyle: "none",
-		display: "inline-block",
-		fontSize: "1.3rem",
-		paddingRight: "1.2rem",
-	},
-	liLink: {
-		textDecoration: "none",
-		color: "#fff",
-		"&:hover": {
-			color: "#45C712",
-		},
-	},
-	logoMob: {
-		[theme.breakpoints.down("sm")]: {
-			backgroundColor: "rgb(241, 241, 241)",
-			width: 150,
-			borderRadius: 5,
-			padding: 5,
-			height: 40,
-		},
+}));
+
+const StyledLogoMobDiv = styled('div')(({ theme }) => ({
+	[`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+		backgroundColor: "rgb(241, 241, 241)",
+		width: 150,
+		borderRadius: 5,
+		padding: 5,
+		height: 40,
 	},
 }));
 
 function AppNav() {
-	const classes = navStyles();
 	const { dispatch } = useContext(MainContext);
 	const handleDrawerToggle = () => {
 		dispatch({ type: DRAWER });
 	};
 
 	return (
-		<Grid container justify="space-around" alignItems="center" className={classes.appNav}>
-			<div className={classes.logoMob}>
+		<StyledAppNavGrid container justify="space-around" alignItems="center">
+			<StyledLogoMobDiv>
 				<img src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg" id="logo" alt="Qualifier-logo" />
-			</div>
+			</StyledLogoMobDiv>
 
 			<span style={{ flexGrow: 0.7 }} />
 			<Hidden mdUp>
@@ -229,8 +228,8 @@ function AppNav() {
 				</IconButton>
 			</Hidden>
 			<Hidden smDown>
-				<ul className={classes.ul}>
-					<li className={classes.li}>
+				<StyledUl>
+					<StyledLi>
 						<MegaMenu>
 							<span style={{ display: "flex", alignItems: "center", color: "#fff" }}>
 								Exam
@@ -238,34 +237,34 @@ function AppNav() {
 								<FaAngleDown />
 							</span>
 						</MegaMenu>
-					</li>
-					<li className={classes.li}>
-						<Link to="/practice" className={classes.liLink}>
+					</StyledLi>
+					<StyledLi>
+						<StyledLiLink to="/practice">
 							Practice
-						</Link>
-					</li>
-					<li className={classes.li}>
-						<Link to="/online-test-series" className={classes.liLink}>
+						</StyledLiLink>
+					</StyledLi>
+					<StyledLi>
+						<StyledLiLink to="/online-test-series">
 							Test Series
-						</Link>
-					</li>
-					<li className={classes.li}>
-						<Link to="/pricing" className={classes.liLink}>
+						</StyledLiLink>
+					</StyledLi>
+					<StyledLi>
+						<StyledLiLink to="/pricing">
 							Pricing
-						</Link>
-					</li>
-					<li className={classes.li}>
-						<Link to="/blog" className={classes.liLink}>
+						</StyledLiLink>
+					</StyledLi>
+					<StyledLi>
+						<StyledLiLink to="/blog">
 							Blog & News
-						</Link>
-					</li>
-					<li className={classes.li}>
-						<Link to="/login" className={classes.liLink}>
+						</StyledLiLink>
+					</StyledLi>
+					<StyledLi>
+						<StyledLiLink to="/login">
 							Login/Signup
-						</Link>
-					</li>
-				</ul>
+						</StyledLiLink>
+					</StyledLi>
+				</StyledUl>
 			</Hidden>
-		</Grid>
+		</StyledAppNavGrid>
 	);
 }

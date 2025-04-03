@@ -1,36 +1,32 @@
 import React, { useRef, useEffect, useState } from "react";
 import {
-	makeStyles,
 	Grid,
 	Chip,
 	Typography,
 	Button,
-	ExpansionPanelDetails,
+	AccordionDetails,
 	Container,
-	ExpansionPanel,
-	ExpansionPanelSummary,
+	Accordion,
+	AccordionSummary,
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { FcExpand, FcFullTrash } from "react-icons/fc";
 import NoContent from "../Components/NoContent";
 import MySnackbar from "../Components/MySnackbar";
 import axios from "axios";
 
-const useStyles = makeStyles((theme) => ({
-	heading: {
-		fontSize: theme.typography.pxToRem(15),
-		flexBasis: "33.33%",
-		flexShrink: 0,
-	},
-	secondaryHeading: {
-		fontSize: theme.typography.pxToRem(15),
-		color: theme.palette.text.secondary,
-	},
-	divider: {
-		margin: theme.spacing(0),
-	},
+const StyledHeadingTypography = styled(Typography)(({ theme }) => ({
+	fontSize: theme.typography.pxToRem(15),
+	flexBasis: "33.33%",
+	flexShrink: 0,
 }));
+
+const StyledSecondaryHeadingTypography = styled(Typography)(({ theme }) => ({
+	fontSize: theme.typography.pxToRem(15),
+	color: theme.palette.text.secondary,
+}));
+
 function SeeMessage() {
-	const classes = useStyles();
 	const [data, setData] = useState([]);
 	useEffect(() => {
 		axios
@@ -62,12 +58,12 @@ function SeeMessage() {
 					<NoContent msg="Enjoy !  No reported Question available." />
 				) : (
 					data.map((d, i) => (
-						<ExpansionPanel key={i}>
-							<ExpansionPanelSummary expandIcon={<FcExpand />} aria-controls="panel1a-content" id="panel1a-header">
-								<Typography className={classes.heading}>{d.date} </Typography>
-								<Typography className={classes.secondaryHeading}>By: {d.name}</Typography>
-							</ExpansionPanelSummary>
-							<ExpansionPanelDetails>
+						<Accordion key={i}>
+							<AccordionSummary expandIcon={<FcExpand />} aria-controls="panel1a-content" id="panel1a-header">
+								<StyledHeadingTypography>{d.date} </StyledHeadingTypography>
+								<StyledSecondaryHeadingTypography>By: {d.name}</StyledSecondaryHeadingTypography>
+							</AccordionSummary>
+							<AccordionDetails>
 								<Grid container>
 									<Grid item xs={12} md={4}>
 										<ul>
@@ -96,8 +92,8 @@ function SeeMessage() {
 										</center>
 									</Grid>
 								</Grid>
-							</ExpansionPanelDetails>
-						</ExpansionPanel>
+							</AccordionDetails>
+						</Accordion>
 					))
 				)}
 			</Container>

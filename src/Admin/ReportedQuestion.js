@@ -1,43 +1,40 @@
 import React, { useRef, useEffect, useState } from "react";
 import {
-	makeStyles,
 	Grid,
 	Chip,
 	Typography,
 	Button,
-	ExpansionPanelDetails,
+	AccordionDetails,
 	Container,
-	ExpansionPanel,
-	ExpansionPanelSummary,
+	Accordion,
+	AccordionSummary,
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { FcExpand, FcFullTrash } from "react-icons/fc";
 import NoContent from "../Components/NoContent";
 import axios from "axios";
 import MySnackbar from "../Components/MySnackbar";
 import ReactHtmlParser from "react-html-parser";
 
-const useStyles = makeStyles((theme) => ({
-	heading: {
-		fontSize: theme.typography.pxToRem(15),
-		flexBasis: "33.33%",
-		flexShrink: 0,
-	},
-	secondaryHeading: {
-		fontSize: theme.typography.pxToRem(15),
-		color: theme.palette.text.secondary,
-	},
-	divider: {
-		margin: theme.spacing(0),
-	},
-	img: {
-		maxWidth: "100%",
-		maxHeight: "100%",
-		display: "block",
-	},
+const StyledHeadingTypography = styled(Typography)(({ theme }) => ({
+	fontSize: theme.typography.pxToRem(15),
+	flexBasis: "33.33%",
+	flexShrink: 0,
 }));
+
+const StyledSecondaryHeadingTypography = styled(Typography)(({ theme }) => ({
+	fontSize: theme.typography.pxToRem(15),
+	color: theme.palette.text.secondary,
+}));
+
+const StyledImg = styled('img')(({ theme }) => ({
+	maxWidth: "100%",
+	maxHeight: "100%",
+	display: "block",
+}));
+
 function ReportedQuestion() {
 	const [data, setData] = useState([]);
-	const classes = useStyles();
 	useEffect(() => {
 		axios
 			.get("/api/private/qreport/getall")
@@ -67,12 +64,12 @@ function ReportedQuestion() {
 					<NoContent msg="Enjoy !  No reported Question available." />
 				) : (
 					data.map((d, i) => (
-						<ExpansionPanel key={i}>
-							<ExpansionPanelSummary expandIcon={<FcExpand />} aria-controls="panel1a-content" id="panel1a-header">
-								<Typography className={classes.heading}>{d.date} </Typography>
-								<Typography className={classes.secondaryHeading}>Issue: {d.issue}</Typography>
-							</ExpansionPanelSummary>
-							<ExpansionPanelDetails>
+						<Accordion key={i}>
+							<AccordionSummary expandIcon={<FcExpand />} aria-controls="panel1a-content" id="panel1a-header">
+								<StyledHeadingTypography>{d.date} </StyledHeadingTypography>
+								<StyledSecondaryHeadingTypography>Issue: {d.issue}</StyledSecondaryHeadingTypography>
+							</AccordionSummary>
+							<AccordionDetails>
 								<Grid container>
 									<Grid item xs={12} md={4}>
 										<ul>
@@ -101,7 +98,7 @@ function ReportedQuestion() {
 										<Typography gutterBottom align="center">
 											<b> Question</b>
 										</Typography>
-										{d.image && <img src={d.image} className={classes.img} alt="Solution" />}
+										{d.image && <StyledImg src={d.image} alt="Solution" />}
 										{ReactHtmlParser(d.questionTitle)}
 										<ol>
 											{d.options.map((o) => (
@@ -113,7 +110,7 @@ function ReportedQuestion() {
 										<Typography gutterBottom align="center">
 											<b> Solution</b>
 										</Typography>
-										{d.solImage && <img src={d.solImage} className={classes.img} alt="Solution" />}
+										{d.solImage && <StyledImg src={d.solImage} alt="Solution" />}
 
 										{ReactHtmlParser(d.solTitle)}
 										<br />
@@ -124,8 +121,8 @@ function ReportedQuestion() {
 										</center>
 									</Grid>
 								</Grid>
-							</ExpansionPanelDetails>
-						</ExpansionPanel>
+							</AccordionDetails>
+						</Accordion>
 					))
 				)}
 			</Container>

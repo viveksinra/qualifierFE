@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, Fragment } from "react";
-import { makeStyles, RadioGroup, Radio, FormControlLabel, Hidden } from "@mui/material";
+import { RadioGroup, Radio, FormControlLabel, Hidden } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { SUBMITANS, TOGGLEDRAWER } from "../Components/Context/types";
 import { QuestionNav } from "./TestNav";
 import ReactHtmlParser from "react-html-parser";
@@ -7,8 +8,16 @@ import SubmitBox from "./SubmitBox";
 import { TestContext } from "../Components/Context/TestContext/TestContext";
 import { MdPlaylistPlay } from "react-icons/md";
 
-const quesStyle = makeStyles((theme) => ({
-	qArea: {
+const PREFIX = 'QuestionArea';
+const classes = {
+	qArea: `${PREFIX}-qArea`,
+	options: `${PREFIX}-options`,
+	img: `${PREFIX}-img`,
+	drawIcon: `${PREFIX}-drawIcon`
+};
+
+const StyledFragment = styled(Fragment)(({ theme }) => ({
+	[`& .${classes.qArea}`]: {
 		background: "#fff",
 		margin: theme.spacing(11, 2, 0),
 		fontFamily: "sans-serif",
@@ -16,15 +25,15 @@ const quesStyle = makeStyles((theme) => ({
 		color: "#000",
 		height: `calc(100vh - ${210}px)`,
 	},
-	options: {
+	[`& .${classes.options}`]: {
 		margin: theme.spacing(2),
 	},
-	img: {
+	[`& .${classes.img}`]: {
 		maxWidth: "100%",
 		maxHeight: "100%",
 		display: "block",
 	},
-	drawIcon: {
+	[`& .${classes.drawIcon}`]: {
 		bottom: 60,
 		position: "fixed",
 		cursor: "pointer",
@@ -34,7 +43,6 @@ const quesStyle = makeStyles((theme) => ({
 }));
 
 function QuestionArea() {
-	const classes = quesStyle();
 	const { Tstate, Tdispatch } = useContext(TestContext);
 	const [acQues, setQ] = useState(null);
 	const [sec, setSec] = useState({});
@@ -51,7 +59,7 @@ function QuestionArea() {
 	};
 
 	return (
-		<Fragment>
+		<StyledFragment>
 			<QuestionNav qNo={sec && sec.activeQuestion + 1} marks={acQues && acQues.marks} qId={acQues && acQues.questionId} />
 			<div className={classes.qArea}>
 				<br />
@@ -75,7 +83,7 @@ function QuestionArea() {
 			</div>
 
 			<SubmitBox />
-		</Fragment>
+		</StyledFragment>
 	);
 }
 

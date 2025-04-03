@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { Nav } from "../../Components/Navigation/Nav";
-import { makeStyles, Grid, LinearProgress } from "@mui/material";
+import { Grid, LinearProgress } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import HomeSlider from "../../Components/Decoration/HomeSlider";
 import { OfferCard } from "../../Components/Decoration/OfferCard";
@@ -11,16 +12,25 @@ const ResumeList = lazy(() => import("./ResumeList"));
 const CourseAnalysis = lazy(() => import("../../Website/CourseDetails/CourseAnalysis"));
 const Recommendation = lazy(() => import("../../Components/Recommendation"));
 
-const useStyles = makeStyles((theme) => ({
-	root: {
+const PREFIX = 'UserDashboard';
+const classes = {
+	root: `${PREFIX}-root`,
+	toolbar: `${PREFIX}-toolbar`,
+	content: `${PREFIX}-content`,
+	navBtn: `${PREFIX}-navBtn`,
+	iCover: `${PREFIX}-iCover`
+};
+
+const StyledRoot = styled('div')(({ theme }) => ({
+	[`&.${classes.root}`]: {
 		display: "flex",
 	},
-	toolbar: theme.mixins.toolbar,
-	content: {
+	[`& .${classes.toolbar}`]: theme.mixins.toolbar,
+	[`& .${classes.content}`]: {
 		flexGrow: 1,
 		padding: theme.spacing(),
 	},
-	navBtn: {
+	[`& .${classes.navBtn}`]: {
 		borderRadius: "20px",
 		marginTop: 5,
 		maxWidth: "95%",
@@ -33,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 		padding: 5,
 		height: 80,
 	},
-	iCover: {
+	[`& .${classes.iCover}`]: {
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
@@ -42,11 +52,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function UserDashboard() {
-	const classes = useStyles();
 	document.title = "Dashboard | Qualifier : Online Test Series & Practice - Railway, SSC, Banking, Placement & CBSE Exams.";
 
 	return (
-		<div className={classes.root}>
+		<StyledRoot className={classes.root}>
 			<Nav />
 			<MyDrawer />
 			<main className={classes.content}>
@@ -90,7 +99,7 @@ export default function UserDashboard() {
 					</Grid>
 				</Suspense>
 			</main>
-		</div>
+		</StyledRoot>
 	);
 }
 

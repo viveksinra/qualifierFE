@@ -5,26 +5,35 @@ import QuesArea from "./QuesArea";
 import End from "./QEnd";
 import { PracContext } from "../../Components/Context/PracticeContext/PracticeContext";
 import { GETQUES } from "../../Components/Context/types";
-import { Grid, makeStyles, Container, Paper, AppBar, Divider, CircularProgress } from "@mui/material";
+import { Grid, Container, Paper, AppBar, Divider, CircularProgress } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import { Prompt } from "react-router-dom";
 import axios from "axios";
 const ChatBox = lazy(() => import("./ChatBox"));
 
-const useStyles = makeStyles((theme) => ({
-	root: {
+const PREFIX = 'Practice';
+const classes = {
+	root: `${PREFIX}-root`,
+	toolbar: `${PREFIX}-toolbar`,
+	load: `${PREFIX}-load`,
+	paper: `${PREFIX}-paper`,
+};
+
+const StyledRoot = styled('div')(({ theme }) => ({
+	[`&.${classes.root}`]: {
 		background: "#fff",
 		height: `calc(100vh - ${50}px)`,
 		overflowY: "auto",
 	},
-	toolbar: theme.mixins.toolbar,
-	load: {
+	[`& .${classes.toolbar}`]: theme.mixins.toolbar,
+	[`& .${classes.load}`]: {
 		display: "flex",
 		flexDirection: "column",
 		height: 400,
 		justifyContent: "center",
 		alignItems: "center",
 	},
-	paper: {
+	[`& .${classes.paper}`]: {
 		padding: theme.spacing(),
 		marginTop: theme.spacing(2),
 		width: 860,
@@ -32,14 +41,9 @@ const useStyles = makeStyles((theme) => ({
 		height: "100%",
 		overflowX: "hidden",
 	},
-	"&::-webkit-scrollbar": {
-		color: "#40a9ff",
-		width: "8px",
-	},
 }));
 
 export default function Practice({ match }) {
-	const classes = useStyles();
 	const { Pstate, Pdispatch } = useContext(PracContext);
 	const [newlink] = useState(makeLink(Pstate.level, Pstate.ansRight, match));
 	useEffect(() => {
@@ -57,7 +61,7 @@ export default function Practice({ match }) {
 	}
 
 	return (
-		<div className={classes.root}>
+		<StyledRoot className={classes.root}>
 			<AppBar>
 				<FullNav />
 			</AppBar>
@@ -92,7 +96,7 @@ export default function Practice({ match }) {
 			</Container>
 			<PracBtmNav />
 			<Prompt message="Are you sure you want to leave Practice?" />
-		</div>
+		</StyledRoot>
 	);
 }
 

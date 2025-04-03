@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, makeStyles, Grid, Divider, List, ListItem, ListItemAvatar, Avatar, ListItemText } from "@mui/material";
+import { Container, Grid, Divider, List, ListItem, ListItemAvatar, Avatar, ListItemText } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import pcSvg from "../../img/pc.svg";
 import clock from "../../img/clock.svg";
 import chart from "../../img/chart.svg";
@@ -7,38 +8,30 @@ import step from "../../img/step.svg";
 import save from "../../img/save.svg";
 import mobile from "../../img/mobile.svg";
 import discussion from "../../img/discussion.svg";
-const useStyles = makeStyles((theme) => ({
-	area: {
-		minHeight: "40vh",
-		margin: "20px 0px",
-		// background: "linear-gradient(90deg, rgba(28,147,203,0.6) 0%, rgba(83,204,206,0.720) 35%, rgba(244,251,255,1) 99%)",
-	},
-	cross: {
-		marginLeft: "auto",
-		marginRight: "auto",
-		transform: "rotate(30deg)",
-		color: "#fff",
-	},
-	gridCard: {
-		backgroundColor: "rgba(167, 239, 239, 0.8)",
-		borderRadius: "10px",
-		color: "#0a5494",
-		height: "225",
-	},
-	padding: {
-		paddingTop: "40px",
-		border: "1px solid red",
-		[theme.breakpoints.down("md")]: {
-			paddingTop: "0px",
-		},
-	},
+
+const StyledAreaDiv = styled('div')(({ theme }) => ({
+	minHeight: "40vh",
+	margin: "20px 0px",
+	// background: "linear-gradient(90deg, rgba(28,147,203,0.6) 0%, rgba(83,204,206,0.720) 35%, rgba(244,251,255,1) 99%)",
+}));
+
+const StyledCrossDivider = styled(Divider)(({ theme }) => ({
+	marginLeft: "auto",
+	marginRight: "auto",
+	transform: "rotate(30deg)",
+	color: "#fff",
+}));
+
+const StyledGridCardListItem = styled(ListItem)(({ theme }) => ({
+	backgroundColor: "rgba(167, 239, 239, 0.8)",
+	borderRadius: "10px",
+	color: "#0a5494",
+	height: "225",
 }));
 
 export default function Features() {
-	const classes = useStyles();
-
 	return (
-		<div className={classes.area}>
+		<StyledAreaDiv>
 			<Container>
 				<Grid container justify="space-between">
 					<Grid item style={{ display: "flex", alignItems: "center", marginLeft: 10, maxWidth: 510 }}>
@@ -46,19 +39,19 @@ export default function Features() {
 							<Grid container justify="center" spacing={2}>
 								{cardData.map((c) => (
 									<Grid item xs={12} md={6} key={c.text}>
-										<ListItem dense key={c.text} className={classes.gridCard}>
+										<StyledGridCardListItem dense key={c.text}>
 											<ListItemAvatar>
 												<Avatar alt={c.text} src={c.icon} />
 											</ListItemAvatar>
 											<ListItemText primary={c.text} secondary={c.subtext} />
-										</ListItem>
+										</StyledGridCardListItem>
 									</Grid>
 								))}
 							</Grid>
 						</List>
 					</Grid>
 					<Grid item className="hideInMob">
-						<Divider orientation="vertical" className={classes.cross} />
+						<StyledCrossDivider orientation="vertical" />
 					</Grid>
 					<Grid item>
 						<List>
@@ -74,7 +67,7 @@ export default function Features() {
 					</Grid>
 				</Grid>
 			</Container>
-		</div>
+		</StyledAreaDiv>
 	);
 }
 const cardData = [

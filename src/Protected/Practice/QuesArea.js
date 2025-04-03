@@ -1,7 +1,8 @@
 import React, { useState, useContext } from "react";
 import { PracContext } from "../../Components/Context/PracticeContext/PracticeContext";
 import { SUBMITANS, SHOWSOL } from "../../Components/Context/types";
-import { makeStyles, List, ListItem, ListItemIcon, MenuItem, Fab, Fade, Divider, Tooltip, Toolbar, IconButton, Menu, Paper } from "@mui/material";
+import { List, ListItem, ListItemIcon, MenuItem, Fab, Fade, Divider, Tooltip, Toolbar, IconButton, Menu, Paper } from "@mui/material";
+import { styled } from '@mui/material/styles';
 import ReactHtmlParser from "react-html-parser";
 import { FaFeatherAlt } from "react-icons/fa";
 import { FcAbout } from "react-icons/fc";
@@ -9,17 +10,30 @@ import axios from "axios";
 import { OptionNo } from "../../img/numbers/numbers";
 import { Link } from "react-router-dom";
 
-const quesStyle = makeStyles((theme) => ({
-	qArea: {
+const PREFIX = 'QuesArea';
+const classes = {
+	qArea: `${PREFIX}-qArea`,
+	img: `${PREFIX}-img`,
+	optList: `${PREFIX}-optList`,
+	optionIcon: `${PREFIX}-optionIcon`,
+	r: `${PREFIX}-r`,
+	w: `${PREFIX}-w`,
+	extendedIcon: `${PREFIX}-extendedIcon`,
+	paper: `${PREFIX}-paper`,
+	center: `${PREFIX}-center`
+};
+
+const StyledRoot = styled('div')(({ theme }) => ({
+	[`&.${classes.qArea}`]: {
 		overflowY: "auto",
 		fontFamily: "sans-serif",
 	},
-	img: {
+	[`& .${classes.img}`]: {
 		maxWidth: "100%",
 		maxHeight: "100%",
 		display: "block",
 	},
-	optList: {
+	[`& .${classes.optList}`]: {
 		"&:hover": {
 			backgroundColor: theme.palette.grey[300],
 			borderRadius: "10px",
@@ -27,29 +41,29 @@ const quesStyle = makeStyles((theme) => ({
 			cursor: "grab",
 		},
 	},
-	optionIcon: {
+	[`& .${classes.optionIcon}`]: {
 		fontSize: theme.typography.pxToRem(20),
 		color: "#4c76e8",
 	},
-	r: {
+	[`& .${classes.r}`]: {
 		backgroundColor: "#27ae60",
 		borderRadius: "10px",
 		color: "#ffffff",
 	},
-	w: {
+	[`& .${classes.w}`]: {
 		backgroundColor: "#ff8e77",
 		borderRadius: "10px",
 		color: "#ffffff",
 	},
-	extendedIcon: {
+	[`& .${classes.extendedIcon}`]: {
 		marginLeft: theme.spacing(1),
 	},
-	paper: {
+	[`& .${classes.paper}`]: {
 		marginTop: theme.spacing(2),
 		padding: theme.spacing(),
 		overflowX: "hidden",
 	},
-	center: {
+	[`& .${classes.center}`]: {
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "start",
@@ -62,7 +76,6 @@ const quesStyle = makeStyles((theme) => ({
 }));
 
 function QuesArea() {
-	const classes = quesStyle();
 	const [rMenu, setRMenu] = useState(null);
 	const { Pstate, Pdispatch } = useContext(PracContext);
 	const handleSubmit = (ans, ind) => {
@@ -90,7 +103,7 @@ function QuesArea() {
 		return reportLink;
 	};
 	return (
-		<div className={classes.qArea}>
+		<StyledRoot className={classes.qArea}>
 			<div className={classes.center}>
 				{ReactHtmlParser(Pstate.question.questionTitle)}
 				{Pstate.question.highlight && (
@@ -157,7 +170,7 @@ function QuesArea() {
 					</div>
 				</Paper>
 			</Fade>
-		</div>
+		</StyledRoot>
 	);
 }
 
