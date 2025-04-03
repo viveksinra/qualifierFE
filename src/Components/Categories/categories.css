@@ -1,0 +1,120 @@
+#category {
+	background-color: #ffffff;
+	background-image: url("https://res.cloudinary.com/qualifier/image/upload/v1586008563/Default/dottedBG_p2fzfo.webp");
+	background-attachment: fixed;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}
+/* Category Card  */
+
+.categ {
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+	position: relative;
+	box-shadow: -6px -6px 20px rgba(255, 255, 255, 1), 6px 6px 20px rgba(0, 0, 0, 0.1);
+	width: 300px;
+	height: 435px;
+	background-color: #f2f8f9;
+	text-decoration: none;
+	z-index: 0;
+	-webkit-border-radius: 20px;
+	-webkit-border-top-right-radius: 0;
+	border-radius: 20px;
+	border-top-right-radius: 0;
+}
+
+.categ:hover {
+	box-shadow: inset -6px -6px 10px rgba(255, 255, 255, 0.5), inset 6px 6px 20px rgba(0, 0, 0, 0.05);
+	border-bottom: 0.5px solid #00838d;
+}
+.categ img {
+	width: 300px;
+	height: 170px;
+	-webkit-border-top-left-radius: 20px;
+	border-top-left-radius: 20px;
+}
+
+.categ:hover p {
+	transition: all 0.3s ease-out;
+	color: rgb(28, 44, 196, 0.8);
+}
+.categ:hover h2 {
+	transition: all 0.3s ease-out;
+	color: magenta;
+}
+#btn-block {
+	cursor: pointer;
+	display: block;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	padding: 5px;
+	color: #fff;
+	border: none;
+	font-family: Georgia, serif;
+	background: linear-gradient(to right, #c2e59c, #64b3f4);
+	font-size: medium;
+	transition: all 150ms ease-in-out;
+	-webkit-border-bottom-right-radius: 20px;
+	-webkit-border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+}
+#btn-block:hover {
+	background: linear-gradient(to right, #64b3f4, #c2e59c);
+	font-style: italic;
+}
+.go-corner {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	overflow: hidden;
+	top: 0;
+	right: 0;
+	background-color: #7927e9;
+	border-radius: 0 0px 0 32px;
+}
+
+.go-arrow {
+	margin-top: -4px;
+	margin-right: -4px;
+	color: white;
+	font-family: courier, sans;
+}
+
+/* Heading  */
+
+.folded h2 {
+	background: #08b;
+	background-image: radial-gradient(transparent 30%, rgba(0, 0, 0, 0.2));
+	border: 0 solid rgba(0, 0, 0, 0.2);
+	color: #fff;
+	font-size: 14px;
+	margin-top: 8px;
+	font-weight: bold;
+	position: relative;
+	text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.folded h2 {
+	border-width: 1px 1px 2px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+	margin: 0;
+	padding: 4px 40px;
+	position: absolute;
+	left: -14px;
+	top: 15px;
+}
+.folded h2:after {
+	border-width: 7px;
+	border-style: solid;
+	border-color: #134 #134 transparent transparent;
+	bottom: -15px;
+	content: "";
+	position: absolute;
+	left: -1px;
+}

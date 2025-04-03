@@ -1,0 +1,204 @@
+import React, { Fragment, useState, useEffect, useRef } from "react";
+import { OptionNo } from "../../img/numbers/numbers";
+import {
+	makeStyles,
+	Typography,
+	Card,
+	CardHeader,
+	Grid,
+	IconButton,
+	List,
+	ListItem,
+	ListItemIcon,
+	ListItemText,
+	Tabs,
+	TextField,
+	Tab,
+	CardContent,
+	CircularProgress,
+	ExpansionPanel,
+	ExpansionPanelSummary,
+	ExpansionPanelDetails,
+} from "@material-ui/core";
+import axios from "axios";
+import MySnackbar from "../../Components/MySnackbar";
+import ReactHtmlParser from "react-html-parser";
+
+import { MdBookmark, MdExpandMore } from "react-icons/md";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import NoContent from "../../Components/NoContent";
+
+const useStyles = makeStyles((theme) => ({
+	qCard: {
+		minHeight: 170,
+		border: "1px solid rgba(33,150,243,0.25)",
+		[theme.breakpoints.up("md")]: {
+			padding: theme.spacing(2),
+		},
+	},
+	loading: {
+		marginTop: theme.spacing(20),
+	},
+	optList: {
+		"&:hover": {
+			backgroundColor: theme.palette.grey[300],
+			borderRadius: "10px",
+			color: "#0f84dd",
+			cursor: "grab",
+		},
+	},
+}));
+
+export default function SavedQuestion({ link }) {
+	const classes = useStyles();
+	const [allData, setAllData] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [tabVal, setTabVal] = useState(0);
+	const [allCourses, setAllCourses] = useState([]);
+	const [course, setCourse] = useState(null);
+	const [courseLink, setCourseLink] = useState(link);
+	const snackRef = useRef();
+
+	useEffect(() => {
+		document.title = "Saved Questions | Qualifier : Reattempt the save Questions FREE OF COST - Score All India Rank With Qualifier.co.in";
+
+		setLoading(true);
+		if (courseLink) {
+			getData(`/api/report/savedquest/${tabVal}/${courseLink}`);
+		} else getData(`/api/report/savedquest/${tabVal}`);
+	}, [courseLink, course, tabVal]);
+
+	useEffect(() => {
+		axios
+			.get(`/api/test/course/allcourse/`)
+			.then((res) => {
+				setLoading(false);
+				setAllCourses(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+				setLoading(false);
+			});
+	}, []);
+
+	const getData = (url) => {
+		axios
+			.get(url)
+			.then((res) => {
+				setAllData(res.data);
+				setLoading(false);
+			})
+			.catch((err) => {
+				console.log(err);
+				setLoading(false);
+			});
+	};
+
+	const handleSubmit = (ans, i) => {
+		if (+ans === allData[i].correctOption) {
+			snackRef.current.handleSnack({ message: "Congratulation! You are right.", variant: "success" });
+		} else {
+			snackRef.current.handleSnack({ message: "Oo no! Wrong. Try Again.", variant: "error" });
+		}
+	};
+
+	// if (loading) {
+	// 	return (
+	// 		<center>
+	// 			<CircularProgress className={classes.loading} />
+	// 		</center>
+	// 	);
+	// }
+	return (
+		<Fragment>
+			<Grid container>
+				<Grid item>
+					<Tabs
+						value={tabVal}
+						onChange={(e, v) => setTabVal(v)}
+						indicatorColor="secondary"
+						textColor="primary"
+						variant="fullWidth"
+						aria-label="Filters"
+					>
+						<Tab label="newest" />
+						<Tab label="oldest" />
+					</Tabs>
+				</Grid>
+				<span style={{ flexGrow: 1 }} />
+				<Grid item xs={6} md={4}>
+					<Autocomplete
+						options={allCourses}
+						getOptionLabel={(option) => option.courseTitle}
+						onChange={(e, v) => {
+							setCourse(v);
+							if (v) {
+								setCourseLink(v.link);
+							}
+						}}
+						value={course}
+						style={{ marginBottom: "10px" }}
+						renderInput={(params) => <TextField margin="dense" {...params} placeholder="Type Course name..." label="Select Course" fullWidth />}
+					/>
+				</Grid>
+			</Grid>
+			{loading ? (
+				<center>
+					<CircularProgress className={classes.loading} />
+				</center>
+			) : allData.length !== 0 ? (
+				<Grid container spacing={2}>
+					{allData.map((q, qi) => (
+						<Grid item xs={12} key={q.qid}>
+							<Card className={classes.qCard}>
+								<CardHeader
+									avatar={<img style={{ width: 40 }} alt={q.number} src={q.avatar} />}
+									action={
+										<Typography>
+											{`${q.number}`}
+											<IconButton color="primary" aria-label="saved">
+												<MdBookmark />
+											</IconButton>
+										</Typography>
+									}
+									title={q.address}
+									subheader={`Saved Date : ${q.savedDate}`}
+								/>
+								<ExpansionPanel elevation={0}>
+									<ExpansionPanelSummary expandIcon={<MdExpandMore />} aria-controls="panel1a-content">
+										<CardContent>{ReactHtmlParser(q.question)}</CardContent>
+									</ExpansionPanelSummary>
+									<ExpansionPanelDetails>
+										<List style={{ width: "100%" }}>
+											{q.options &&
+												q.options.map((o, i) => (
+													<ListItem key={i} onClick={() => (q.submitted !== true ? handleSubmit(o.number, qi) : null)} className={classes.optList}>
+														<ListItemIcon>
+															<OptionNo index={i} />
+														</ListItemIcon>
+														<ListItemText primary={o.title} />
+														{/* {q.submitted ? <AnsIcon ans="right" /> : <AnsIcon ans="wrong" />}
+													{q.submitted === true &&
+														+o.correctOption !==
+															+o.ansGiven(
+																<ListItemIcon>
+																	<AnsIcon ans="wrong" />
+																</ListItemIcon>,
+															)} */}
+													</ListItem>
+												))}
+										</List>
+									</ExpansionPanelDetails>
+								</ExpansionPanel>
+							</Card>
+						</Grid>
+					))}
+				</Grid>
+			) : (
+				<NoContent msg="No Saved Question" />
+			)}
+
+			<MySnackbar ref={snackRef} />
+		</Fragment>
+	);
+}

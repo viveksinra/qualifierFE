@@ -1,0 +1,33 @@
+{
+	"short_name": "Qualifier",
+	"name": "Qualifier | Online Practice & Test Series",
+	"description": "An online TEST, Practice & Learning platform for Indian school and college Students including Government Exams, Placement Papers & CBSC Exams and much more. Try Qualifier FOR FREE.",
+	"icons": [
+		{
+			"src": "https://res.cloudinary.com/qualifier/image/upload/v1586850436/Default/Qualifier_128x128_ycrstr.svg",
+			"sizes": "128x128",
+			"type": "image/svg"
+		},
+		{
+			"src": "https://res.cloudinary.com/qualifier/image/upload/v1586866487/Default/Qualifier_144x144_m33flw.svg",
+			"sizes": "144x144",
+			"type": "image/svg"
+		},
+		{
+			"src": "https://res.cloudinary.com/qualifier/image/upload/v1586850258/Default/Qualifier-192_x_192_rezfll.svg",
+			"sizes": "192x192",
+			"type": "image/svg"
+		},
+
+		{
+			"src": "https://res.cloudinary.com/qualifier/image/upload/v1586850713/Default/Qualifier_512x512_khsquw.svg",
+			"sizes": "512x512",
+			"type": "image/svg"
+		}
+	],
+	"start_url": "/dashboard",
+	"display": "standalone",
+	"theme_color": "#0A5494",
+	"orientation": "portrait",
+	"background_color": "#6997f4"
+}

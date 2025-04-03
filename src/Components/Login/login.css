@@ -1,0 +1,27 @@
+#loginLeft {
+	max-width: 35vw;
+	min-height: 100vh;
+	background-color: #f7f9fa;
+}
+
+@media only screen and (max-width: 830px) {
+	#loginRight {
+		padding-left: 20px !important;
+		padding-right: 20px !important;
+		margin-left: 0px !important;
+	}
+}
+
+#loginRight {
+	margin-left: 55%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+#loginRight img {
+	max-width: 200px;
+}
+form {
+	max-width: 400px;
+}
