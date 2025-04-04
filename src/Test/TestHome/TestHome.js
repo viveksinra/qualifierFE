@@ -151,7 +151,7 @@ function TestHome() {
 							<Typography variant="h6">Features of Qualifier</Typography>
 							<Grid container>
 								{features.map((f) => (
-									<Grid item sm={4} key={f.title}>
+									<Grid item size={{sm:4 }} key={f.title}>
 										<List dense>
 											<ListItem>
 												<img alt={f.logo} src={f.logo} className={testHomeClasses.icon} />

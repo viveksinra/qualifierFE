@@ -308,7 +308,7 @@ export default function AddSection() {
 										onChange={(e) => setMarks({ ...marks, incorrect: e.target.value })}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12,  md: 6, lg:3 }} >>
+								<Grid item size={{xs: 12,  md: 6, lg:3 }} >
 									<Autocomplete
 										options={allCategory}
 										getOptionLabel={(option) => option.categoryTitle}
@@ -320,7 +320,7 @@ export default function AddSection() {
 										renderInput={(params) => <TextField {...params} required label="Select Category" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12,  md: 6, lg:3 }} >>
+								<Grid item size={{xs: 12,  md: 6, lg:3 }} >
 									<Autocomplete
 										options={allCourse}
 										getOptionLabel={(option) => option.courseTitle}
@@ -332,7 +332,7 @@ export default function AddSection() {
 										renderInput={(params) => <TextField {...params} required label="Select Course" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12,  md: 6, lg:3 }} >>
+								<Grid item size={{xs: 12,  md: 6, lg:3 }} >
 									<Autocomplete
 										options={allSubject}
 										getOptionLabel={(option) => option.subjectTitle}
@@ -344,7 +344,7 @@ export default function AddSection() {
 										renderInput={(params) => <TextField {...params} required label="Select Subject" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12,  md: 6, lg:3 }} >>
+								<Grid item size={{xs: 12,  md: 6, lg:3 }} >
 									<Autocomplete
 										options={allChapter}
 										getOptionLabel={(option) => option.chapterTitle}
