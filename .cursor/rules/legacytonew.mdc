@@ -6,7 +6,7 @@ alwaysApply: true
 
 
 
-- here we have the legacy component for all, like chart and mui 
+- here we have the legacy component for all, like chart and mui and we are migrating to new version
 
 -for mui we need The project has migrated from @material-ui/core to @mui/material (v7.0.1).
 

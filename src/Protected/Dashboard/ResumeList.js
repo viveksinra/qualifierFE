@@ -25,21 +25,21 @@ export default function ResumeList() {
 			{resume.length === 0 ? (
 				<div>
 					<Link to={"/online-test-series"}>
-						<ListItem button>
+						<ListItem button="true">
 							<FcInspection style={icon} />
 							<ListItemText primary="Explore Test Series" />
 							<FcAdvance style={{ fontSize: 30 }} />
 						</ListItem>
 					</Link>
 					<Link to={"/practice"}>
-						<ListItem button>
+						<ListItem button="true">
 							<FcGraduationCap style={icon} />
 							<ListItemText primary="Start New Course Practice" />
 							<FcAdvance style={{ fontSize: 30 }} />
 						</ListItem>
 					</Link>
 					<Link to={"/blog"}>
-						<ListItem button>
+						<ListItem button="true">
 							<FcReading style={icon} />
 							<ListItemText primary="Read New Blog & News" />
 							<FcAdvance style={{ fontSize: 30 }} />
@@ -49,7 +49,7 @@ export default function ResumeList() {
 			) : (
 				resume.map((r, i) => (
 					<Link to={`/practice/${r.categoryLink}/${r.link}`} key={i}>
-						<ListItem button>
+						<ListItem button="true">
 							<img style={{ marginRight: 10, width: 40 }} alt={r.courseTitle} src={r.logo} />
 							<ListItemText primary={r.courseTitle.slice(0, 34)} />
 							<FcAdvance style={{ fontSize: 30 }} />

@@ -19,24 +19,20 @@ const TransferQues = lazy(() => import("../../Admin/TransferQues"));
 function AdminRoutes() {
 	return (
 		<Routes>
-			<Route path="/admin" element={
-				<Routes>
-					<Route path="dashboard" element={<AdminPrivateRoute><AdminDashboard /></AdminPrivateRoute>} />
-					<Route path="addcategory" element={<AdminPrivateRoute><AddCategory /></AdminPrivateRoute>} />
-					<Route path="addcourse" element={<AdminPrivateRoute><AddCourse /></AdminPrivateRoute>} />
-					<Route path="addsubject" element={<AdminPrivateRoute><AddSubject /></AdminPrivateRoute>} />
-					<Route path="addchapter" element={<AdminPrivateRoute><AddChapter /></AdminPrivateRoute>} />
-					<Route path="addquestion" element={<AdminPrivateRoute><AddQuestion /></AdminPrivateRoute>} />
-					<Route path="addblog" element={<AdminPrivateRoute><AddBlog /></AdminPrivateRoute>} />
-					<Route path="addpromo" element={<AdminPrivateRoute><AddPromo /></AdminPrivateRoute>} />
-					<Route path="addtest" element={<AdminPrivateRoute><AddTest /></AdminPrivateRoute>} />
-					<Route path="addtestsection" element={<AdminPrivateRoute><AddSection /></AdminPrivateRoute>} />
-					<Route path="addtestseries" element={<AdminPrivateRoute><AddTestSeries /></AdminPrivateRoute>} />
-					<Route path="message" element={<AdminPrivateRoute><SeeMessage /></AdminPrivateRoute>} />
-					<Route path="reportedquestion" element={<AdminPrivateRoute><ReportedQuestion /></AdminPrivateRoute>} />
-					<Route path="transferquestion" element={<AdminPrivateRoute><TransferQues /></AdminPrivateRoute>} />
-				</Routes>
-			} />
+			<Route path="dashboard" element={<AdminPrivateRoute><AdminDashboard /></AdminPrivateRoute>} />
+			<Route path="addcategory" element={<AdminPrivateRoute><AddCategory /></AdminPrivateRoute>} />
+			<Route path="addcourse" element={<AdminPrivateRoute><AddCourse /></AdminPrivateRoute>} />
+			<Route path="addsubject" element={<AdminPrivateRoute><AddSubject /></AdminPrivateRoute>} />
+			<Route path="addchapter" element={<AdminPrivateRoute><AddChapter /></AdminPrivateRoute>} />
+			<Route path="addquestion" element={<AdminPrivateRoute><AddQuestion /></AdminPrivateRoute>} />
+			<Route path="addblog" element={<AdminPrivateRoute><AddBlog /></AdminPrivateRoute>} />
+			<Route path="addpromo" element={<AdminPrivateRoute><AddPromo /></AdminPrivateRoute>} />
+			<Route path="addtest" element={<AdminPrivateRoute><AddTest /></AdminPrivateRoute>} />
+			<Route path="addtestsection" element={<AdminPrivateRoute><AddSection /></AdminPrivateRoute>} />
+			<Route path="addtestseries" element={<AdminPrivateRoute><AddTestSeries /></AdminPrivateRoute>} />
+			<Route path="message" element={<AdminPrivateRoute><SeeMessage /></AdminPrivateRoute>} />
+			<Route path="reportedquestion" element={<AdminPrivateRoute><ReportedQuestion /></AdminPrivateRoute>} />
+			<Route path="transferquestion" element={<AdminPrivateRoute><TransferQues /></AdminPrivateRoute>} />
 		</Routes>
 	);
 }

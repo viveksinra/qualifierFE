@@ -41,14 +41,14 @@ export default function MegaMenu(props) {
 		<Suspense fallback={<div className={props.className}>{props.children}</div>}>
 			<StyledHtmlTooltip
 				arrow
-				interactive
+				interactive="true"
 				title={
 					<Fragment>
 						<Grid container>
 							<Grid item xs={5}>
 								<List component="nav" aria-label="main mailbox folders">
 									{menuData.map((m, i) => (
-										<ListItem button key={i} selected={menuIndex === i ? true : false} onMouseOver={(e) => handleHover(e, i, m.subMenu)}>
+										<ListItem button="true" key={i} selected={menuIndex === i ? true : false} onMouseOver={(e) => handleHover(e, i, m.subMenu)}>
 											<ListItemAvatar>
 												<Avatar alt={m.title} src={m.icon} />
 											</ListItemAvatar>

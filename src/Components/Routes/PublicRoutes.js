@@ -34,73 +34,67 @@ import Invite from "../../Website/Invite";
 function PublicRoutes() {
 	return (
 		<Routes>
-			<Route path="/login" element={
+			<Route path="signup" element={<Signup />} />
+			<Route path="about" element={<About />} />
+			<Route path="pricing" element={<Pricing />} />
+			<Route path="courses" element={<CoursesHome />} />
+			<Route path="blog/*" element={
 				<Routes>
-					<Route exact path="/login" element={<Login />} />
-					<Route exact path="/login/:token" element={<Login />} />
+					<Route path="" element={<Blog />} />
+					<Route path=":link" element={<BlogExpand />} />
 				</Routes>
 			} />
-			<Route path="/signup" element={<Signup />} />
-			<Route path="/about" element={<About />} />
-			<Route path="/pricing" element={<Pricing />} />
-			<Route path="/courses" element={<CoursesHome />} />
-			<Route path="/blog" element={
+			<Route path="contact" element={<Contact />} />
+			<Route path="paymentverify/:paymentCompany/:status/:paymentId" element={<PaymentVerify />} />
+			<Route path="practice/*" element={
 				<Routes>
-					<Route exact path="/blog" element={<Blog />} />
-					<Route exact path="/blog/:link" element={<BlogExpand />} />
+					<Route path="start/:catlink/:corslink" element={<UserPrivateRoute><PracticeExp /></UserPrivateRoute>} />
+					<Route path="start/:catlink/:corslink/:sublink" element={<UserPrivateRoute><PracticeExp /></UserPrivateRoute>} />
+					<Route path="start/:catlink/:corslink/:sublink/:chaplink" element={<UserPrivateRoute><PracticeExp /></UserPrivateRoute>} />
+					<Route path="" element={<PracticeHome />} />
+					<Route path=":catlink" element={<CourseList />} />
+					<Route path=":catlink/:corslink" element={<Course />} />
+					<Route path=":catlink/:corslink/:sublink" element={<Course />} />
+					<Route path=":catlink/:corslink/:sublink/:chaplink" element={<Course />} />
 				</Routes>
 			} />
-			<Route path="/contact" element={<Contact />} />
-			<Route path="/paymentverify/:paymentCompany/:status/:paymentId" element={<PaymentVerify />} />
-			<Route path="/practice" element={
+			<Route path="online-test-series" element={<TestSeries />} />
+			<Route path="test/*" element={
 				<Routes>
-					<Route path="/practice/start/:catlink/:corslink" element={<UserPrivateRoute><PracticeExp /></UserPrivateRoute>} />
-					<Route path="/practice/start/:catlink/:corslink/:sublink" element={<UserPrivateRoute><PracticeExp /></UserPrivateRoute>} />
-					<Route path="/practice/start/:catlink/:corslink/:sublink/:chaplink" element={<UserPrivateRoute><PracticeExp /></UserPrivateRoute>} />
-					<Route exact path="/practice" element={<PracticeHome />} />
-					<Route path="/practice/:catlink" element={<CourseList />} />
-					<Route path="/practice/:catlink/:corslink" element={<Course />} />
-					<Route path="/practice/:catlink/:corslink/:sublink" element={<Course />} />
-					<Route path="/practice/:catlink/:corslink/:sublink/:chaplink" element={<Course />} />
-				</Routes>
-			} />
-			<Route path="/online-test-series" element={<TestSeries />} />
-			<Route path="/test" element={
-				<Routes>
-					<Route path="/test/:serieslink" element={<TestHome />} />
-					<Route path="/test/:serieslink/:testlink/instruction" element={
+					<Route path=":serieslink" element={<TestHome />} />
+					<Route path=":serieslink/:testlink/instruction" element={
 						<TestProvider>
 							<UserPrivateRoute><Instructions /></UserPrivateRoute>
 						</TestProvider>
 					} />
-					<Route path="/test/:serieslink/:testlink/on" element={
+					<Route path=":serieslink/:testlink/on" element={
 						<TestProvider>
 							<UserPrivateRoute><RealTest /></UserPrivateRoute>
 						</TestProvider>
 					} />
-					<Route path="/test/:serieslink/:testlink/report" element={
+					<Route path=":serieslink/:testlink/report" element={
 						<TestProvider>
 							<UserPrivateRoute><TestReport /></UserPrivateRoute>
 						</TestProvider>
 					} />
 				</Routes>
 			} />
-			<Route path="/dashboard" element={<UserPrivateRoute><UserDashboard /></UserPrivateRoute>} />
-			<Route path="/savequestion" element={<UserPrivateRoute><SaveQuestions /></UserPrivateRoute>} />
-			<Route path="/mycourses" element={<UserPrivateRoute><MyCourses /></UserPrivateRoute>} />
-			<Route path="/profile" element={<UserPrivateRoute><MyProfile /></UserPrivateRoute>} />
-			<Route path="/report" element={
+			<Route path="dashboard" element={<UserPrivateRoute><UserDashboard /></UserPrivateRoute>} />
+			<Route path="savequestion" element={<UserPrivateRoute><SaveQuestions /></UserPrivateRoute>} />
+			<Route path="mycourses" element={<UserPrivateRoute><MyCourses /></UserPrivateRoute>} />
+			<Route path="profile" element={<UserPrivateRoute><MyProfile /></UserPrivateRoute>} />
+			<Route path="report/*" element={
 				<Routes>
-					<Route path="/report" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
-					<Route path="/report/:catlink/:corslink/:sublink/:chaplink" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
-					<Route path="/report/:catlink/:corslink/:sublink" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
-					<Route path="/report/:catlink/:corslink" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
+					<Route path="" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
+					<Route path=":catlink/:corslink/:sublink/:chaplink" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
+					<Route path=":catlink/:corslink/:sublink" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
+					<Route path=":catlink/:corslink" element={<UserPrivateRoute><Report /></UserPrivateRoute>} />
 				</Routes>
 			} />
-			<Route path="/invite/:ref" element={<Invite />} />
-			<Route path="/app-privacy" element={<AppPrivacy />} />
-			<Route path="/privacypolicy" element={<PrivacyPolicy />} />
-			<Route path="/sitemap" element={<Sitemap />} />
+			<Route path="invite/:ref" element={<Invite />} />
+			<Route path="app-privacy" element={<AppPrivacy />} />
+			<Route path="privacypolicy" element={<PrivacyPolicy />} />
+			<Route path="sitemap" element={<Sitemap />} />
 
 			{/* <Route path="*" element={<PageNotFound />} /> */}
 		</Routes>

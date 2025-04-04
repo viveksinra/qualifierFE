@@ -50,7 +50,7 @@ const CatgDetails = () => {
 						<List dense disablePadding component="nav" aria-label="Category List">
 							{d.cour.map((c, j) => (
 								<Link key={j} to={`/practice/${d.link}/${c.link}`}>
-									<ListItem dense button>
+									<ListItem dense button="true">
 										<SvgIcon
 											style={{ marginRight: 10 }}
 											className="MuiSvgIcon-root"

@@ -58,7 +58,7 @@ export default function Sitemap(props) {
 				<List sx={{ maxWidth: 400, margin: "0 auto", color: "rgb(0, 110, 255)" }}>
 					{treeData.map((t, i) => (
 						<React.Fragment key={i}>
-							<ListItem button onClick={() => t.children && handleToggle(i)}>
+							<ListItem button="true" onClick={() => t.children && handleToggle(i)}>
 								<ListItemText primary={t.link ? <Link to={`/${t.link}`}>{t.name}</Link> : t.name} />
 								{t.children && (openSections[i] ? <FaAngleDown /> : <FaAngleRight />)}
 							</ListItem>

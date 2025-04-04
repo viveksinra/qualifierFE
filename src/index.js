@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import { ThemeProvider, createTheme, styled } from "@mui/material/styles";
 import { BrowserRouter } from "react-router-dom";
 // import * as serviceWorker from "./serviceWorker";
@@ -71,7 +71,8 @@ const globalStyles = {
 	},
 };
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
 	<ThemeProvider theme={theme}>
 		<GlobalStyles styles={globalStyles} />
 		<BrowserRouter>
@@ -79,8 +80,7 @@ ReactDOM.render(
 				<MainRoute />
 			</MainProvider>
 		</BrowserRouter>
-	</ThemeProvider>,
-	document.getElementById("root"),
+	</ThemeProvider>
 );
 
 // If you want your app to work offline and load faster, you can change
