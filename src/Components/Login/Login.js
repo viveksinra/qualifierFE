@@ -139,12 +139,12 @@ export default function Login() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item md={6} className="hideInMob" id="loginLeft">
+				<Grid item  size={{md:6 }} className="hideInMob" id="loginLeft">
 					<Suspense fallback={<CircularProgress style={{ marginLeft: "50%", marginTop: 50 }} />}>
 						<NewsCard />
 					</Suspense>
 				</Grid>
-				<Grid item md={6} id="loginRight">
+				<Grid item size={{md:6 }} id="loginRight">
 					<form onSubmit={(e) => handleSubmit(e)}>
 						<Grid container spacing={4}>
 							<Grid item size={{xs: 12}} >

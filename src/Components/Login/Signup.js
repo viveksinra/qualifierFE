@@ -108,12 +108,12 @@ export default function Signup() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item md={6} className="hideInMob" id="loginLeft">
+				<Grid item size={{md:6 }} className="hideInMob" id="loginLeft">
 					<Suspense fallback={<CircularProgress />}>
 						<NewsCard />
 					</Suspense>
 				</Grid>
-				<Grid item md={6} id="loginRight">
+				<Grid item size={{md:6 }} id="loginRight">
 					<Link to="/">
 						<img src="https://i.ibb.co/Q9DyDpZ/Qualifier-Logo.png" alt="logo" />
 					</Link>

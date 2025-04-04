@@ -211,13 +211,13 @@ export default function AddPromo() {
                     }}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
-								<Grid item xs={4}></Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}></Grid>
+								<Grid item size={{xs: 4 }}>
 									<center>
 										<Chip color="primary" label="Add Promo Code" />
 									</center>
 								</Grid>
-								<Grid item xs={4}></Grid>
+								<Grid item size={{xs: 4 }}></Grid>
 								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"

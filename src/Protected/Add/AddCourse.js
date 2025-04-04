@@ -180,13 +180,13 @@ export default function AddCourse() {
                     }}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
-								<Grid item xs={4}></Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}></Grid>
+								<Grid item size={{xs: 4 }}>
 									<center>
 										<Chip color="primary" label="Add Course" />
 									</center>
 								</Grid>
-								<Grid item xs={4}></Grid>
+								<Grid item size={{xs: 4 }}></Grid>
 								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
@@ -214,7 +214,7 @@ export default function AddCourse() {
 										renderInput={(params) => <TextField {...params} variant="outlined" label="Select Category" />}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -227,7 +227,7 @@ export default function AddCourse() {
 										onChange={(e) => setLink(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -240,7 +240,7 @@ export default function AddCourse() {
 										onChange={(e) => setHighlight(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										type="file"
@@ -253,7 +253,7 @@ export default function AddCourse() {
 										onChange={(e) => imgUpload(e.target.files[0], "image")}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										type="file"

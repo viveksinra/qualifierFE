@@ -45,7 +45,7 @@ export default function MegaMenu(props) {
 				title={
 					<Fragment>
 						<Grid container>
-							<Grid item xs={5}>
+							<Grid item size={{xs: 5 }}>
 								<List component="nav" aria-label="main mailbox folders">
 									{menuData.map((m, i) => (
 										<ListItem button="true" key={i} selected={menuIndex === i ? true : false} onMouseOver={(e) => handleHover(e, i, m.subMenu)}>
@@ -61,7 +61,7 @@ export default function MegaMenu(props) {
 									))}
 								</List>
 							</Grid>
-							<Grid item xs={7}>
+							<Grid item size={{xs: 7 }}>
 								<List component="nav" aria-label="main mailbox folders">
 									{subMenuData &&
 										subMenuData.map((s) => (

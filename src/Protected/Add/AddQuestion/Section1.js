@@ -88,7 +88,7 @@ export default function Section1() {
 						renderInput={(params) => <TextField {...params} label="Select Chapter" variant="outlined" fullWidth />}
 					/>
 				</Grid>
-				<Grid item xs={6}>
+				<Grid item size={{xs: 6 }}>
 					<TextField
 						variant="outlined"
 						type="file"
@@ -102,7 +102,7 @@ export default function Section1() {
 						onChange={(e) => imgUpload(e.target.files[0], "Qimage", Qdispatch)}
 					/>
 				</Grid>
-				<Grid item xs={6}>
+				<Grid item size={{xs: 6 }}>
 					<FormControlLabel
 						control={<Switch checked={html} onChange={() => switchHtml(!html)} name="checkedA" />}
 						label={html ? "HTML Mode" : "Editor Mode"}

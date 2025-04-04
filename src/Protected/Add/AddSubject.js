@@ -181,13 +181,13 @@ export default function AddSubject() {
 					<Paper sx={EntryAreaPaper}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
-								<Grid item xs={4}></Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}></Grid>
+								<Grid item size={{xs: 4 }}>
 									<center>
 										<Chip color="primary" label="Add Subject" />
 									</center>
 								</Grid>
-								<Grid item xs={4}></Grid>
+								<Grid item size={{xs: 4 }}></Grid>
 								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
@@ -223,7 +223,7 @@ export default function AddSubject() {
 										renderInput={(params) => <TextField {...params} required label="Select Course" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -236,7 +236,7 @@ export default function AddSubject() {
 										onChange={(e) => setLink(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										fullWidth

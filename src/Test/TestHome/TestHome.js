@@ -134,7 +134,7 @@ function TestHome() {
 			<div className={testHomeClasses.listBg}>
 				<Container>
 					<Grid container spacing={4}>
-						<Grid item md={9}>
+						<Grid item size={{md:9 }}>
 							<Typography gutterBottom variant="h6">
 								Free Mock Test
 							</Typography>
@@ -184,7 +184,7 @@ function TestHome() {
 								: seriesData.tests.filter((f) => f.type === tab).map((d, j) => <TestCard data={d} key={j} serieslink={seriesData.link} />)}
 							<br /> <br />
 						</Grid>
-						<Grid item md={3} style={{ marginLeft: "auto", marginRight: "auto" }}>
+						<Grid item size={{md:3 }} style={{ marginLeft: "auto", marginRight: "auto" }}>
 							<Card className={clsx(testHomeClasses.seriesCard, "shine")} elevation={2}>
 								<img className={testHomeClasses.avatar} src={seriesData.logo} alt="logo" />
 								<Typography noWrap variant="h6">

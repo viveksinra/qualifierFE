@@ -202,15 +202,15 @@ export default function AddSection() {
 					<EntryAreaPaper>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
-								<Grid item xs={4}></Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}></Grid>
+								<Grid item size={{xs: 4 }}>
 									<center>
 										<Chip color="primary" label="Add Test Section" />
 									</center>
 								</Grid>
-								<Grid item xs={4} />
+								<Grid item size={{xs:4 }}/>
 
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -222,7 +222,7 @@ export default function AddSection() {
 										onChange={(e) => setTitle(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<Autocomplete
 										options={allTseries}
 										getOptionLabel={(option) => option.title}
@@ -233,7 +233,7 @@ export default function AddSection() {
 										renderInput={(params) => <TextField {...params} label="Select Test Series" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -244,7 +244,7 @@ export default function AddSection() {
 										onChange={(e) => setDesc(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField
 										variant="outlined"
 										type="number"
@@ -256,7 +256,7 @@ export default function AddSection() {
 										onChange={(e) => setMin(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField variant="outlined" fullWidth required select label="Section Type" value={type} onChange={(e) => setType(e.target.value)}>
 										{allTypes.map((d) => (
 											<MenuItem key={d} value={d}>
@@ -265,7 +265,7 @@ export default function AddSection() {
 										))}
 									</TextField>
 								</Grid>
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -282,7 +282,7 @@ export default function AddSection() {
 										))}
 									</TextField>
 								</Grid>
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -295,7 +295,7 @@ export default function AddSection() {
 										onChange={(e) => setMarks({ ...marks, correct: e.target.value })}
 									/>
 								</Grid>
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField
 										variant="outlined"
 										required

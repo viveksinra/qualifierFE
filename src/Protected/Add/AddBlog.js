@@ -173,18 +173,18 @@ export default function AddBlog() {
                     }}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}>
 									<RadioGroup aria-label="position" value={type} onChange={(e) => setType(e.target.value)} name="position" row>
 										<FormControlLabel value="blogs" control={<Radio color="primary" />} label="Blogs" labelPlacement="end" />
 										<FormControlLabel value="news" control={<Radio color="primary" />} label="News" labelPlacement="end" />
 									</RadioGroup>
 								</Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}>
 									<center>
 										<Chip color="primary" label={`Add ${type}`} />
 									</center>
 								</Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}>
 									{live ? (
 										<Fab
 											style={{ float: "right", fontSize: "x-large" }}
@@ -207,10 +207,10 @@ export default function AddBlog() {
 										</Fab>
 									)}
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField variant="outlined" required fullWidth label="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<Autocomplete
 										options={allCat}
 										getOptionLabel={(option) => option.catgName}
@@ -233,7 +233,7 @@ export default function AddBlog() {
 										renderInput={(params) => <TextField {...params} label="Select Tags" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										type="file"
@@ -246,7 +246,7 @@ export default function AddBlog() {
 										onChange={(e) => imgUpload(e.target.files[0])}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										fullWidth

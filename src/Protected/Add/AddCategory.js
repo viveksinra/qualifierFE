@@ -125,13 +125,13 @@ export default function AddCategory() {
 					<EntryAreaPaper>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
-								<Grid item xs={4}></Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}></Grid>
+								<Grid item size={{xs: 4 }}>
 									<center>
 										<Chip color="primary" label="Add Category" />
 									</center>
 								</Grid>
-								<Grid item xs={4}></Grid>
+								<Grid item size={{xs: 4 }}></Grid>
 								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
@@ -146,7 +146,7 @@ export default function AddCategory() {
 										onChange={(e) => setTitle(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -159,7 +159,7 @@ export default function AddCategory() {
 										onChange={(e) => setLink(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										fullWidth

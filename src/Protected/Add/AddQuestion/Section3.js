@@ -11,7 +11,7 @@ export default function Section3() {
 	const [html, switchHtml] = useState(false);
 	return (
 		<Grid container spacing={2} justify="center">
-			<Grid item xs={6}>
+			<Grid item size={{xs: 6 }}>
 				<TextField
 					variant="outlined"
 					type="file"
@@ -22,7 +22,7 @@ export default function Section3() {
 					onChange={(e) => imgUpload(e.target.files[0], "Simage", Qdispatch)}
 				/>
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item size={{xs: 6 }}>
 				<FormControlLabel
 					control={<Switch checked={html} onChange={() => switchHtml(!html)} name="checkedA" />}
 					label={html ? "HTML Mode" : "Editor Mode"}

@@ -160,13 +160,13 @@ export default function AddTestSeries() {
 					<Paper sx={EntryAreaPaper}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
-								<Grid item xs={4}></Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}></Grid>
+								<Grid item size={{xs: 4 }}>
 									<center>
 										<Chip color="primary" label="Add Test Series" />
 									</center>
 								</Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}>
 									<FormControlLabel
 										control={<Switch checked={isPopular} onChange={() => setIsP(!isPopular)} name="Popular" color="primary" />}
 										label="Popular"
@@ -196,7 +196,7 @@ export default function AddTestSeries() {
 										onChange={(e) => setST(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -213,7 +213,7 @@ export default function AddTestSeries() {
 										))}
 									</TextField>
 								</Grid>
-								<Grid item xs={6}>
+								<Grid item size={{xs: 6 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -224,7 +224,7 @@ export default function AddTestSeries() {
 										onChange={(e) => setLink(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -235,7 +235,7 @@ export default function AddTestSeries() {
 										onChange={(e) => setHighlight(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}>
 									<TextField
 										variant="outlined"
 										type="file"

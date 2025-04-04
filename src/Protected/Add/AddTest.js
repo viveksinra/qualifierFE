@@ -210,13 +210,13 @@ export default function AddTest() {
                     }}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
-								<Grid item xs={4}></Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}></Grid>
+								<Grid item size={{xs: 4 }}>
 									<center>
 										<Chip color="primary" label="Add Test" />
 									</center>
 								</Grid>
-								<Grid item xs={4}>
+								<Grid item size={{xs: 4 }}>
 									<FormControlLabel
 										control={<Switch checked={isLock} onChange={() => setIsLock(!isLock)} name="Popular" color="primary" />}
 										label="Lock"
@@ -268,7 +268,7 @@ export default function AddTest() {
 										))}
 									</TextField>
 								</Grid>
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -281,7 +281,7 @@ export default function AddTest() {
 									/>
 								</Grid>
 
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -292,7 +292,7 @@ export default function AddTest() {
 										onChange={(e) => setLink(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -303,7 +303,7 @@ export default function AddTest() {
 										onChange={(e) => setHighlight(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={6} sm={3}>
+								<Grid item size={{xs: 6, sm:3 }}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -337,7 +337,7 @@ export default function AddTest() {
 								<Grid item size={{xs: 12, sm:8 }} >
 									<Collapse in={isLive}>
 										<Grid container spacing={2}>
-											<Grid item xs={6}>
+											<Grid item size={{xs: 6 }}>
 												<TextField
 													variant="outlined"
 													type="datetime-local"
@@ -348,7 +348,7 @@ export default function AddTest() {
 													onChange={(e) => setLTS(e.target.value)}
 												/>
 											</Grid>
-											<Grid item xs={6}>
+											<Grid item size={{xs: 6 }}>
 												<TextField
 													variant="outlined"
 													type="datetime-local"

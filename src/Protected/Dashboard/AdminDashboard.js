@@ -20,11 +20,11 @@ export default function AdminDashboard() {
 				<br />
 				<Grid container spacing={2}>
 					{data.map((d) => (
-						<Grid item key={d.link} xs={6} sm={3}>
+						<Grid item key={d.link} size={{xs: 6, sm:3 }}>
 							<Link to={d.link}>{d.title}</Link>
 						</Grid>
 					))}
-					<Grid item xs={6} sm={3}>
+					<Grid item size={{xs: 6, sm:3 }}>
 						<Button onClick={handleLogout} startIcon={<FcImport />}>
 							Logout
 						</Button>

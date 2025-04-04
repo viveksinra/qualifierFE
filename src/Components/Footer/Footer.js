@@ -144,7 +144,7 @@ export default function Footer() {
 							</a>
 						</center>
 					</Grid>
-					<StyledCenterGrid item xs={6} md={3}>
+					<StyledCenterGrid item size={{xs:6, md:3 }}>
 						<Typography variant="subtitle1">Company</Typography>
 						<List dense>
 							{list1.map((l) => (
@@ -156,7 +156,7 @@ export default function Footer() {
 							))}
 						</List>
 					</StyledCenterGrid>
-					<StyledCenterGrid item xs={6} md={3}>
+					<StyledCenterGrid item size={{xs:6, md:3 }}>
 						<Typography variant="subtitle1">Products</Typography>
 						<List dense>
 							{list2.map((l) => (
