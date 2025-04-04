@@ -107,7 +107,7 @@ function TestReport() {
 				<br />
 				<br />
 				<Grid container spacing={2}>
-					<Grid item xs={12} md={7}>
+					<Grid item size={{xs: 12, md:7 }} >
 						<Typography gutterBottom variant="subtitle1" align="center" color="secondary">
 							Question statistics
 						</Typography>

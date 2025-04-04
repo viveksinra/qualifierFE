@@ -156,7 +156,7 @@ export default function AddTestSeries() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item xs={12} md={9}>
+				<Grid item size={{xs: 12,  md: 9 }} >
 					<Paper sx={EntryAreaPaper}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
@@ -172,7 +172,7 @@ export default function AddTestSeries() {
 										label="Popular"
 									/>
 								</Grid>
-								<Grid item xs={12} sm={9}>
+								<Grid item size={{xs: 12, sm:9 }} >
 									<TextField
 										variant="outlined"
 										required
@@ -184,7 +184,7 @@ export default function AddTestSeries() {
 										onChange={(e) => setTitle(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} sm={3}>
+								<Grid item size={{xs: 12,sm:3 }} >
 									<TextField
 										variant="outlined"
 										required
@@ -246,7 +246,7 @@ export default function AddTestSeries() {
 										onChange={(e) => imgUpload(e.target.files[0])}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -257,10 +257,10 @@ export default function AddTestSeries() {
 										onChange={(e) => setDescription(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Divider />
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
 											<Fab color="primary" type="submit" sx={StyledButton}>
@@ -287,7 +287,7 @@ export default function AddTestSeries() {
 						</form>
 					</Paper>
 				</Grid>
-				<Grid item xs={12} md={3}>
+				<Grid item size={{xs: 12, md:3 }} >
 					{/* Search Section */}
 					<SearchContainer>
 						<SearchIconWrapper>

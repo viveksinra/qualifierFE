@@ -10,7 +10,7 @@ export default function Section2() {
 
 	return (
 		<Grid container spacing={2} justify="center">
-			<Grid item xs={12}>
+			<Grid item size={{xs: 12}} >
 				<FormControlLabel
 					control={<Switch checked={html} onChange={() => switchHtml(!html)} name="checkedA" />}
 					label={html ? "HTML Mode" : "Editor Mode"}

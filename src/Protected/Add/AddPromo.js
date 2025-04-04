@@ -203,7 +203,7 @@ export default function AddPromo() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item xs={12} md={9}>
+				<Grid item size={{xs: 12,  md: 9 }} >
 					<Paper sx={{
                         padding: theme => theme.spacing(2),
                         margin: theme => theme.spacing(1),
@@ -218,7 +218,7 @@ export default function AddPromo() {
 									</center>
 								</Grid>
 								<Grid item xs={4}></Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										required
@@ -232,7 +232,7 @@ export default function AddPromo() {
 										onChange={(e) => setPromo(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										required
@@ -246,7 +246,7 @@ export default function AddPromo() {
 										onChange={(e) => setUserDis(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										required
@@ -259,13 +259,13 @@ export default function AddPromo() {
 										onChange={(e) => setMaxDiscount(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<RadioGroup aria-label="position" value={isforOverall} onChange={() => setIsOverall(!isforOverall)} name="position" row>
 										<FormControlLabel value={true} control={<Radio color="primary" />} label="For All User" labelPlacement="end" />
 										<FormControlLabel value={false} control={<Radio color="primary" />} label="Personal Ref " labelPlacement="end" />
 									</RadioGroup>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -278,10 +278,10 @@ export default function AddPromo() {
 										onChange={(e) => setUniqueMax(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField variant="outlined" fullWidth label="Valid On (Access Type)" placeholder="" value="fullpass" disabled />
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<Autocomplete
 										options={allInflu}
 										getOptionLabel={(option) => option.name}
@@ -292,7 +292,7 @@ export default function AddPromo() {
 										renderInput={(params) => <TextField {...params} label="Select Influencer" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -304,7 +304,7 @@ export default function AddPromo() {
 										onChange={(e) => setInfCred(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -316,7 +316,7 @@ export default function AddPromo() {
 										onChange={(e) => setMaxCredit(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -330,7 +330,7 @@ export default function AddPromo() {
 										<MenuItem value="tmorethan">More than Time </MenuItem>
 									</TextField>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -341,7 +341,7 @@ export default function AddPromo() {
 										onChange={(e) => setValidTime(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -353,7 +353,7 @@ export default function AddPromo() {
 										onChange={(e) => setTMoreThan(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -368,7 +368,7 @@ export default function AddPromo() {
 										onChange={(e) => setValidFrom(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -383,7 +383,7 @@ export default function AddPromo() {
 										onChange={(e) => setValidTo(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={4}>
+								<Grid item size={{xs: 12,md: 4 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -394,7 +394,7 @@ export default function AddPromo() {
 										onChange={(e) => setCount(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} md={6}>
+								<Grid item size={{xs: 12,  md: 6 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -405,10 +405,10 @@ export default function AddPromo() {
 										onChange={(e) => setMsg(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Divider />
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
 											<Fab color="primary" type="submit" sx={{ margin: theme => theme.spacing(1) }}>
@@ -433,7 +433,7 @@ export default function AddPromo() {
 						</form>
 					</Paper>
 				</Grid>
-				<Grid item xs={12} md={3}>
+				<Grid item size={{xs: 12, md:3 }} >
 					{/* Search Section */}
 					<SearchDiv>
 						<SearchIconWrapper>

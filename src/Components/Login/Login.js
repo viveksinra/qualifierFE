@@ -147,7 +147,7 @@ export default function Login() {
 				<Grid item md={6} id="loginRight">
 					<form onSubmit={(e) => handleSubmit(e)}>
 						<Grid container spacing={4}>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<Typography variant="h4" color="primary">
 									Login to
 								</Typography>
@@ -155,7 +155,7 @@ export default function Login() {
 									<img src="https://i.ibb.co/Q9DyDpZ/Qualifier-Logo.png" alt="logo" />
 								</Link>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<center>
 									<Chip
 										onClick={() => googleLogin()}
@@ -165,10 +165,10 @@ export default function Login() {
 									/>
 								</center>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<Divider />
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<TextField
 									variant="outlined"
 									required
@@ -180,7 +180,7 @@ export default function Login() {
 									onChange={(e) => setLoginId(e.target.value)}
 								/>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<TextField
 									fullWidth
 									variant="outlined"
@@ -199,13 +199,13 @@ export default function Login() {
 									onChange={(e) => setPassword(e.target.value)}
 								/>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<Button type="submit" variant="contained" color="primary" fullWidth>
 									Sign In
 								</Button>
 							</Grid>
 
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<Typography style={{ cursor: "grab" }} onClick={() => forgotBox(true)} gutterBottom align="center">
 									Forgot Password ?
 								</Typography>
@@ -222,7 +222,7 @@ export default function Login() {
 				<DialogTitle>Reset your Password</DialogTitle>
 				<DialogContent>
 					<Grid container spacing={1}>
-						<Grid item xs={12}>
+						<Grid item size={{xs: 12}} >
 							<TextField
 								autoFocus
 								fullWidth
@@ -241,7 +241,7 @@ export default function Login() {
 								onChange={(e) => setForgotData(e.target.value)}
 							/>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid item size={{xs: 12}} >
 							<center>
 								<Collapse in={showOTP}>
 									<TextField
@@ -260,7 +260,7 @@ export default function Login() {
 							</center>
 						</Grid>
 
-						<Grid item xs={12}>
+						<Grid item size={{xs: 12}} >
 							<Collapse in={allowPass}>
 								<TextField
 									variant="outlined"

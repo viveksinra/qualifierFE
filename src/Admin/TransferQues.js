@@ -194,7 +194,7 @@ function TransferQues() {
 
 	const Section = (side) => (
 		<Grid container spacing={2}>
-			<Grid item xs={12} md={6}>
+			<Grid item size={{xs: 12,  md: 6 }} >
 				<Autocomplete
 					options={allCategory}
 					getOptionLabel={(option) => option.categoryTitle}
@@ -206,7 +206,7 @@ function TransferQues() {
 					renderInput={(params) => <TextField {...params} required label={`Select Category ${side}`} variant="outlined" fullWidth />}
 				/>
 			</Grid>
-			<Grid item xs={12} md={6}>
+			<Grid item size={{xs: 12,  md: 6 }} >
 				<Autocomplete
 					options={allCourse[side]}
 					getOptionLabel={(option) => option.courseTitle}
@@ -218,7 +218,7 @@ function TransferQues() {
 					renderInput={(params) => <TextField {...params} required label={`Select Course ${side}`} variant="outlined" fullWidth />}
 				/>
 			</Grid>
-			<Grid item xs={12} md={6}>
+			<Grid item size={{xs: 12,  md: 6 }} >
 				<Autocomplete
 					options={allSubject[side]}
 					getOptionLabel={(option) => option.subjectTitle}
@@ -230,7 +230,7 @@ function TransferQues() {
 					renderInput={(params) => <TextField {...params} required label={`Select Subject ${side}`} variant="outlined" fullWidth />}
 				/>
 			</Grid>
-			<Grid item xs={12} md={6}>
+			<Grid item size={{xs: 12,  md: 6 }} >
 				<Autocomplete
 					options={allChapter[side]}
 					getOptionLabel={(option) => option.chapterTitle}
@@ -249,10 +249,10 @@ function TransferQues() {
 			<Container>
 				<StyledPaper elevation={3}>
 					<Grid container spacing={2} justify="center" alignItems="center" style={{ margn: "auto" }}>
-						<Grid item xs={12} sm={6}>
+						<Grid item size={{xs: 12,sm: 6 }} >
 							{Section("from")}
 						</Grid>
-						<Grid item xs={12} sm={6}>
+						<Grid item size={{xs: 12,sm: 6 }} >
 							{Section("to")}
 						</Grid>
 						<Grid item>{customList("Choices (From)", left)}</Grid>

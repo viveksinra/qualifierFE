@@ -138,7 +138,7 @@ export default function Report() {
 						subheader={todayDate()}
 					/>
 					<Grid container spacing={2}>
-						<Grid item xs={12} sm={4}>
+						<Grid item size={{xs: 12,sm:4 }} >
 							<Autocomplete
 								options={allCategory}
 								getOptionLabel={(option) => option.categoryTitle}
@@ -150,7 +150,7 @@ export default function Report() {
 								renderInput={(params) => <TextField {...params} required label="Select Category" variant="outlined" fullWidth />}
 							/>
 						</Grid>
-						<Grid item xs={12} sm={4}>
+						<Grid item size={{xs: 12,sm:4 }} >
 							<Autocomplete
 								options={allCourse}
 								getOptionLabel={(option) => option.courseTitle}
@@ -163,7 +163,7 @@ export default function Report() {
 								renderInput={(params) => <TextField {...params} required label="Select Course" variant="outlined" fullWidth />}
 							/>
 						</Grid>
-						<Grid item xs={12} sm={4}>
+						<Grid item size={{xs: 12,sm:4 }} >
 							<Autocomplete
 								options={allSubject}
 								getOptionLabel={(option) => option.subjectTitle}

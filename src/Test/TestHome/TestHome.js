@@ -320,7 +320,7 @@ function TestCard({ data, serieslink }) {
 				<div className={testCardClasses.cross}>{data.free ? "Free" : "Locked"}</div>
 			)}
 			<Grid container alignItems="center">
-				<Grid item xs={12} sm={6}>
+				<Grid item size={{xs: 12,sm: 6 }} >
 					<ListItem style={{ marginLeft: 15 }}>
 						<img alt={data.title} className="examIcon" src={data.icon} />
 						<ListItemText
@@ -330,7 +330,7 @@ function TestCard({ data, serieslink }) {
 					</ListItem>
 				</Grid>
 				<span style={{ flexGrow: 0.1 }} />
-				<Grid item xs={12} sm={5}>
+				<Grid item size={{xs: 12, sm:5 }} >
 					<Grid container spacing={1} className={testCardClasses.trans}>
 						{data.isReport ? (
 							<Grid item>

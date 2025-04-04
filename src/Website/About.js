@@ -96,10 +96,10 @@ export default function About(props) {
 					understand the student need and convey them the best study content so that they can crack the examination as playing a game. Enjoy Studing !
 				</Typography>
 				<Grid container spacing={2}>
-					<Grid item xs={12} sm={6}>
+					<Grid item size={{xs: 12,sm: 6 }} >
 						<img className={classes.joyImg} src="https://i.ibb.co/zx5wzvF/happy.jpg" alt="happy" border="0" />
 					</Grid>
-					<Grid item xs={12} sm={6}>
+					<Grid item size={{xs: 12,sm: 6 }} >
 						<br />
 						<Typography align="center" variant="h6" color="secondary">
 							Study By Practice & Chess the success

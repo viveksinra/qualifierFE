@@ -55,12 +55,12 @@ export default function CourseList() {
 			<ContentContainer>
 				<div style={{ ...theme.mixins.toolbar }} />
 				<Grid container>
-					<Grid item xs={12}>
+					<Grid item size={{xs: 12}} >
 						<center>
 							<Chip color="primary" label={catg.categoryTitle} />
 						</center>
 					</Grid>
-					<Grid item xs={12}>
+					<Grid item size={{xs: 12}} >
 						<Typography align="center" variant="h4">
 							Practice Best Questions, for Free!
 						</Typography>

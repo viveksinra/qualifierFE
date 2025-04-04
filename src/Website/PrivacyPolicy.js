@@ -64,7 +64,7 @@ export default function PrivacyPolicy() {
 			<StyledPracticsTop>
 				<Container maxWidth="md">
 					<Grid container spacing={4}>
-						<Grid item xs={12} md={5}>
+						<Grid item size={{xs: 12, md:5 }} >
 							<br />
 							<br />
 							<Typewriter
@@ -77,10 +77,10 @@ export default function PrivacyPolicy() {
 								}}
 							/>
 						</Grid>
-						<Grid item xs={12} md={2}>
+						<Grid item size={{xs: 12, md:2 }} >
 							<Divider orientation="vertical" />
 						</Grid>
-						<Grid item xs={12} md={5}>
+						<Grid item size={{xs: 12, md:5 }} >
 							<Typography variant="subtitle1" color="primary">
 								Key Points
 							</Typography>

@@ -43,7 +43,7 @@ export default function Section1() {
 			}
 		>
 			<Grid container spacing={2} justify="center">
-				<Grid item xs={12} md={6}>
+				<Grid item size={{xs: 12,  md: 6 }} >
 					<Autocomplete
 						options={Qstate.allCategory}
 						getOptionLabel={(option) => option.categoryTitle}
@@ -52,7 +52,7 @@ export default function Section1() {
 						renderInput={(params) => <TextField {...params} label="Select Category" variant="outlined" fullWidth />}
 					/>
 				</Grid>
-				<Grid item xs={12} md={6}>
+				<Grid item size={{xs: 12,  md: 6 }} >
 					<Autocomplete
 						multiple
 						options={Qstate.allCourse}
@@ -64,7 +64,7 @@ export default function Section1() {
 						renderInput={(params) => <TextField {...params} label="Select Course" variant="outlined" fullWidth />}
 					/>
 				</Grid>
-				<Grid item xs={12} md={6}>
+				<Grid item size={{xs: 12,  md: 6 }} >
 					<Autocomplete
 						multiple
 						options={Qstate.allSubject}
@@ -76,7 +76,7 @@ export default function Section1() {
 						renderInput={(params) => <TextField {...params} label="Select Subject" variant="outlined" fullWidth />}
 					/>
 				</Grid>
-				<Grid item xs={12} md={6}>
+				<Grid item size={{xs: 12,  md: 6 }} >
 					<Autocomplete
 						multiple
 						options={Qstate.allChapter}
@@ -117,7 +117,7 @@ export default function Section1() {
 						</a>
 					)}
 				</Grid>
-				<Grid item xs={12}>
+				<Grid item size={{xs: 12}} >
 					{html ? (
 						<TextField
 							variant="filled"

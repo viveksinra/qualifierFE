@@ -122,12 +122,12 @@ export default function PaymentVerify(props) {
 						<div className={classes.success}>
 							<p className={classes.successTag}>Congratulations ! Transaction Successful. </p>
 							<Grid container spacing={4}>
-								<Grid item xs={12} md={6}>
+								<Grid item size={{xs: 12,  md: 6 }} >
 									<center>
 										<img className={classes.img} src="https://i.ibb.co/HY5XT9n/happypeople.png" alt="happy" />
 									</center>
 								</Grid>
-								<Grid item xs={12} md={6}>
+								<Grid item size={{xs: 12,  md: 6 }} >
 									<Typography variant="subtitle1" align="right" gutterBottom color="textSecondary">
 										Thanks for the purchasing the course.
 									</Typography>
@@ -158,12 +158,12 @@ export default function PaymentVerify(props) {
 						<div className={classes.fail}>
 							<p className={classes.failTag}>It seeems, something went wrong. </p>
 							<Grid container spacing={4}>
-								<Grid item xs={12} md={6}>
+								<Grid item size={{xs: 12,  md: 6 }} >
 									<center>
 										<img className={classes.img} src="https://i.ibb.co/nLsY5nN/fail.png" alt="sad" />
 									</center>
 								</Grid>
-								<Grid item xs={12} md={6}>
+								<Grid item size={{xs: 12,  md: 6 }} >
 									<Typography variant="subtitle1" align="right" gutterBottom color="textSecondary">
 										Thanks for your patience.
 									</Typography>

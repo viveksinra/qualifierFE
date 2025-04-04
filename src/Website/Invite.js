@@ -98,7 +98,7 @@ export default function Invite() {
 							&nbsp;&nbsp;
 							<h6> {`${data.refName} has invited you to buy Qualifier Special Plan.`}</h6>
 						</Grid>
-						<Grid item xs={12}>
+						<Grid item size={{xs: 12}} >
 							<Typography variant="subtitle1" align="center">
 								Welcome to Qualifier : An Online Test & Practice Hub <br /> Get additional discount of {data.discount} %
 								{data.maxDiscount && ` upto ₹ ${data.maxDiscount}`} and thanks <b>{data.refName}</b> for it.

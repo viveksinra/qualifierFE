@@ -38,7 +38,7 @@ export default function Features() {
 						<List>
 							<Grid container justify="center" spacing={2}>
 								{cardData.map((c) => (
-									<Grid item xs={12} md={6} key={c.text}>
+									<Grid item size={{xs: 12, md:6 }}  key={c.text}>
 										<StyledGridCardListItem dense key={c.text}>
 											<ListItemAvatar>
 												<Avatar alt={c.text} src={c.icon} />

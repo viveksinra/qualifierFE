@@ -38,7 +38,7 @@ export default function Section3() {
 					</a>
 				)}
 			</Grid>
-			<Grid item xs={12}>
+			<Grid item size={{xs: 12}} >
 				{html ? (
 					<TextField
 						variant="filled"

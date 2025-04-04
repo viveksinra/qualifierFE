@@ -182,7 +182,7 @@ export default function Blog() {
 			<BlogTopBackground>Blogs & News</BlogTopBackground>
 			<BlogContainer>
 				<Grid container spacing={2}>
-					<Grid item xs={12} md={9}>
+					<Grid item size={{xs: 12,  md: 9 }} >
 						<StyledPaper>
 							<Grid container>
 								<Grid item>
@@ -221,7 +221,7 @@ export default function Blog() {
 							</Suspense>
 						</StyledPaper>
 					</Grid>
-					<Grid item xs={12} md={3}>
+					<Grid item size={{xs: 12, md:3 }} >
 						<Suspense fallback={<CircularProgress />}>{filerCard}</Suspense>
 					</Grid>
 				</Grid>
@@ -249,7 +249,7 @@ const BlogCardComponent = ({ page, newData, setNewD }) => {
 			{data &&
 				data.map((d, j) => (
 					<Grid container key={j} spacing={3} component={BlogCard}>
-						<Grid item xs={12} sm={4}>
+						<Grid item size={{xs: 12,sm:4 }} >
 							<Link key={j} to={`/blog/${d.link}`}>
 								<BlogImage alt={d.title} src={d.img} />
 							</Link>

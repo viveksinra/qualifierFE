@@ -117,7 +117,7 @@ export default function Footer() {
 		<StyledFooterDiv id="footer">
 			<Container>
 				<Grid container spacing={4}>
-					<Grid item xs={12} sm={6} md={3}>
+					<Grid item size={{xs: 12,sm:6, md:3 }} >
 						<StyledFooterLogoImg
 							src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg"
 							alt="logo"
@@ -168,7 +168,7 @@ export default function Footer() {
 							))}
 						</List>
 					</StyledCenterGrid>
-					<Grid item xs={12} sm={6} md={3}>
+					<Grid item size={{xs: 12,sm:6, md:3 }} >
 						<Typography variant="subtitle1">Our Apps</Typography>
 						<List>
 							<ListItem>

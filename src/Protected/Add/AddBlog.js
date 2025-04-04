@@ -165,7 +165,7 @@ export default function AddBlog() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item xs={12} md={9}>
+				<Grid item size={{xs: 12,  md: 9 }} >
 					<Paper sx={{
                         padding: theme => theme.spacing(2),
                         margin: theme => theme.spacing(1),
@@ -221,7 +221,7 @@ export default function AddBlog() {
 										renderInput={(params) => <TextField {...params} required label="Select Category" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Autocomplete
 										options={allTags}
 										getOptionLabel={(option) => option.keyword}
@@ -258,7 +258,7 @@ export default function AddBlog() {
 										onChange={(e) => setLink(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<FormControlLabel
 										control={<Switch checked={html} onChange={() => switchHtml(!html)} name="checkedA" />}
 										label={html ? "HTML Mode" : "Editor Mode"}
@@ -287,10 +287,10 @@ export default function AddBlog() {
 									)}
 								</Grid>
 
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Divider />
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
 											<Fab color="primary" type="submit" sx={{ margin: theme => theme.spacing(1) }}>
@@ -324,7 +324,7 @@ export default function AddBlog() {
 						</form>
 					</Paper>
 				</Grid>
-				<Grid item xs={12} md={3}>
+				<Grid item size={{xs: 12, md:3 }} >
 					{/* Search Section */}
 					<SearchDiv>
 						<SearchIconWrapper>

@@ -181,7 +181,7 @@ export default function AddChapter() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item xs={12} md={9}>
+				<Grid item size={{xs: 12,  md: 9 }} >
 					<Paper sx={{
                         padding: theme => theme.spacing(2),
                         margin: theme => theme.spacing(1),
@@ -206,7 +206,7 @@ export default function AddChapter() {
 										</Fab>
 									)}
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
 										required
@@ -220,7 +220,7 @@ export default function AddChapter() {
 										onChange={(e) => setTitle(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Autocomplete
 										options={allCategory}
 										getOptionLabel={(option) => option.categoryTitle}
@@ -232,7 +232,7 @@ export default function AddChapter() {
 										renderInput={(params) => <TextField {...params} required label="Select Category" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Autocomplete
 										options={allCourse}
 										getOptionLabel={(option) => option.courseTitle}
@@ -244,7 +244,7 @@ export default function AddChapter() {
 										renderInput={(params) => <TextField {...params} required label="Select Course" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Autocomplete
 										options={allSubject}
 										getOptionLabel={(option) => option.subjectTitle}
@@ -278,7 +278,7 @@ export default function AddChapter() {
 										onChange={(e) => setHighlight(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
 										type="file"
@@ -291,7 +291,7 @@ export default function AddChapter() {
 										onChange={(e) => imgUpload(e.target.files[0])}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -303,10 +303,10 @@ export default function AddChapter() {
 										onChange={(e) => setDescription(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Divider />
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
 											<Fab color="primary" type="submit" sx={{ margin: theme => theme.spacing(1) }}>
@@ -333,7 +333,7 @@ export default function AddChapter() {
 						</form>
 					</Paper>
 				</Grid>
-				<Grid item xs={12} md={3}>
+				<Grid item size={{xs: 12, md:3 }} >
 					{/* Search Section */}
 					<SearchDiv>
 						<SearchIconWrapper>

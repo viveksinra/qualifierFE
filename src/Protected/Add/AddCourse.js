@@ -172,7 +172,7 @@ export default function AddCourse() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item xs={12} md={9}>
+				<Grid item size={{xs: 12,  md: 9 }} >
 					<Paper sx={{
                         padding: theme => theme.spacing(2),
                         margin: theme => theme.spacing(1),
@@ -187,7 +187,7 @@ export default function AddCourse() {
 									</center>
 								</Grid>
 								<Grid item xs={4}></Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
 										required
@@ -201,7 +201,7 @@ export default function AddCourse() {
 										onChange={(e) => setTitle(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Autocomplete
 										multiple
 										options={allCategory}
@@ -266,7 +266,7 @@ export default function AddCourse() {
 										onChange={(e) => imgUpload(e.target.files[0], "logo")}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -278,10 +278,10 @@ export default function AddCourse() {
 										onChange={(e) => setDescription(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Divider />
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
 											<Fab color="primary" type="submit" sx={{ margin: theme => theme.spacing(1) }}>
@@ -317,7 +317,7 @@ export default function AddCourse() {
 						</form>
 					</Paper>
 				</Grid>
-				<Grid item xs={12} md={3}>
+				<Grid item size={{xs: 12, md:3 }} >
 					{/* Search Section */}
 					<SearchDiv>
 						<SearchIconWrapper>

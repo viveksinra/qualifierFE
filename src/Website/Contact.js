@@ -81,7 +81,7 @@ export default function Contact() {
 			<StyledContainer>
 				<Paper>
 					<Grid container justifyContent="center" spacing={4}>
-						<Grid item xs={12} md={6} style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+						<Grid item size={{xs: 12, md:6 }}  style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 							<img src={Chat} alt="Contact-Svg" />
 
 							<a target="_blank" rel="noopener noreferrer" href="https://tawk.to/chat/5e270a298e78b86ed8aa5fd2/default">
@@ -102,11 +102,11 @@ export default function Contact() {
 							</ul>
 						</Grid>
 
-						<Grid item xs={12} md={6} style={{ display: "flex", justifyContent: "center" }}>
+						<Grid item size={{xs: 12, md:6 }}  style={{ display: "flex", justifyContent: "center" }}>
 							<FormCard elevation={3}>
 								<form onSubmit={(e) => handleSubmit(e)}>
 									<Grid container spacing={2}>
-										<Grid item xs={12}>
+										<Grid item size={{xs: 12}} >
 											<TextField
 												variant="outlined"
 												required
@@ -118,7 +118,7 @@ export default function Contact() {
 												onChange={(e) => setName(e.target.value)}
 											/>
 										</Grid>
-										<Grid item xs={12}>
+										<Grid item size={{xs: 12}} >
 											<TextField
 												fullWidth
 												variant="outlined"
@@ -130,7 +130,7 @@ export default function Contact() {
 												onChange={(e) => setMobile(e.target.value)}
 											/>
 										</Grid>
-										<Grid item xs={12}>
+										<Grid item size={{xs: 12}} >
 											<TextField
 												fullWidth
 												variant="outlined"
@@ -142,7 +142,7 @@ export default function Contact() {
 												onChange={(e) => setEmail(e.target.value)}
 											/>
 										</Grid>
-										<Grid item xs={12}>
+										<Grid item size={{xs: 12}} >
 											<TextField
 												fullWidth
 												variant="outlined"
@@ -153,7 +153,7 @@ export default function Contact() {
 												onChange={(e) => setSubject(e.target.value)}
 											/>
 										</Grid>
-										<Grid item xs={12}>
+										<Grid item size={{xs: 12}} >
 											<TextField
 												multiline
 												rows={4}
@@ -166,7 +166,7 @@ export default function Contact() {
 												onChange={(e) => setMessage(e.target.value)}
 											/>
 										</Grid>
-										<Grid item xs={12}>
+										<Grid item size={{xs: 12}} >
 											<center>
 												<Fab type="submit" size="medium" variant="extended" color="primary">
 													Send Now

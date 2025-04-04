@@ -8,8 +8,8 @@ import {
 	ListItemAvatar,
 	Avatar,
 	ListItemText,
-	ListItemSecondaryAction,
 	IconButton,
+	Paper
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import shield from "./shield.svg";
@@ -18,6 +18,17 @@ import doubt from "./computer.svg";
 import calender from "./calender.svg";
 import question from "./question.svg";
 import target from "./target.svg";
+
+const Item = styled(Paper)(({ theme }) => ({
+	backgroundColor: '#fff',
+	...theme.typography.body2,
+	padding: theme.spacing(1),
+	textAlign: 'center',
+	color: (theme.vars ?? theme).palette.text.secondary,
+	...theme.applyStyles('dark', {
+	  backgroundColor: '#1A2027',
+	}),
+  }));
 
 const StyledDataBgDiv = styled('div')(({ theme }) => ({
 	marginBottom: 25,
@@ -30,6 +41,7 @@ const StyledList = styled(List)(({ theme }) => ({
 	borderTopRightRadius: 20,
 	borderBottomLeftRadius: 20,
 	transitionDuration: ".3s",
+	margin: "10px 0",
 	"&:hover": {
 		background: "linear-gradient(0deg, rgba(240,134,255,0.252) 0%, rgba(68,208,255,0.35) 100%)",
 		border: "1px solid rgb(47, 78, 255)",
@@ -85,11 +97,20 @@ export default function DataCard() {
 	return (
 		<StyledDataBgDiv>
 			<Container>
+	
+
 				<Grid container spacing={2}>
 					{cardData.map((d) => (
-						<Grid key={d.title} item xs={12} sm={6} md={4}>
+						<Grid key={d.title} item   size={{xs: 12,sm:6, md:4 }} >
 							<StyledList dense disablePadding>
-								<ListItem dense>
+								<ListItem 
+									dense
+									secondaryAction={
+										<IconButton edge="end" aria-label="delete">
+											→
+										</IconButton>
+									}
+								>
 									<ListItemAvatar>
 										<Avatar alt={d.title} src={d.logo} style={{ width: 80, height: 80 }} />
 									</ListItemAvatar>
@@ -101,11 +122,6 @@ export default function DataCard() {
 											</Typography>
 										}
 									/>
-									<ListItemSecondaryAction>
-										<IconButton edge="end" aria-label="delete">
-											→
-										</IconButton>
-									</ListItemSecondaryAction>
 								</ListItem>
 							</StyledList>
 						</Grid>

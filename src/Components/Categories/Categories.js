@@ -10,7 +10,7 @@ export default function Categories() {
 		<div id="category">
 			<Container>
 				<Grid container spacing={2} justify="center" alignItems="center">
-					<Grid item xs={12}>
+					<Grid item size={{xs: 12}} >
 						<Typography align="center" variant="h5" color="primary">
 							Popular Practice Test Categories
 						</Typography>

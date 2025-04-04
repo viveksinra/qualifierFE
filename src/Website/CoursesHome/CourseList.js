@@ -47,7 +47,7 @@ const CourseList = () => {
 	return (
 		<Grid container spacing={4}>
 			{course.map((d, i) => (
-				<Grid item key={i} xs={12}>
+				<Grid item key={i} size={{xs: 12}} >
 					<Grid container justifyContent="space-between">
 						<Grid item className="hideInMob">
 							<TopCrossTypography variant="subtitle1" color="secondary">

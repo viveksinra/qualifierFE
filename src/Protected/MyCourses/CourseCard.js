@@ -54,7 +54,7 @@ export default function CourseCard() {
 		<Grid container spacing={2}>
 			{allCourses.length !== 0 ? (
 				allCourses.map((c, i) => (
-					<Grid item key={i} xs={12} md={4}>
+					<Grid item key={i} size={{xs: 12,md: 4 }} >
 						<Link to={`/practice/${c.categoryLink}/${c.link}`} style={{ textDecoration: "none" }}>
 							<StyledCard className={cardClasses.card}>
 								<span style={{ height: 90 }}>

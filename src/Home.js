@@ -48,6 +48,107 @@ const StyledTextBoxDiv = styled('div')(({ theme }) => ({
 	right: "16%",
 }));
 
+const StyledAppNavGrid = styled(Grid)(({ theme }) => ({
+	flexDirection: "row-reverse",
+	paddingTop: 10,
+	[`@media (min-width:${theme.breakpoints.values.md}px)`]: {
+		flexDirection: "row",
+		paddingTop: 0,
+	},
+}));
+
+const StyledUl = styled('ul')(({ theme }) => ({
+	float: "right",
+}));
+
+const StyledLi = styled('li')(({ theme }) => ({
+	listStyle: "none",
+	display: "inline-block",
+	fontSize: "1.3rem",
+	paddingRight: "1.2rem",
+}));
+
+const StyledLiLink = styled(Link)(({ theme }) => ({
+	textDecoration: "none",
+	color: "#fff",
+	"&:hover": {
+		color: "#45C712",
+	},
+}));
+
+const StyledLogoMobDiv = styled('div')(({ theme }) => ({
+	[`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
+		backgroundColor: "rgb(241, 241, 241)",
+		width: 150,
+		borderRadius: 5,
+		padding: 5,
+		height: 40,
+	},
+}));
+
+function AppNav() {
+	const { dispatch } = useContext(MainContext);
+	const theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+	const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
+	const handleDrawerToggle = () => {
+		dispatch({ type: DRAWER });
+	};
+
+	return (
+		<StyledAppNavGrid container justifyContent="space-around" alignItems="center">
+			<StyledLogoMobDiv>
+				<img src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg" id="logo" alt="Qualifier-logo" />
+			</StyledLogoMobDiv>
+
+			<span style={{ flexGrow: 0.7 }} />
+			{isMobile && (
+				<IconButton onClick={handleDrawerToggle} edge="start" color="primary" aria-label="menu">
+					<FaBars />
+				</IconButton>
+			)}
+			{isDesktop && (
+				<StyledUl>
+					<StyledLi>
+						<MegaMenu>
+							<span style={{ display: "flex", alignItems: "center", color: "#fff" }}>
+								Exam
+								{"\u00A0"}
+								<FaAngleDown />
+							</span>
+						</MegaMenu>
+					</StyledLi>
+					<StyledLi>
+						<StyledLiLink to="/practice">
+							Practice
+						</StyledLiLink>
+					</StyledLi>
+					<StyledLi>
+						<StyledLiLink to="/online-test-series">
+							Test Series
+						</StyledLiLink>
+					</StyledLi>
+					<StyledLi>
+						<StyledLiLink to="/pricing">
+							Pricing
+						</StyledLiLink>
+					</StyledLi>
+					<StyledLi>
+						<StyledLiLink to="/blog">
+							Blog & News
+						</StyledLiLink>
+					</StyledLi>
+					<StyledLi>
+						<StyledLiLink to="/login">
+							Login/Signup
+						</StyledLiLink>
+					</StyledLi>
+				</StyledUl>
+			)}
+		</StyledAppNavGrid>
+	);
+}
+
 function Home(props) {
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -119,7 +220,7 @@ function Home(props) {
 				)}
 				{isDesktop && (
 					<StyledTextBoxDiv>
-						<Grid container justify="center" direction="column" alignItems="center">
+						<Grid container direction="column" alignItems="center" justifyContent="center">
 							<Typewriter
 								options={{
 									strings: ["Lots to Study.", "Less to spend. ", "Practice for FREE"],
@@ -175,9 +276,10 @@ function Home(props) {
 			</StyledHeroDiv>
 			<SpeedNav />
 			<Suspense fallback={<CircularProgress />}>
-				<DataCard />
-				<Categories />
-
+				<div style={{ backgroundColor: 'red' }}>
+					<DataCard />
+					<Categories />
+				</div>
 				<Suspense fallback={<CircularProgress />}>
 					<Features2 />
 					<Features />
@@ -190,104 +292,3 @@ function Home(props) {
 }
 
 export default Home;
-
-const StyledAppNavGrid = styled(Grid)(({ theme }) => ({
-	flexDirection: "row-reverse",
-	paddingTop: 10,
-	[`@media (min-width:${theme.breakpoints.values.md}px)`]: {
-		flexDirection: "row",
-		paddingTop: 0,
-	},
-}));
-
-const StyledUl = styled('ul')(({ theme }) => ({
-	float: "right",
-}));
-
-const StyledLi = styled('li')(({ theme }) => ({
-	listStyle: "none",
-	display: "inline-block",
-	fontSize: "1.3rem",
-	paddingRight: "1.2rem",
-}));
-
-const StyledLiLink = styled(Link)(({ theme }) => ({
-	textDecoration: "none",
-	color: "#fff",
-	"&:hover": {
-		color: "#45C712",
-	},
-}));
-
-const StyledLogoMobDiv = styled('div')(({ theme }) => ({
-	[`@media (max-width:${theme.breakpoints.values.sm}px)`]: {
-		backgroundColor: "rgb(241, 241, 241)",
-		width: 150,
-		borderRadius: 5,
-		padding: 5,
-		height: 40,
-	},
-}));
-
-function AppNav() {
-	const { dispatch } = useContext(MainContext);
-	const theme = useTheme();
-	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-	const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
-	const handleDrawerToggle = () => {
-		dispatch({ type: DRAWER });
-	};
-
-	return (
-		<StyledAppNavGrid container justify="space-around" alignItems="center">
-			<StyledLogoMobDiv>
-				<img src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg" id="logo" alt="Qualifier-logo" />
-			</StyledLogoMobDiv>
-
-			<span style={{ flexGrow: 0.7 }} />
-			{isMobile && (
-				<IconButton onClick={handleDrawerToggle} edge="start" color="primary" aria-label="menu">
-					<FaBars />
-				</IconButton>
-			)}
-			{isDesktop && (
-				<StyledUl>
-					<StyledLi>
-						<MegaMenu>
-							<span style={{ display: "flex", alignItems: "center", color: "#fff" }}>
-								Exam
-								{"\u00A0"}
-								<FaAngleDown />
-							</span>
-						</MegaMenu>
-					</StyledLi>
-					<StyledLi>
-						<StyledLiLink to="/practice">
-							Practice
-						</StyledLiLink>
-					</StyledLi>
-					<StyledLi>
-						<StyledLiLink to="/online-test-series">
-							Test Series
-						</StyledLiLink>
-					</StyledLi>
-					<StyledLi>
-						<StyledLiLink to="/pricing">
-							Pricing
-						</StyledLiLink>
-					</StyledLi>
-					<StyledLi>
-						<StyledLiLink to="/blog">
-							Blog & News
-						</StyledLiLink>
-					</StyledLi>
-					<StyledLi>
-						<StyledLiLink to="/login">
-							Login/Signup
-						</StyledLiLink>
-					</StyledLi>
-				</StyledUl>
-			)}
-		</StyledAppNavGrid>
-	);
-}

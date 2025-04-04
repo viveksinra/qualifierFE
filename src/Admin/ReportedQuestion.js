@@ -71,7 +71,7 @@ function ReportedQuestion() {
 							</AccordionSummary>
 							<AccordionDetails>
 								<Grid container>
-									<Grid item xs={12} md={4}>
+									<Grid item size={{xs: 12,md: 4 }} >
 										<ul>
 											<li>
 												Course <b> {d.course[0] && d.course[0].courseTitle} </b>
@@ -94,7 +94,7 @@ function ReportedQuestion() {
 										</ul>
 									</Grid>
 
-									<Grid item xs={12} md={8} style={{ borderLeft: "1px solid royalblue", paddingLeft: 10 }}>
+									<Grid item size={{xs: 12, md:8 }}  style={{ borderLeft: "1px solid royalblue", paddingLeft: 10 }}>
 										<Typography gutterBottom align="center">
 											<b> Question</b>
 										</Typography>
@@ -106,7 +106,7 @@ function ReportedQuestion() {
 											))}
 										</ol>
 									</Grid>
-									<Grid item xs={12}>
+									<Grid item size={{xs: 12}} >
 										<Typography gutterBottom align="center">
 											<b> Solution</b>
 										</Typography>

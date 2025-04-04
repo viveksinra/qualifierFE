@@ -65,7 +65,7 @@ function SeeMessage() {
 							</AccordionSummary>
 							<AccordionDetails>
 								<Grid container>
-									<Grid item xs={12} md={4}>
+									<Grid item size={{xs: 12,md: 4 }} >
 										<ul>
 											<li>
 												Mobile No. : <b> {d.mobile} </b>
@@ -79,7 +79,7 @@ function SeeMessage() {
 										</ul>
 									</Grid>
 
-									<Grid item xs={12} md={8} style={{ borderLeft: "1px solid royalblue" }}>
+									<Grid item size={{xs: 12, md:8 }}  style={{ borderLeft: "1px solid royalblue" }}>
 										<Typography gutterBottom align="center">
 											<b> Message</b> <br />
 											{d.message}

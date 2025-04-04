@@ -64,7 +64,7 @@ export default function Transaction() {
 			) : (
 				<Grid container spacing={2}>
 					{transData.map((d) => (
-						<Grid item key={d.refNo} xs={12} md={4}>
+						<Grid item key={d.refNo} size={{xs: 12,md: 4 }} >
 							<Card elevation={3} className={classes.transCard}>
 								<div className={classes.statusRibbon} style={{ background: d.success ? "#2ec948" : "#f96868" }}>
 									{d.success ? "Success" : "Failure"}

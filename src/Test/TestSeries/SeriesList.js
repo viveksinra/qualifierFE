@@ -125,7 +125,7 @@ function SeriesList() {
 				<div className={seriesListClasses.catgWise}>
 					<Container>
 						<Grid container spacing={2}>
-							<Grid item xs={12} md={3}>
+							<Grid item size={{xs: 12, md:3 }} >
 								<Typography variant="subtitle1" align="center" gutterBottom color="primary">
 									Category Wise : Test Series
 								</Typography>
@@ -143,7 +143,7 @@ function SeriesList() {
 									))}
 								</Tabs>
 							</Grid>
-							<Grid item xs={12} md={9}>
+							<Grid item size={{xs: 12,  md: 9 }} >
 								<SeriesCard lg={4} data={tab === "All" ? Tseries : Tseries.filter((f) => f.category === tab)} />
 							</Grid>
 						</Grid>

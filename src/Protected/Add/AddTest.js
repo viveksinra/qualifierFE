@@ -202,7 +202,7 @@ export default function AddTest() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item xs={12} md={9}>
+				<Grid item size={{xs: 12,  md: 9 }} >
 					<Paper sx={{
                         padding: theme => theme.spacing(2),
                         margin: theme => theme.spacing(1),
@@ -226,7 +226,7 @@ export default function AddTest() {
 										label="Live Test"
 									/>
 								</Grid>
-								<Grid item xs={12} sm={6}>
+								<Grid item size={{xs: 12,sm: 6 }} >
 									<TextField
 										variant="outlined"
 										required
@@ -238,7 +238,7 @@ export default function AddTest() {
 										onChange={(e) => setTestName(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12} sm={3}>
+								<Grid item size={{xs: 12,sm:3 }} >
 									<Autocomplete
 										options={allTseries}
 										getOptionLabel={(option) => option.title}
@@ -249,7 +249,7 @@ export default function AddTest() {
 										renderInput={(params) => <TextField {...params} label="Select Test Series" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={12} sm={3}>
+								<Grid item size={{xs: 12,sm:3 }} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -322,7 +322,7 @@ export default function AddTest() {
 										))}
 									</TextField>
 								</Grid>
-								<Grid item xs={12} sm={4}>
+								<Grid item size={{xs: 12,sm:4 }} >
 									<TextField
 										variant="outlined"
 										type="file"
@@ -334,7 +334,7 @@ export default function AddTest() {
 									/>
 								</Grid>
 
-								<Grid item xs={12} sm={8}>
+								<Grid item size={{xs: 12, sm:8 }} >
 									<Collapse in={isLive}>
 										<Grid container spacing={2}>
 											<Grid item xs={6}>
@@ -363,7 +363,7 @@ export default function AddTest() {
 									</Collapse>
 								</Grid>
 
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -374,7 +374,7 @@ export default function AddTest() {
 										onChange={(e) => setDescription(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Autocomplete
 										options={allSec}
 										multiple
@@ -386,10 +386,10 @@ export default function AddTest() {
 										renderInput={(params) => <TextField {...params} label="Select Sections" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Divider />
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
 											<Fab color="primary" type="submit" sx={{ margin: theme => theme.spacing(1) }}>
@@ -416,7 +416,7 @@ export default function AddTest() {
 						</form>
 					</Paper>
 				</Grid>
-				<Grid item xs={12} md={3}>
+				<Grid item size={{xs: 12, md:3 }} >
 					{/* Search Section */}
 					<SearchDiv>
 						<SearchIconWrapper>

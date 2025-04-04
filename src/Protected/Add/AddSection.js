@@ -198,7 +198,7 @@ export default function AddSection() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item xs={12} md={9}>
+				<Grid item size={{xs: 12,  md: 9 }} >
 					<EntryAreaPaper>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
@@ -308,7 +308,7 @@ export default function AddSection() {
 										onChange={(e) => setMarks({ ...marks, incorrect: e.target.value })}
 									/>
 								</Grid>
-								<Grid item xs={12} md={6} lg={3}>
+								<Grid item size={{xs: 12,  md: 6, lg:3 }} >>
 									<Autocomplete
 										options={allCategory}
 										getOptionLabel={(option) => option.categoryTitle}
@@ -320,7 +320,7 @@ export default function AddSection() {
 										renderInput={(params) => <TextField {...params} required label="Select Category" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={12} md={6} lg={3}>
+								<Grid item size={{xs: 12,  md: 6, lg:3 }} >>
 									<Autocomplete
 										options={allCourse}
 										getOptionLabel={(option) => option.courseTitle}
@@ -332,7 +332,7 @@ export default function AddSection() {
 										renderInput={(params) => <TextField {...params} required label="Select Course" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={12} md={6} lg={3}>
+								<Grid item size={{xs: 12,  md: 6, lg:3 }} >>
 									<Autocomplete
 										options={allSubject}
 										getOptionLabel={(option) => option.subjectTitle}
@@ -344,7 +344,7 @@ export default function AddSection() {
 										renderInput={(params) => <TextField {...params} required label="Select Subject" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={12} md={6} lg={3}>
+								<Grid item size={{xs: 12,  md: 6, lg:3 }} >>
 									<Autocomplete
 										options={allChapter}
 										getOptionLabel={(option) => option.chapterTitle}
@@ -357,10 +357,10 @@ export default function AddSection() {
 									/>
 								</Grid>
 
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Divider />
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Carousel showThumbs={false} useKeyboardArrows={true}>
 										{allQuestion.map((q, i) => (
 											<Paper key={i} elevation={2}>
@@ -404,7 +404,7 @@ export default function AddSection() {
 										))}
 									</Carousel>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Divider />
 									<center>
 										<StyledButton size="small" variant="contained" startIcon={<MdDoneAll />} type="submit" color="secondary">
@@ -425,7 +425,7 @@ export default function AddSection() {
 						</form>
 					</EntryAreaPaper>
 				</Grid>
-				<Grid item xs={12} md={3}>
+				<Grid item size={{xs: 12, md:3 }} >
 					<SearchResultDiv>
 						<Paper>
 							<Table>

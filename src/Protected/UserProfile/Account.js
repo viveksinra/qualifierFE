@@ -106,14 +106,14 @@ export default function Account() {
 	return (
 		<StyledFragment>
 			<Grid container spacing={2}>
-				<Grid item xs={12} md={6}>
+				<Grid item size={{xs: 12,  md: 6 }} >
 					<img
 						src="https://res.cloudinary.com/qualifier/image/upload/v1585244359/promocard_vcdipe.svg"
 						alt="Promo-Card"
 						className={classes.promocard}
 					/>
 				</Grid>
-				<Grid item xs={12} md={6}>
+				<Grid item size={{xs: 12,  md: 6 }} >
 					<br />
 					<Typography align="center" gutterBottom variant="h5" color="primary">
 						Account Details
@@ -144,7 +144,7 @@ export default function Account() {
 						</TableBody>
 					</Table>
 				</Grid>
-				<Grid item xs={12} md={4}>
+				<Grid item size={{xs: 12,md: 4 }} >
 					<Typography align="center" gutterBottom color="primary">
 						Your Promo Code
 					</Typography>
@@ -189,7 +189,7 @@ export default function Account() {
 						))}
 					</CardActions>
 				</Grid>
-				<Grid item xs={12} md={4}>
+				<Grid item size={{xs: 12,md: 4 }} >
 					<Typography align="center" color="primary">
 						Terms of Use
 					</Typography>

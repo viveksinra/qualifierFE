@@ -119,13 +119,13 @@ export default function Signup() {
 					</Link>
 					<form onSubmit={(e) => handleSubmit(e)}>
 						<Grid container spacing={2}>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<br />
 								<Typography variant="h5" align="center" color="primary">
 									Create a FREE Account
 								</Typography>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<TextField
 									required
 									fullWidth
@@ -136,7 +136,7 @@ export default function Signup() {
 									onChange={(e) => setName(e.target.value)}
 								/>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<TextField
 									required
 									fullWidth
@@ -153,10 +153,10 @@ export default function Signup() {
 									onChange={(e) => setMobileNo(e.target.value)}
 								/>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<TextField fullWidth type="email" label="Email Id" placeholder="Email Id" value={email} onChange={(e) => setEmail(e.target.value)} />
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<TextField
 									fullWidth
 									required
@@ -177,12 +177,12 @@ export default function Signup() {
 									onChange={(e) => setPassword(e.target.value)}
 								/>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<Button type="submit" variant="contained" color="primary" fullWidth>
 									Create Now
 								</Button>
 							</Grid>
-							<Grid item xs={12}>
+							<Grid item size={{xs: 12}} >
 								<Typography align="center" gutterBottom variant="subtitle2">
 									Already have an account ? {"\u00A0"}
 									<Link to="/login">Go to Login</Link>

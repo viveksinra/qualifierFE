@@ -177,7 +177,7 @@ export default function AddSubject() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item xs={12} md={9}>
+				<Grid item size={{xs: 12,  md: 9 }} >
 					<Paper sx={EntryAreaPaper}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
@@ -188,7 +188,7 @@ export default function AddSubject() {
 									</center>
 								</Grid>
 								<Grid item xs={4}></Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
 										required
@@ -202,7 +202,7 @@ export default function AddSubject() {
 										onChange={(e) => setTitle(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Autocomplete
 										options={allCategory}
 										getOptionLabel={(option) => option.categoryTitle}
@@ -214,7 +214,7 @@ export default function AddSubject() {
 										renderInput={(params) => <TextField {...params} required label="Select Category" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Autocomplete
 										options={allCourse}
 										getOptionLabel={(option) => option.courseTitle}
@@ -249,7 +249,7 @@ export default function AddSubject() {
 										onChange={(e) => setHighlight(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
 										type="file"
@@ -262,7 +262,7 @@ export default function AddSubject() {
 										onChange={(e) => imgUpload(e.target.files[0])}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -274,10 +274,10 @@ export default function AddSubject() {
 										onChange={(e) => setDescription(e.target.value)}
 									/>
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<Divider />
 								</Grid>
-								<Grid item xs={12}>
+								<Grid item size={{xs: 12}} >
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
 											<Fab color="primary" type="submit" sx={StyledButton}>
@@ -304,7 +304,7 @@ export default function AddSubject() {
 						</form>
 					</Paper>
 				</Grid>
-				<Grid item xs={12} md={3}>
+				<Grid item size={{xs: 12, md:3 }} >
 					{/* Search Section */}
 					<SearchContainer>
 						<SearchIconWrapper>

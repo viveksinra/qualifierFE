@@ -72,7 +72,7 @@ export default function CourseAnalysis({ link, fig }) {
 				<Grid container spacing={2}>
 					{data.map &&
 						data.map((d, i) => (
-							<Grid key={i} item xs={12} md={4}>
+							<Grid key={i} item size={{xs: 12,md: 4 }} >
 								<ReportCard>
 									<Typography gutterBottom align="center" color="primary" variant="h6">
 										<IconButton color="primary" aria-label="saved">

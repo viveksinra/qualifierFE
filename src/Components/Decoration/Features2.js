@@ -20,7 +20,7 @@ export default function Testimonial() {
 			<Container>
 				<Grid container justify="center" alignItems="center" spacing={2}>
 					{cardData.map((d, i) => (
-						<StyledCardGrid key={i} item xs={12} sm={3}>
+						<StyledCardGrid key={i} item size={{xs: 12,sm:3 }} >
 							<img src={d.icon} alt={d.text} />
 							<br />
 							<Typography variant="h6" gutterBottom align="center">

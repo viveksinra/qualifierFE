@@ -61,7 +61,7 @@ export default function UserDashboard() {
 			<main className={classes.content}>
 				<div className={classes.toolbar} />
 				<Grid container>
-					<Grid item xs={12} md={8} style={{ maxHeight: 300 }}>
+					<Grid item size={{xs: 12, md:8 }}  style={{ maxHeight: 300 }}>
 						<Suspense fallback={<LinearProgress />}>
 							<HomeSlider />
 						</Suspense>
@@ -90,7 +90,7 @@ export default function UserDashboard() {
 					<CourseAnalysis link="" />
 					<br />
 					<Grid container justifyContent="center">
-						<Grid item xs={12} md={8} className="center">
+						<Grid item size={{xs: 12, md:8 }}  className="center">
 							<UserChart />
 						</Grid>
 						<Grid item xs={12} md={4} className="center">
