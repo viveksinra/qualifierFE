@@ -89,7 +89,7 @@ export default function UserDashboard() {
 				<Suspense fallback={<LinearProgress />}>
 					<CourseAnalysis link="" />
 					<br />
-					<Grid container justify="center">
+					<Grid container justifyContent="center">
 						<Grid item xs={12} md={8} className="center">
 							<UserChart />
 						</Grid>

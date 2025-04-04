@@ -3,11 +3,11 @@ import { MainContext } from "../Context/MainContext";
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-const UserPrivateRoute = () => {
+const UserPrivateRoute = ({ children }) => {
 	const { state } = useContext(MainContext);
 	const isAuthenticated = state.isAuthenticated && state.designation === "User";
 	
-	return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+	return isAuthenticated ? (children || <Outlet />) : <Navigate to="/login" replace />;
 };
 
 const AdminPrivateRoute = ({ children }) => {

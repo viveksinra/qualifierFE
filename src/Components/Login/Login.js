@@ -38,10 +38,8 @@ export default function Login() {
 	const params = useParams();
 	document.title = "Login | Qualifier : Online Test Series & Practice - Railway, SSC, Banking, Placement Exams & CBSE Exams For FREE";
 
-	console.log("Login component rendered, params:", params, "Auth state:", state.isAuthenticated, "designation:", state.designation);
-
 	// Don't redirect immediately when authenticated
-	const shouldRedirect = false;
+	const shouldRedirect = true;
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -58,7 +56,6 @@ export default function Login() {
 			.catch((err) => console.log(err));
 	};
 	useEffect(() => {
-		console.log("useEffect token check:", params.token);
 		if (params.token) {
 			if (state.referral){
 				dispatch({ type: LOGIN_USER, payload: { token: params.token } });
@@ -141,22 +138,6 @@ export default function Login() {
 	
 	return (
 		<Fragment>
-			{/* Debug info */}
-			{state.isAuthenticated && (
-				<div style={{padding: "10px", backgroundColor: "yellow", color: "black"}}>
-					User is authenticated as: {state.designation}. 
-					Normally would redirect to dashboard.
-					<Button 
-						variant="contained" 
-						color="primary" 
-						onClick={() => window.location.href="/dashboard"}
-						style={{marginLeft: "10px"}}
-					>
-						Go to Dashboard
-					</Button>
-				</div>
-			)}
-			
 			<Grid container>
 				<Grid item md={6} className="hideInMob" id="loginLeft">
 					<Suspense fallback={<CircularProgress style={{ marginLeft: "50%", marginTop: 50 }} />}>

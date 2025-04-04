@@ -31,15 +31,11 @@ const initialState = {
 export const MainProvider = (props) => {
 	const [state, dispatch] = useReducer(MainReducer, initialState);
 	
-	// Add debugging for initial load
-	console.log("MainContext Provider initialized, auth state:", initialState.isAuthenticated);
-	
 	useEffectOnce(() => {
 		// Retriving data from localStorage
 		const raw = localStorage.getItem("data");
 		if (raw) {
 			const parsedData = JSON.parse(raw);
-			console.log("Loading data from localStorage, auth state:", parsedData.isAuthenticated);
 			dispatch({ type: RESET, payload: parsedData });
 		}
 	});
@@ -47,15 +43,9 @@ export const MainProvider = (props) => {
 	useEffect(() => {
 		// to store data in localStorage
 		if (state) {
-			console.log("State changed, saving to localStorage. Auth state:", state.isAuthenticated);
 			localStorage.setItem("data", JSON.stringify(state));
 		}
 	}, [state]);
-	
-	// Track auth state changes
-	useEffect(() => {
-		console.log("Auth state changed:", state.isAuthenticated, "designation:", state.designation);
-	}, [state.isAuthenticated, state.designation]);
 	
 	return <MainContext.Provider value={{ state, dispatch }}>{props.children}</MainContext.Provider>;
 };

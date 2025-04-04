@@ -1,6 +1,28 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { fetchData } from "../../Components/Api";
+import { 
+	Chart as ChartJS,
+	CategoryScale,
+	LinearScale,
+	BarElement,
+	Title,
+	Tooltip,
+	Legend,
+	ArcElement
+} from 'chart.js';
+
+// Register the required chart components
+ChartJS.register(
+	CategoryScale,
+	LinearScale,
+	BarElement,
+	Title,
+	Tooltip,
+	Legend,
+	ArcElement
+);
+
 const chatRes = fetchData("/api/report/user/activity");
 
 export default function UserChart() {
@@ -9,16 +31,13 @@ export default function UserChart() {
 		<Bar
 			data={chartData.data}
 			options={{
+				responsive: true,
 				maintainAspectRatio: false,
 				scales: {
-					yAxes: [
-						{
-							ticks: {
-								beginAtZero: true,
-							},
-						},
-					],
-				},
+					y: {
+						beginAtZero: true
+					}
+				}
 			}}
 		/>
 	);
