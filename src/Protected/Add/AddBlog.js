@@ -22,57 +22,34 @@ import {
 	Input,
 	Divider,
 	Autocomplete,
-	Button,
-	Box
+	Button
 } from "@mui/material";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import axios from "axios";
 import { MdSearch, MdDoneAll, MdClearAll, MdPanorama, MdLock, MdPublic, MdDeleteForever } from "react-icons/md";
 
-// Styled components to replace useStyles
-const EntryAreaPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  margin: theme.spacing(1),
-  backgroundColor: theme.palette.background.paper
-}));
-
-const StyledButton = styled(Button)(({ theme }) => ({
-  margin: theme.spacing(1)
-}));
-
-const SearchResultDiv = styled('div')(({ theme }) => ({
-  maxHeight: '80vh',
-  overflow: 'auto',
-  margin: theme.spacing(1)
-}));
-
 // Search styles
 const SearchDiv = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  marginBottom: theme.spacing(2)
+	position: 'relative',
+	borderRadius: theme.shape.borderRadius,
+	marginBottom: theme.spacing(2)
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-}));
-
-const InputRoot = styled('div')(({ theme }) => ({
-  color: 'inherit',
-  width: '100%'
+	padding: theme.spacing(0, 2),
+	height: '100%',
+	position: 'absolute',
+	pointerEvents: 'none',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center'
 }));
 
 const InputInput = styled(Input)(({ theme }) => ({
-  padding: theme.spacing(1, 1, 1, 0),
-  paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-  width: '100%'
+	padding: theme.spacing(1, 1, 1, 0),
+	paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+	width: '100%'
 }));
 
 export default function AddBlog() {

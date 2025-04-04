@@ -9,19 +9,15 @@ import {
 	Table,
 	TableHead,
 	TableRow,
-	Tooltip,
-	Fab,
 	TableCell,
 	TableBody,
 	TableFooter,
 	TablePagination,
-	Input,
 	Divider,
-	Button,
-	Box
+	Button
 } from "@mui/material";
 import axios from "axios";
-import { MdSearch, MdDoneAll, MdClearAll, MdPanorama } from "react-icons/md";
+import { MdDoneAll, MdClearAll } from "react-icons/md";
 
 // Styled components to replace useStyles
 const EntryAreaPaper = styled(Paper)(({ theme }) => ({

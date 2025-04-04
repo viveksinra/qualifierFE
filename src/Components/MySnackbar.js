@@ -1,5 +1,4 @@
 import React, { useImperativeHandle, Suspense, useState, forwardRef } from "react";
-import clsx from "clsx";
 import { IconButton, Snackbar, SnackbarContent } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { amber, green } from "@mui/material/colors";
@@ -33,10 +32,6 @@ const IconVariant = styled('span')(({ theme }) => ({
 const Message = styled('span')(({ theme }) => ({
 	display: "flex",
 	alignItems: "center",
-}));
-
-const Margin = styled('div')(({ theme }) => ({
-	margin: theme.spacing(1),
 }));
 
 const MySnackbar = forwardRef((props, ref) => {

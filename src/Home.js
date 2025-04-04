@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import SpeedNav from "./Components/Navigation/SpeedNav";
 import { Grid, Typography, Fab, Avatar, Chip, IconButton, CircularProgress, useMediaQuery } from "@mui/material";
 import { styled, useTheme } from '@mui/material/styles';
-import { FaAngleDown, FaUserCircle, FaArrowAltCircleRight, FaBars } from "react-icons/fa";
+import { FaAngleDown, FaArrowAltCircleRight, FaBars } from "react-icons/fa";
 import { Head, Typewriter } from "./Components/NameExp";
 const DataCard = lazy(() => import("./Components/DataCard/DataCard"));
 const Categories = lazy(() => import("./Components/Categories/Categories"));

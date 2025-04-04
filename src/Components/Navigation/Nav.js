@@ -48,12 +48,6 @@ const StyledLi = styled('li')(({ theme }) => ({
 	padding: "1rem",
 }));
 
-const StyledDrawerContainerDiv = styled('div')(({ theme }) => ({
-	[`@media (min-width:${theme.breakpoints.values.sm}px)`]: {
-		display: "none",
-	},
-}));
-
 export function Nav() {
 	const { state, dispatch } = useContext(MainContext);
 	const isMobile = useMediaQuery(theme => theme.breakpoints.down('md'));

@@ -32,7 +32,6 @@ export default function Login() {
 	const [showOTP, setShowOTP] = useState(false);
 	const [otp, setOTP] = useState("");
 	const [allowPass, setPass] = useState(false);
-	const [referral, setRef] = useState("");
 	const [newPass, setNewPass] = useState("");
 	const { state, dispatch } = useContext(MainContext);
 	const snackRef = useRef();
@@ -74,7 +73,7 @@ export default function Login() {
 					.catch((err) => console.log(err));
 			}
 		}
-	}, [params.token, dispatch]);
+	}, [params.token, dispatch, state.referral]);
 	const sendOTP = () => {
 		axios.post(`api/auth/getfotp/${forgotData}`).then((res) => {
 			if (res.data.variant === "success") {
