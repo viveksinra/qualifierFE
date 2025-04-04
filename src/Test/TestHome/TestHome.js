@@ -22,7 +22,7 @@ import { styled } from '@mui/material/styles';
 import clsx from "clsx";
 import axios from "axios";
 import { FullNav } from "../../Components/Navigation/Nav";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import i1 from "./tablet.svg";
 import i2 from "./education2.svg";
 import i3 from "./analytics.svg";
@@ -73,7 +73,8 @@ const StyledTestHomeContainer = styled('div')(({ theme }) => ({
 	},
 }));
 
-function TestHome({ match }) {
+function TestHome() {
+	const { serieslink } = useParams();
 	const [tab, setTab] = useState("All");
 	const [seriesData, setSD] = useState({ desp: [], tests: [] });
 	const [type, setType] = useState([]);
@@ -83,10 +84,10 @@ function TestHome({ match }) {
 
 	useEffect(() => {
 		setLoading(true);
-		if (match.params.serieslink) {
-			let link = `/api/bigtest/mocktest/seriesdata/${match.params.serieslink}`;
+		if (serieslink) {
+			let link = `/api/bigtest/mocktest/seriesdata/${serieslink}`;
 			if (state.isAuthenticated) {
-				link = `/api/bigtest/mocktest/authseriesdata/${match.params.serieslink}`;
+				link = `/api/bigtest/mocktest/authseriesdata/${serieslink}`;
 			}
 			axios
 				.get(link)
@@ -99,7 +100,7 @@ function TestHome({ match }) {
 					setLoading(false);
 				});
 		}
-	}, [match.params.serieslink, state.isAuthenticated]);
+	}, [serieslink, state.isAuthenticated]);
 	useMemo(() => {
 		let ty = [];
 		seriesData.tests &&
@@ -333,7 +334,7 @@ function TestCard({ data, serieslink }) {
 					<Grid container spacing={1} className={testCardClasses.trans}>
 						{data.isReport ? (
 							<Grid item>
-								<Link to={`/report/${serieslink}/${data.link}`}>
+								<Link to={`/test/${serieslink}/${data.link}/report`}>
 									<Button endIcon={<FcComboChart />} variant="outlined" color="primary" size="small">
 										View Report
 									</Button>
@@ -342,7 +343,7 @@ function TestCard({ data, serieslink }) {
 						) : (
 							<>
 								<Grid item>
-									<Link to={data.isLock ? "/pricing" : `/instruction/${serieslink}/${data.link}`}>
+									<Link to={data.isLock ? "/pricing" : `/test/${serieslink}/${data.link}/instruction`}>
 										<Button
 											startIcon={data.isLock && <FcLock />}
 											endIcon={<FcKindle />}

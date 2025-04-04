@@ -6,6 +6,7 @@ import CourseAnalysis from "../../Website/CourseDetails/CourseAnalysis";
 import { Distribution } from "../../Components/Charts/Charts";
 import axios from "axios";
 import { OfferCard } from "../../Components/Decoration/OfferCard";
+import { useParams } from "react-router-dom";
 import i1 from "./icon1.svg";
 import i2 from "./icon2.svg";
 import i3 from "./icon3.svg";
@@ -53,7 +54,8 @@ const RatingContainer = styled('div')(({ theme }) => ({
 	borderBottomStyle: "none",
 }));
 
-function TestReport({ match }) {
+function TestReport() {
+	const { testlink } = useParams();
 	const [ratingValue, setRatingValue] = useState(0);
 	const [data, setData] = useState({
 		testName: "Gerenating your Report, Please Wait...",
@@ -67,7 +69,7 @@ function TestReport({ match }) {
 	useEffect(() => {
 		let isSubscribed = true;
 		axios
-			.get(`/api/bigtest/testresponse/report/${match.params.testlink}`)
+			.get(`/api/bigtest/testresponse/report/${testlink}`)
 			.then((res) => {
 				if (isSubscribed) {
 					setData(res.data);
@@ -75,7 +77,7 @@ function TestReport({ match }) {
 			})
 			.catch((err) => console.log(err));
 		return () => (isSubscribed = false);
-	}, [match]);
+	}, [testlink]);
 	return (
 		<div>
 			<FullNav />

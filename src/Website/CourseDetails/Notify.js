@@ -10,14 +10,14 @@ const StyledImage = styled('img')({
 	display: "block",
 });
 
-function Notify({ notify, onClose, match }) {
+function Notify({ notify, onClose, params }) {
 	const [data, setData] = useState({ image: "", courseTitle: "", description: "Please Wait, The Data is Loading...", title: "Now" });
 	const [loading, setLoading] = useState(true);
 	useEffect(() => {
 		let active = true;
 		if (notify.open) {
 			axios
-				.post(`/api/public/fixcourse/get/detail`, { ...match.params })
+				.post(`/api/public/fixcourse/get/detail`, { ...params })
 				.then((res) => {
 					if (active) {
 						setData(res.data);
@@ -30,7 +30,7 @@ function Notify({ notify, onClose, match }) {
 				});
 		}
 		return () => (active = false);
-	}, [notify.open, match.params]);
+	}, [notify.open, params]);
 	return (
 		<Suspense fallback={null}>
 			<Dialog open={notify.open} onClose={() => onClose({ open: false, link: "" })} TransitionComponent={Slide} TransitionProps={{ direction: "up" }}>

@@ -89,9 +89,9 @@ export function TimeNav() {
 	} else {
 		return (
 			<div>
-				<Fade in={!Pstate.submitted} unmountOnExit>
+				{!Pstate.submitted && (
 					<TimeSlider maxTime={Pstate.maxTime} />
-				</Fade>
+				)}
 			</div>
 		);
 	}

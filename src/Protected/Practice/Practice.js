@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, lazy, Suspense, useCallback } from "react";
+import React, { useContext, useEffect, useState, lazy, Suspense, useCallback, useLayoutEffect } from "react";
 import { FullNav } from "../../Components/Navigation/Nav";
 import { TimeNav, PracBtmNav } from "./PracticsNav";
 import QuesArea from "./QuesArea";
@@ -43,10 +43,22 @@ const StyledRoot = styled('div')(({ theme }) => ({
 	},
 }));
 
-export default function Practice({ match }) {
+export default function Practice({ params }) {
 	const { Pstate, Pdispatch } = useContext(PracContext);
-	const [newlink] = useState(makeLink(Pstate.level, Pstate.ansRight, match));
+	const [newlink] = useState(makeLink(Pstate.level, Pstate.ansRight, params));
 	const navigate = useNavigate();
+	
+	// Add this useLayoutEffect to prevent scroll issues
+	useLayoutEffect(() => {
+		// Disable animations temporarily to avoid scrollTop errors
+		const originalScrollTop = window.scrollY;
+		document.body.style.overflow = 'hidden';
+		
+		return () => {
+			document.body.style.overflow = '';
+			window.scrollTo(0, originalScrollTop);
+		};
+	}, []);
 	
 	// Handle beforeunload event
 	useBeforeUnload(
@@ -79,11 +91,11 @@ export default function Practice({ match }) {
 		if (Pstate.loading) {
 			axios
 				.get(newlink)
-				.then((res) => Pdispatch({ type: GETQUES, payload: { match, ...res.data } }))
+				.then((res) => Pdispatch({ type: GETQUES, payload: { params, ...res.data } }))
 				.catch((err) => console.log(err));
 			document.title = `Practice | Qualifier : See your Daily Report & improve your weak zone - Score All India Rank For FREE`;
 		}
-	}, [Pdispatch, match, newlink, Pstate.loading]);
+	}, [Pdispatch, params, newlink, Pstate.loading]);
 
 	if (Pstate.end) {
 		return <End />;
@@ -128,16 +140,16 @@ export default function Practice({ match }) {
 	);
 }
 
-const makeLink = (level, ansRight, match) => {
+const makeLink = (level, ansRight, params) => {
 	let l1 = level.replace(" ", "");
 	let l2 = l1.toLocaleLowerCase();
 	let link;
-	if (match.params.chaplink) {
-		link = `/api/public/quest/chapter/${ansRight}/${l2}/${match.params.chaplink}`;
-	} else if (match.params.sublink) {
-		link = `/api/public/quest/subject/${ansRight}/${l2}/${match.params.sublink}`;
-	} else if (match.params.corslink) {
-		link = `/api/public/quest/course/${ansRight}/${l2}/${match.params.corslink}`;
+	if (params.chaplink) {
+		link = `/api/public/quest/chapter/${ansRight}/${l2}/${params.chaplink}`;
+	} else if (params.sublink) {
+		link = `/api/public/quest/subject/${ansRight}/${l2}/${params.sublink}`;
+	} else if (params.corslink) {
+		link = `/api/public/quest/course/${ansRight}/${l2}/${params.corslink}`;
 	}
 	return link;
 };

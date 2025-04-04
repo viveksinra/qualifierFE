@@ -7,7 +7,7 @@ const PracReducers = (state, action) => {
 	let wrondSound = new Audio(wrong);
 	switch (action.type) {
 		case GETQUES:
-			state.match = action.payload.match;
+			state.match = action.payload.params;
 			state.showSol = false;
 			state.question = {
 				_id: action.payload._id,

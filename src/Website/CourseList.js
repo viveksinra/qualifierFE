@@ -1,7 +1,7 @@
 import React, { useState, useEffect, lazy } from "react";
 import { Nav } from "../Components/Navigation/Nav";
 import { styled, Typography, Grid, Chip, Card, useTheme } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import orbit from "../img/orbit.svg";
 import axios from "axios";
 const MyDrawer = lazy(() => import("../Components/Navigation/MyDrawer"));
@@ -35,17 +35,19 @@ const LogoImage = styled('img')(({ theme }) => ({
 	padding: theme.spacing(),
 }));
 
-export default function CourseList({ match }) {
+export default function CourseList() {
+	const { catlink } = useParams();
+	const location = useLocation();
 	const [catg, setCatg] = useState({});
 	const theme = useTheme();
 	document.title = `${catg.categoryTitle} : Qualifier - Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE`;
 
 	useEffect(() => {
 		axios
-			.get(`/api/public/catcourse/getall/${match.params.catlink}`)
+			.get(`/api/public/catcourse/getall/${catlink}`)
 			.then((res) => setCatg(res.data))
 			.catch((err) => console.log(err));
-	}, [match.params.catlink]);
+	}, [catlink]);
 	return (
 		<RootContainer>
 			<Nav />
@@ -70,7 +72,7 @@ export default function CourseList({ match }) {
 						{catg.cour &&
 							catg.cour.map((d) => (
 								<Grid item xs={12} key={d._id} md={3}>
-									<Link to={`${match.url}/${d.link}`}>
+									<Link to={`${location.pathname}/${d.link}`}>
 										<StyledCard>
 											<LogoImage src={d.logo} alt={d.courseTitle} />
 											<Chip variant="outlined" color="primary" label={d.courseTitle} />

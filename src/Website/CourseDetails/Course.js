@@ -8,6 +8,7 @@ import { MainContext } from "../../Components/Context/MainContext";
 import { styled, Fab, Tabs, Tab, Badge } from "@mui/material";
 import axios from "axios";
 import { useTheme } from '@mui/material/styles';
+import { useParams } from "react-router-dom";
 const MyDrawer = lazy(() => import("../../Components/Navigation/MyDrawer"));
 const Notify = lazy(() => import("./Notify"));
 
@@ -49,7 +50,8 @@ const StyledFab = styled(Fab)(({ theme }) => ({
 	color: "#fff",
 }));
 
-export default function Course({ match }) {
+export default function Course() {
+	const params = useParams();
 	const { state } = useContext(MainContext);
 	const [course, setCourse] = useState({});
 	const [tab, setTab] = useState(0);
@@ -63,9 +65,9 @@ export default function Course({ match }) {
 
 		let isSubscribed = true;
 		if (state.isAuthenticated) {
-			var link = `/api/public/fixcourse/auth/getall/${match.params.corslink}`;
+			var link = `/api/public/fixcourse/auth/getall/${params.corslink}`;
 		} else {
-			link = `/api/public/fixcourse/getall/${match.params.corslink}`;
+			link = `/api/public/fixcourse/getall/${params.corslink}`;
 		}
 		axios
 			.get(link)
@@ -83,18 +85,18 @@ export default function Course({ match }) {
 			isSubscribed = false;
 			setNotify({ open: false });
 		};
-	}, [match.params.corslink, state.isAuthenticated]);
+	}, [params.corslink, state.isAuthenticated]);
 
 	useEffect(() => {
-		if (match.params.chaplink) {
+		if (params.chaplink) {
 			setNotify({
 				open: true,
-				link: `/practice/start/${match.params.catlink}/${match.params.corslink}/${match.params.sublink}/${match.params.chaplink}`,
+				link: `/practice/start/${params.catlink}/${params.corslink}/${params.sublink}/${params.chaplink}`,
 			});
-		} else if (match.params.sublink) {
-			setNotify({ open: true, link: `/practice/start/${match.params.catlink}/${match.params.corslink}/${match.params.sublink}` });
+		} else if (params.sublink) {
+			setNotify({ open: true, link: `/practice/start/${params.catlink}/${params.corslink}/${params.sublink}` });
 		}
-	}, [match.params]);
+	}, [params]);
 	return (
 		<RootContainer>
 			<Nav />
@@ -111,7 +113,7 @@ export default function Course({ match }) {
 						<p>{course.description}</p>
 						<StyledFab
 							variant="extended"
-							onClick={() => setNotify({ open: true, link: `/practice/start/${match.params.catlink}/${match.params.corslink}` })}
+							onClick={() => setNotify({ open: true, link: `/practice/start/${params.catlink}/${params.corslink}` })}
 							size="medium"
 						>
 							Start Full Practice
@@ -126,11 +128,11 @@ export default function Course({ match }) {
 
 				<Backdrop open={loading} />
 				<BodyContainer>
-					{tab === 0 && <CourseHome data={course} match={match} />}
-					{tab === 1 && <CourseAnalysis link={`course/${match.params.corslink}`} />}
-					{tab === 2 && <SavedQuestion link={match.params.corslink} />}
+					{tab === 0 && <CourseHome data={course} params={params} />}
+					{tab === 1 && <CourseAnalysis link={`course/${params.corslink}`} />}
+					{tab === 2 && <SavedQuestion link={params.corslink} />}
 				</BodyContainer>
-				<Notify notify={notify} match={match} onClose={(v) => setNotify({ open: false })} />
+				<Notify notify={notify} params={params} onClose={(v) => setNotify({ open: false })} />
 			</ContentContainer>
 		</RootContainer>
 	);

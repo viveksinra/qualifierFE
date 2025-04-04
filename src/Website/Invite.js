@@ -11,6 +11,7 @@ import { MainContext } from "../Components/Context/MainContext";
 import Features from "../Components/Decoration/Features";
 import { FcExpand } from "react-icons/fc";
 import invite from "../img/invite.png";
+import { useParams } from "react-router-dom";
 
 const InviteTop = styled('div')(({ theme }) => ({
 	backgroundColor: "#ffffff",
@@ -53,7 +54,8 @@ const OfferCardContainer = styled('div')(({ theme }) => ({
 	},
 }));
 
-export default function Invite({ match }) {
+export default function Invite() {
+	const { ref } = useParams();
 	document.title = "Referral Program @ Qualifier - Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
 	const [data, setData] = useState({
 		refName: "Wrong Code",
@@ -61,19 +63,21 @@ export default function Invite({ match }) {
 		discount: 0,
 	});
 	const { dispatch } = useContext(MainContext);
+	
 	useEffect(() => {
-		if (match.params.ref) {
+		if (ref) {
 			axios
-				.get(`/api/other/promocode/verify/${match.params.ref}`)
+				.get(`/api/other/promocode/verify/${ref}`)
 				.then((res) => {
 					if (res.data.alert.variant === "success") {
-						dispatch({ type: REFERRAL, payload: { ref: match.params.ref } });
+						dispatch({ type: REFERRAL, payload: { ref } });
 						setData({ ...res.data });
 					}
 				})
 				.catch((err) => console.log(err));
 		}
-	}, [match.params.ref, dispatch]);
+	}, [ref, dispatch]);
+	
 	return (
 		<Fragment>
 			<FullNav />

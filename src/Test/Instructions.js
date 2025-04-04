@@ -7,6 +7,7 @@ import { TestContext } from "../Components/Context/TestContext/TestContext";
 import { MdCheck } from "react-icons/md";
 import TestDrawer from "./TestDrawer";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const PREFIX = 'Instructions';
 const classes = {
@@ -56,7 +57,8 @@ const StyledRoot = styled('div')(({ theme }) => ({
 	[`& .${classes.li}`]: { margin: theme.spacing() },
 }));
 
-function Instructions({ match }) {
+function Instructions() {
+	const { testlink } = useParams();
 	const [showGen, setInst] = useState(true);
 	const [agree, setAgree] = useState(false);
 
@@ -64,7 +66,7 @@ function Instructions({ match }) {
 	useEffect(() => {
 		Tdispatch({ type: LOADING, payload: true });
 		axios
-			.get(`/api/bigtest/section/gettest/${match.params.testlink}`)
+			.get(`/api/bigtest/section/gettest/${testlink}`)
 			.then((res) => {
 				Tdispatch({ type: LOADTEST, payload: res.data });
 				Tdispatch({ type: LOADING, payload: false });
@@ -73,7 +75,7 @@ function Instructions({ match }) {
 				console.log(err);
 				alert("Something Went wrong, Please Refresh.");
 			});
-	}, [Tdispatch, match.params]);
+	}, [Tdispatch, testlink]);
 
 	return (
 		<StyledRoot className={classes.root}>
@@ -91,7 +93,7 @@ function Instructions({ match }) {
 							<Typography variant="subtitle1"> Declaration : </Typography>
 							<FormControlLabel
 								control={<Checkbox checked={agree} onChange={() => setAgree(!agree)} name="agree" />}
-								label="I have read all the instructions carefully and have understood them. I agree not to cheat or use unfair means in this examination. I understand that using unfair means of any sort for my own or someone else’s advantage will lead to my immediate disqualification. The decision of Qualifier.co.in will be final in these matters and cannot be appealed."
+								label="I have read all the instructions carefully and have understood them. I agree not to cheat or use unfair means in this examination. I understand that using unfair means of any sort for my own or someone else's advantage will lead to my immediate disqualification. The decision of Qualifier.co.in will be final in these matters and cannot be appealed."
 							/>
 						</Paper>
 					</>

@@ -25,6 +25,7 @@ import {
 import axios from "axios";
 import CourseAnalysis from "../Website/CourseDetails/CourseAnalysis";
 import { lighten } from "@mui/material/styles";
+import { useParams } from "react-router-dom";
 const MyDrawer = lazy(() => import("../Components/Navigation/MyDrawer"));
 
 const ReportRoot = styled('div')(({ theme }) => ({
@@ -71,7 +72,8 @@ const SectionTable = styled(Table)(({ theme }) => ({
 	minWidth: 650,
 }));
 
-export default function Report({ match }) {
+export default function Report() {
+	const { catlink, corslink, sublink, chaplink } = useParams();
 	const [category, setCategory] = useState(null);
 	const [course, setCourse] = useState(null);
 	const [subject, setSubject] = useState(null);
@@ -82,12 +84,12 @@ export default function Report({ match }) {
 
 	useEffect(() => {
 		getCategory();
-		if (match.params.sublink) {
-			setSubject({ link: match.params.sublink, subjectTitle: "" });
-		} else if (match.params.corslink) {
-			setCourse({ link: match.params.corslink, courseTitle: "" });
+		if (sublink) {
+			setSubject({ link: sublink, subjectTitle: "" });
+		} else if (corslink) {
+			setCourse({ link: corslink, courseTitle: "" });
 		}
-	}, [match]);
+	}, [catlink, corslink, sublink, chaplink]);
 	const getCategory = () => {
 		axios
 			.get(`/api/test/category/allcategory/`)

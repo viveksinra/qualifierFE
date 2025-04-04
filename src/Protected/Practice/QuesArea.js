@@ -93,12 +93,14 @@ function QuesArea() {
 	const reportLink = () => {
 		let reportLink = "/report";
 		let match = Pstate.match;
-		if (match.params.chaplink) {
-			reportLink = `/report/${match.params.catlink}/${match.params.corslink}/${match.params.sublink}/${match.params.chaplink}`;
-		} else if (match.params.sublink) {
-			reportLink = `/report/${match.params.catlink}/${match.params.corslink}/${match.params.sublink}`;
-		} else if (match.params.corslink) {
-			reportLink = `/report/${match.params.catlink}/${match.params.corslink}`;
+		if (!match) return reportLink;
+		
+		if (match.chaplink) {
+			reportLink = `/report/${match.catlink}/${match.corslink}/${match.sublink}/${match.chaplink}`;
+		} else if (match.sublink) {
+			reportLink = `/report/${match.catlink}/${match.corslink}/${match.sublink}`;
+		} else if (match.corslink) {
+			reportLink = `/report/${match.catlink}/${match.corslink}`;
 		}
 		return reportLink;
 	};
@@ -136,7 +138,7 @@ function QuesArea() {
 					))}
 			</List>
 			<Divider light />
-			<Fade in={Pstate.submitted} unmountOnExit>
+			{Pstate.submitted && (
 				<Toolbar variant="dense">
 					<div>
 						<Tooltip title="Report a problem">
@@ -161,15 +163,15 @@ function QuesArea() {
 					<span style={{ flexGrow: 1 }} />
 					<Link to={reportLink()}>Finish</Link>
 				</Toolbar>
-			</Fade>
-			<Fade in={Pstate.showSol} unmountOnExit>
+			)}
+			{Pstate.showSol && (
 				<Paper className={classes.paper}>
 					<div className={classes.center}>
 						{parse(Pstate.question.solTitle)}
 						{Pstate.question.solImage && <img className={classes.img} src={Pstate.question.solImage} alt="Solution" />}
 					</div>
 				</Paper>
-			</Fade>
+			)}
 		</StyledRoot>
 	);
 }

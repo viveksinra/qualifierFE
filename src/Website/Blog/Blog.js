@@ -23,7 +23,7 @@ import { alpha, styled } from "@mui/material/styles";
 import Skeleton from "@mui/material/Skeleton";
 import { FullNav, HideOnScroll } from "../../Components/Navigation/Nav";
 import { MdSearch } from "react-icons/md";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { fetchData } from "../../Components/Api";
 import { Head } from "../../Components/NameExp";
@@ -120,7 +120,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 	}
 }));
 
-export default function Blog({ match }) {
+export default function Blog() {
 	const [page, setPage] = useState(2);
 	const [type, setType] = useState("all");
 	const [tabValue, setTabValue] = useState(0);

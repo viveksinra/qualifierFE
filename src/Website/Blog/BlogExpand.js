@@ -16,7 +16,7 @@ import { FullNav, HideOnScroll } from "../../Components/Navigation/Nav";
 import axios from "axios";
 
 import parse from "html-react-parser";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 
 const PREFIX = 'BlogExpand';
@@ -92,7 +92,8 @@ const StyledFragment = styled(Fragment)(({ theme }) => ({
 	},
 }));
 
-export default function BlogExpand({ match }) {
+export default function BlogExpand() {
+	const { link } = useParams();
 	const [data, setData] = useState({
 		author: { name: "Qualifier", designation: "Admin", image: "https://vetdeniz.com/wp-content/uploads/2017/10/default-user.jpg" },
 		category: { id: "", catgName: "" },
@@ -107,7 +108,7 @@ export default function BlogExpand({ match }) {
 	useEffect(() => {
 		let isActive = true;
 		axios
-			.get(`/api/blog/get/link/${match.params.link}`)
+			.get(`/api/blog/get/link/${link}`)
 			.then((res) => {
 				if (isActive) {
 					setData(res.data);
@@ -115,7 +116,7 @@ export default function BlogExpand({ match }) {
 			})
 			.catch((err) => console.log(err));
 		return () => (isActive = false);
-	}, [match.params.link]);
+	}, [link]);
 	document.title = `${data.title} Blog & News | Current Affairs and Articles Analysis Qualifier.co.in`;
 
 	const trigger = useScrollTrigger({

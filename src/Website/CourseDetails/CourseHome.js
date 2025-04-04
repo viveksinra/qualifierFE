@@ -29,7 +29,7 @@ const HeadingTypography = styled(Typography)(({ theme }) => ({
 	fontWeight: theme.typography.fontWeightRegular,
 }));
 
-export default function CourseHome({ data, match }) {
+export default function CourseHome({ data, params }) {
 	return (
 		<RootContainer>
 			{data.sub &&
@@ -38,7 +38,7 @@ export default function CourseHome({ data, match }) {
 						<StyledAccordionSummary expandIcon={<MdExpandMore />} aria-controls="course-data" id="course-data">
 							<HeadingTypography>{s.subjectTitle}</HeadingTypography>
 							<span style={{ flexGrow: 1 }} />
-							<Link to={`/practice/${match.params.catlink}/${match.params.corslink}/${s.link}`}>
+							<Link to={`/practice/${params.catlink}/${params.corslink}/${s.link}`}>
 								<Button color="primary">Start</Button>
 							</Link>
 						</StyledAccordionSummary>
@@ -58,7 +58,7 @@ export default function CourseHome({ data, match }) {
 																</Button>
 															</Link>
 														) : (
-															<Link to={`/practice/${match.params.catlink}/${match.params.corslink}/${s.link}/${c.link}`}>
+															<Link to={`/practice/${params.catlink}/${params.corslink}/${s.link}/${c.link}`}>
 																<Button size="small" color="primary" disabled={c.lock}>
 																	Start
 																</Button>
