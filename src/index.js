@@ -7,6 +7,7 @@ import { deepPurple, blue } from "@mui/material/colors";
 import MainRoute from "./Components/Routes/MainRoute";
 import { MainProvider } from "./Components/Context/MainContext";
 import { GlobalStyles } from "@mui/material";
+import App from "./App";
 
 const theme = createTheme({
 	palette: {
@@ -77,7 +78,7 @@ root.render(
 		<GlobalStyles styles={globalStyles} />
 		<BrowserRouter>
 			<MainProvider>
-				<MainRoute />
+				<App />
 			</MainProvider>
 		</BrowserRouter>
 	</ThemeProvider>

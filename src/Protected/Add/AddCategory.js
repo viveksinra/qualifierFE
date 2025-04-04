@@ -120,8 +120,8 @@ export default function AddCategory() {
 	};
 	return (
 		<Fragment>
-			<Grid container>
-				<Grid item xs={12} md={9}>
+			<Grid container spacing={2}>
+				<Grid item xs={12} sm={9}>
 					<EntryAreaPaper>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
@@ -218,7 +218,7 @@ export default function AddCategory() {
 						</form>
 					</EntryAreaPaper>
 				</Grid>
-				<Grid item xs={12} md={3}>
+				<Grid item xs={12} sm={3}>
 					<SearchResultDiv>
 						<Paper>
 							<Table>
