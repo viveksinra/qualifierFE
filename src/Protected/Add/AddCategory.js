@@ -14,26 +14,33 @@ import {
 	TableFooter,
 	TablePagination,
 	Divider,
-	Button
+	Button,
+	Typography,
+	Card,
+	CardContent,
+	InputAdornment,
+	Box
 } from "@mui/material";
 import axios from "axios";
-import { MdDoneAll, MdClearAll } from "react-icons/md";
+import { MdDoneAll, MdClearAll, MdTitle, MdLink, MdNewReleases, MdDescription, MdImage } from "react-icons/md";
 
 // Styled components to replace useStyles
-const EntryAreaPaper = styled(Paper)(({ theme }) => ({
+const EntryAreaCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
-  margin: theme.spacing(1),
-  backgroundColor: theme.palette.background.paper
+  backgroundColor: theme.palette.background.paper,
+  boxShadow: theme.shadows[3],
+  borderRadius: theme.shape.borderRadius * 2
 }));
 
 const StyledButton = styled(Button)(({ theme }) => ({
   margin: theme.spacing(1)
 }));
 
-const SearchResultDiv = styled('div')(({ theme }) => ({
+const SearchResultCard = styled(Card)(({ theme }) => ({
   maxHeight: '80vh',
   overflow: 'auto',
-  margin: theme.spacing(1)
+  boxShadow: theme.shadows[3],
+  borderRadius: theme.shape.borderRadius * 2
 }));
 
 export default function AddCategory() {
@@ -118,122 +125,195 @@ export default function AddCategory() {
 				break;
 		}
 	};
+
+	const handleChangePage = (event, newPage) => {
+		setPage(newPage);
+	};
+
+	const handleChangeRowsPerPage = (event) => {
+		setRowsPerPage(parseInt(event.target.value, 10));
+		setPage(0);
+	};
+
 	return (
 		<Fragment>
-			<Grid container spacing={2}>
+			<Grid container spacing={3}>
 				<Grid item size={{xs: 12, sm:9 }} >
-					<EntryAreaPaper>
-						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
-							<Grid container spacing={2}>
-								<Grid item size={{xs: 4 }}></Grid>
-								<Grid item size={{xs: 4 }}>
-									<center>
-										<Chip color="primary" label="Add Category" />
-									</center>
-								</Grid>
-								<Grid item size={{xs: 4 }}></Grid>
-								<Grid item size={{xs: 12}} >
-									<TextField
-										variant="outlined"
-										required
-										fullWidth
-										inputProps={{ maxLength: "42" }}
-										onBlur={() => handleErr("title")}
-										error={err.errIn === "title" ? true : false}
-										label={err.errIn === "title" ? err.msg : "Category Title"}
-										placeholder="Name of the Category.."
-										value={title}
-										onChange={(e) => setTitle(e.target.value)}
-									/>
-								</Grid>
-								<Grid item size={{xs: 6 }}>
-									<TextField
-										variant="outlined"
-										required
-										fullWidth
-										onBlur={() => handleErr("link")}
-										error={err.errIn === "link" ? true : false}
-										label={err.errIn === "link" ? err.msg : "Link / URL "}
-										placeholder="/"
-										value={link}
-										onChange={(e) => setLink(e.target.value)}
-									/>
-								</Grid>
-								<Grid item size={{xs: 6 }}>
-									<TextField
-										variant="outlined"
-										fullWidth
-										onBlur={() => handleErr("highlight")}
-										inputProps={{ maxLength: "10" }}
-										error={err.errIn === "highlight" ? true : false}
-										label={err.errIn === "highlight" ? err.msg : "Highlight "}
-										placeholder="New"
-										value={highlight}
-										onChange={(e) => setHighlight(e.target.value)}
-									/>
-								</Grid>
-								<Grid item size={{xs: 12}} >
-									<TextField
-										variant="outlined"
-										type="file"
-										InputLabelProps={{ shrink: true }}
-										inputProps={{ accept: "image/*" }}
-										fullWidth
-										onBlur={() => handleErr("image")}
-										error={err.errIn === "image" ? true : false}
-										label={err.errIn === "image" ? err.msg : "Image "}
-										onChange={(e) => imgUpload(e.target.files[0])}
-									/>
-								</Grid>
-								<Grid item size={{xs: 12}} >
-									<TextField
-										variant="outlined"
-										fullWidth
-										onBlur={() => handleErr("description")}
-										error={err.errIn === "description" ? true : false}
-										label={err.errIn === "description" ? err.msg : "Description "}
-										placeholder="few words..."
-										value={description}
-										onChange={(e) => setDescription(e.target.value)}
-									/>
-								</Grid>
-								<Grid item size={{xs: 12}} >
-									<Divider />
-									<center>
-										<StyledButton size="small" variant="contained" startIcon={<MdDoneAll />} type="submit" color="secondary">
-											{id ? "Update Category" : "Create New Category"}
-										</StyledButton>
-										<StyledButton
-											size="small"
-											startIcon={<MdClearAll />}
+					<EntryAreaCard>
+						<CardContent>
+							<Typography variant="h5" gutterBottom sx={{ mb: 3, textAlign: 'center' }}>
+								<Chip color="primary" label={id ? "Update Category" : "Add New Category"} />
+							</Typography>
+							
+							<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100%" }}>
+								<Grid container spacing={3}>
+									<Grid item size={{xs: 12}} >
+										<TextField
 											variant="outlined"
-											onClick={() => handleClear()}
-											color="secondary"
-										>
-											Clear All
-										</StyledButton>
-									</center>
+											required
+											fullWidth
+											inputProps={{ maxLength: "42" }}
+											onBlur={() => handleErr("title")}
+											error={err.errIn === "title" ? true : false}
+											label={err.errIn === "title" ? err.msg : "Category Title"}
+											placeholder="Name of the Category.."
+											value={title}
+											onChange={(e) => setTitle(e.target.value)}
+											InputProps={{
+												startAdornment: (
+													<InputAdornment position="start">
+														<MdTitle />
+													</InputAdornment>
+												),
+											}}
+										/>
+									</Grid>
+									<Grid item size={{xs: 12, sm: 6 }}>
+										<TextField
+											variant="outlined"
+											required
+											fullWidth
+											onBlur={() => handleErr("link")}
+											error={err.errIn === "link" ? true : false}
+											label={err.errIn === "link" ? err.msg : "Link / URL "}
+											placeholder="/"
+											value={link}
+											onChange={(e) => setLink(e.target.value)}
+											InputProps={{
+												startAdornment: (
+													<InputAdornment position="start">
+														<MdLink />
+													</InputAdornment>
+												),
+											}}
+										/>
+									</Grid>
+									<Grid item size={{xs: 12, sm: 6 }}>
+										<TextField
+											variant="outlined"
+											fullWidth
+											onBlur={() => handleErr("highlight")}
+											inputProps={{ maxLength: "10" }}
+											error={err.errIn === "highlight" ? true : false}
+											label={err.errIn === "highlight" ? err.msg : "Highlight "}
+											placeholder="New"
+											value={highlight}
+											onChange={(e) => setHighlight(e.target.value)}
+											InputProps={{
+												startAdornment: (
+													<InputAdornment position="start">
+														<MdNewReleases />
+													</InputAdornment>
+												),
+											}}
+										/>
+									</Grid>
+									<Grid item size={{xs: 12}} >
+										<TextField
+											variant="outlined"
+											type="file"
+											InputLabelProps={{ shrink: true }}
+											inputProps={{ accept: "image/*" }}
+											fullWidth
+											onBlur={() => handleErr("image")}
+											error={err.errIn === "image" ? true : false}
+											label={err.errIn === "image" ? err.msg : "Image "}
+											onChange={(e) => imgUpload(e.target.files[0])}
+											InputProps={{
+												startAdornment: (
+													<InputAdornment position="start">
+														<MdImage />
+													</InputAdornment>
+												),
+											}}
+										/>
+									</Grid>
+									{image && (
+										<Grid item size={{xs: 12}}>
+											<Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+												<img src={image} alt="Category" style={{ maxHeight: '150px', maxWidth: '100%', borderRadius: '8px' }} />
+											</Box>
+										</Grid>
+									)}
+									<Grid item size={{xs: 12}} >
+										<TextField
+											variant="outlined"
+											fullWidth
+											multiline
+											rows={3}
+											onBlur={() => handleErr("description")}
+											error={err.errIn === "description" ? true : false}
+											label={err.errIn === "description" ? err.msg : "Description "}
+											placeholder="few words..."
+											value={description}
+											onChange={(e) => setDescription(e.target.value)}
+											InputProps={{
+												startAdornment: (
+													<InputAdornment position="start">
+														<MdDescription />
+													</InputAdornment>
+												),
+											}}
+										/>
+									</Grid>
+									<Grid item size={{xs: 12}} >
+										<Divider sx={{ my: 2 }} />
+										<Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+											<StyledButton
+												variant="contained"
+												startIcon={<MdDoneAll />}
+												type="submit"
+												color="primary"
+												size="large"
+											>
+												{id ? "Update Category" : "Create New Category"}
+											</StyledButton>
+											<StyledButton
+												startIcon={<MdClearAll />}
+												variant="outlined"
+												onClick={handleClear}
+												color="secondary"
+												size="large"
+											>
+												Clear All
+											</StyledButton>
+										</Box>
+									</Grid>
 								</Grid>
-							</Grid>
-						</form>
-					</EntryAreaPaper>
+							</form>
+						</CardContent>
+					</EntryAreaCard>
 				</Grid>
-				<Grid item size={{xs: 12,sm:3 }} >
-					<SearchResultDiv>
-						<Paper>
+				<Grid item size={{xs: 12, sm:3 }} >
+					<SearchResultCard>
+						<CardContent>
+							<Typography variant="h6" gutterBottom>
+								Existing Categories
+							</Typography>
+							<Divider sx={{ mb: 2 }} />
 							<Table>
 								<TableHead>
 									<TableRow>
 										<TableCell component="th" scope="row">
-											Search Results
+											Category Name
 										</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
 									{allCat.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
-										<TableRow key={data._id} onClick={() => setData(data._id)} hover>
+										<TableRow 
+											key={data._id} 
+											onClick={() => setData(data._id)} 
+											hover
+											sx={{ 
+												cursor: 'pointer',
+												'&:hover': {
+													backgroundColor: 'rgba(0, 0, 0, 0.04)'
+												}
+											}}
+										>
 											<TableCell component="td" scope="row">
-												Name : {data.categoryTitle} <br />
+												{data.categoryTitle}
 											</TableCell>
 										</TableRow>
 									))}
@@ -241,17 +321,18 @@ export default function AddCategory() {
 								<TableFooter>
 									<TableRow>
 										<TablePagination
+											rowsPerPageOptions={[5, 10, 25]}
 											count={allCat.length}
 											rowsPerPage={rowsPerPage}
 											page={page}
-											onChangePage={(e, page) => setPage(page)}
-											onChangeRowsPerPage={(r) => setRowsPerPage(r.target.value)}
+											onPageChange={handleChangePage}
+											onRowsPerPageChange={handleChangeRowsPerPage}
 										/>
 									</TableRow>
 								</TableFooter>
 							</Table>
-						</Paper>
-					</SearchResultDiv>
+						</CardContent>
+					</SearchResultCard>
 				</Grid>
 			</Grid>
 			<MySnackbar ref={snackRef} />

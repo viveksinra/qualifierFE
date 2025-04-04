@@ -1,4 +1,4 @@
-import React, { lazy } from "react";
+import React, { lazy, useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AdminPrivateRoute } from "./PrivateRoute";
 import AdminDashboard from "../../Protected/Dashboard/AdminDashboard";
@@ -13,26 +13,47 @@ import AddTestSeries from "../../Protected/Add/AddTestSeries";
 import AddSection from "../../Protected/Add/AddSection";
 import SeeMessage from "../../Admin/SeeMessage";
 import ReportedQuestion from "../../Admin/ReportedQuestion";
+import AdminLayout from "../../Protected/Dashboard/AdminLayout";
+import { MainContext } from "../Context/MainContext";
+import { LOGOUT_USER } from "../Context/types";
+
 const AddQuestion = lazy(() => import("../../Protected/Add/AddQuestion/AddQuestion"));
 const TransferQues = lazy(() => import("../../Admin/TransferQues"));
 
 function AdminRoutes() {
+	const { dispatch } = useContext(MainContext);
+	
+	const handleLogout = () => {
+		dispatch({ type: LOGOUT_USER });
+	};
+	
+	// Wrap the component with AdminLayout
+	const withAdminLayout = (Component) => {
+		return (
+			<AdminPrivateRoute>
+				<AdminLayout handleLogout={handleLogout}>
+					<Component />
+				</AdminLayout>
+			</AdminPrivateRoute>
+		);
+	};
+	
 	return (
 		<Routes>
-			<Route path="dashboard" element={<AdminPrivateRoute><AdminDashboard /></AdminPrivateRoute>} />
-			<Route path="addcategory" element={<AdminPrivateRoute><AddCategory /></AdminPrivateRoute>} />
-			<Route path="addcourse" element={<AdminPrivateRoute><AddCourse /></AdminPrivateRoute>} />
-			<Route path="addsubject" element={<AdminPrivateRoute><AddSubject /></AdminPrivateRoute>} />
-			<Route path="addchapter" element={<AdminPrivateRoute><AddChapter /></AdminPrivateRoute>} />
-			<Route path="addquestion" element={<AdminPrivateRoute><AddQuestion /></AdminPrivateRoute>} />
-			<Route path="addblog" element={<AdminPrivateRoute><AddBlog /></AdminPrivateRoute>} />
-			<Route path="addpromo" element={<AdminPrivateRoute><AddPromo /></AdminPrivateRoute>} />
-			<Route path="addtest" element={<AdminPrivateRoute><AddTest /></AdminPrivateRoute>} />
-			<Route path="addtestsection" element={<AdminPrivateRoute><AddSection /></AdminPrivateRoute>} />
-			<Route path="addtestseries" element={<AdminPrivateRoute><AddTestSeries /></AdminPrivateRoute>} />
-			<Route path="message" element={<AdminPrivateRoute><SeeMessage /></AdminPrivateRoute>} />
-			<Route path="reportedquestion" element={<AdminPrivateRoute><ReportedQuestion /></AdminPrivateRoute>} />
-			<Route path="transferquestion" element={<AdminPrivateRoute><TransferQues /></AdminPrivateRoute>} />
+			<Route path="dashboard" element={withAdminLayout(AdminDashboard)} />
+			<Route path="addcategory" element={withAdminLayout(AddCategory)} />
+			<Route path="addcourse" element={withAdminLayout(AddCourse)} />
+			<Route path="addsubject" element={withAdminLayout(AddSubject)} />
+			<Route path="addchapter" element={withAdminLayout(AddChapter)} />
+			<Route path="addquestion" element={withAdminLayout(AddQuestion)} />
+			<Route path="addblog" element={withAdminLayout(AddBlog)} />
+			<Route path="addpromo" element={withAdminLayout(AddPromo)} />
+			<Route path="addtest" element={withAdminLayout(AddTest)} />
+			<Route path="addtestsection" element={withAdminLayout(AddSection)} />
+			<Route path="addtestseries" element={withAdminLayout(AddTestSeries)} />
+			<Route path="message" element={withAdminLayout(SeeMessage)} />
+			<Route path="reportedquestion" element={withAdminLayout(ReportedQuestion)} />
+			<Route path="transferquestion" element={withAdminLayout(TransferQues)} />
 		</Routes>
 	);
 }
