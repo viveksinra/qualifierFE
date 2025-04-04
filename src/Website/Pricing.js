@@ -73,7 +73,7 @@ export default function Pricing() {
 			<Container maxWidth="md">
 				<StyledPracticsTop>
 					<Grid container spacing={2}>
-						<Grid item xs={12} md={5} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+						<Grid item size={{xs: 12, md:5 }} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 							<Typewriter
 								options={{
 									strings: ["Trusted by 154820+ Student", "Accelerate your Performance", "Study Smart - Be Smart"],
@@ -84,10 +84,10 @@ export default function Pricing() {
 								}}
 							/>
 						</Grid>
-						<Grid item xs={12} className="hideInMob" md={2}>
+						<Grid item size={{xs: 12, md: 2}} className="hideInMob">
 							<StyledCross orientation="vertical" />
 						</Grid>
-						<Grid item xs={12} md={5} className="center">
+						<Grid item size={{xs: 12, md:5 }} className="center">
 							<StyledUl>
 								<li>Get Quality Questions</li>
 								<li>Report in Depth</li>
@@ -185,7 +185,7 @@ export const PriceCard = () => {
 				<Grid container id="pc" spacing={4}>
 					{priceData &&
 						priceData.finalArray.map((p, i) => (
-							<Grid item xs={12} key={i} md={4}>
+							<Grid item size={{xs: 12, md: 4}} key={i}>
 								<div
 									onClick={() => handlePay(p)}
 									className={clsx(priceCard, i === 0 ? firstCard : i === 1 ? secondCard : thirdCard)}
@@ -194,7 +194,7 @@ export const PriceCard = () => {
 										{p.plan}
 									</Typography>
 									<Grid container spacing={2}>
-										<Grid item xs={5}>
+										<Grid item size={{xs: 5}}>
 											<Typography align="center" color="primary" className={vilidityText} variant="h5">
 												<b>{p.period}</b> Days
 											</Typography>
@@ -203,10 +203,10 @@ export const PriceCard = () => {
 												All Access
 											</Typography>
 										</Grid>
-										<Grid item xs={2}>
+										<Grid item size={{xs: 2}}>
 											<Divider orientation="vertical" style={{ height: "6rem" }} className={cross} />
 										</Grid>
-										<Grid item xs={5}>
+										<Grid item size={{xs: 5}}>
 											<Typography variant="body2" color="textSecondary">
 												<br />
 												Just At {"\u00A0"}
@@ -232,7 +232,7 @@ export const PriceCard = () => {
 							</Grid>
 						))}
 				</Grid>
-				<Grid item xs={12} style={{ marginTop: "50px" }}>
+				<Grid item size={{xs: 12 }} style={{ marginTop: "50px" }}>
 					<Collapse in={!showPromo}>
 						<Typography onClick={() => setShowPromo(true)} align="center" variant="subtitle2" color="textSecondary" style={{ cursor: "grab" }}>
 							Have a Promo Code ?

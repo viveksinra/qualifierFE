@@ -34,7 +34,7 @@ const CatgDetails = () => {
 	return (
 		<Fragment>
 			{cat.map((d, i) => (
-				<Grid item xs={12} sm={6} md={4} key={i} style={{ display: "flex", justifyContent: "center" }}>
+				<Grid item size={{xs: 12, sm: 6, md: 4}} key={i} style={{ display: "flex", justifyContent: "center" }}>
 					<div className="categ">
 						<Link to={`/practice/${d.link}`}>
 							<img src={d.image} alt={d.categoryTitle} />

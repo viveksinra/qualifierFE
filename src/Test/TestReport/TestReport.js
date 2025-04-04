@@ -113,7 +113,7 @@ function TestReport() {
 						</Typography>
 						<Distribution data={data && data.qdata} />
 					</Grid>
-					<Grid item xs={12} md={5} className="center">
+					<Grid item size={{xs: 12, md:5 }} className="center">
 						<OfferCard />
 					</Grid>
 				</Grid>

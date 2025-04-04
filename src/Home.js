@@ -276,10 +276,8 @@ function Home(props) {
 			</StyledHeroDiv>
 			<SpeedNav />
 			<Suspense fallback={<CircularProgress />}>
-				<div style={{ backgroundColor: 'red' }}>
 					<DataCard />
 					<Categories />
-				</div>
 				<Suspense fallback={<CircularProgress />}>
 					<Features2 />
 					<Features />

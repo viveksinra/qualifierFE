@@ -175,7 +175,7 @@ export default function Account() {
 						</ul>
 					</div>
 				</Grid>
-				<Grid item xs={12} md={4} className={classes.shareBox}>
+				<Grid item size={{xs: 12, md: 4}} className={classes.shareBox}>
 					<Typography align="center" color="primary">
 						Share on Social Media
 					</Typography>

@@ -118,7 +118,7 @@ export default function SavedQuestion({ link }) {
 					</Tabs>
 				</Grid>
 				<span style={{ flexGrow: 1 }} />
-				<Grid item xs={6} md={4}>
+				<Grid item size={{xs: 6, md: 4}}>
 					<Autocomplete
 						options={allCourses}
 						getOptionLabel={(option) => option.courseTitle}
@@ -141,7 +141,7 @@ export default function SavedQuestion({ link }) {
 			) : allData.length !== 0 ? (
 				<Grid container spacing={2}>
 					{allData.map((q, qi) => (
-						<Grid item xs={12} key={q.qid}>
+						<Grid item size={{xs: 12}} key={q.qid}>
 							<QCard>
 								<CardHeader
 									avatar={<img style={{ width: 40 }} alt={q.number} src={q.avatar} />}

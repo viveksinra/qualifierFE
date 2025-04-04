@@ -60,7 +60,7 @@ export default function PracticeHome() {
 			<Container maxWidth="md">
 				<PracticsTopPaper>
 					<Grid container spacing={4}>
-						<Grid item xs={12} md={5} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+						<Grid item size={{xs: 12, md: 5}} style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 							<Typewriter
 								options={{
 									strings: ["Trusted by 154820+ Student", "Accelerate your Performance", "Study Smart - Be Smart"],
@@ -71,10 +71,10 @@ export default function PracticeHome() {
 								}}
 							/>
 						</Grid>
-						<Grid item xs={12} md={2} className="hideInMob">
+						<Grid item size={{xs: 12, md: 2}} className="hideInMob">
 							<CrossDivider orientation="vertical" />
 						</Grid>
-						<Grid item xs={12} style={{ display: "flex", justifyContent: "center" }} md={5}>
+						<Grid item size={{xs: 12, md: 5}} style={{ display: "flex", justifyContent: "center" }}>
 							<StyledUl>
 								<li>No Advertisement</li>
 								<li>Get Solution & Discussion</li>

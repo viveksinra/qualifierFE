@@ -14,7 +14,7 @@ alwaysApply: true
 but it should be like below <Grid size={{xs: 12, sm: 6, md: 4 }} >
 
 
-  
+  xs={12} md={5}>     size={{xs: 12, md:8 }} >
 
    
 

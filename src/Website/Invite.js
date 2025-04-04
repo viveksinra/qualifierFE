@@ -87,13 +87,13 @@ export default function Invite() {
 			<InviteTop className={clsx("center")}>
 				<Container maxWidth="md">
 					<Grid container>
-						<Grid item xs={12} sm={4} className="center">
+						<Grid item size={{xs: 12, sm: 4}} className="center">
 							<OfferCardContainer className={clsx("center")}>
 								<img src={invite} alt="offer" />
 								<p>{data.discount} % </p>
 							</OfferCardContainer>
 						</Grid>
-						<Grid item xs={12} sm={8} style={{ display: "flex", alignItems: "center" }}>
+						<Grid item size={{xs: 12, sm: 8}} style={{ display: "flex", alignItems: "center" }}>
 							<Avatar alt={data.refName} src={data.refImg} />
 							&nbsp;&nbsp;
 							<h6> {`${data.refName} has invited you to buy Qualifier Special Plan.`}</h6>

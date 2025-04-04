@@ -18,7 +18,7 @@ export default function Section2() {
 			</Grid>
 
 			{Qstate.options.map((d, i) => (
-				<Grid item xs={12} key={i} md={6}>
+				<Grid item size={{xs: 12, md: 6}} key={i}>
 					{html ? (
 						<TextField
 							variant="outlined"
@@ -49,7 +49,7 @@ export default function Section2() {
 					)}
 				</Grid>
 			))}
-			<Grid item xs={6} className="center">
+			<Grid item size={{xs: 6}} className="center">
 				<TextField
 					variant="outlined"
 					required
@@ -76,7 +76,7 @@ export default function Section2() {
 					</MenuItem>
 				</TextField>
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item size={{xs: 6}}>
 				<TextField
 					variant="outlined"
 					required
@@ -103,7 +103,7 @@ export default function Section2() {
 					</MenuItem>
 				</TextField>
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item size={{xs: 6}}>
 				<TextField
 					variant="outlined"
 					fullWidth
@@ -116,7 +116,7 @@ export default function Section2() {
 					onChange={(e) => Qdispatch({ type: "SETMAXTIME", payload: e.target.value })}
 				/>
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item size={{xs: 6}}>
 				<TextField
 					variant="outlined"
 					fullWidth
@@ -127,7 +127,7 @@ export default function Section2() {
 					onChange={(e) => Qdispatch({ type: "SETHIGHLIGHT", payload: e.target.value })}
 				/>
 			</Grid>
-			<Grid item xs={6}>
+			<Grid item size={{xs: 6}}>
 				<TextField
 					variant="outlined"
 					fullWidth

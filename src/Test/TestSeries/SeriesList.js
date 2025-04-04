@@ -160,7 +160,7 @@ function SeriesCard({ data, lg }) {
 	return (
 		<StyledCardGridContainer container spacing={2}>
 			{data.map((t, i) => (
-				<Grid item xs={12} sm={6} lg={lg} key={i} className={seriesCardClasses.cardBox}>
+				<Grid item size={{xs: 12, sm: 6, lg}} key={i} className={seriesCardClasses.cardBox}>
 					<Card className={clsx(seriesCardClasses.card, "shine")} elevation={3}>
 						<Link to={`/test/${t.link}`}>
 							<img className={seriesCardClasses.avatar} alt={t.title} src={t.logo} />

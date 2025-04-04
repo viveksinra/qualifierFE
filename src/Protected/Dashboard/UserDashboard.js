@@ -66,7 +66,7 @@ export default function UserDashboard() {
 							<HomeSlider />
 						</Suspense>
 					</Grid>
-					<Grid item xs={12} md={4} style={{ height: 300 }}>
+					<Grid item size={{xs: 12, md:4}} style={{ height: 300 }}>
 						<div style={{ minHeight: 180 }}>
 							<Suspense fallback={<LinearProgress />}>
 								<ResumeList />
@@ -93,7 +93,7 @@ export default function UserDashboard() {
 						<Grid item size={{xs: 12, md:8 }}  className="center">
 							<UserChart />
 						</Grid>
-						<Grid item xs={12} md={4} className="center">
+						<Grid item size={{xs: 12, md:4}} className="center">
 							<OfferCard />
 						</Grid>
 					</Grid>

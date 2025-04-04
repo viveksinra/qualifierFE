@@ -71,7 +71,7 @@ export default function CourseList() {
 					<Grid container spacing={2}>
 						{catg.cour &&
 							catg.cour.map((d) => (
-								<Grid item xs={12} key={d._id} md={3}>
+								<Grid item size={{xs: 12, md: 3}} key={d._id}>
 									<Link to={`${location.pathname}/${d.link}`}>
 										<StyledCard>
 											<LogoImage src={d.logo} alt={d.courseTitle} />

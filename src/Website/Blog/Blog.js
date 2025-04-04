@@ -254,7 +254,7 @@ const BlogCardComponent = ({ page, newData, setNewD }) => {
 								<BlogImage alt={d.title} src={d.img} />
 							</Link>
 						</Grid>
-						<Grid item xs={12} sm={8} component={TextBox}>
+						<Grid item size={{xs: 12, sm: 8}} component={TextBox}>
 							<Link to={`/blog/${d.link}`}>
 								<Typography variant="h6" noWrap color="primary">
 									{d.title}
