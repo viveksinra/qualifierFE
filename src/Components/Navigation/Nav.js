@@ -7,6 +7,7 @@ import { CssBaseline, Container, useScrollTrigger,
 import { styled } from '@mui/material/styles';
 import { MdMenu, MdExpandMore, MdAccountCircle } from "react-icons/md";
 import { Link } from "react-router-dom";
+import { brandImage } from "../../theme";
 const MegaMenu = lazy(() => import("./MegaMenu"));
 const MyDrawer = lazy(() => import("./MyDrawer"));
 
@@ -64,7 +65,7 @@ export function Nav() {
 					</StyledMenuButtonNav>
 					<Link to="/">
 						<StyledLogoImg
-							src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg"
+							src={brandImage.logo}
 							alt="Qualifier-logo"
 							border="0"
 						/>
@@ -143,7 +144,7 @@ export function FullNav(props) {
 							</StyledMenuButtonNav>
 							<Link to="/">
 								<StyledLogoImg
-									src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg"
+									src={brandImage.logo}
 									alt="Qualifier-logo"
 									border="0"
 								/>

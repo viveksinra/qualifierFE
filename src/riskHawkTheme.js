@@ -230,8 +230,13 @@ const brandImage = {
   // Add more brand images as needed
 };
 
+const riskHawkBrandText = {
+    poweredBy: "Powered by Risk Hawk"
+  };
+
 // Export Risk Hawk theme configuration and styles
 export { colors as riskHawkColors };
 export { riskHawkGlobalStyles };
 export { brandImage as riskHawkBrandImage };
+export { riskHawkBrandText };
 export default riskHawkTheme; 

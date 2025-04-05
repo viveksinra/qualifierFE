@@ -10,6 +10,7 @@ import { Grid, Typography, Fab, Avatar, Chip, IconButton, CircularProgress, useM
 import { styled, useTheme } from '@mui/material/styles';
 import { FaAngleDown, FaArrowAltCircleRight, FaBars } from "react-icons/fa";
 import { Head, Typewriter } from "./Components/NameExp";
+import { brandImage } from "./theme";
 const DataCard = lazy(() => import("./Components/DataCard/DataCard"));
 const Categories = lazy(() => import("./Components/Categories/Categories"));
 const MegaMenu = lazy(() => import("./Components/Navigation/MegaMenu"));
@@ -98,7 +99,7 @@ function AppNav() {
 	return (
 		<StyledAppNavGrid container justifyContent="space-around" alignItems="center">
 			<StyledLogoMobDiv>
-				<img src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg" id="logo" alt="Qualifier-logo" />
+				<img src={brandImage.logo} id="logo" alt="Qualifier-logo" />
 			</StyledLogoMobDiv>
 
 			<span style={{ flexGrow: 0.7 }} />

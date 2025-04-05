@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import { MdArrowBack, MdArrowForward, MdFullscreen, MdFullscreenExit, MdReportProblem } from "react-icons/md";
 import axios from "axios";
+import { brandImage } from "../theme";
 export const drawerWidth = 260;
 
 const StyledSectionPaper = styled(Paper)(({ theme }) => ({
@@ -83,7 +84,7 @@ export function TestTopNav({ test }) {
 				<Toolbar variant="dense">
 					<img
 						style={{ maxHeight: 50 }}
-						src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg"
+						src={brandImage.logo}
 						alt="Qualifier-logo"
 						border="0"
 					/>

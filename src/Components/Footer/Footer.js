@@ -9,6 +9,7 @@ import { styled } from '@mui/material/styles';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaWhatsapp, FaGooglePlay, FaHeadset } from "react-icons/fa";
 import { FcFeedback, FcDepartment } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { brandImage } from "../../theme";
 
 const StyledFooterDiv = styled('div')(({ theme }) => ({
 	paddingTop: theme.spacing(3),
@@ -119,7 +120,7 @@ export default function Footer() {
 				<Grid container spacing={4}>
 					<Grid item size={{xs: 12,sm:6, md:3 }} >
 						<StyledFooterLogoImg
-							src="https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg"
+							src={brandImage.logo}
 							alt="logo"
 						/>
 						<br />

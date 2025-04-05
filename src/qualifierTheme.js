@@ -82,8 +82,12 @@ const qualifierBrandImage = {
   logo: "https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg"
 };
 
+const qualifierBrandText = {
+  poweredBy: "Powered by Softechinfra"
+};
 // Export old theme configuration and styles
 export { colors as qualifierColors };
 export { qualifierGlobalStyles };
 export { qualifierBrandImage };
+export { qualifierBrandText };
 export default qualifierTheme; 
