@@ -2,8 +2,11 @@ import React, { lazy, Suspense, Fragment } from "react";
 import { CircularProgress, Box } from "@mui/material";
 import TopTray from "./Components/Decoration/TopTray";
 import MainRoute from "./Components/Routes/MainRoute";
+import { useTheme } from "@mui/material/styles";
 
 export default function App() {
+	const theme = useTheme();
+
 	return (
 		<Fragment>
 			<TopTray />
@@ -20,10 +23,15 @@ export default function App() {
 							top: 0, 
 							left: 0, 
 							zIndex: 9999,
-							backgroundColor: "rgba(255, 255, 255, 0.7)" 
+							backgroundColor: "rgba(255, 255, 255, 0.8)",
+							color: theme.palette.primary.main
 						}}
 					>
-						<CircularProgress size={60} />
+						<CircularProgress 
+							size={60} 
+							color="primary"
+							thickness={4}
+						/>
 					</Box>
 				}
 			>
