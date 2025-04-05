@@ -1,5 +1,4 @@
 import React, { Suspense, lazy, useState, useContext, useMemo, useEffect } from "react";
-import TopTray from "../../Components/Decoration/TopTray";
 import "./common.css";
 import { OfferCard } from "../../Components/Decoration/OfferCard";
 import {
@@ -114,7 +113,6 @@ function TestHome() {
 	}, [seriesData]);
 	return (
 		<StyledTestHomeContainer>
-			<TopTray />
 			<FullNav />
 			<div className={testHomeClasses.titleBg}>
 				<Container>

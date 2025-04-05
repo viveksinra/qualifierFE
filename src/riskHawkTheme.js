@@ -225,7 +225,7 @@ const riskHawkGlobalStyles = {
 };
 
 const brandImage = {
-  logo: "https://res.cloudinary.com/qualifier/image/upload/v1585843340/Default/QualifierLogo_epvtl9.svg",
+  logo: "https://res.cloudinary.com/qualifier/image/upload/v1743879026/riskhawk/logo1_njyno9.png",
   logoBlue: "",
   // Add more brand images as needed
 };

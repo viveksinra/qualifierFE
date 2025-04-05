@@ -24,20 +24,8 @@ import MySnackbar from "../../Components/MySnackbar";
 import axios from "axios";
 import { MdSearch, MdDoneAll, MdClearAll, MdPanorama } from "react-icons/md";
 
-// Styled components to replace useStyles
-const EntryAreaPaper = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  margin: theme.spacing(1),
-  backgroundColor: theme.palette.background.paper
-}));
-
+// Styled components
 const StyledButton = styled(Button)(({ theme }) => ({
-  margin: theme.spacing(1)
-}));
-
-const SearchResultDiv = styled('div')(({ theme }) => ({
-  maxHeight: '80vh',
-  overflow: 'auto',
   margin: theme.spacing(1)
 }));
 
@@ -177,18 +165,22 @@ export default function AddSubject() {
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item size={{xs: 12,  md: 9 }} >
-					<Paper sx={EntryAreaPaper}>
+				<Grid item size={{xs: 12, md: 9}}>
+					<Paper sx={{
+                        padding: theme => theme.spacing(2),
+                        margin: theme => theme.spacing(1),
+                        backgroundColor: theme => theme.palette.background.paper
+                    }}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
-								<Grid item size={{xs: 4 }}></Grid>
-								<Grid item size={{xs: 4 }}>
+								<Grid item size={{xs: 4}}></Grid>
+								<Grid item size={{xs: 4}}>
 									<center>
 										<Chip color="primary" label="Add Subject" />
 									</center>
 								</Grid>
-								<Grid item size={{xs: 4 }}></Grid>
-								<Grid item size={{xs: 12}} >
+								<Grid item size={{xs: 4}}></Grid>
+								<Grid item size={{xs: 12}}>
 									<TextField
 										variant="outlined"
 										required
@@ -202,7 +194,7 @@ export default function AddSubject() {
 										onChange={(e) => setTitle(e.target.value)}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12}} >
+								<Grid item size={{xs: 12}}>
 									<Autocomplete
 										options={allCategory}
 										getOptionLabel={(option) => option.categoryTitle}
@@ -214,7 +206,7 @@ export default function AddSubject() {
 										renderInput={(params) => <TextField {...params} required label="Select Category" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12}} >
+								<Grid item size={{xs: 12}}>
 									<Autocomplete
 										options={allCourse}
 										getOptionLabel={(option) => option.courseTitle}
@@ -223,7 +215,7 @@ export default function AddSubject() {
 										renderInput={(params) => <TextField {...params} required label="Select Course" variant="outlined" fullWidth />}
 									/>
 								</Grid>
-								<Grid item size={{xs: 6 }}>
+								<Grid item size={{xs: 6}}>
 									<TextField
 										variant="outlined"
 										required
@@ -236,7 +228,7 @@ export default function AddSubject() {
 										onChange={(e) => setLink(e.target.value)}
 									/>
 								</Grid>
-								<Grid item size={{xs: 6 }}>
+								<Grid item size={{xs: 6}}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -249,7 +241,7 @@ export default function AddSubject() {
 										onChange={(e) => setHighlight(e.target.value)}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12}} >
+								<Grid item size={{xs: 12}}>
 									<TextField
 										variant="outlined"
 										type="file"
@@ -262,7 +254,7 @@ export default function AddSubject() {
 										onChange={(e) => imgUpload(e.target.files[0])}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12}} >
+								<Grid item size={{xs: 12}}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -274,25 +266,25 @@ export default function AddSubject() {
 										onChange={(e) => setDescription(e.target.value)}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12}} >
+								<Grid item size={{xs: 12}}>
 									<Divider />
 								</Grid>
-								<Grid item size={{xs: 12}} >
+								<Grid item size={{xs: 12}}>
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
-											<Fab color="primary" type="submit" sx={StyledButton}>
+											<Fab color="primary" type="submit" sx={{ margin: theme => theme.spacing(1) }}>
 												<MdDoneAll />
 											</Fab>
 										</Tooltip>
 										<Tooltip title="Clear All">
-											<Fab size="small" color="secondary" onClick={() => handleClear()} sx={StyledButton}>
+											<Fab size="small" color="secondary" onClick={() => handleClear()} sx={{ margin: theme => theme.spacing(1) }}>
 												<MdClearAll />
 											</Fab>
 										</Tooltip>
 										{image !== "" && (
 											<a href={image} target="_blank" rel="noopener noreferrer">
 												<Tooltip title="Image">
-													<Fab size="small" color="secondary" sx={StyledButton}>
+													<Fab size="small" color="secondary" sx={{ margin: theme => theme.spacing(1) }}>
 														<MdPanorama />
 													</Fab>
 												</Tooltip>
@@ -304,7 +296,7 @@ export default function AddSubject() {
 						</form>
 					</Paper>
 				</Grid>
-				<Grid item size={{xs: 12, md:3 }} >
+				<Grid item size={{xs: 12, md: 3}}>
 					{/* Search Section */}
 					<SearchContainer>
 						<SearchIconWrapper>
@@ -316,7 +308,11 @@ export default function AddSubject() {
 							disableUnderline
 						/>
 					</SearchContainer>
-					<Box sx={SearchResultDiv}>
+					<Box sx={{
+                        maxHeight: '80vh',
+                        overflow: 'auto',
+                        margin: theme => theme.spacing(1)
+                    }}>
 						<Paper>
 							<Table>
 								<TableHead>

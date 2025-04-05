@@ -132,7 +132,7 @@ export default function Login() {
 				return <Navigate to="/admin/dashboard" replace />;
 
 			default:
-				return <Navigate to="/login" replace />;
+				return null;
 		}
 	}
 	

@@ -40,6 +40,7 @@ function AdminRoutes() {
 	
 	return (
 		<Routes>
+			<Route path="/" element={withAdminLayout(AdminDashboard)} />
 			<Route path="dashboard" element={withAdminLayout(AdminDashboard)} />
 			<Route path="addcategory" element={withAdminLayout(AddCategory)} />
 			<Route path="addcourse" element={withAdminLayout(AddCourse)} />

@@ -32,12 +32,20 @@ const StyledCard = styled(Card)(({ theme }) => ({
 	},
 }));
 
+const StyledCardLogoContainer = styled('div')(({ theme }) => ({
+	width: 90,
+	height: 90,
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+	margin: '0 auto',
+	marginBottom: theme.spacing(1),
+}));
+
 const StyledCardLogoImg = styled('img')(({ theme }) => ({
-	height: 70,
-	margin: theme.spacing(),
-	marginLeft: "auto",
-	marginRight: "auto",
-	marginBottom: theme.spacing(),
+	maxWidth: 70,
+	maxHeight: 70,
+	objectFit: 'contain',
 }));
 
 const StyledCardActions = styled(CardActions)(({ theme }) => ({
@@ -124,7 +132,9 @@ function Recommendation(props) {
 							<div key={i}>
 								<Link to={`/practice/${d.categoryLink}/${d.link}`}>
 									<StyledCard elevation={3}>
-										<StyledCardLogoImg alt={d.courseTitle} src={d.logo} />
+										<StyledCardLogoContainer>
+											<StyledCardLogoImg alt={d.courseTitle} src={d.logo} />
+										</StyledCardLogoContainer>
 										<Typography align="center" color="primary" noWrap variant="body2">
 											{d.courseTitle}
 										</Typography>

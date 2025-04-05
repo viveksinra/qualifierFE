@@ -175,6 +175,7 @@ export default function AdminLayout({ children, handleLogout }) {
             key={route.link} 
             component={Link} 
             to={route.link}
+            onClick={() => setDrawerOpen(false)}
             selected={location.pathname === route.link}
             sx={{
               borderRadius: '8px',
