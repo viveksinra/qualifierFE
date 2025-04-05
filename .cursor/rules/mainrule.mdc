@@ -1,0 +1,20 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+
+
+
+- use java script. 
+- we recently migrated this project from using old package or react mui to new one - check [legacytonew.mdc](mdc:.cursor/rules/legacytonew.mdc)
+- for all the component color, check the [brandguideline.mdc](mdc:.cursor/rules/brandguideline.mdc)
+
+
+
+
+
+
+
+
+
