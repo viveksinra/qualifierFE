@@ -116,11 +116,14 @@ export default function Practice({ params }) {
 					</div>
 						) : (
 					<Grid container spacing={2} justify={Pstate.submitted ? "space-between" : "center"}>
+						<Grid item size={{xs: 12,md: 9 }}>
 						<Paper className={classes.paper}>
 							<TimeNav />
 							<Divider style={{ marginBottom: 5 }} />
 							<QuesArea />
 						</Paper>
+						</Grid>
+						<Grid item size={{xs: 12,md: 3 }}>
 						{Pstate.submitted && (
 							<Suspense
 								fallback={
@@ -132,6 +135,7 @@ export default function Practice({ params }) {
 								<ChatBox />
 							</Suspense>
 						)}
+						</Grid>
 					</Grid>
 				)}
 			</Container>
