@@ -31,9 +31,21 @@ export default function Categories() {
 const CatgDetails = () => {
 	const cat = resource.data.read();
 
+	if (!cat || !Array.isArray(cat)) {
+		return (
+			<Grid item size={{xs: 12}}>
+				<Typography align="center" color="error">
+					No categories available at the moment.
+				</Typography>
+			</Grid>
+		);
+	}
+
 	return (
-		<Fragment>
-			{cat.map((d, i) => (
+		<>
+		{
+			cat && cat.length > 0 && 	<Fragment>
+			{cat?.map((d, i) => (
 				<Grid item size={{xs: 12, sm: 6, md: 4}} key={i} style={{ display: "flex", justifyContent: "center" }}>
 					<div className="categ">
 						<Link to={`/practice/${d.link}`}>
@@ -81,5 +93,9 @@ const CatgDetails = () => {
 				</Grid>
 			))}
 		</Fragment>
+		}
+		
+		</>
+	
 	);
 };
