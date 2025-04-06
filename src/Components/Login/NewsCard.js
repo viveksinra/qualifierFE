@@ -72,27 +72,33 @@ const NewsCard = () => {
 
 			<h3>What's the Latest</h3>
 			<StyledBodyDiv>
-				{news.map((n, i) => (
-					<div key={i}>
-						<Link to={`/blog/${n.link}`}>
-							<StyledImg alt={n.title} src={n.img} />
-							<Typography noWrap variant="subtitle1">
-								{n.title}
-							</Typography>
-						</Link>
+				{news && news.length > 0 ? (
+					news.map((n, i) => (
+						<div key={i}>
+							<Link to={`/blog/${n.link}`}>
+								<StyledImg alt={n.title} src={n.img} />
+								<Typography noWrap variant="subtitle1">
+									{n.title}
+								</Typography>
+							</Link>
 
-						<Typography variant="body2" gutterBottom noWrap color="textSecondary">
-							{`${n.subHeader} | By : ${n.author}`}
-						</Typography>
-						<Link to={`/blog/${n.link}`}>
-							<Typography align="right" gutterBottom>
-								Learn More
+							<Typography variant="body2" gutterBottom noWrap color="textSecondary">
+								{`${n.subHeader} | By : ${n.author}`}
 							</Typography>
-						</Link>
-						<Divider />
-						<br />
-					</div>
-				))}
+							<Link to={`/blog/${n.link}`}>
+								<Typography align="right" gutterBottom>
+									Learn More
+								</Typography>
+							</Link>
+							<Divider />
+							<br />
+						</div>
+					))
+				) : (
+					<Typography align="center" color="textSecondary">
+						No news updates available at the moment.
+					</Typography>
+				)}
 				<Link to={`/blog`}>
 					<Typography align="center" gutterBottom>
 						Read All

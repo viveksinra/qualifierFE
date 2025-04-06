@@ -3,10 +3,11 @@ import { CircularProgress, Box } from "@mui/material";
 import TopTray from "./Components/Decoration/TopTray";
 import MainRoute from "./Components/Routes/MainRoute";
 import { useTheme } from "@mui/material/styles";
+import axios from "axios";
 
 export default function App() {
 	const theme = useTheme();
-
+	axios.defaults.baseURL = 'http://localhost:2040';
 	return (
 		<Fragment>
 			<TopTray />
