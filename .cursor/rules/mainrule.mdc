@@ -7,7 +7,7 @@ alwaysApply: true
 
 
 - use java script. 
-- we are using "@mui/material": "^7.0.1",
+- we are using "@mui/material": "^7.0.1", so for size use it like this <Grid item size={{ xs: 12, sm: 4 }}>
 - we recently migrated this project from using old package or react mui to new one - check [legacytonew.mdc](mdc:.cursor/rules/legacytonew.mdc)
 - for all the component color, please use [theme.js](mdc:src/theme.js) check the [brandguideline.mdc](mdc:.cursor/rules/brandguideline.mdc) for more details
 

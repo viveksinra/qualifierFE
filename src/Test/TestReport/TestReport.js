@@ -90,7 +90,7 @@ function TestReport() {
 			<ReportTopPaper>
 				Overall Performance
 				<Grid container spacing={2} justifyContent="space-evenly">
-					{data &&
+					{data && data.summary && Array.isArray(data.summary) ?
 						data.summary.map((d, i) => (
 							<Grid item key={d.name}>
 								<CardActions>
@@ -98,22 +98,22 @@ function TestReport() {
 									<ListItemText primary={d.value} secondary={d.name} />
 								</CardActions>
 							</Grid>
-						))}
+						)) : <Grid item><Typography>No summary data available</Typography></Grid>}
 				</Grid>
 			</ReportTopPaper>
 			<Container>
-				<CourseAnalysis fig={data && data.Report} />
-				<SectionBreakdown data={data && data.final3} />
+				<CourseAnalysis fig={data && data.Report ? data.Report : []} />
+				<SectionBreakdown data={data && data.final3 ? data.final3 : []} />
 				<br />
 				<br />
 				<Grid container spacing={2}>
-					<Grid item size={{xs: 12, md:7 }} >
+					<Grid item size={{ xs: 12, md: 7 }}>
 						<Typography gutterBottom variant="subtitle1" align="center" color="secondary">
 							Question statistics
 						</Typography>
-						<Distribution data={data && data.qdata} />
+						<Distribution data={data && data.qdata ? data.qdata : {}} />
 					</Grid>
-					<Grid item size={{xs: 12, md:5 }} className="center">
+					<Grid item size={{ xs: 12, md: 5 }} className="center">
 						<OfferCard />
 					</Grid>
 				</Grid>

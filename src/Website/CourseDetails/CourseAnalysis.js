@@ -70,9 +70,9 @@ export default function CourseAnalysis({ link, fig }) {
 				{notAuth && <NoContent msg="Kindly Login to see Analysis" />}
 
 				<Grid container spacing={2}>
-					{data.map &&
+					{data && Array.isArray(data) && data.length > 0 ?
 						data.map((d, i) => (
-							<Grid key={i} item size={{xs: 12,md: 4 }} >
+							<Grid key={i} item size={{ xs: 12, md: 4 }}>
 								<ReportCard>
 									<Typography gutterBottom align="center" color="primary" variant="h6">
 										<IconButton color="primary" aria-label="saved">
@@ -81,20 +81,28 @@ export default function CourseAnalysis({ link, fig }) {
 										{d.title}
 									</Typography>
 									<ChartContainer>
-										<Doughnut data={d.chartData} width={272} height={174} />
+										{d.chartData ? (
+											<Doughnut data={d.chartData} width={272} height={174} />
+										) : (
+											<Typography>No chart data available</Typography>
+										)}
 									</ChartContainer>
 									<List>
-										{d.list &&
+										{d.list && Array.isArray(d.list) ?
 											d.list.map((l) => (
 												<ListItem key={l.name} button>
 													<ListItemText primary={l.name} />
 													<Typography>{l.value}</Typography>
 												</ListItem>
-											))}
+											)) : <ListItem><Typography>No list data available</Typography></ListItem>}
 									</List>
 								</ReportCard>
 							</Grid>
-						))}
+						)) : (
+							<Grid item size={{ xs: 12 }}>
+								<Typography align="center">No analysis data available</Typography>
+							</Grid>
+						)}
 				</Grid>
 			</center>
 		</Fragment>
