@@ -25,7 +25,7 @@ import { Link, useParams } from "react-router-dom";
 import i1 from "./tablet.svg";
 import i2 from "./education2.svg";
 import i3 from "./analytics.svg";
-import { FcClock, FcInspection, FcKindle, FcLock, FcApproval, FcComboChart } from "react-icons/fc";
+import {  FcKindle, FcLock, FcApproval, FcComboChart } from "react-icons/fc";
 import { MainContext } from "../../Components/Context/MainContext";
 const Footer = lazy(() => import("../../Components/Footer/Footer"));
 

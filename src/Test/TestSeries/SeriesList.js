@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import {
 	Container,
 	Grid,
@@ -16,7 +16,6 @@ import {
 	Skeleton,
 	Chip,
 	Paper,
-	CircularProgress,
 	useMediaQuery,
 } from "@mui/material";
 import { styled, useTheme, alpha } from '@mui/material/styles';
@@ -24,7 +23,6 @@ import "../TestHome/common.css";
 import { Link } from "react-router-dom";
 import { FullOffer } from "../../Components/Decoration/OfferCard";
 import { FcFlashOn, FcApproval } from "react-icons/fc";
-import clsx from "clsx";
 import axios from "axios";
 
 // Series Card styled component - moved before it's used

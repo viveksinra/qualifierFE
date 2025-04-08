@@ -4,8 +4,6 @@ import {
 	Container, 
 	Typography, 
 	Grid, 
-	Card, 
-	Avatar, 
 	Box, 
 	Paper, 
 	Button, 
@@ -14,7 +12,6 @@ import {
 } from "@mui/material";
 import { HideOnScroll, FullNav } from "../Components/Navigation/Nav";
 import { styled } from '@mui/material/styles';
-import { colors } from '../theme';
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	'.banner': {
