@@ -188,10 +188,26 @@ const StyledSeriesListContainer = styled('div')(({ theme }) => ({
 				minHeight: 60,
 			},
 		},
+		'& .Mui-selected': {
+			backgroundColor: alpha(theme.palette.primary.main, 0.08),
+			fontWeight: 'bold',
+		},
 	},
 	'& .horizontalTabs .MuiTab-root': {
 		minWidth: 'auto',
 		padding: theme.spacing(1, 2),
+	},
+	'& .categoryCount': {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		width: 36,
+		height: 36,
+		borderRadius: '50%',
+		backgroundColor: theme.palette.primary.main,
+		color: '#fff',
+		fontWeight: 'bold',
+		marginLeft: theme.spacing(1),
 	},
 }));
 
@@ -550,33 +566,33 @@ function SeriesList() {
 								>
 									<Tab 
 										label={
-											<Box sx={{ display: 'flex', alignItems: 'center' }}>
-												<Box sx={{ mr: 1 }}>All</Box>
-												<Chip 
-													size="small" 
-													label={Tseries.length} 
-													color="primary"
-													variant="outlined"
-												/>
+											<Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
+												<span>All</span>
+												<Box className="categoryCount">{Tseries.length}</Box>
 											</Box>
 										} 
 										value="All" 
+										sx={{ 
+											borderRadius: 1,
+											my: 0.5,
+											mx: 0.5,
+										}}
 									/>
 									{allCatg.map((c, j) => (
 										<Tab 
 											key={j} 
 											label={
-												<Box sx={{ display: 'flex', alignItems: 'center' }}>
-													<Box sx={{ mr: 1 }}>{c}</Box>
-													<Chip 
-														size="small" 
-														label={Tseries.filter(t => t && t.category === c).length} 
-														color="primary"
-														variant="outlined"
-													/>
+												<Box sx={{ display: 'flex', alignItems: 'center', width: '100%', justifyContent: 'space-between' }}>
+													<span>{c}</span>
+													<Box className="categoryCount">{Tseries.filter(t => t && t.category === c).length}</Box>
 												</Box>
 											} 
-											value={c} 
+											value={c}
+											sx={{ 
+												borderRadius: 1,
+												my: 0.5,
+												mx: 0.5,
+											}}
 										/>
 									))}
 								</Tabs>
