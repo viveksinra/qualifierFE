@@ -1,5 +1,5 @@
-import React, { Suspense, lazy } from "react";
-import { CircularProgress, Fab, useMediaQuery } from "@mui/material";
+import React, { Suspense, lazy, Component } from "react";
+import { CircularProgress, Fab, useMediaQuery, Alert, Box, Button, Typography } from "@mui/material";
 import { FullNav } from "../../Components/Navigation/Nav";
 import lp from "./lp.png";
 import { Head } from "../../Components/NameExp";
@@ -8,6 +8,55 @@ import { styled, useTheme } from '@mui/material/styles';
 const SeriesList = lazy(() => import("./SeriesList"));
 const Features2 = lazy(() => import("../../Components/Decoration/Features2"));
 const Footer = lazy(() => import("../../Components/Footer/Footer"));
+
+// Error Boundary component to catch errors in children components
+class ErrorBoundary extends Component {
+	constructor(props) {
+		super(props);
+		this.state = { hasError: false, error: null };
+	}
+
+	static getDerivedStateFromError(error) {
+		return { hasError: true, error };
+	}
+
+	componentDidCatch(error, errorInfo) {
+		console.error("Error caught by ErrorBoundary:", error, errorInfo);
+	}
+
+	render() {
+		if (this.state.hasError) {
+			return (
+				<Box sx={{ p: 4, textAlign: 'center' }}>
+					<Alert severity="error" sx={{ mb: 2 }}>
+						Something went wrong loading the test series.
+					</Alert>
+					<Button 
+						variant="contained" 
+						color="primary" 
+						onClick={() => {
+							this.setState({ hasError: false });
+							window.location.reload();
+						}}
+					>
+						Retry
+					</Button>
+				</Box>
+			);
+		}
+		return this.props.children;
+	}
+}
+
+// Loading fallback component with retry option
+const LoadingFallback = () => (
+	<Box sx={{ p: 4, textAlign: 'center' }}>
+		<CircularProgress sx={{ mb: 2 }} />
+		<Typography variant="body2" color="textSecondary">
+			Loading test series...
+		</Typography>
+	</Box>
+);
 
 const PREFIX = 'TestSeries';
 const classes = {
@@ -125,16 +174,14 @@ function TestSeries() {
 				<img src={lp} className={classes.topImg} alt="Laptop" />
 			)}
 			<Suspense
-				fallback={
-					<div className="center">
-						<CircularProgress />
-					</div>
-				}
+				fallback={<LoadingFallback />}
 			>
 				<div id="bundle">
-					<SeriesList />
+					<ErrorBoundary>
+						<SeriesList />
+					</ErrorBoundary>
 				</div>
-				<Suspense fallback={<CircularProgress />}>
+				<Suspense fallback={<LoadingFallback />}>
 					<Features2 />
 					<Footer />
 				</Suspense>

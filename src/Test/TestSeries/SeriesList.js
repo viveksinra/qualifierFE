@@ -11,6 +11,8 @@ import {
 	ListItem,
 	ListItemText,
 	Button,
+	Alert,
+	Box,
 } from "@mui/material";
 import { styled, useTheme } from '@mui/material/styles';
 import "../TestHome/common.css";
@@ -19,7 +21,15 @@ import { FullOffer } from "../../Components/Decoration/OfferCard";
 import { FcFlashOn, FcApproval } from "react-icons/fc";
 import clsx from "clsx";
 import { fetchData } from "../../Components/Api";
-const resource = fetchData("/api/bigtest/testbundle/main/get");
+
+// Create resource with error handling
+let resource;
+try {
+	resource = fetchData("/api/bigtest/testbundle/main/get");
+} catch (error) {
+	console.error("Failed to initialize test series data fetch:", error);
+	resource = { data: { read: () => { throw error; } } };
+}
 
 // Styles for SeriesList component
 const seriesListPrefix = 'SeriesList';
@@ -96,17 +106,64 @@ function SeriesList() {
 	const [tab, setTab] = useState("All");
 	const [Tseries, setT] = useState([]);
 	const [allCatg, setCatg] = useState([]);
+	const [error, setError] = useState(null);
+	const [isLoaded, setIsLoaded] = useState(false);
+
 	useMemo(() => {
-		const Ts = resource.data.read();
-		setT(Ts);
-		let cat = [];
-		Ts.forEach((t) => {
-			if (!cat.includes(t.category)) {
-				cat.push(t.category);
+		try {
+			const Ts = resource.data.read();
+			setT(Array.isArray(Ts) ? Ts : []);
+			let cat = [];
+			if (Array.isArray(Ts)) {
+				Ts.forEach((t) => {
+					if (t && t.category && !cat.includes(t.category)) {
+						cat.push(t.category);
+					}
+				});
 			}
-		});
-		setCatg(cat);
+			setCatg(cat);
+			setIsLoaded(true);
+		} catch (err) {
+			console.error("Error loading test series data:", err);
+			setError(err);
+			setT([]);
+			setCatg([]);
+			setIsLoaded(true);
+		}
 	}, []);
+
+	// Error UI
+	if (error) {
+		return (
+			<Container>
+				<Box sx={{ my: 4, textAlign: 'center' }}>
+					<Alert severity="error" sx={{ mb: 2 }}>
+						Failed to load test series data. Please try again later.
+					</Alert>
+					<Button 
+						variant="contained" 
+						color="primary" 
+						onClick={() => window.location.reload()}
+					>
+						Retry
+					</Button>
+				</Box>
+			</Container>
+		);
+	}
+
+	// Empty data UI
+	if (isLoaded && Tseries.length === 0) {
+		return (
+			<Container>
+				<Box sx={{ my: 4, textAlign: 'center' }}>
+					<Alert severity="info" sx={{ mb: 2 }}>
+						No test series available at the moment. Please check back later.
+					</Alert>
+				</Box>
+			</Container>
+		);
+	}
 
 	return (
 		<Fragment>
@@ -118,7 +175,7 @@ function SeriesList() {
 							<h6>Popular Test Series for Banking, SSC, Railways & CBSE</h6>
 						</div>
 						<br />
-						<SeriesCard lg={3} data={Tseries.filter((f) => f.popular === true)} />
+						<SeriesCard lg={3} data={Tseries.filter((f) => f && f.popular === true) || []} />
 					</Container>
 				</div>
 				<FullOffer />
@@ -144,7 +201,12 @@ function SeriesList() {
 								</Tabs>
 							</Grid>
 							<Grid item size={{xs: 12,  md: 9 }} >
-								<SeriesCard lg={4} data={tab === "All" ? Tseries : Tseries.filter((f) => f.category === tab)} />
+								<SeriesCard 
+									lg={4} 
+									data={tab === "All" ? 
+										Tseries : 
+										Tseries.filter((f) => f && f.category === tab) || []} 
+								/>
 							</Grid>
 						</Grid>
 					</Container>
@@ -157,44 +219,54 @@ function SeriesList() {
 export default SeriesList;
 
 function SeriesCard({ data, lg }) {
+	if (!data || data.length === 0) {
+		return (
+			<Box sx={{ p: 2, textAlign: 'center' }}>
+				<Typography color="textSecondary">No test series available in this category</Typography>
+			</Box>
+		);
+	}
+
 	return (
 		<StyledCardGridContainer container spacing={2}>
 			{data.map((t, i) => (
-				<Grid item size={{xs: 12, sm: 6, lg}} key={i} className={seriesCardClasses.cardBox}>
-					<Card className={clsx(seriesCardClasses.card, "shine")} elevation={3}>
-						<Link to={`/test/${t.link}`}>
-							<img className={seriesCardClasses.avatar} alt={t.title} src={t.logo} />
-							<Typography noWrap variant="h6">
-								{t.title}
-							</Typography>
-							<Grid container>
-								<Grid item>
-									<Typography gutterBottom>{`${t.totalTest} Total Test`}</Typography>
+				t && (
+					<Grid item size={{xs: 12, sm: 6, lg}} key={i} className={seriesCardClasses.cardBox}>
+						<Card className={clsx(seriesCardClasses.card, "shine")} elevation={3}>
+							<Link to={`/test/${t.link}`}>
+								<img className={seriesCardClasses.avatar} alt={t.title} src={t.logo} />
+								<Typography noWrap variant="h6">
+									{t.title}
+								</Typography>
+								<Grid container>
+									<Grid item>
+										<Typography gutterBottom>{`${t.totalTest} Total Test`}</Typography>
+									</Grid>
+									<span style={{ flexGrow: 0.1 }} />
+									<Grid item>
+										<Typography gutterBottom style={{ color: "#e500ff" }}>{`  |  ${t.totalFree} Free Test`}</Typography>
+									</Grid>
 								</Grid>
-								<span style={{ flexGrow: 0.1 }} />
-								<Grid item>
-									<Typography gutterBottom style={{ color: "#e500ff" }}>{`  |  ${t.totalFree} Free Test`}</Typography>
-								</Grid>
-							</Grid>
-							<Divider light />
-							<List dense style={{ height: 135, overflow: "hidden" }}>
-								{t.desp &&
-									t.desp.map((l, j) => (
-										<ListItem dense key={j} style={{ paddingTop: 1, paddingBottom: 1 }}>
-											<FcApproval className={seriesCardClasses.icon} />
-											<ListItemText disableTypography primary={l.title} />
-										</ListItem>
-									))}
-							</List>
-							<Divider light />
-							<center>
-								<Button size="small" style={{ marginTop: 5 }} variant="outlined" color="primary">
-									View All
-								</Button>
-							</center>
-						</Link>
-					</Card>
-				</Grid>
+								<Divider light />
+								<List dense style={{ height: 135, overflow: "hidden" }}>
+									{t.desp &&
+										t.desp.map((l, j) => (
+											<ListItem dense key={j} style={{ paddingTop: 1, paddingBottom: 1 }}>
+												<FcApproval className={seriesCardClasses.icon} />
+												<ListItemText disableTypography primary={l.title} />
+											</ListItem>
+										))}
+								</List>
+								<Divider light />
+								<center>
+									<Button size="small" style={{ marginTop: 5 }} variant="outlined" color="primary">
+										View All
+									</Button>
+								</center>
+							</Link>
+						</Card>
+					</Grid>
+				)
 			))}
 		</StyledCardGridContainer>
 	);

@@ -127,6 +127,7 @@ export default function Blog() {
 	const [catg, setCatg] = useState(null);
 	const [newData, setNewD] = useState(null);
 	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState(null);
 	useEffect(() => {
 		window.addEventListener("scroll", () => {
 			const scrollable = document.documentElement.scrollHeight - window.innerHeight;
@@ -148,18 +149,23 @@ export default function Blog() {
 			link = `/api/blog/get/filter/${page}/${type}/${order}`;
 		}
 		setLoading(true);
+		setError(null);
 		axios
 			.get(link)
 			.then((res) => {
 				if (active) {
 					if (res.data.length !== 0) {
 						setNewD(res.data);
-					} else setLoading(false);
+					}
+					setLoading(false);
 				}
 			})
 			.catch((err) => {
 				console.log(err);
-				setLoading(true);
+				if (active) {
+					setError('Failed to load blog data. Please try again later.');
+					setLoading(false);
+				}
 			});
 		return () => (active = false);
 	}, [page, type, tabValue, catg]);
@@ -216,8 +222,13 @@ export default function Blog() {
 									</Tabs>
 								</Grid>
 							</Grid>
+							{error && (
+								<Typography variant="body1" color="error" align="center" style={{ padding: 20 }}>
+									{error}
+								</Typography>
+							)}
 							<Suspense fallback={<CircularProgress />}>
-								{<BlogCardComponent page={page} newData={newData} setNewD={setNewD} />}
+								{<BlogCardComponent page={page} newData={newData} setNewD={setNewD} loading={loading} />}
 							</Suspense>
 						</StyledPaper>
 					</Grid>
@@ -230,8 +241,19 @@ export default function Blog() {
 	);
 }
 
-const BlogCardComponent = ({ page, newData, setNewD }) => {
-	const [data, setData] = useState(resource.data.read());
+const BlogCardComponent = ({ page, newData, setNewD, loading }) => {
+	const [data, setData] = useState([]);
+	const [error, setError] = useState(null);
+
+	useEffect(() => {
+		try {
+			const initialData = resource.data.read();
+			setData(initialData);
+		} catch (err) {
+			console.error("Failed to load initial blog data:", err);
+			setError("Failed to load blog data. Please try again later.");
+		}
+	}, []);
 
 	useEffect(() => {
 		if (newData) {
@@ -244,45 +266,119 @@ const BlogCardComponent = ({ page, newData, setNewD }) => {
 		}
 	}, [newData, page, setNewD]);
 	
+	if (error) {
+		return (
+			<Typography variant="body1" color="error" align="center" style={{ padding: 20 }}>
+				{error}
+			</Typography>
+		);
+	}
+
+	if (!data || data.length === 0) {
+		return loading ? (
+			<div style={{ textAlign: 'center', padding: 20 }}>
+				<CircularProgress />
+			</div>
+		) : (
+			<Typography variant="body1" color="textSecondary" align="center" style={{ padding: 20 }}>
+				No blog posts found. Try changing your filter criteria.
+			</Typography>
+		);
+	}
+	
 	return (
 		<Fragment>
-			{data &&
-				data.map((d, j) => (
-					<Grid container key={j} spacing={3} component={BlogCard}>
-						<Grid item size={{xs: 12,sm:4 }} >
-							<Link key={j} to={`/blog/${d.link}`}>
-								<BlogImage alt={d.title} src={d.img} />
-							</Link>
-						</Grid>
-						<Grid item size={{xs: 12, sm: 8}} component={TextBox}>
-							<Link to={`/blog/${d.link}`}>
-								<Typography variant="h6" noWrap color="primary">
-									{d.title}
-								</Typography>
-							</Link>
-							<Typography variant="body1" color="textSecondary" gutterBottom>
-								{`${d.category && d.category.catgName}  |  ${d.subHeader}`}
-							</Typography>
-
-							<CardActions disableSpacing>
-								<Link to={`/blog/${d.link}`}>
-									<Chip variant="outlined" style={{ cursor: "grab" }} label="Read More" color="primary" />
-								</Link>
-								<span style={{ flexGrow: 1 }} />
-
-								<Typography align="right" color="primary">
-									Author : {d.author}
-								</Typography>
-							</CardActions>
-						</Grid>
+			{data.map((d, j) => (
+				<Grid container key={j} spacing={3} component={BlogCard}>
+					<Grid item size={{xs: 12,sm:4 }} >
+						<Link key={j} to={`/blog/${d.link}`}>
+							<BlogImage alt={d.title} src={d.img} />
+						</Link>
 					</Grid>
-				))}
+					<Grid item size={{xs: 12, sm: 8}} component={TextBox}>
+						<Link to={`/blog/${d.link}`}>
+							<Typography variant="h6" noWrap color="primary">
+								{d.title}
+							</Typography>
+						</Link>
+						<Typography variant="body1" color="textSecondary" gutterBottom>
+							{`${d.category && d.category.catgName}  |  ${d.subHeader}`}
+						</Typography>
+
+						<CardActions disableSpacing>
+							<Link to={`/blog/${d.link}`}>
+								<Chip variant="outlined" style={{ cursor: "grab" }} label="Read More" color="primary" />
+							</Link>
+							<span style={{ flexGrow: 1 }} />
+
+							<Typography align="right" color="primary">
+								Author : {d.author}
+							</Typography>
+						</CardActions>
+					</Grid>
+				</Grid>
+			))}
+			{loading && (
+				<div style={{ textAlign: 'center', padding: 20 }}>
+					<CircularProgress />
+				</div>
+			)}
 			<br />
 		</Fragment>
 	);
 };
 
 const FilterCard = ({ setCatg, setPage }) => {
+	const [categories, setCategories] = useState([]);
+	const [authors, setAuthors] = useState([]);
+	const [tags, setTags] = useState([]);
+	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(true);
+
+	// Load categories, authors, and tags
+	useEffect(() => {
+		setLoading(true);
+		setError(null);
+		
+		const fetchData = async () => {
+			try {
+				// Using the resource patterns but with error handling
+				const categoryData = await blogCat.data.read();
+				const authorData = await author.data.read();
+				const tagData = await tag.data.read();
+				
+				setCategories(categoryData || []);
+				setAuthors(authorData || []);
+				setTags(tagData || []);
+				setLoading(false);
+			} catch (err) {
+				console.error("Failed to load filter data:", err);
+				setError("Failed to load filters. Please try again later.");
+				setLoading(false);
+			}
+		};
+		
+		fetchData();
+	}, []);
+
+	if (error) {
+		return (
+			<StyledPaper style={{ position: "sticky", top: 50 }} elevation={4}>
+				<Typography variant="body1" color="error" align="center" style={{ padding: 20 }}>
+					{error}
+				</Typography>
+			</StyledPaper>
+		);
+	}
+
+	if (loading) {
+		return (
+			<StyledPaper style={{ position: "sticky", top: 50, display: "flex", justifyContent: "center", padding: 20 }} elevation={4}>
+				<CircularProgress />
+			</StyledPaper>
+		);
+	}
+
 	return (
 		<StyledPaper style={{ position: "sticky", top: 50 }} elevation={4}>
 			<Search>
@@ -295,59 +391,83 @@ const FilterCard = ({ setCatg, setPage }) => {
 					inputProps={{ "aria-label": "search" }}
 				/>
 			</Search>
+			
+			{/* Categories section */}
 			<FormLabel component="legend">Categories</FormLabel>
-			<List dense>
-				{blogCat.data.read().map((c) => (
-					<ListItem
-						key={c._id}
-						dense
-						disableGutters
-						onClick={() => {
-							setCatg({ title: "category", value: c._id });
-							setPage(1);
-						}}
-					>
-						<ListTextItem primary={`»${"\u00A0"} ${c.catgName}`} />
-					</ListItem>
-				))}
-			</List>
+			{categories.length > 0 ? (
+				<List dense>
+					{categories.map((c) => (
+						<ListItem
+							key={c._id}
+							dense
+							disableGutters
+							onClick={() => {
+								setCatg({ title: "category", value: c._id });
+								setPage(1);
+							}}
+						>
+							<ListTextItem primary={`»${"\u00A0"} ${c.catgName}`} />
+						</ListItem>
+					))}
+				</List>
+			) : (
+				<Typography variant="body2" color="textSecondary" style={{ padding: "10px 0" }}>
+					No categories available
+				</Typography>
+			)}
+			
 			<Divider />
 			<br />
+			
+			{/* Authors section */}
 			<FormLabel component="legend">Created by</FormLabel>
-			<List dense>
-				{author.data.read().map((c) => (
-					<ListItem
-						key={c._id}
-						dense
-						disableGutters
-						onClick={() => {
-							setCatg({ title: "author", value: c._id });
-							setPage(1);
-						}}
-					>
-						<ListTextItem primary={`»${"\u00A0"} ${c.author}`} />
-					</ListItem>
-				))}
-			</List>
+			{authors.length > 0 ? (
+				<List dense>
+					{authors.map((c) => (
+						<ListItem
+							key={c._id}
+							dense
+							disableGutters
+							onClick={() => {
+								setCatg({ title: "author", value: c._id });
+								setPage(1);
+							}}
+						>
+							<ListTextItem primary={`»${"\u00A0"} ${c.author}`} />
+						</ListItem>
+					))}
+				</List>
+			) : (
+				<Typography variant="body2" color="textSecondary" style={{ padding: "10px 0" }}>
+					No authors available
+				</Typography>
+			)}
+			
 			<Divider />
 			<br />
+			
+			{/* Tags section */}
 			<FormLabel component="legend">Most Common Tags</FormLabel>
 			<br />
-			{tag.data.read().map((t) => (
-				// <Link key={t.link}  to={`/tags/${t.link}`}>
-				<Chip
-					key={t.link}
-					style={{ marginTop: "5px", marginRight: "5px", cursor: "grab" }}
-					onClick={() => {
-						setCatg({ title: "tag", value: t.link });
-						setPage(1);
-					}}
-					label={t.keyword}
-					variant="outlined"
-					size="small"
-				/>
-				// </Link>
-			))}
+			{tags.length > 0 ? (
+				tags.map((t) => (
+					<Chip
+						key={t.link}
+						style={{ marginTop: "5px", marginRight: "5px", cursor: "grab" }}
+						onClick={() => {
+							setCatg({ title: "tag", value: t.link });
+							setPage(1);
+						}}
+						label={t.keyword}
+						variant="outlined"
+						size="small"
+					/>
+				))
+			) : (
+				<Typography variant="body2" color="textSecondary" style={{ padding: "10px 0" }}>
+					No tags available
+				</Typography>
+			)}
 		</StyledPaper>
 	);
 };
