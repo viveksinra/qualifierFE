@@ -91,6 +91,7 @@ function TestHome() {
 			axios
 				.get(link)
 				.then((res) => {
+					console.log(res.data);
 					setSD(res.data);
 					setLoading(false);
 				})
@@ -132,7 +133,7 @@ function TestHome() {
 			<div className={testHomeClasses.listBg}>
 				<Container>
 					<Grid container spacing={4}>
-						<Grid item size={{md:9 }}>
+						<Grid size={{xs: 12, md: 9}}>
 							<Typography gutterBottom variant="h6">
 								Free Mock Test
 							</Typography>
@@ -149,7 +150,7 @@ function TestHome() {
 							<Typography variant="h6">Features of Qualifier</Typography>
 							<Grid container>
 								{features.map((f) => (
-									<Grid item size={{sm:4 }} key={f.title}>
+									<Grid size={{xs: 12, sm: 4}} key={f.title}>
 										<List dense>
 											<ListItem>
 												<img alt={f.logo} src={f.logo} className={testHomeClasses.icon} />
@@ -182,7 +183,7 @@ function TestHome() {
 								: seriesData.tests.filter((f) => f.type === tab).map((d, j) => <TestCard data={d} key={j} serieslink={seriesData.link} />)}
 							<br /> <br />
 						</Grid>
-						<Grid item size={{md:3 }} style={{ marginLeft: "auto", marginRight: "auto" }}>
+						<Grid size={{xs: 12, md: 3}} style={{ marginLeft: "auto", marginRight: "auto" }}>
 							<Card className={clsx(testHomeClasses.seriesCard, "shine")} elevation={2}>
 								<img className={testHomeClasses.avatar} src={seriesData.logo} alt="logo" />
 								<Typography noWrap variant="h6">
@@ -246,15 +247,25 @@ const testCardClasses = {
 	righBnr: `${testCardPrefix}-righBnr`,
 	mob: `${testCardPrefix}-mob`,
 	botmBtn: `${testCardPrefix}-botmBtn`,
+	badge: `${testCardPrefix}-badge`,
+	examIcon: `${testCardPrefix}-examIcon`,
 };
 
 const StyledTestCard = styled(Card)(({ theme, data }) => ({
 	[`&.${testCardClasses.freeCard}`]: {
 		marginTop: theme.spacing(2),
-		height: 80,
-		border: data.free ? "1px solid greenyellow" : data.isLock ? "1px solid fuchsia" : null,
+		height: 90,
+		position: "relative",
+		border: data.free ? `1px solid ${theme.palette.success.light}` : data.isLock ? `1px solid ${theme.palette.secondary.light}` : null,
+		borderRadius: theme.shape.borderRadius * 1.5,
 		paddingLeft: theme.spacing(2),
 		paddingRight: theme.spacing(),
+		transition: 'all 0.3s ease',
+		boxShadow: data.free ? '0 4px 8px rgba(0, 200, 83, 0.15)' : data.isLock ? '0 4px 8px rgba(233, 30, 99, 0.15)' : '0 2px 4px rgba(0, 0, 0, 0.1)',
+		'&:hover': {
+			transform: 'translateY(-3px)',
+			boxShadow: data.free ? '0 6px 12px rgba(0, 200, 83, 0.2)' : data.isLock ? '0 6px 12px rgba(233, 30, 99, 0.2)' : '0 4px 8px rgba(0, 0, 0, 0.15)',
+		},
 	},
 	[`& .${testCardClasses.trans}`]: {
 		transform: !data.free && !data.isLock && "translateY(40%)",
@@ -263,23 +274,44 @@ const StyledTestCard = styled(Card)(({ theme, data }) => ({
 		},
 	},
 	[`& .${testCardClasses.cross}`]: {
-		left: "-3em",
+		left: "-2.5em",
 		top: "0.9em",
 		fontSize: "10px",
 		lineHeight: 1.5,
 		textAlign: "center",
-		width: "6em",
+		width: "8em",
 		height: "2.5em",
 		color: "#fff",
 		position: "absolute",
 		transform: "rotate(-45deg)",
-		background: data.free ? "mediumseagreen" : "deeppink",
+		background: data.free 
+			? `linear-gradient(45deg, ${theme.palette.success.main} 17%, ${theme.palette.success.dark} 70%)`
+			: `linear-gradient(45deg, ${theme.palette.secondary.main} 17%, ${theme.palette.secondary.dark} 70%)`,
+		boxShadow: data.free 
+			? '0 2px 4px rgba(0, 200, 83, 0.3)' 
+			: '0 2px 4px rgba(233, 30, 99, 0.3)',
+		zIndex: 1,
+		fontWeight: 'bold',
 	},
-	[`& .${testCardClasses.free}`]: {
-		background: "linear-gradient(45deg,#72d042 17%,#25cc71 70%)",
+	[`& .${testCardClasses.badge}`]: {
+		position: 'absolute',
+		top: theme.spacing(1),
+		right: theme.spacing(1),
+		padding: '2px 8px',
+		borderRadius: theme.shape.borderRadius,
+		fontSize: '0.7rem',
+		fontWeight: 'bold',
+		color: theme.palette.getContrastText(data.free ? theme.palette.success.main : theme.palette.secondary.main),
+		background: data.free 
+			? theme.palette.success.main 
+			: theme.palette.secondary.main,
+		zIndex: 1,
 	},
-	[`& .${testCardClasses.lock}`]: {
-		background: "linear-gradient(45deg,#f73888 17%,#d63ed8 70%)",
+	[`& .${testCardClasses.examIcon}`]: {
+		width: 32,
+		height: 32,
+		marginRight: theme.spacing(2),
+		objectFit: 'contain',
 	},
 	[`& .${testCardClasses.righBnr}`]: {
 		fontSize: "10px",
@@ -291,7 +323,7 @@ const StyledTestCard = styled(Card)(({ theme, data }) => ({
 		float: "right",
 		borderRadius: "3px",
 		color: "#fff",
-		background: "linear-gradient(to right, #4BC0C8, #6441A5)",
+		background: `linear-gradient(to right, ${theme.palette.primary.light}, ${theme.palette.primary.dark})`,
 	},
 	[`& .${testCardClasses.mob}`]: {
 		[theme.breakpoints.up("sm")]: {
@@ -299,8 +331,8 @@ const StyledTestCard = styled(Card)(({ theme, data }) => ({
 		},
 	},
 	[`& .${testCardClasses.botmBtn}`]: {
-		background: "linear-gradient(45deg,#00c6ff, #b3ffab)",
-		color: "navy",
+		background: `linear-gradient(45deg, ${theme.palette.primary.light}, ${theme.palette.primary.main})`,
+		color: theme.palette.primary.contrastText,
 		borderRadius: 10,
 		padding: "2px 10px",
 		fontSize: 12,
@@ -317,23 +349,36 @@ function TestCard({ data, serieslink }) {
 			{(data.free || data.isLock) && (
 				<div className={testCardClasses.cross}>{data.free ? "Free" : "Locked"}</div>
 			)}
+			{(data.type) && (
+				<div className={testCardClasses.badge}>{data.type}</div>
+			)}
 			<Grid container alignItems="center">
-				<Grid item size={{xs: 12,sm: 6 }} >
+				<Grid size={{xs: 12, sm: 6}}>
 					<ListItem style={{ marginLeft: 15 }}>
-						<img alt={data.title} className="examIcon" src={data.icon} />
+						{data.icon && <img alt={data.testName} className={testCardClasses.examIcon} src={data.icon} />}
 						<ListItemText
-							primary={data.title}
-							secondary={`${data.details.ques} Ques | ${data.details.marks} marks | ${data.details.time} min`}
+							primary={<Typography variant="subtitle1" fontWeight="medium">{data.testName}</Typography>}
+							secondary={
+								data.totalQuestion 
+									? <Typography variant="body2" color="textSecondary">{`${data.totalQuestion} Ques | ${data.totalMarks} marks | ${data.totalTime} min`}</Typography>
+									: <Typography variant="body2" color="error">Details not available</Typography>
+							}
 						/>
 					</ListItem>
 				</Grid>
 				<span style={{ flexGrow: 0.1 }} />
-				<Grid item size={{xs: 12, sm:5 }} >
+				<Grid size={{xs: 12, sm: 5}}>
 					<Grid container spacing={1} className={testCardClasses.trans}>
 						{data.isReport ? (
 							<Grid item>
-								<Link to={`/test/${serieslink}/${data.link}/report`}>
-									<Button endIcon={<FcComboChart />} variant="outlined" color="primary" size="small">
+								<Link to={`/test/${serieslink}/${data.testLink}/report`} style={{ textDecoration: 'none' }}>
+									<Button 
+										endIcon={<FcComboChart />} 
+										variant="outlined" 
+										color="primary" 
+										size="small"
+										sx={{ fontWeight: 'medium' }}
+									>
 										View Report
 									</Button>
 								</Link>
@@ -341,29 +386,20 @@ function TestCard({ data, serieslink }) {
 						) : (
 							<>
 								<Grid item>
-									<Link to={data.isLock ? "/pricing" : `/test/${serieslink}/${data.link}/instruction`}>
+									<Link to={data.isLock ? "/pricing" : `/test/${serieslink}/${data.testLink}/instruction`} style={{ textDecoration: 'none' }}>
 										<Button
 											startIcon={data.isLock && <FcLock />}
 											endIcon={<FcKindle />}
 											variant="contained"
-											color={data.isLock ? "default" : "primary"}
+											color={data.isLock ? "secondary" : "primary"}
 											size="small"
+											sx={{ fontWeight: 'medium' }}
 										>
-											{data.isLock ? "Unlock" : data.attempt > 0 ? "Re-Attempt" : "Start Test"}
+											{data.isLock ? "Unlock" : data.attempt > 0 ? "Re-Attempt" : "Start Now"}
 										</Button>
 									</Link>
 								</Grid>
-								<Grid item>
-									<Button
-										variant="text"
-										color="primary"
-										size="small"
-										startIcon={data.isReport && <FcInspection />}
-										endIcon={<FcClock />}
-									>
-										Time Left
-									</Button>
-								</Grid>
+								
 							</>
 						)}
 					</Grid>

@@ -20,10 +20,9 @@ import {
 	InputBase,
 } from "@mui/material";
 import { alpha, styled } from "@mui/material/styles";
-import Skeleton from "@mui/material/Skeleton";
 import { FullNav, HideOnScroll } from "../../Components/Navigation/Nav";
 import { MdSearch } from "react-icons/md";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { fetchData } from "../../Components/Api";
 import { Head } from "../../Components/NameExp";

@@ -45,9 +45,7 @@ const StyledCharText = styled(Typography)(({ theme }) => ({
 	color: "#fff",
 }));
 
-const StyledTypewriter = styled('div')(({ theme }) => ({
-	paddingTop: "10vh",
-}));
+
 
 const StyledPadding = styled('div')(({ theme }) => ({
 	padding: theme.spacing(),

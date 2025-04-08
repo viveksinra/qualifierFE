@@ -36,9 +36,7 @@ const QCard = styled(Card)(({ theme }) => ({
 	},
 }));
 
-const LoadingStyle = styled('div')(({ theme }) => ({
-	marginTop: theme.spacing(20),
-}));
+
 
 const OptList = styled(ListItem)(({ theme }) => ({
 	"&:hover": {

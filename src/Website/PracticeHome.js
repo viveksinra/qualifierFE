@@ -20,16 +20,7 @@ const PracticsTopPaper = styled(Paper)(({ theme }) => ({
 	marginBottom: "30px",
 }));
 
-const TypewriterSection = styled('div')(({ theme }) => ({
-	paddingTop: "10vh",
-}));
 
-const IconSection = styled('div')(({ theme }) => ({
-	color: "#5aaae8",
-	fontSize: "2rem",
-	marginLeft: "auto",
-	marginRight: "auto",
-}));
 
 const CrossDivider = styled(Divider)(({ theme }) => ({
 	marginLeft: "auto",
