@@ -4,7 +4,7 @@ import { FullNav } from "../../Components/Navigation/Nav";
 import lp from "./lp.png";
 import { Head } from "../../Components/NameExp";
 import { FcElectricalSensor } from "react-icons/fc";
-import { styled, useTheme } from '@mui/material/styles';
+import { alpha, styled, useTheme } from '@mui/material/styles';
 const SeriesList = lazy(() => import("./SeriesList"));
 const Features2 = lazy(() => import("../../Components/Decoration/Features2"));
 const Footer = lazy(() => import("../../Components/Footer/Footer"));
@@ -63,12 +63,13 @@ const classes = {
 	testTop: `${PREFIX}-testTop`,
 	topText: `${PREFIX}-topText`,
 	smallText: `${PREFIX}-smallText`,
-	topImg: `${PREFIX}-topImg`
+	topImg: `${PREFIX}-topImg`,
+	startTestBtn: `${PREFIX}-startTestBtn`
 };
 
 const StyledDiv = styled('div')(({ theme }) => ({
 	[`& .${classes.testTop}`]: {
-		background: "rgba(66,142,218,1)",
+		background: `linear-gradient(135deg, ${alpha(theme.palette.primary.main, 0.8)}, ${alpha(theme.palette.secondary.main, 0.7)})`,
 		marginTop: -50,
 		[theme.breakpoints.up("sm")]: {
 			height: 530,
@@ -127,6 +128,14 @@ const StyledDiv = styled('div')(({ theme }) => ({
 		top: 125,
 		right: "10%",
 	},
+	[`& .${classes.startTestBtn}`]: {
+	
+		backgroundColor: alpha(theme.palette.primary.main, 0.8),
+		color: "#fff",
+		"&:hover": {
+			backgroundColor: alpha(theme.palette.primary.main, 0.6),
+		},
+	},
 }));
 
 function TestSeries() {
@@ -162,7 +171,7 @@ function TestSeries() {
 					<p>Upgrade your skill, improve confidence in real exam!</p>
 					<br />
 					<br />
-					<Fab size="medium" variant="extended" onClick={scrollDown} aria-label="add">
+					<Fab size="medium" variant="extended" onClick={scrollDown} aria-label="add" className={classes.startTestBtn}>
 						<FcElectricalSensor />
 						Start Test Now
 					</Fab>

@@ -17,6 +17,7 @@ import {
 	Chip,
 	Paper,
 	CircularProgress,
+	useMediaQuery,
 } from "@mui/material";
 import { styled, useTheme, alpha } from '@mui/material/styles';
 import "../TestHome/common.css";
@@ -99,13 +100,21 @@ function SeriesCard({ data, lg }) {
 											label={`${t.totalTest} Tests`}
 											size="small"
 											color="primary"
-											variant="outlined"
+											sx={{ 
+												minWidth: 80,
+												color: '#fff',
+												fontWeight: 'medium'
+											}}
 										/>
 										<Chip 
 											label={`${t.totalFree} Free`}
 											size="small"
-											color="secondary"
-											variant="outlined"
+											sx={{ 
+												bgcolor: 'orange',
+												color: '#fff',
+												minWidth: 80,
+												fontWeight: 'medium'
+											}}
 										/>
 									</div>
 								</div>
@@ -217,7 +226,7 @@ const SeriesCardSkeleton = () => {
 
 function SeriesList() {
 	const theme = useTheme();
-	const isMobile = theme.breakpoints.down('md');
+	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
 	const [tab, setTab] = useState("All");
 	const [Tseries, setT] = useState([]);
