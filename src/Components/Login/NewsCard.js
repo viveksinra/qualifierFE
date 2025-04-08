@@ -72,7 +72,7 @@ const NewsCard = () => {
 
 			<h3>What's the Latest</h3>
 			<StyledBodyDiv>
-				{news && news.length > 0 ? (
+				{Array.isArray(news) && news.length > 0 ? (
 					news.map((n, i) => (
 						<div key={i}>
 							<Link to={`/blog/${n.link}`}>
