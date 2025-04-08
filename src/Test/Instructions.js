@@ -17,7 +17,8 @@ const classes = {
 	inst: `${PREFIX}-inst`,
 	markLine: `${PREFIX}-markLine`,
 	comm: `${PREFIX}-comm`,
-	li: `${PREFIX}-li`
+	li: `${PREFIX}-li`,
+	mainContainer: `${PREFIX}-mainContainer`
 };
 
 const StyledRoot = styled('div')(({ theme }) => ({
@@ -25,13 +26,14 @@ const StyledRoot = styled('div')(({ theme }) => ({
 		flexGrow: 1,
 		background: "#fff",
 		minHeight: `calc(100vh - ${52}px)`,
+		position: "relative",
 	},
 	[`& .${classes.content}`]: {
 		flexGrow: 1,
 		padding: theme.spacing(0, 2),
 		[theme.breakpoints.up("sm")]: {
 			width: `calc(100% - ${drawerWidth + 40}px)`,
-			marginRight: drawerWidth + 40,
+			marginRight: drawerWidth,
 			minHeight: `calc(100vh - ${52}px)`,
 		},
 	},
@@ -55,6 +57,10 @@ const StyledRoot = styled('div')(({ theme }) => ({
 		marginRight: 5,
 	},
 	[`& .${classes.li}`]: { margin: theme.spacing() },
+	[`& .${classes.mainContainer}`]: {
+		display: "flex",
+		position: "relative",
+	}
 }));
 
 function Instructions() {
@@ -81,34 +87,37 @@ function Instructions() {
 		<StyledRoot className={classes.root}>
 			<TestTopNav />
 			<div className={classes.toolbar} />
+			<div className={classes.mainContainer}>
 			<main className={classes.content}>
-				{showGen ? (
-					<GeneralIntro classes={classes} />
-				) : (
-					<>
-						<TestIntro classes={classes} />
-						<br />
-						<br />
-						<Paper style={{ padding: 10 }} elevation={3}>
-							<Typography variant="subtitle1"> Declaration : </Typography>
-							<FormControlLabel
-								control={<Checkbox checked={agree} onChange={() => setAgree(!agree)} name="agree" />}
-								label="I have read all the instructions carefully and have understood them. I agree not to cheat or use unfair means in this examination. I understand that using unfair means of any sort for my own or someone else's advantage will lead to my immediate disqualification. The decision of Qualifier.co.in will be final in these matters and cannot be appealed."
-							/>
-						</Paper>
-					</>
-				)}
+					{showGen ? (
+						<GeneralIntro classes={classes} />
+					) : (
+						<>
+							<TestIntro classes={classes} />
+							<br />
+							<br />
+							<Paper style={{ padding: 10 }} elevation={3}>
+								<Typography variant="subtitle1"> Declaration : </Typography>
+								<FormControlLabel
+									control={<Checkbox checked={agree} onChange={() => setAgree(!agree)} name="agree" />}
+									label="I have read all the instructions carefully and have understood them. I agree not to cheat or use unfair means in this examination. I understand that using unfair means of any sort for my own or someone else's advantage will lead to my immediate disqualification. The decision of Qualifier.co.in will be final in these matters and cannot be appealed."
+								/>
+							</Paper>
+						</>
+					)}
 
-				<IntroBNav
-					setInst={setInst}
-					TseriesLink={Tstate && Tstate.TseriesLink}
-					loading={Tstate.loading}
-					testLink={Tstate && Tstate.testLink}
-					showGen={showGen}
-					agree={agree}
-				/>
+					<IntroBNav
+						setInst={setInst}
+						TseriesLink={Tstate && Tstate.TseriesLink}
+						loading={Tstate.loading}
+						testLink={Tstate && Tstate.testLink}
+						showGen={showGen}
+						agree={agree}
+					/>
 				<TestDrawer />
-			</main>
+
+				</main>
+			</div>
 		</StyledRoot>
 	);
 }
@@ -283,25 +292,19 @@ export function TestIntro({ classes }) {
 				Other Important Instructions :-
 			</Typography>
 			<Paper style={{ padding: 15, fontSize: 14 }} elevation={3}>
-				{Tstate.sections &&
-					Tstate.sections.map((s, i) => (
+				{Tstate && Tstate.instructions && Tstate.instructions.length > 0 ? (
+					Tstate.instructions.map((s, i) => (
 						<p key={i}>
-							{`Section Name : ${s.title}`} <br />
-							{`Correct Marks : +${s.marks.correct}`} <br />
-							{`Incorrect Marks : -${s.marks.incorrect}`}
+							{s.instruction}
 						</p>
-					))}
-				<br /> Total Time: {Tstate.totalTime} Minuts.
+					))
+				) : (
+					<Typography color="error">No Instructions data available</Typography>
+				)}
+			
 			</Paper>
 			<br />
-			<Typography variant="subtitle1" color="primary">
-				Choose your default language:
-			</Typography>
-			<Typography variant="caption">
-				Please note all questions will appear in your default language. This language can be changed for a particular question later on.
-			</Typography>
-			{/* Language Selection Logic Here */}
-			<br />
+	
 		</div>
 	);
 }

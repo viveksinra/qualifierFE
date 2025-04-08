@@ -43,11 +43,18 @@ const StyledDrawerContainer = styled('div')(({ theme }) => ({
 			height: `calc(100% - ${51}px)`,
 			bottom: 0,
 			top: "auto",
+			position: "fixed",
+			right: 0,
 		},
 		display: "flex",
 		fontFamily: "sans-serif",
 		flexDirection: "column",
 		background: "linear-gradient(to bottom,#f7f9f9, #eaf4fc )",
+	},
+	[`& .${drawerClasses.avatar}`]: {
+		width: 70,
+		height: 70,
+		margin: '20px 0 12px',
 	},
 	[`& .${drawerClasses.com}`]: {
 		width: 20,
@@ -282,9 +289,28 @@ function TestDrawer({ test, sw, setShow }) {
 		);
 	} else
 		return (
-			<div className={drawerClasses.root}>
+			<StyledDrawerContainer className={drawerClasses.root}>
 				<div style={{ flexGrow: 1 }}>
-					{!isMobile && (
+					{isMobile ? (
+						<SwipeableDrawer
+							open={Tstate.testDrawer}
+							onClose={handleTD}
+							onOpen={handleTD}
+							classes={{
+								paper: drawerClasses.drawerPaper,
+							}}
+							ModalProps={{
+								keepMounted: true,
+							}}
+						>
+							<div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "15px 0" }}>
+								<Avatar alt="User" className={drawerClasses.avatar} src={state.userImage} />
+								<Typography align="center" color="primary" noWrap>
+									{state.name}
+								</Typography>
+							</div>
+						</SwipeableDrawer>
+					) : (
 						<Drawer
 							className={drawerClasses.drawer}
 							variant="permanent"
@@ -293,9 +319,8 @@ function TestDrawer({ test, sw, setShow }) {
 							}}
 							anchor="right"
 						>
-							<div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+							<div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "15px 0" }}>
 								<Avatar alt="User" className={drawerClasses.avatar} src={state.userImage} />
-
 								<Typography align="center" color="primary" noWrap>
 									{state.name}
 								</Typography>
@@ -303,7 +328,7 @@ function TestDrawer({ test, sw, setShow }) {
 						</Drawer>
 					)}
 				</div>
-			</div>
+			</StyledDrawerContainer>
 		);
 }
 
