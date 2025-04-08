@@ -26,10 +26,22 @@ import { fetchData } from "../../Components/Api";
 let resource;
 try {
 	resource = fetchData("/api/bigtest/testbundle/main/get");
+	console.log(resource);
 } catch (error) {
 	console.error("Failed to initialize test series data fetch:", error);
 	resource = { data: { read: () => { throw error; } } };
 }
+
+// Retry function for when data fails to load
+const retryFetch = () => {
+	try {
+		resource = fetchData("/api/bigtest/testbundle/main/get");
+		// Force re-render
+		window.location.reload();
+	} catch (error) {
+		console.error("Retry failed:", error);
+	}
+};
 
 // Styles for SeriesList component
 const seriesListPrefix = 'SeriesList';
@@ -109,27 +121,42 @@ function SeriesList() {
 	const [error, setError] = useState(null);
 	const [isLoaded, setIsLoaded] = useState(false);
 
-	useMemo(() => {
-		try {
-			const Ts = resource.data.read();
-			setT(Array.isArray(Ts) ? Ts : []);
-			let cat = [];
-			if (Array.isArray(Ts)) {
-				Ts.forEach((t) => {
-					if (t && t.category && !cat.includes(t.category)) {
-						cat.push(t.category);
+	// Use useEffect instead of useMemo to handle the async data loading
+	React.useEffect(() => {
+		let isMounted = true;
+		const loadData = async () => {
+			try {
+				// Handle data loading safely
+				const Ts = await resource.data.read();
+				if (isMounted) {
+					setT(Array.isArray(Ts) ? Ts : []);
+					let cat = [];
+					if (Array.isArray(Ts)) {
+						Ts.forEach((t) => {
+							if (t && t.category && !cat.includes(t.category)) {
+								cat.push(t.category);
+							}
+						});
 					}
-				});
+					setCatg(cat);
+					setIsLoaded(true);
+				}
+			} catch (err) {
+				console.error("Error loading test series data:", err);
+				if (isMounted) {
+					setError(err);
+					setT([]);
+					setCatg([]);
+					setIsLoaded(true);
+				}
 			}
-			setCatg(cat);
-			setIsLoaded(true);
-		} catch (err) {
-			console.error("Error loading test series data:", err);
-			setError(err);
-			setT([]);
-			setCatg([]);
-			setIsLoaded(true);
-		}
+		};
+		
+		loadData();
+		
+		return () => {
+			isMounted = false;
+		};
 	}, []);
 
 	// Error UI
@@ -143,7 +170,7 @@ function SeriesList() {
 					<Button 
 						variant="contained" 
 						color="primary" 
-						onClick={() => window.location.reload()}
+						onClick={retryFetch}
 					>
 						Retry
 					</Button>

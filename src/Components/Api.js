@@ -36,5 +36,8 @@ const fetchUser = async (url) => {
 	return await axios
 		.get(url)
 		.then((res) => res.data)
-		.catch((err) => console.log(err));
+		.catch((err) => {
+			console.error("API fetch error:", err);
+			throw err;
+		});
 };
