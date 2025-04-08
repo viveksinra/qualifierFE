@@ -20,6 +20,7 @@ const StyledFragment = styled(Fragment)(({ theme }) => ({
 	[`& .${classes.qArea}`]: {
 		background: "#fff",
 		margin: theme.spacing(11, 2, 0),
+
 		fontFamily: "sans-serif",
 		display: "block",
 		color: "#000",
@@ -66,7 +67,7 @@ function QuestionArea() {
 			<div className={classes.qArea}>
 				<br />
 				{acQues && (
-					<>
+					<div style={{ marginLeft: "20px" }}>
 						{parse(acQues.question)}
 						{acQues.questionImg && <img src={acQues.questionImg} className={classes.img} alt="Question" />}
 						<br />
@@ -77,7 +78,7 @@ function QuestionArea() {
 								))}
 							</RadioGroup>
 						</div>
-					</>
+					</div>
 				)}
 				{isMobile && (
 					<MdPlaylistPlay onClick={() => Tdispatch({ type: TOGGLEDRAWER })} className={classes.drawIcon} />
