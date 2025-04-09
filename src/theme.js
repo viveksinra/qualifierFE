@@ -3,7 +3,7 @@ import qualifierTheme, { qualifierColors, qualifierGlobalStyles, qualifierBrandI
 
 // Toggle this flag to switch between themes
 // const USE_RISK_HAWK_THEME = true;
-const USE_RISK_HAWK_THEME = true;
+const USE_RISK_HAWK_THEME = false;
 
 // Select the theme based on the flag
 const theme = USE_RISK_HAWK_THEME ? riskHawkTheme : qualifierTheme;

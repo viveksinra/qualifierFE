@@ -20,6 +20,7 @@ import {
 	FcReading,
 	FcFeedback,
 } from "react-icons/fc";
+import { brandText } from "../../theme";
 let drawerWidth = 240;
 
 const StyledRootDiv = styled('div')(({ theme }) => ({
@@ -138,7 +139,7 @@ export default function MyDrawer(props) {
 			<div className="center" style={{ flexDirection: "column" }}>
 				<span className="center">
 					<MdCopyright /> &nbsp;
-					<p>Copyright | Qualifier.co.in</p>
+					<p>Copyright | {brandText.brandName}</p>
 				</span>
 				<p>Version 2.4.3</p>
 			</div>

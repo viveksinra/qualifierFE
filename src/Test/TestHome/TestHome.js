@@ -27,6 +27,7 @@ import i2 from "./education2.svg";
 import i3 from "./analytics.svg";
 import {  FcKindle, FcLock, FcApproval, FcComboChart } from "react-icons/fc";
 import { MainContext } from "../../Components/Context/MainContext";
+import { brandText } from "../../theme";
 const Footer = lazy(() => import("../../Components/Footer/Footer"));
 
 // Styles for TestHome component
@@ -79,7 +80,7 @@ function TestHome() {
 	const [type, setType] = useState([]);
 	const { state } = useContext(MainContext);
 	const [loading, setLoading] = useState(true);
-	document.title = `${seriesData.shortTitle} | Online Test - Qualifier.co.in `;
+	document.title = `${seriesData.shortTitle} | Online Test - ${brandText.brandName} `;
 
 	useEffect(() => {
 		setLoading(true);

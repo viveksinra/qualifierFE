@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import axios from "axios";
-
+import { brandText } from "../../theme";
 const PREFIX = 'Account';
 const classes = {
 	shareBox: `${PREFIX}-shareBox`,
@@ -63,10 +63,10 @@ export default function Account() {
 	}, []);
 
 	const terms = [
-		{ text: "This referral program is only applicable if a friend is new user for Qualifier.co.in and has never made a purchase before." },
-		{ text: "For Referred Friends, they need to sign up at Qualifier.co.in & use the Promo code or link before making any purchase." },
-		{ text: "Qualifier.co.in has complete authority to change the reward amount at any point of time." },
-		{ text: "No refunds will be made to Referred Friend after purchase of Course." },
+		{ text: `This referral program is only applicable if a friend is new user for ${brandText.brandName} and has never made a purchase before.` },
+		{ text: `For Referred Friends, they need to sign up at ${brandText.brandName} & use the Promo code or link before making any purchase.` },
+		{ text: `${brandText.brandName} has complete authority to change the reward amount at any point of time.` },
+		{ text: `No refunds will be made to Referred Friend after purchase of Course.` },
 		{ text: "Each Successful purchases during the offer period will contribute as amount as available on that time." },
 		{ text: "In case of any forgery or attempt to cheat can cause your account deactivation." },
 		{ text: "Sharing of your personal account with any other can also cause your account deactivation." },

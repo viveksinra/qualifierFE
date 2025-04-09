@@ -1,5 +1,7 @@
 import React from "react";
 import { Container, Grid, Typography } from "@mui/material";
+import { riskHawkBrandText } from "../../riskHawkTheme";
+import { brandText } from "../../theme";
 
 export default function TopTray() {
 	return (
@@ -7,7 +9,7 @@ export default function TopTray() {
 			<Container maxWidth="md">
 				<Grid container>
 					<Grid item>
-						<a
+						{/* <a
 							href="https://play.google.com/store/apps/details?id=com.softechinfra.android.qualifier"
 							target="_blank"
 							rel="noopener noreferrer"
@@ -17,14 +19,14 @@ export default function TopTray() {
 							<Typography variant="body2" style={{ color: "#fff", paddingLeft: 5 }}>
 								Download APP
 							</Typography>
-						</a>
+						</a> */}
 					</Grid>
 					<span style={{ flexGrow: 1 }} />
 					<Grid item>
-						<a href="mailto:info@qualifier.co.in" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "flex" }}>
+						<a href="mailto:info@dynamatix.com" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", display: "flex" }}>
 							<img src="https://res.cloudinary.com/qualifier/image/upload/v1585590590/Default/mail_qr4l1o.svg" alt="playstore" />
 							<Typography variant="body2" style={{ color: "#fff", paddingLeft: 5 }}>
-								info@qualifier.co.in
+								{brandText.contactEmail}
 							</Typography>
 						</a>
 					</Grid>

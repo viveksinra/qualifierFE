@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import { MdArrowBack, MdArrowForward, MdFullscreen, MdFullscreenExit, MdReportProblem } from "react-icons/md";
 import axios from "axios";
-import { brandImage } from "../theme";
+import { brandImage, brandText } from "../theme";
 export const drawerWidth = 260;
 
 const StyledSectionPaper = styled(Paper)(({ theme }) => ({
@@ -64,7 +64,7 @@ export function TestTopNav({ test }) {
 	const theme = useTheme();
 	const isSmallScreen = useMediaQuery(theme.breakpoints.down('xs'));
 	
-	document.title = `${Tstate.testName} | Online Test - Qualifier.co.in `;
+	document.title = `${Tstate.testName} | Online Test - ${brandText.brandName} `;
 
 	const handleScreen = () => {
 		if (!document.fullscreenElement) {

@@ -9,7 +9,7 @@ import { styled } from '@mui/material/styles';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaWhatsapp, FaGooglePlay, FaHeadset } from "react-icons/fa";
 import { FcFeedback, FcDepartment } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { brandImage } from "../../theme";
+import { brandImage, brandText } from "../../theme";
 
 const StyledFooterDiv = styled('div')(({ theme }) => ({
 	paddingTop: theme.spacing(3),
@@ -125,25 +125,25 @@ export default function Footer() {
 						/>
 						<br />
 						<Typography variant="caption" style={{ marginLeft: 110 }}>
-							Powered by Softechinfra
+							{brandText.poweredBy}
 						</Typography>
 						<br />
 						<List dense>
 							<ListItem disableGutters>
 								<FcFeedback style={{ fontSize: 20, marginRight: 8, marginLeft: 15 }} />
-								<ListItemText primary="info@qualifier.co.in" />
+								<ListItemText primary={brandText.contactEmail} />
 							</ListItem>
-							<ListItem disableGutters>
+							{/* <ListItem disableGutters>
 								<FcDepartment style={{ fontSize: 20, marginRight: 8, marginLeft: 15 }} />
-								<ListItemText primary="47, Tollygunge, Kolkata - India" />
-							</ListItem>
+								<ListItemText primary={brandText.contactPhone} />
+							</ListItem> */}
 						</List>
 						<Divider style={{ backgroundColor: "#fff" }} />
-						<center>
+						{/* <center>
 							<a target="_blank" rel="noopener noreferrer" href="https://tawk.to/chat/5e270a298e78b86ed8aa5fd2/default">
 								<StyledChatChip icon={<FaHeadset />} label="Start Chat Now" />
 							</a>
-						</center>
+						</center> */}
 					</Grid>
 					<StyledCenterGrid item size={{xs:6, md:3 }}>
 						<Typography variant="subtitle1">Company</Typography>
@@ -170,8 +170,8 @@ export default function Footer() {
 						</List>
 					</StyledCenterGrid>
 					<Grid item size={{xs: 12,sm:6, md:3 }} >
-						<Typography variant="subtitle1">Our Apps</Typography>
-						<List>
+						{/* <Typography variant="subtitle1">Our Apps</Typography> */}
+						{/* <List>
 							<ListItem>
 								<StyledRoundedAvatar variant="rounded">
 									<FaGooglePlay />
@@ -189,7 +189,7 @@ export default function Footer() {
 									}
 								/>
 							</ListItem>
-						</List>
+						</List> */}
 						<Typography variant="subtitle1">Keep in Touch</Typography>
 						<StyledSocialUl>
 							{social.map((s) => (
@@ -216,7 +216,7 @@ export default function Footer() {
 				<Divider />
 				<center>
 					<Typography gutterBottom variant="caption">
-						© 2020 | Qualifier.co.in
+						© 2025 | {brandText.brandName}
 					</Typography>
 				</center>
 			</Container>

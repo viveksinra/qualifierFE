@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { Nav } from "../../Components/Navigation/Nav";
 import { Grid, Typography, CircularProgress } from "@mui/material";
 import { styled } from '@mui/material/styles';
+import { brandText } from "../../theme";
 
 const MyDrawer = lazy(() => import("../../Components/Navigation/MyDrawer"));
 const CourseCard = lazy(() => import("./CourseCard"));
@@ -37,7 +38,7 @@ const StyledRoot = styled('div')(({ theme }) => ({
 }));
 
 export default function MyCourses() {
-	document.title = `Courses Enrolled | Qualifier.co.in - Online Test & Practice for Free `;
+	document.title = `Courses Enrolled | ${brandText.brandName} - Online Test & Practice for Free `;
 
 	return (
 		<StyledRoot className={classes.root}>

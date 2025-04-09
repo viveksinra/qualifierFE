@@ -231,7 +231,10 @@ const brandImage = {
 };
 
 const riskHawkBrandText = {
-    poweredBy: "Powered by Risk Hawk"
+  brandName: "Risk Hawk",
+    poweredBy: "Powered by Risk Hawk",
+    contactEmail: "info@dynamatix.com",
+    contactPhone: "+44 207 096 0015",
   };
 
 // Export Risk Hawk theme configuration and styles
