@@ -20,6 +20,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { brandImage } from "../../theme";
 
 export default function Signup() {
 	const [name, setName] = useState("");
@@ -115,7 +116,7 @@ export default function Signup() {
 				</Grid>
 				<Grid item size={{md:6 }} id="loginRight">
 					<Link to="/">
-						<img src="https://i.ibb.co/Q9DyDpZ/Qualifier-Logo.png" alt="logo" />
+						<img src={brandImage.logo} alt="logo" />
 					</Link>
 					<form onSubmit={(e) => handleSubmit(e)}>
 						<Grid container spacing={2}>

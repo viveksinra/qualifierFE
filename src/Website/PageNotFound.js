@@ -4,6 +4,7 @@ import { styled, Typography, Fab, Grid } from "@mui/material";
 
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { brandImage } from "../theme";
 
 const RootContainer = styled('div')(({ theme }) => ({
 	margin: 0,
@@ -45,7 +46,7 @@ export default function PageNotFound() {
 			<Heading>PAGE NOT FOUND</Heading>
 			<Grid container>
 				<Grid item>
-					<img id="logo" src="https://i.ibb.co/Q9DyDpZ/Qualifier-Logo.png" alt="logo" />
+					<img id="logo" src={brandImage.logo} alt="logo" />
 				</Grid>
 				<span style={{ flexGrow: 1 }} />
 				<Grid item>

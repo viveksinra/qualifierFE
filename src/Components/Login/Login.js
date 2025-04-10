@@ -23,6 +23,7 @@ import {
 	DialogActions,
 } from "@mui/material";
 import axios from "axios";
+import { brandImage } from "../../theme";
 export default function Login() {
 	const [loginId, setLoginId] = useState("");
 	const [password, setPassword] = useState("");
@@ -152,7 +153,7 @@ export default function Login() {
 									Login to
 								</Typography>
 								<Link to="/">
-									<img src="https://i.ibb.co/Q9DyDpZ/Qualifier-Logo.png" alt="logo" />
+									<img src={brandImage.logo} alt="logo" />
 								</Link>
 							</Grid>
 							<Grid item size={{xs: 12}} >
