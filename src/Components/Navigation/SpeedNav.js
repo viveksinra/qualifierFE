@@ -31,8 +31,8 @@ function SpeedNav() {
 
 	const actions = [
 		{ icon: <FcInspection />, name: "Test Series", link: "/online-test-series" },
-		{ icon: <FcOrgUnit />, name: "Practice", link: "/practice" },
-		{ icon: <FcBookmark />, name: "Saved Question", link: "/savequestion" },
+		// { icon: <FcOrgUnit />, name: "Practice", link: "/practice" },
+		// { icon: <FcBookmark />, name: "Saved Question", link: "/savequestion" },
 		{ icon: <FcManager />, name: "My Profile", link: "/profile" },
 		{ icon: <FcHome />, name: "Dashboard", link: "/dashboard" },
 	];

@@ -11,7 +11,7 @@ import { styled } from '@mui/material/styles';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaInstagram, FaYoutube, FaWhatsapp, FaGooglePlay, FaHeadset } from "react-icons/fa";
 import { FcFeedback, FcDepartment } from "react-icons/fc";
 import { Link } from "react-router-dom";
-import { brandImage, brandText } from "../../theme";
+import { brandImage, brandText, isQualifier } from "../../theme";
 
 const StyledFooterDiv = styled('div')(({ theme }) => ({
 	paddingTop: theme.spacing(3),
@@ -147,7 +147,7 @@ export default function Footer() {
 							</a>
 						</center> */}
 					</Grid>
-					{/* <StyledCenterGrid item size={{xs:6, md:3 }}>
+				{	isQualifier &&	<StyledCenterGrid item size={{xs:6, md:3 }}>
 						<Typography variant="subtitle1">Company</Typography>
 						<List dense>
 							{list1.map((l) => (
@@ -158,8 +158,8 @@ export default function Footer() {
 								</StyledList>
 							))}
 						</List>
-					</StyledCenterGrid> */}
-					<StyledCenterGrid item size={{xs:6, md:3 }}>
+					</StyledCenterGrid>}
+{	isQualifier &&	<StyledCenterGrid item size={{xs:6, md:3 }}>
 						<Typography variant="subtitle1">Products</Typography>
 						<List dense>
 							{list2.map((l) => (
@@ -170,7 +170,7 @@ export default function Footer() {
 								</StyledList>
 							))}
 						</List>
-					</StyledCenterGrid>
+					</StyledCenterGrid>}
 					<Grid item size={{xs: 12,sm:6, md:3 }} >
 						{/* <Typography variant="subtitle1">Our Apps</Typography> */}
 						{/* <List>

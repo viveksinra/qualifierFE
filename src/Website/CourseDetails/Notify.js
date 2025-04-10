@@ -3,6 +3,7 @@ import { styled, Dialog, Button, Slide, DialogActions, CircularProgress, DialogC
 import { FcFlashOn, FcAdvance } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { isQualifier } from "../../theme";
 
 const StyledImage = styled('img')({
 	maxWidth: "100%",
@@ -49,13 +50,13 @@ function Notify({ notify, onClose, params }) {
 						{data.description}
 					</Typography>
 
-					<center>
+			{isQualifier &&	<center>
 						<Link to={notify.link ? notify.link : "/practice"}>
 							<Button endIcon={<FcAdvance style={{ fontSize: 20 }} />} disabled={loading} size="small" variant="outlined" color="secondary">
 								{`Start ${data.title}`}
 							</Button>
 						</Link>
-					</center>
+					</center>}
 				</DialogContent>
 				<DialogActions>
 					<Link to="/pricing">

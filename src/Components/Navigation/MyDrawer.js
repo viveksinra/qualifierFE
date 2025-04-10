@@ -21,7 +21,7 @@ import {
 	FcReading,
 	FcFeedback,
 } from "react-icons/fc";
-import { brandText } from "../../theme";
+import { brandText, isQualifier } from "../../theme";
 let drawerWidth = 240;
 
 const StyledRootDiv = styled('div')(({ theme }) => ({
@@ -64,9 +64,9 @@ const drawerPaperStyles = {
 const listData = [
 	{ text: "Dashboard", link: "/dashboard", icon: <FcHome /> },
 	{ text: "Test Series", link: "/online-test-series", icon: <FcInspection /> },
-	{ text: "All Categories", link: "/practice", icon: <FcOrgUnit /> },
-	{ text: "All Courses", link: "/courses", icon: <FcGraduationCap /> },
-	{ text: "Course Enrolled", link: "/mycourses", icon: <FcSurvey /> },
+	// { text: "All Categories", link: "/practice", icon: <FcOrgUnit /> },
+	// { text: "All Courses", link: "/courses", icon: <FcGraduationCap /> },
+	// { text: "Course Enrolled", link: "/mycourses", icon: <FcSurvey /> },
 	{ text: "Saved Question", link: "/savequestion", icon: <FcBookmark /> },
 ];
 const listData2 = [

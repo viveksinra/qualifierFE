@@ -3,6 +3,7 @@ import { List, ListItem, ListItemText, ListSubheader } from "@mui/material";
 import { Link } from "react-router-dom";
 import { FcReading, FcInspection, FcGraduationCap, FcAdvance } from "react-icons/fc";
 import { fetchData } from "../../Components/Api";
+import { isQualifier } from "../../theme";
 const resumeData = fetchData("/api/report/user/four");
 
 export default function ResumeList() {
@@ -31,20 +32,20 @@ export default function ResumeList() {
 							<FcAdvance style={{ fontSize: 30 }} />
 						</ListItem>
 					</Link>
-					<Link to={"/practice"}>
+			{	isQualifier &&	<Link to={"/practice"}>
 						<ListItem button="true">
 							<FcGraduationCap style={icon} />
 							<ListItemText primary="Start New Course Practice" />
 							<FcAdvance style={{ fontSize: 30 }} />
 						</ListItem>
-					</Link>
-					<Link to={"/blog"}>
+					</Link>}
+			{isQualifier &&	<Link to={"/blog"}>
 						<ListItem button="true">
 							<FcReading style={icon} />
 							<ListItemText primary="Read New Blog & News" />
 							<FcAdvance style={{ fontSize: 30 }} />
 						</ListItem>
-					</Link>
+					</Link>}
 				</div>
 			) : (
 				resume.map((r, i) => (

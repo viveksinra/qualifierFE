@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import HomeSlider from "../../Components/Decoration/HomeSlider";
 import { OfferCard } from "../../Components/Decoration/OfferCard";
 import { FcReading, FcInspection, FcGraduationCap, FcCollaboration } from "react-icons/fc";
+import { isQualifier } from "../../theme";
 const MyDrawer = lazy(() => import("../../Components/Navigation/MyDrawer"));
 const UserChart = lazy(() => import("./UserChart"));
 const ResumeList = lazy(() => import("./ResumeList"));
@@ -109,19 +110,19 @@ const navBtn = [
 		text: "Test Series",
 		link: "/online-test-series",
 	},
-	{
-		icon: <FcGraduationCap style={{ fontSize: 25 }} />,
-		text: "Practice",
-		link: "/practice",
-	},
-	{
-		icon: <FcReading style={{ fontSize: 25 }} />,
-		text: "Blog & News",
-		link: "/blog",
-	},
+	// {
+	// 	icon: <FcGraduationCap style={{ fontSize: 25 }} />,
+	// 	text: "Practice",
+	// 	link: "/practice",
+	// },
+	// {
+	// 	icon: <FcReading style={{ fontSize: 25 }} />,
+	// 	text: "Blog & News",
+	// 	link: "/blog",
+	// },
 	{
 		icon: <FcCollaboration style={{ fontSize: 25 }} />,
-		text: "Share & Earn",
+		text: isQualifier ? "Share & Earn" : "My Profile",
 		link: "/profile",
 	},
 ];

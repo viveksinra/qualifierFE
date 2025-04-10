@@ -9,7 +9,7 @@ import { CssBaseline, Container, useScrollTrigger,
 import { styled } from '@mui/material/styles';
 import { MdMenu, MdExpandMore, MdAccountCircle } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { brandImage } from "../../theme";
+import { brandImage, isQualifier } from "../../theme";
 const MegaMenu = lazy(() => import("./MegaMenu"));
 const MyDrawer = lazy(() => import("./MyDrawer"));
 
@@ -76,22 +76,22 @@ export function Nav() {
 
 					{!isMobile && (
 						<ul>
-							<StyledLi>
+					{isQualifier &&	<StyledLi>
 								<MegaMenu>
 									<span style={{ color: "#0a5494" }}>
 										Exam <MdExpandMore />
 									</span>
 								</MegaMenu>
-							</StyledLi>
+							</StyledLi>}
 							<StyledLi>
 								<Link to="/online-test-series">Test Series</Link>
 							</StyledLi>
-							<StyledLi>
+					{	isQualifier &&	<StyledLi>
 								<Link to="/courses">Courses</Link>
-							</StyledLi>
-							<StyledLi>
+							</StyledLi>}
+						{isQualifier &&	<StyledLi>
 								<Link to="/practice">Practice</Link>
-							</StyledLi>
+							</StyledLi>}
 						</ul>
 					)}
 
@@ -164,15 +164,15 @@ export function FullNav(props) {
 									<StyledLi>
 										<Link to="/online-test-series">Test Series</Link>
 									</StyledLi>
-									<StyledLi>
+							{isQualifier &&	<StyledLi>
 										<Link to="/practice">Practice</Link>
-									</StyledLi>
-									{/* <StyledLi>
+									</StyledLi>}
+							{isQualifier &&	<StyledLi>
 										<Link to="/blog">Blog & News</Link>
-									</StyledLi>
-									<StyledLi>
+									</StyledLi>}
+							{isQualifier &&	<StyledLi>
 										<Link to="/pricing">Pricing</Link>
-									</StyledLi> */}
+									</StyledLi>}
 									<StyledLi>
 										<Link to="/contact">Contact</Link>
 									</StyledLi>

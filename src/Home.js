@@ -112,7 +112,7 @@ function AppNav() {
 			)}
 			{isDesktop && (
 				<StyledUl>
-					{/* <StyledLi>
+				{isQualifier &&	<StyledLi>
 						<MegaMenu>
 							<span style={{ display: "flex", alignItems: "center", color: "#fff" }}>
 								Exam
@@ -120,18 +120,18 @@ function AppNav() {
 								<FaAngleDown />
 							</span>
 						</MegaMenu>
-					</StyledLi> */}
-					<StyledLi>
+					</StyledLi>}
+				{isQualifier &&	<StyledLi>
 						<StyledLiLink to="/practice">
 							Practice
 						</StyledLiLink>
-					</StyledLi>
+					</StyledLi>}
 					<StyledLi>
 						<StyledLiLink to="/online-test-series">
 							Test Series
 						</StyledLiLink>
 					</StyledLi>
-					{/* <StyledLi>
+				{isQualifier && <>	<StyledLi>
 						<StyledLiLink to="/pricing">
 							Pricing
 						</StyledLiLink>
@@ -140,7 +140,7 @@ function AppNav() {
 						<StyledLiLink to="/blog">
 							Blog & News
 						</StyledLiLink>
-					</StyledLi> */}
+					</StyledLi></>}
 					<StyledLi>
 						<StyledLiLink to="/login">
 						{state.isAuthenticated ? "Dashboard" : "Login/Signup"}
@@ -199,9 +199,9 @@ function Home(props) {
 				</Suspense>
 				{isMobile && (
 					<StyledMobBtnDiv>
-						<Link to="/practice">
+					{isQualifier &&	<Link to="/practice">
 							<Chip size="small" color="primary" variant="outlined" label="Online Exam Practice" />
-						</Link>
+						</Link>}
 						<Link to="/online-test-series">
 							<Chip
 								size="small"
@@ -226,7 +226,7 @@ function Home(props) {
 						<Grid container direction="column" alignItems="center" justifyContent="center">
 							<Typewriter
 								options={{
-									strings: ["Lots to Study.", "Less to spend. ", "Practice for FREE"],
+									strings: isQualifier ? ["Lots to Study.", "Less to spend. ", "Practice for FREE"] : ["Easy to use", "Mobile Friendly"],
 									autoStart: true,
 									loop: true,
 									wrapperClassName: "typewriter",
@@ -234,23 +234,29 @@ function Home(props) {
 								}}
 							/>
 							<br />
+						{isQualifier ?	<Typography paragraph color="secondary" align="center">
+									Practice for your examination for <b>FREE</b>
+									 <br /> And enhance your Knowledge...
+								
+							</Typography> : 
 							<Typography paragraph color="secondary" align="center">
-								Practice for your examination for <b>FREE</b>
-								<br /> And enhance your Knowledge...
+			Give the Test Series a try by <b>Risk Hawk</b>
+								
 							</Typography>
+							}
 
 							<span>
-								<Link to="/practice">
-									<Fab variant="extended" size="large" color="primary" aria-label="quote">
+					{isQualifier &&	<Link to="/practice">
+									<Fab variant="extended" size="large" color="secondary" aria-label="quote">
 										Practice
 									</Fab>
-								</Link>
+								</Link>}
 								{"\u00A0"}
 								{"\u00A0"}
 								{"\u00A0"}
 								<Link to="/online-test-series">
-									<Fab variant="extended" size="large" aria-label="quote" color="secondary">
-										TEST SERIES
+									<Fab variant="extended" size="large" aria-label="quote" color="primary">
+										{isQualifier ? "TEST SERIES" : "Go To Test Series"}
 									</Fab>
 								</Link>
 							</span>
@@ -279,7 +285,7 @@ function Home(props) {
 			</StyledHeroDiv>
 			<SpeedNav />
 			<Suspense fallback={<CircularProgress />}>
-					<DataCard />
+				{isQualifier &&	<DataCard />}
 				{isQualifier &&	<Categories />}
 				<Suspense fallback={<CircularProgress />}>
 					<Features2 />
