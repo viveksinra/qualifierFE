@@ -3,6 +3,7 @@ import React, { Fragment, useContext, lazy, Suspense } from "react";
 import "./App.css";
 import { DRAWER } from "./Components/Context/types";
 import bg from "./img/topbg.svg";
+import bgRH from "./img/topbgRH.svg";
 import { HideOnScroll, FullNav } from "./Components/Navigation/Nav";
 import { MainContext } from "./Components/Context/MainContext";
 import { Link } from "react-router-dom";
@@ -160,14 +161,14 @@ function Home(props) {
 	return (
 		<Fragment>
 			<Head>
-				<title>Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE </title>
+				<title>{isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE"}</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<meta name="keywords" content="Qualifier, online test & practice, online test for student." />
-				<meta name="copyright" content="Softechinfra" />
+				<meta name="keywords" content={isQualifier ? "Qualifier, online test & practice, online test for student." : "Risk Hawk, online test & practice, online test for student."} />
+				<meta name="copyright" content={isQualifier ? "Softechinfra" : "Risk Hawk"} />
 				<meta name="robots" content="follow" />
 				<meta
 					name="description"
-					content="An online TEST, Practice & Learning platform for Indian school and college Students including Government Exams, Placement Papers & CBSC Exams and much more. Try Qualifier FOR FREE."
+					content={isQualifier ? "An online TEST, Practice & Learning platform for Indian school and college Students including Government Exams, Placement Papers & CBSC Exams and much more. Try Qualifier FOR FREE." : "An online TEST, Practice & Learning platform. Try Risk Hawk FOR FREE."}	
 				/>
 			</Head>
 			<HideOnScroll {...props}>
