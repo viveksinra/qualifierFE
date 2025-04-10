@@ -32,7 +32,8 @@ export default function AdminDashboard() {
 	const categories = {
 		"Content Management": data.slice(0, 6),
 		"Test Management": data.slice(6, 10),
-		"User Interactions": data.slice(10, 13)
+		"User Interactions": data.slice(10, 13),
+		"Other": data.slice(13, 15)
 	};
 	
 	const getIcon = (title) => {
@@ -50,6 +51,8 @@ export default function AdminDashboard() {
 			case "See Contact Request": return <FcSupport size={24} />;
 			case "Reported Question List": return <FcHighPriority size={24} />;
 			case "Transfer Question": return <FcDataBackup size={24} />;
+			case "Reviews": return <FcRating size={24} />;
+			case "Website Images": return <FcDataBackup size={24} />;
 			default: return null;
 		}
 	};
@@ -158,4 +161,13 @@ const data = [
 		title: "Transfer Question",
 		link: "/admin/transferquestion",
 	},
+	{
+		title: "Reviews",
+		link: "/admin/reviews",
+	},
+	{
+		title: "Website Images",
+		link: "/admin/websiteimages",
+	},
+
 ];

@@ -84,6 +84,9 @@ export default function AddCategory() {
 		setHighlight("");
 		setDescription("");
 	};
+	const handleRemoveImage = () => {
+		setImage("");
+	};
 	const setData = async (id) => {
 		await axios
 			.get(`/api/test/category/get/${id}`)
@@ -209,32 +212,39 @@ export default function AddCategory() {
 										/>
 									</Grid>
 									<Grid item size={{xs: 12}} >
-										<TextField
-											variant="outlined"
-											type="file"
-											InputLabelProps={{ shrink: true }}
-											inputProps={{ accept: "image/*" }}
-											fullWidth
-											onBlur={() => handleErr("image")}
-											error={err.errIn === "image" ? true : false}
-											label={err.errIn === "image" ? err.msg : "Image "}
-											onChange={(e) => imgUpload(e.target.files[0])}
-											InputProps={{
-												startAdornment: (
-													<InputAdornment position="start">
-														<MdImage />
-													</InputAdornment>
-												),
-											}}
-										/>
-									</Grid>
-									{image && (
-										<Grid item size={{xs: 12}}>
-											<Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-												<img src={image} alt="Category" style={{ maxHeight: '150px', maxWidth: '100%', borderRadius: '8px' }} />
+										{!image ? (
+											<TextField
+												variant="outlined"
+												type="file"
+												InputLabelProps={{ shrink: true }}
+												inputProps={{ accept: "image/*" }}
+												fullWidth
+												onBlur={() => handleErr("image")}
+												error={err.errIn === "image" ? true : false}
+												label={err.errIn === "image" ? err.msg : "Image "}
+												onChange={(e) => imgUpload(e.target.files[0])}
+												InputProps={{
+													startAdornment: (
+														<InputAdornment position="start">
+															<MdImage />
+														</InputAdornment>
+													),
+												}}
+											/>
+										) : (
+											<Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 2 }}>
+												<img src={image} alt="Category" style={{ maxHeight: '150px', maxWidth: '100%', borderRadius: '8px', marginBottom: '10px' }} />
+												<Button 
+													variant="contained" 
+													color="error" 
+													onClick={handleRemoveImage}
+													startIcon={<MdClearAll />}
+												>
+													Remove Image
+												</Button>
 											</Box>
-										</Grid>
-									)}
+										)}
+									</Grid>
 									<Grid item size={{xs: 12}} >
 										<TextField
 											variant="outlined"

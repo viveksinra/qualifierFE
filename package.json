@@ -34,7 +34,7 @@
 		"tsparticles": "^3.8.1",
 		"typewriter-effect": "^2.21.0"
 	},
-	"proxy": "https://practice-api.riskhawk.in",
+	"proxy": "http://localhost:2040",
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",

@@ -84,29 +84,53 @@ export default function AddTestSeries() {
 	const [allTseries, setAllTseries] = useState([]);
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(10);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
 	const snackRef = useRef();
 
 	useEffect(() => {
 		getData("");
 	}, []);
+	
 	const getData = async (word) => {
-		await axios
-			.get(`/api/bigtest/testbundle/alltestbundle/${word}`)
-			.then((res) => setAllTseries(res.data))
-			.catch((err) => console.log(err));
+		setLoading(true);
+		setError(null);
+		try {
+			const res = await axios.get(`/api/bigtest/testbundle/alltestbundle/${word}`);
+			setAllTseries(res.data || []);
+		} catch (err) {
+			console.log(err);
+			setError("Failed to load test series data");
+			setAllTseries([]);
+			if (snackRef.current) {
+				snackRef.current.handleSnack({ message: "Failed to load test series data", severity: "error" });
+			}
+		} finally {
+			setLoading(false);
+		}
 	};
+	
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setLoading(true);
 		let Tseries = { _id: id, title, shortTitle, category, highlight, isPopular, logo, link, description };
-		await axios
-			.post(`/api/bigtest/testbundle/${id}`, Tseries)
-			.then((res) => {
+		try {
+			const res = await axios.post(`/api/bigtest/testbundle/${id}`, Tseries);
+			if (snackRef.current) {
 				snackRef.current.handleSnack(res.data);
-				getData("");
-				handleClear();
-			})
-			.catch((err) => console.log(err));
+			}
+			getData("");
+			handleClear();
+		} catch (err) {
+			console.log(err);
+			if (snackRef.current) {
+				snackRef.current.handleSnack({ message: "Failed to save test series", severity: "error" });
+			}
+		} finally {
+			setLoading(false);
+		}
 	};
+	
 	const handleClear = () => {
 		setId("");
 		setTitle("");
@@ -120,59 +144,78 @@ export default function AddTestSeries() {
 	};
 
 	const setData = async (id) => {
-		await axios
-			.get(`/api/bigtest/testbundle/get/${id}`)
-			.then((res) => {
-				setId(res.data._id);
-				setTitle(res.data.title);
-				setST(res.data.shortTitle);
-				setCategory(res.data.category);
-				setLink(res.data.link);
-				setIsP(res.data.isPopular);
-				setLogo(res.data.logo);
-				setHighlight(res.data.highlight);
-				setDescription(res.data.description);
-			})
-			.catch((err) => console.log(err));
+		setLoading(true);
+		try {
+			const res = await axios.get(`/api/bigtest/testbundle/get/${id}`);
+			if (res.data) {
+				setId(res.data._id || "");
+				setTitle(res.data.title || "");
+				setST(res.data.shortTitle || "");
+				setCategory(res.data.category || "");
+				setLink(res.data.link || "");
+				setIsP(res.data.isPopular || false);
+				setLogo(res.data.logo || "");
+				setHighlight(res.data.highlight || "");
+				setDescription(res.data.description || "");
+			}
+		} catch (err) {
+			console.log(err);
+			if (snackRef.current) {
+				snackRef.current.handleSnack({ message: "Failed to load test series details", severity: "error" });
+			}
+		} finally {
+			setLoading(false);
+		}
 	};
+	
 	const imgUpload = async (e) => {
 		if (e) {
+			setLoading(true);
 			const selectedFile = e;
 			const imgData = new FormData();
 			imgData.append("photo", selectedFile, selectedFile.name);
-			await axios
-				.post(`/api/other/fileupload/upload`, imgData, {
+			try {
+				const res = await axios.post(`/api/other/fileupload/upload`, imgData, {
 					headers: {
 						accept: "application/json",
 						"Accept-Language": "en-US,en;q=0.8",
 						"Content-Type": `multipart/form-data; boundary=${imgData._boundary}`,
 					},
-				})
-				.then((res) => setLogo(res.data.result.secure_url))
-				.catch((err) => console.log(err));
+				});
+				if (res.data && res.data.result) {
+					setLogo(res.data.result.secure_url || "");
+				}
+			} catch (err) {
+				console.log(err);
+				if (snackRef.current) {
+					snackRef.current.handleSnack({ message: "Failed to upload image", severity: "error" });
+				}
+			} finally {
+				setLoading(false);
+			}
 		}
 	};
 
 	return (
 		<Fragment>
 			<Grid container>
-				<Grid item size={{xs: 12,  md: 9 }} >
-					<Paper sx={EntryAreaPaper}>
+				<Grid item size={{ xs: 12, md: 9 }}>
+					<Paper sx={{ padding: 2, margin: 1, backgroundColor: 'background.paper' }}>
 						<form onSubmit={(e) => handleSubmit(e)} style={{ maxWidth: "100vw" }}>
 							<Grid container spacing={2}>
-								<Grid item size={{xs: 4 }}></Grid>
-								<Grid item size={{xs: 4 }}>
+								<Grid item size={{ xs: 4 }}></Grid>
+								<Grid item size={{ xs: 4 }}>
 									<center>
 										<Chip color="primary" label="Add Test Series" />
 									</center>
 								</Grid>
-								<Grid item size={{xs: 4 }}>
+								<Grid item size={{ xs: 4 }}>
 									<FormControlLabel
 										control={<Switch checked={isPopular} onChange={() => setIsP(!isPopular)} name="Popular" color="primary" />}
 										label="Popular"
 									/>
 								</Grid>
-								<Grid item size={{xs: 12, sm:9 }} >
+								<Grid item size={{ xs: 12, sm: 9 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -184,7 +227,7 @@ export default function AddTestSeries() {
 										onChange={(e) => setTitle(e.target.value)}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12,sm:3 }} >
+								<Grid item size={{ xs: 12, sm: 3 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -196,7 +239,7 @@ export default function AddTestSeries() {
 										onChange={(e) => setST(e.target.value)}
 									/>
 								</Grid>
-								<Grid item size={{xs: 6 }}>
+								<Grid item size={{ xs: 6 }}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -213,7 +256,7 @@ export default function AddTestSeries() {
 										))}
 									</TextField>
 								</Grid>
-								<Grid item size={{xs: 6 }}>
+								<Grid item size={{ xs: 6 }}>
 									<TextField
 										variant="outlined"
 										required
@@ -224,7 +267,7 @@ export default function AddTestSeries() {
 										onChange={(e) => setLink(e.target.value)}
 									/>
 								</Grid>
-								<Grid item size={{xs: 4 }}>
+								<Grid item size={{ xs: 4 }}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -235,7 +278,7 @@ export default function AddTestSeries() {
 										onChange={(e) => setHighlight(e.target.value)}
 									/>
 								</Grid>
-								<Grid item size={{xs: 4 }}>
+								<Grid item size={{ xs: 4 }}>
 									<TextField
 										variant="outlined"
 										type="file"
@@ -246,7 +289,7 @@ export default function AddTestSeries() {
 										onChange={(e) => imgUpload(e.target.files[0])}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12}} >
+								<Grid item size={{ xs: 12 }}>
 									<TextField
 										variant="outlined"
 										fullWidth
@@ -257,25 +300,25 @@ export default function AddTestSeries() {
 										onChange={(e) => setDescription(e.target.value)}
 									/>
 								</Grid>
-								<Grid item size={{xs: 12}} >
+								<Grid item size={{ xs: 12 }}>
 									<Divider />
 								</Grid>
-								<Grid item size={{xs: 12}} >
+								<Grid item size={{ xs: 12 }}>
 									<center>
 										<Tooltip title={id === "" ? "Save" : "Update"}>
-											<Fab color="primary" type="submit" sx={StyledButton}>
+											<Fab color="primary" type="submit" sx={{ margin: 1 }} disabled={loading}>
 												<MdDoneAll />
 											</Fab>
 										</Tooltip>
 										<Tooltip title="Clear All">
-											<Fab size="small" color="secondary" onClick={() => handleClear()} sx={StyledButton}>
+											<Fab size="small" color="secondary" onClick={() => handleClear()} sx={{ margin: 1 }} disabled={loading}>
 												<MdClearAll />
 											</Fab>
 										</Tooltip>
 										{logo !== "" && (
 											<a href={logo} target="_blank" rel="noopener noreferrer">
 												<Tooltip title="Logo">
-													<Fab size="small" color="secondary" sx={StyledButton}>
+													<Fab size="small" color="secondary" sx={{ margin: 1 }}>
 														<MdPanorama />
 													</Fab>
 												</Tooltip>
@@ -287,30 +330,61 @@ export default function AddTestSeries() {
 						</form>
 					</Paper>
 				</Grid>
-				<Grid item size={{xs: 12, md:3 }} >
+				<Grid item size={{ xs: 12, md: 3 }}>
 					{/* Search Section */}
-					<SearchContainer>
-						<SearchIconWrapper>
+					<Box sx={{ position: 'relative', borderRadius: 1, marginLeft: 0, width: '100%' }}>
+						<Box sx={{ 
+							padding: '0 16px', 
+							height: '100%', 
+							position: 'absolute', 
+							pointerEvents: 'none', 
+							display: 'flex', 
+							alignItems: 'center', 
+							justifyContent: 'center' 
+						}}>
 							<MdSearch />
-						</SearchIconWrapper>
-						<StyledInput
+						</Box>
+						<Input
 							placeholder="Search Test Series"
 							onChange={(e) => getData(e.target.value)}
 							disableUnderline
+							sx={{
+								color: 'inherit',
+								width: '100%',
+								'& .MuiInputBase-input': {
+									padding: '8px 8px 8px 0',
+									paddingLeft: 'calc(1em + 32px)',
+									width: '100%'
+								}
+							}}
 						/>
-					</SearchContainer>
-					<Box sx={SearchResultDiv}>
+					</Box>
+					<Box sx={{ maxHeight: '80vh', overflow: 'auto', margin: 1 }}>
 						<Paper>
 							<Table>
 								<TableHead>
 									<TableRow>
 										<TableCell component="th" scope="row">
-											Search Results
+											Search Results {loading && "- Loading..."}
 										</TableCell>
 									</TableRow>
 								</TableHead>
 								<TableBody>
-									{allTseries.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
+									{error && (
+										<TableRow>
+											<TableCell component="td" scope="row">
+												{error}
+											</TableCell>
+										</TableRow>
+									)}
+									{!loading && !error && allTseries.length === 0 && (
+										<TableRow>
+											<TableCell component="td" scope="row">
+												No test series found
+											</TableCell>
+										</TableRow>
+									)}
+									{!loading && allTseries.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((data) => (
 										<TableRow key={data._id} onClick={() => setData(data._id)} hover>
 											<TableCell component="td" scope="row">
 												Name : {data.title} <br />
@@ -324,8 +398,8 @@ export default function AddTestSeries() {
 											count={allTseries.length}
 											rowsPerPage={rowsPerPage}
 											page={page}
-											onChangePage={(e, page) => setPage(page)}
-											onChangeRowsPerPage={(r) => setRowsPerPage(r.target.value)}
+											onPageChange={(e, page) => setPage(page)}
+											onRowsPerPageChange={(e) => setRowsPerPage(parseInt(e.target.value, 10))}
 										/>
 									</TableRow>
 								</TableFooter>

@@ -106,6 +106,16 @@ const routes = [
     title: "Transfer Question",
     link: "/admin/transferquestion",
     icon: <FcDataBackup size={24} />
+  },
+  {
+    title: "Reviews",
+    link: "/admin/reviews",
+    icon: <FcRating size={24} />
+  },
+  {
+    title: "Website Images",
+    link: "/admin/websiteimages",
+    icon: <FcDataBackup size={24} />
   }
 ];
 
@@ -113,7 +123,8 @@ const routes = [
 const groupedRoutes = {
   "Content Management": routes.slice(1, 7),
   "Test Management": routes.slice(7, 11),
-  "User Interactions": routes.slice(11, 14)
+  "User Interactions": routes.slice(11, 14),
+  "Other": routes.slice(14, 16)
 };
 
 export default function AdminLayout({ children, handleLogout }) {

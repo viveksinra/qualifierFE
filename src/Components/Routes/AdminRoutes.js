@@ -16,6 +16,8 @@ import ReportedQuestion from "../../Admin/ReportedQuestion";
 import AdminLayout from "../../Protected/Dashboard/AdminLayout";
 import { MainContext } from "../Context/MainContext";
 import { LOGOUT_USER } from "../Context/types";
+import AddReview from "../../Protected/Add/AddReview";
+import AddWebsiteImage from "../../Protected/Add/AddWebsiteImage";
 
 const AddQuestion = lazy(() => import("../../Protected/Add/AddQuestion/AddQuestion"));
 const TransferQues = lazy(() => import("../../Admin/TransferQues"));
@@ -55,6 +57,8 @@ function AdminRoutes() {
 			<Route path="message" element={withAdminLayout(SeeMessage)} />
 			<Route path="reportedquestion" element={withAdminLayout(ReportedQuestion)} />
 			<Route path="transferquestion" element={withAdminLayout(TransferQues)} />
+			<Route path="reviews" element={withAdminLayout(AddReview)} />
+			<Route path="websiteimages" element={withAdminLayout(AddWebsiteImage)} />
 		</Routes>
 	);
 }
