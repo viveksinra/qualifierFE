@@ -2,9 +2,11 @@ import React, { Suspense, lazy, Component } from "react";
 import { CircularProgress, Fab, useMediaQuery, Alert, Box, Button, Typography } from "@mui/material";
 import { FullNav } from "../../Components/Navigation/Nav";
 import lp from "./lp.png";
+import rlp from "./rlp.png";
 import { Head } from "../../Components/NameExp";
 import { FcElectricalSensor } from "react-icons/fc";
 import { alpha, styled, useTheme } from '@mui/material/styles';
+import { isQualifier } from "../../theme";
 const SeriesList = lazy(() => import("./SeriesList"));
 const Features2 = lazy(() => import("../../Components/Decoration/Features2"));
 const Footer = lazy(() => import("../../Components/Footer/Footer"));
@@ -173,14 +175,14 @@ function TestSeries() {
 					<br />
 					<Fab size="medium" variant="extended" onClick={scrollDown} aria-label="add" className={classes.startTestBtn}>
 						<FcElectricalSensor />
-						Start Test Now
+						Take the Test Now
 					</Fab>
 
 					<p className={classes.smallText}>*Free & Simple, no hidden cost.</p>
 				</div>
 			</div>
 			{isDesktop && (
-				<img src={lp} className={classes.topImg} alt="Laptop" />
+				<img src={isQualifier ? lp : rlp} className={classes.topImg} alt="Laptop" />
 			)}
 			<Suspense
 				fallback={<LoadingFallback />}

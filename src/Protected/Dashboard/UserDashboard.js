@@ -7,6 +7,7 @@ import HomeSlider from "../../Components/Decoration/HomeSlider";
 import { OfferCard } from "../../Components/Decoration/OfferCard";
 import { FcReading, FcInspection, FcGraduationCap, FcCollaboration } from "react-icons/fc";
 import { isQualifier } from "../../theme";
+import SeriesList from "../../Test/TestSeries/SeriesList";
 const MyDrawer = lazy(() => import("../../Components/Navigation/MyDrawer"));
 const UserChart = lazy(() => import("./UserChart"));
 const ResumeList = lazy(() => import("./ResumeList"));
@@ -59,7 +60,8 @@ export default function UserDashboard() {
 		<StyledRoot className={classes.root}>
 			<Nav />
 			<MyDrawer />
-			<main className={classes.content}>
+			<SeriesList />
+			{isQualifier &&	<main className={classes.content}>
 				<div className={classes.toolbar} />
 				<Grid container>
 					<Grid item size={{xs: 12, md:8 }}  style={{ maxHeight: 300 }}>
@@ -68,11 +70,11 @@ export default function UserDashboard() {
 						</Suspense>
 					</Grid>
 					<Grid item size={{xs: 12, md:4}} style={{ height: 300 }}>
-						<div style={{ minHeight: 180 }}>
+					{isQualifier &&	<div style={{ minHeight: 180 }}>
 							<Suspense fallback={<LinearProgress />}>
 								<ResumeList />
 							</Suspense>
-						</div>
+						</div>}
 						<div className={classes.navBtn}>
 							{navBtn.map((n, i) => (
 								<Link to={n.link} key={i}>
@@ -84,10 +86,10 @@ export default function UserDashboard() {
 						</div>
 					</Grid>
 				</Grid>
-				<Suspense fallback={<LinearProgress />}>
+				{isQualifier &&	<Suspense fallback={<LinearProgress />}>
 					<Recommendation />
-				</Suspense>
-				<Suspense fallback={<LinearProgress />}>
+				</Suspense>}
+			{isQualifier &&	<Suspense fallback={<LinearProgress />}>
 					<CourseAnalysis link="" />
 					<br />
 					<Grid container justifyContent="center">
@@ -98,8 +100,8 @@ export default function UserDashboard() {
 							<OfferCard />
 						</Grid>
 					</Grid>
-				</Suspense>
-			</main>
+				</Suspense>}
+			</main>}
 		</StyledRoot>
 	);
 }

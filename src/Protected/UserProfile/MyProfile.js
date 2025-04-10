@@ -24,6 +24,7 @@ import {
 import { styled } from '@mui/material/styles';
 import { FaIdCard, FaUserTag, FaReceipt, FaTelegramPlane, FaMale, FaFemale, FaUser } from "react-icons/fa";
 import axios from "axios";
+import { isQualifier } from "../../theme";
 const MyDrawer = lazy(() => import("../../Components/Navigation/MyDrawer"));
 
 const PREFIX = 'MyProfile';
@@ -75,8 +76,8 @@ export default function MyProfile() {
 				<Paper>
 					<Tabs value={tabVal} indicatorColor="primary" textColor="primary" onChange={(e, v) => setTabVal(v)} aria-label="Tab">
 						<Tab icon={<FaIdCard />} label="Profile" value={0} />
-						<Tab icon={<FaUserTag />} label="Share & Earn" value={1} />
-						<Tab icon={<FaReceipt />} label="Transaction" value={2} />
+					{isQualifier &&	<Tab icon={<FaUserTag />} label="Share & Earn" value={1} />}
+					{isQualifier &&	<Tab icon={<FaReceipt />} label="Transaction" value={2} />}
 					</Tabs>
 					<br />
 					{tabVal === 0 && <Profile classes={classes} />}

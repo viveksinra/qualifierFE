@@ -63,15 +63,15 @@ const drawerPaperStyles = {
 
 const listData = [
 	{ text: "Dashboard", link: "/dashboard", icon: <FcHome /> },
-	{ text: "Test Series", link: "/online-test-series", icon: <FcInspection /> },
+	// { text: "Test Series", link: "/online-test-series", icon: <FcInspection /> },
 	// { text: "All Categories", link: "/practice", icon: <FcOrgUnit /> },
 	// { text: "All Courses", link: "/courses", icon: <FcGraduationCap /> },
 	// { text: "Course Enrolled", link: "/mycourses", icon: <FcSurvey /> },
-	{ text: "Saved Question", link: "/savequestion", icon: <FcBookmark /> },
+	// { text: "Saved Question", link: "/savequestion", icon: <FcBookmark /> },
 ];
 const listData2 = [
 	// { text: "Offers & Pricing", link: "/pricing", icon: <FcRating /> },
-	{ text: "My Report", link: "/report", icon: <FcComboChart /> },
+	// { text: "My Report", link: "/report", icon: <FcComboChart /> },
 	// { text: "Blogs & News", link: "/blog", icon: <FcReading /> },
 	// { text: "Contact Us", link: "/contact", icon: <FcFeedback /> },
 	{ text: "My Profile", link: "/profile", icon: <FcManager /> },
@@ -89,7 +89,7 @@ export default function MyDrawer(props) {
 	};
 
 	const DrawerData = ({ mobile }) => (
-		<div sx={toolbarMixins}>
+		<div sx={toolbarMixins} style={{ marginTop: 30 }}>
 			<center>
 				<Link to="/profile" style={{ textDecoration: "none" }}>
 					<Chip onClick={mobile ? handleDrawerToggle : null} label={`Welcome ${state.isAuthenticated ? state.name : "Guest"}`} color="primary" />
