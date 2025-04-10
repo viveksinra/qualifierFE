@@ -1,3 +1,4 @@
+// TODO:Risk Hawk Silent code
 import React, { Fragment, useState, useRef, useContext, useEffect, Suspense } from "react";
 import "./login.css";
 import { MainContext } from "../Context/MainContext";
@@ -156,7 +157,7 @@ export default function Login() {
 									<img src={brandImage.logo} alt="logo" />
 								</Link>
 							</Grid>
-							<Grid item size={{xs: 12}} >
+							{/* <Grid item size={{xs: 12}} >
 								<center>
 									<Chip
 										onClick={() => googleLogin()}
@@ -165,7 +166,7 @@ export default function Login() {
 										variant="outlined"
 									/>
 								</center>
-							</Grid>
+							</Grid> */}
 							<Grid item size={{xs: 12}} >
 								<Divider />
 							</Grid>

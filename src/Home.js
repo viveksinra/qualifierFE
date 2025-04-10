@@ -1,3 +1,4 @@
+// TODO:Risk Hawk Silent code
 import React, { Fragment, useContext, lazy, Suspense } from "react";
 import "./App.css";
 import { DRAWER } from "./Components/Context/types";
@@ -111,7 +112,7 @@ function AppNav() {
 			)}
 			{isDesktop && (
 				<StyledUl>
-					<StyledLi>
+					{/* <StyledLi>
 						<MegaMenu>
 							<span style={{ display: "flex", alignItems: "center", color: "#fff" }}>
 								Exam
@@ -119,7 +120,7 @@ function AppNav() {
 								<FaAngleDown />
 							</span>
 						</MegaMenu>
-					</StyledLi>
+					</StyledLi> */}
 					<StyledLi>
 						<StyledLiLink to="/practice">
 							Practice
@@ -130,7 +131,7 @@ function AppNav() {
 							Test Series
 						</StyledLiLink>
 					</StyledLi>
-					<StyledLi>
+					{/* <StyledLi>
 						<StyledLiLink to="/pricing">
 							Pricing
 						</StyledLiLink>
@@ -139,7 +140,7 @@ function AppNav() {
 						<StyledLiLink to="/blog">
 							Blog & News
 						</StyledLiLink>
-					</StyledLi>
+					</StyledLi> */}
 					<StyledLi>
 						<StyledLiLink to="/login">
 						{state.isAuthenticated ? "Dashboard" : "Login/Signup"}
@@ -254,7 +255,7 @@ function Home(props) {
 								</Link>
 							</span>
 
-							<br />
+							{/* <br />
 							<Link to="/blog">
 								<Chip
 									size="small"
@@ -271,7 +272,7 @@ function Home(props) {
 									deleteIcon={<FaArrowAltCircleRight />}
 									label="Read Blogs"
 								/>
-							</Link>
+							</Link> */}
 						</Grid>
 					</StyledTextBoxDiv>
 				)}

@@ -1,3 +1,5 @@
+// TODO:Risk Hawk Silent code
+
 import React from "react";
 import paytm from "./paytm.svg";
 import visa from "./visa.svg";
@@ -145,7 +147,7 @@ export default function Footer() {
 							</a>
 						</center> */}
 					</Grid>
-					<StyledCenterGrid item size={{xs:6, md:3 }}>
+					{/* <StyledCenterGrid item size={{xs:6, md:3 }}>
 						<Typography variant="subtitle1">Company</Typography>
 						<List dense>
 							{list1.map((l) => (
@@ -156,7 +158,7 @@ export default function Footer() {
 								</StyledList>
 							))}
 						</List>
-					</StyledCenterGrid>
+					</StyledCenterGrid> */}
 					<StyledCenterGrid item size={{xs:6, md:3 }}>
 						<Typography variant="subtitle1">Products</Typography>
 						<List dense>
@@ -190,8 +192,8 @@ export default function Footer() {
 								/>
 							</ListItem>
 						</List> */}
-						<Typography variant="subtitle1">Keep in Touch</Typography>
-						<StyledSocialUl>
+						{/* <Typography variant="subtitle1">Keep in Touch</Typography> */}
+						{/* <StyledSocialUl>
 							{social.map((s) => (
 								<StyledPayLi key={s.name}>
 									<a href={s.link} target="_blank" rel="noopener noreferrer" alt={s.name}>
@@ -199,10 +201,10 @@ export default function Footer() {
 									</a>
 								</StyledPayLi>
 							))}
-						</StyledSocialUl>
+						</StyledSocialUl> */}
 						<Divider style={{ backgroundColor: "#fff" }} />
 
-						<StyledPayUl>
+						{/* <StyledPayUl>
 							{cards.map((c) => (
 								<StyledPayLi key={c.name}>
 									<Link to="/pricing">
@@ -210,7 +212,7 @@ export default function Footer() {
 									</Link>
 								</StyledPayLi>
 							))}
-						</StyledPayUl>
+						</StyledPayUl> */}
 					</Grid>
 				</Grid>
 				<Divider />
@@ -234,14 +236,14 @@ const list1 = [
 	{ text: "Privacy Policy", link: "/privacypolicy" },
 	{ text: "Sitemap", link: "/sitemap" },
 ];
-
+// TODO:Risk Hawk Change
 const list2 = [
 	{ text: "Online Test", link: "/online-test-series" },
 	{ text: "Practice Series", link: "/practice" },
 	{ text: "Course Wise Series", link: "/courses" },
 	{ text: "Learn online", link: "/login" },
-	{ text: "Blogs & News", link: "/blog" },
-	{ text: "App Privacy", link: "/app-privacy" },
-	{ text: "Offline Bootcamp", link: "/" },
-	{ text: "Offers & Promo", link: "/pricing" },
+	// { text: "Blogs & News", link: "/blog" },
+	// { text: "App Privacy", link: "/app-privacy" },
+	// { text: "Offline Bootcamp", link: "/" },
+	// { text: "Offers & Promo", link: "/pricing" },
 ];

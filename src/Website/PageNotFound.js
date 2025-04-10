@@ -4,7 +4,7 @@ import { styled, Typography, Fab, Grid } from "@mui/material";
 
 import { FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { brandImage } from "../theme";
+import { brandImage, brandText } from "../theme";
 
 const RootContainer = styled('div')(({ theme }) => ({
 	margin: 0,
@@ -62,7 +62,7 @@ export default function PageNotFound() {
 			</Grid>
 
 			<Typography variant="h6" color="primary" style={{ position: "absolute", bottom: "10%", left: "10%" }}>
-				It seems that you are looking for the page that is not Qualifier's server.
+				It seems that you are looking for the page that is not {brandText.brandName}'s server.
 			</Typography>
 		</RootContainer>
 	);

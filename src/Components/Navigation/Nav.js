@@ -1,3 +1,5 @@
+// TODO:Risk Hawk Silent code
+
 import React, { useContext, Suspense, lazy } from "react";
 import PropTypes from "prop-types";
 import { DRAWER } from "../Context/types";
@@ -152,25 +154,25 @@ export function FullNav(props) {
 							<StyledGrowDiv component="span" />
 							{!isMobile && (
 								<ul>
-									<StyledLi>
+									{/* <StyledLi>
 										<MegaMenu>
 											<span style={{ color: "#0a5494" }}>
 												Exam <MdExpandMore />
 											</span>
 										</MegaMenu>
-									</StyledLi>
+									</StyledLi> */}
 									<StyledLi>
 										<Link to="/online-test-series">Test Series</Link>
 									</StyledLi>
 									<StyledLi>
 										<Link to="/practice">Practice</Link>
 									</StyledLi>
-									<StyledLi>
+									{/* <StyledLi>
 										<Link to="/blog">Blog & News</Link>
 									</StyledLi>
 									<StyledLi>
 										<Link to="/pricing">Pricing</Link>
-									</StyledLi>
+									</StyledLi> */}
 									<StyledLi>
 										<Link to="/contact">Contact</Link>
 									</StyledLi>

@@ -3,6 +3,7 @@ import { Typography, Divider } from "@mui/material";
 import { styled } from '@mui/material/styles';
 import { Link } from "react-router-dom";
 import { fetchData } from "../Api";
+import { brandText } from "../../theme";
 
 const resource = fetchData("/api/blog/get/two");
 
@@ -68,7 +69,7 @@ const NewsCard = () => {
 	const news = resource.data.read();
 	return (
 		<StyledNewsCardDiv>
-			<StyledStatusRibbonDiv>Qualifier's Updates</StyledStatusRibbonDiv>
+			<StyledStatusRibbonDiv>{brandText.brandName} Updates</StyledStatusRibbonDiv>
 
 			<h3>What's the Latest</h3>
 			<StyledBodyDiv>

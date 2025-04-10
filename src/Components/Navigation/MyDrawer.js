@@ -1,3 +1,4 @@
+// TODO:Risk Hawk Silent code
 import React, { useContext, Suspense } from "react";
 import { DRAWER, LOGOUT_USER } from "../Context/types";
 import { MainContext } from "../Context/MainContext";
@@ -69,10 +70,10 @@ const listData = [
 	{ text: "Saved Question", link: "/savequestion", icon: <FcBookmark /> },
 ];
 const listData2 = [
-	{ text: "Offers & Pricing", link: "/pricing", icon: <FcRating /> },
+	// { text: "Offers & Pricing", link: "/pricing", icon: <FcRating /> },
 	{ text: "My Report", link: "/report", icon: <FcComboChart /> },
-	{ text: "Blogs & News", link: "/blog", icon: <FcReading /> },
-	{ text: "Contact Us", link: "/contact", icon: <FcFeedback /> },
+	// { text: "Blogs & News", link: "/blog", icon: <FcReading /> },
+	// { text: "Contact Us", link: "/contact", icon: <FcFeedback /> },
 	{ text: "My Profile", link: "/profile", icon: <FcManager /> },
 ];
 export default function MyDrawer(props) {
