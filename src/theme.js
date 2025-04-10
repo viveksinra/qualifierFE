@@ -9,6 +9,7 @@ const USE_RISK_HAWK_THEME = true;
 const theme = USE_RISK_HAWK_THEME ? riskHawkTheme : qualifierTheme;
 const colors = USE_RISK_HAWK_THEME ? riskHawkColors : qualifierColors;
 const globalStyles = USE_RISK_HAWK_THEME ? riskHawkGlobalStyles : qualifierGlobalStyles;
+const isQualifier = !USE_RISK_HAWK_THEME;
 
 // Use Risk Hawk brand images if using Risk Hawk theme
 const brandImage = USE_RISK_HAWK_THEME ? riskHawkBrandImage : qualifierBrandImage;
@@ -19,4 +20,5 @@ export { colors };
 export { brandImage };
 export { globalStyles };
 export { brandText };
+export { isQualifier };
 export default theme; 

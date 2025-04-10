@@ -11,7 +11,7 @@ import { Grid, Typography, Fab, Avatar, Chip, IconButton, CircularProgress, useM
 import { styled, useTheme } from '@mui/material/styles';
 import { FaAngleDown, FaArrowAltCircleRight, FaBars } from "react-icons/fa";
 import { Head, Typewriter } from "./Components/NameExp";
-import { brandImage } from "./theme";
+import { brandImage, isQualifier } from "./theme";
 const DataCard = lazy(() => import("./Components/DataCard/DataCard"));
 const Categories = lazy(() => import("./Components/Categories/Categories"));
 const MegaMenu = lazy(() => import("./Components/Navigation/MegaMenu"));
@@ -280,11 +280,11 @@ function Home(props) {
 			<SpeedNav />
 			<Suspense fallback={<CircularProgress />}>
 					<DataCard />
-					<Categories />
+				{isQualifier &&	<Categories />}
 				<Suspense fallback={<CircularProgress />}>
 					<Features2 />
 					<Features />
-					<Testimonial />
+					{ isQualifier && <Testimonial />}
 				</Suspense>
 				<Footer />
 			</Suspense>
