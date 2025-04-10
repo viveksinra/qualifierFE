@@ -87,6 +87,7 @@ const qualifierBrandText = {
   poweredBy: "Powered by Softechinfra",
   contactEmail: "info@qualifier.co.in",
   contactPhone: "+91 98260 00000",
+  readBlogMsg:""
 };
 // Export old theme configuration and styles
 export { colors as qualifierColors };

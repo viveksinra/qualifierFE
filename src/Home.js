@@ -88,7 +88,8 @@ const StyledLogoMobDiv = styled('div')(({ theme }) => ({
 }));
 
 function AppNav() {
-	const { dispatch } = useContext(MainContext);
+
+	const { state,dispatch } = useContext(MainContext);
 	const theme = useTheme();
 	const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 	const isDesktop = useMediaQuery(theme.breakpoints.up('sm'));
@@ -141,7 +142,7 @@ function AppNav() {
 					</StyledLi>
 					<StyledLi>
 						<StyledLiLink to="/login">
-							Login/Signup
+						{state.isAuthenticated ? "Dashboard" : "Login/Signup"}
 						</StyledLiLink>
 					</StyledLi>
 				</StyledUl>
@@ -268,7 +269,7 @@ function Home(props) {
 									color="primary"
 									onDelete={() => null}
 									deleteIcon={<FaArrowAltCircleRight />}
-									label="Qualifiers has international platform."
+									label="Read Blogs"
 								/>
 							</Link>
 						</Grid>
