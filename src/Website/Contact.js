@@ -84,7 +84,7 @@ export default function Contact() {
 						<Grid item size={{xs: 12, md:6 }}  style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 							<img src={Chat} alt="Contact-Svg" />
 
-							<a target="_blank" rel="noopener noreferrer" href="https://tawk.to/chat/5e270a298e78b86ed8aa5fd2/default">
+							{/* <a target="_blank" rel="noopener noreferrer" href="https://tawk.to/chat/5e270a298e78b86ed8aa5fd2/default">
 								<Fab size="medium" color="secondary" variant="extended">
 									Start Chat Now
 								</Fab>
@@ -99,7 +99,7 @@ export default function Contact() {
 										</Typography>
 									</li>
 								))}
-							</ul>
+							</ul> */}
 						</Grid>
 
 						<Grid item size={{xs: 12, md:6 }}  style={{ display: "flex", justifyContent: "center" }}>
