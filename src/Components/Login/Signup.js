@@ -3,7 +3,7 @@ import "./login.css";
 import NewsCard from "./NewsCard";
 import { MainContext } from "../Context/MainContext";
 import { REFERRAL } from "../Context/types";
-import { Alert } from "@mui/material";
+import { Alert, Box } from "@mui/material";
 import { Link, Navigate } from "react-router-dom";
 import {
 	Grid,
@@ -20,7 +20,7 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { brandImage } from "../../theme";
+import { brandImage, isQualifier } from "../../theme";
 
 export default function Signup() {
 	const [name, setName] = useState("");
@@ -111,7 +111,24 @@ export default function Signup() {
 			<Grid container>
 				<Grid item size={{md:6 }} className="hideInMob" id="loginLeft">
 					<Suspense fallback={<CircularProgress />}>
-						<NewsCard />
+					{!isQualifier ? (
+							<Box sx={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative' }}>
+								<img 
+									src="https://res.cloudinary.com/qualifier/image/upload/v1744353428/Default/2000w2000h_inbfx2.jpg" 
+									alt="Qualifier Background" 
+									style={{ 
+										width: '100%', 
+										height: '100%', 
+										objectFit: 'cover',
+										position: 'absolute',
+										top: 0,
+										left: 50
+									}} 
+								/>
+							</Box>
+						) : (
+							<NewsCard />
+						)}
 					</Suspense>
 				</Grid>
 				<Grid item size={{md:6 }} id="loginRight">

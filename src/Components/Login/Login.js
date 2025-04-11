@@ -22,9 +22,10 @@ import {
 	DialogTitle,
 	DialogContent,
 	DialogActions,
+	Box,
 } from "@mui/material";
 import axios from "axios";
-import { brandImage } from "../../theme";
+import { brandImage, isQualifier } from "../../theme";
 export default function Login() {
 	const [loginId, setLoginId] = useState("");
 	const [password, setPassword] = useState("");
@@ -143,7 +144,24 @@ export default function Login() {
 			<Grid container>
 				<Grid item  size={{md:6 }} className="hideInMob" id="loginLeft">
 					<Suspense fallback={<CircularProgress style={{ marginLeft: "50%", marginTop: 50 }} />}>
-						<NewsCard />
+					{!isQualifier ? (
+							<Box sx={{ width: '100%', height: '100%', overflow: 'hidden', position: 'relative' }}>
+								<img 
+									src="https://res.cloudinary.com/qualifier/image/upload/v1744353428/Default/2000w2000h_inbfx2.jpg" 
+									alt="Qualifier Background" 
+									style={{ 
+										width: '100%', 
+										height: '100%', 
+										objectFit: 'cover',
+										position: 'absolute',
+										top: 0,
+										left: 50
+									}} 
+								/>
+							</Box>
+						) : (
+							<NewsCard />
+						)}
 					</Suspense>
 				</Grid>
 				<Grid item size={{md:6 }} id="loginRight">
