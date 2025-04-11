@@ -1,14 +1,34 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Grid, TextField, FormControlLabel, Switch, Tooltip, Fab } from "@mui/material";
 import { QuesContext } from "../../../Components/Context/AddQuesContext/QuestionContext";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from "axios";
 import { MdCloudDone } from "react-icons/md";
 
 export default function Section3() {
 	const { Qstate, Qdispatch } = useContext(QuesContext);
 	const [html, switchHtml] = useState(false);
+	const [editorState, setEditorState] = useState(() => {
+		if (Qstate.solTitle) {
+			const contentBlock = htmlToDraft(Qstate.solTitle);
+			if (contentBlock) {
+				const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+				return EditorState.createWithContent(contentState);
+			}
+		}
+		return EditorState.createEmpty();
+	});
+
+	const onEditorStateChange = (newEditorState) => {
+		setEditorState(newEditorState);
+		const htmlContent = draftToHtml(convertToRaw(newEditorState.getCurrentContent()));
+		Qdispatch({ type: "SETSOL", payload: htmlContent });
+	};
+	
 	return (
 		<Grid container spacing={2} justify="center">
 			<Grid item size={{xs: 6 }}>
@@ -52,14 +72,20 @@ export default function Section3() {
 						onChange={(e) => Qdispatch({ type: "SETSOL", payload: e.target.value })}
 					/>
 				) : (
-					<CKEditor
-						editor={ClassicEditor}
-						data={Qstate.solTitle}
-						onChange={(event, editor) => {
-							const data = editor.getData();
-							Qdispatch({ type: "SETSOL", payload: data });
-						}}
-					/>
+					<div style={{ border: '1px solid #F1F1F1', minHeight: '300px', borderRadius: '2px', backgroundColor: '#F1F1F1' }}>
+						<Editor
+							editorState={editorState}
+							wrapperClassName="demo-wrapper"
+							editorClassName="demo-editor"
+							onEditorStateChange={onEditorStateChange}
+							toolbar={{
+								options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'link', 'embedded', 'emoji', 'image', 'history'],
+								inline: { inDropdown: false },
+								list: { inDropdown: true },
+								textAlign: { inDropdown: true },
+							}}
+						/>
+					</div>
 				)}
 			</Grid>
 		</Grid>

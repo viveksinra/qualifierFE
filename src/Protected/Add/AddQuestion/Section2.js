@@ -1,12 +1,41 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Grid, TextField, MenuItem, FormControlLabel, Switch } from "@mui/material";
 import { QuesContext } from "../../../Components/Context/AddQuesContext/QuestionContext";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 export default function Section2() {
 	const { Qstate, Qdispatch } = useContext(QuesContext);
 	const [html, switchHtml] = useState(false);
+	const [editorStates, setEditorStates] = useState([]);
+
+	useEffect(() => {
+		const states = Qstate.options.map(option => {
+			if (option.title) {
+				const contentBlock = htmlToDraft(option.title);
+				if (contentBlock) {
+					const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+					return EditorState.createWithContent(contentState);
+				}
+			}
+			return EditorState.createEmpty();
+		});
+		setEditorStates(states);
+	}, []);
+
+	const onEditorStateChange = (index, newEditorState) => {
+		const newStates = [...editorStates];
+		newStates[index] = newEditorState;
+		setEditorStates(newStates);
+
+		const htmlContent = draftToHtml(convertToRaw(newEditorState.getCurrentContent()));
+		let newArr = [...Qstate.options];
+		newArr[index] = { ...newArr[index], title: htmlContent };
+		Qdispatch({ type: "SETOPTION", payload: newArr });
+	};
 
 	return (
 		<Grid container spacing={2} justify="center">
@@ -36,16 +65,22 @@ export default function Section2() {
 							}}
 						/>
 					) : (
-						<CKEditor
-							editor={ClassicEditor}
-							data={d.title}
-							onChange={(event, editor) => {
-								const data = editor.getData();
-								let newArr = [...Qstate.options];
-								newArr[i] = { ...newArr[i], title: data };
-								Qdispatch({ type: "SETOPTION", payload: newArr });
-							}}
-						/>
+						<div style={{ border: '1px solid #F1F1F1', minHeight: '100px', borderRadius: '2px', backgroundColor: '#F1F1F1' }}>
+							{editorStates[i] && (
+								<Editor
+									editorState={editorStates[i]}
+									wrapperClassName="demo-wrapper"
+									editorClassName="demo-editor"
+									onEditorStateChange={(newState) => onEditorStateChange(i, newState)}
+									toolbar={{
+										options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'link', 'embedded', 'emoji', 'image', 'history'],
+										inline: { inDropdown: false },
+										list: { inDropdown: true },
+										textAlign: { inDropdown: true },
+									}}
+								/>
+							)}
+						</div>
 					)}
 				</Grid>
 			))}

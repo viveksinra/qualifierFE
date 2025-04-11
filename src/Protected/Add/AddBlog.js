@@ -24,8 +24,11 @@ import {
 	Autocomplete,
 	Button
 } from "@mui/material";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import axios from "axios";
 import { MdSearch, MdDoneAll, MdClearAll, MdPanorama, MdLock, MdPublic, MdDeleteForever } from "react-icons/md";
 
@@ -70,6 +73,37 @@ export default function AddBlog() {
 	const [html, switchHtml] = useState(false);
 	const [err] = useState({ errIn: "", msg: "" });
 	const snackRef = useRef();
+	
+	// Initialize editor state
+	const [editorState, setEditorState] = useState(() => {
+		if (text) {
+			const contentBlock = htmlToDraft(text);
+			if (contentBlock) {
+				const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+				return EditorState.createWithContent(contentState);
+			}
+		}
+		return EditorState.createEmpty();
+	});
+
+	// Handle editor state changes
+	const onEditorStateChange = (newEditorState) => {
+		setEditorState(newEditorState);
+		const htmlContent = draftToHtml(convertToRaw(newEditorState.getCurrentContent()));
+		setText(htmlContent);
+	};
+	
+	// Update editorState when text changes (e.g. when loading from API)
+	useEffect(() => {
+		if (text) {
+			const contentBlock = htmlToDraft(text);
+			if (contentBlock) {
+				const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+				setEditorState(EditorState.createWithContent(contentState));
+			}
+		}
+	}, [text]);
+	
 	useEffect(() => {
 		axios
 			.get(`/api/blog/blogcat/get`)
@@ -276,14 +310,20 @@ export default function AddBlog() {
 											onChange={(e) => setText(e.target.value)}
 										/>
 									) : (
-										<CKEditor
-											editor={ClassicEditor}
-											data={text}
-											onChange={(event, editor) => {
-												const data = editor.getData();
-												setText(data);
-											}}
-										/>
+										<div style={{ border: '1px solid #F1F1F1', minHeight: '300px', borderRadius: '2px', backgroundColor: '#F1F1F1' }}>
+											<Editor
+												editorState={editorState}
+												wrapperClassName="demo-wrapper"
+												editorClassName="demo-editor"
+												onEditorStateChange={onEditorStateChange}
+												toolbar={{
+													options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'link', 'embedded', 'emoji', 'image', 'history'],
+													inline: { inDropdown: false },
+													list: { inDropdown: true },
+													textAlign: { inDropdown: true },
+												}}
+											/>
+										</div>
 									)}
 								</Grid>
 

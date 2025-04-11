@@ -1,8 +1,12 @@
 import React, { useContext, useState, useEffect, Suspense } from "react";
 import { Grid, TextField, FormControlLabel, Switch, Tooltip, Fab, CircularProgress, Autocomplete } from "@mui/material";
 import { QuesContext } from "../../../Components/Context/AddQuesContext/QuestionContext";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+// Import Draft.js and the WYSIWYG editor
+import { EditorState, convertToRaw, ContentState } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
+import htmlToDraft from 'html-to-draftjs';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { imgUpload } from "./Section3";
 import axios from "axios";
 import { MdPanorama } from "react-icons/md";
@@ -10,6 +14,25 @@ import { MdPanorama } from "react-icons/md";
 export default function Section1() {
 	const { Qstate, Qdispatch } = useContext(QuesContext);
 	const [html, switchHtml] = useState(false);
+	// Initialize editor state
+	const [editorState, setEditorState] = useState(() => {
+		if (Qstate.title) {
+			const contentBlock = htmlToDraft(Qstate.title);
+			if (contentBlock) {
+				const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+				return EditorState.createWithContent(contentState);
+			}
+		}
+		return EditorState.createEmpty();
+	});
+
+	// Handle editor state changes
+	const onEditorStateChange = (newEditorState) => {
+		setEditorState(newEditorState);
+		const htmlContent = draftToHtml(convertToRaw(newEditorState.getCurrentContent()));
+		Qdispatch({ type: "SETQUES", payload: htmlContent });
+	};
+
 	useEffect(() => {
 		if (Qstate.category) {
 			axios
@@ -131,14 +154,20 @@ export default function Section1() {
 							onChange={(e) => Qdispatch({ type: "SETQUES", payload: e.target.value })}
 						/>
 					) : (
-						<CKEditor
-							editor={ClassicEditor}
-							data={Qstate.title}
-							onChange={(event, editor) => {
-								const data = editor.getData();
-								Qdispatch({ type: "SETQUES", payload: data });
-							}}
-						/>
+						<div style={{ border: '1px solid #F1F1F1', minHeight: '300px', borderRadius: '2px', backgroundColor: '#F1F1F1' }}>
+							<Editor
+								editorState={editorState}
+								wrapperClassName="demo-wrapper"
+								editorClassName="demo-editor"
+								onEditorStateChange={onEditorStateChange}
+								toolbar={{
+									options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'link', 'embedded', 'emoji', 'image', 'history'],
+									inline: { inDropdown: false },
+									list: { inDropdown: true },
+									textAlign: { inDropdown: true },
+								}}
+							/>
+						</div>
 					)}
 				</Grid>
 			</Grid>
