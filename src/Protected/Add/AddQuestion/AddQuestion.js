@@ -31,7 +31,7 @@ const StyledFcSearch = styled(FcSearch)(({ theme }) => ({
 	position: "absolute",
 	float: "right",
 	right: "12%",
-	top: 15,
+	top: 200,
 	cursor: "pointer",
 }));
 
