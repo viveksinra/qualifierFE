@@ -288,11 +288,12 @@ function Home(props) {
 			<Suspense fallback={<CircularProgress />}>
 				{isQualifier &&	<DataCard />}
 				{isQualifier &&	<Categories />}
-				<Suspense fallback={<CircularProgress />}>
+				{ isQualifier && <>	<Suspense fallback={<CircularProgress />}>
 					<Features2 />
 					<Features />
-					{ isQualifier && <Testimonial />}
+					 <Testimonial />
 				</Suspense>
+				</>}
 				<Footer />
 			</Suspense>
 		</Fragment>
