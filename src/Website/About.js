@@ -136,7 +136,7 @@ const featureCards = [
 ];
 
 export default function About(props) {
-	document.title = "About - | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
+	document.title = "About - | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : Test Platform";
 
 	return (
 		<StyledBox>

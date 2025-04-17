@@ -189,7 +189,7 @@ export function SectionBreakdown(props) {
 	const [sectionData, setSectionData] = useState([]);
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
-		document.title = "Report | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
+		document.title = "Report | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : Test Platform";
 
 		setLoading(true);
 		if (props.data) {

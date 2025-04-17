@@ -37,7 +37,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 function CoursesHome() {
-	document.title = "Course List - | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
+	document.title = "Course List - | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : Test Platform";
 
 	const particlesInit = async (engine) => {
 		await loadFull(engine);

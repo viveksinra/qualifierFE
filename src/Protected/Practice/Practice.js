@@ -94,7 +94,7 @@ export default function Practice({ params }) {
 				.get(newlink)
 				.then((res) => Pdispatch({ type: GETQUES, payload: { params, ...res.data } }))
 				.catch((err) => console.log(err));
-			document.title = `Practice | ` +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
+			document.title = `Practice | ` +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : Test Platform";
 		}
 	}, [Pdispatch, params, newlink, Pstate.loading]);
 
