@@ -9,6 +9,7 @@ import { Grid, Container, Paper, AppBar, Divider, CircularProgress } from "@mui/
 import { styled } from '@mui/material/styles';
 import { useBeforeUnload, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { isQualifier } from "../../theme";
 const ChatBox = lazy(() => import("./ChatBox"));
 
 const PREFIX = 'Practice';
@@ -93,7 +94,7 @@ export default function Practice({ params }) {
 				.get(newlink)
 				.then((res) => Pdispatch({ type: GETQUES, payload: { params, ...res.data } }))
 				.catch((err) => console.log(err));
-			document.title = `Practice | Qualifier : See your Daily Report & improve your weak zone - Score All India Rank For FREE`;
+			document.title = `Practice | ` +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
 		}
 	}, [Pdispatch, params, newlink, Pstate.loading]);
 

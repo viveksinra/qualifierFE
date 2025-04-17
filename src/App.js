@@ -7,8 +7,8 @@ import axios from "axios";
 
 export default function App() {
 	const theme = useTheme();
-	// axios.defaults.baseURL = 'https://practice-api.riskhawk.in';
-	axios.defaults.baseURL = 'http://localhost:2040';
+	axios.defaults.baseURL = 'https://practice-api.riskhawk.in';
+	// axios.defaults.baseURL = 'http://localhost:2040';
 	return (
 		<Fragment>
 			<TopTray />

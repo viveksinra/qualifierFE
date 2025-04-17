@@ -39,8 +39,9 @@ export default function Login() {
 	const { state, dispatch } = useContext(MainContext);
 	const snackRef = useRef();
 	const params = useParams();
-	document.title = "Login | Qualifier : Online Test Series & Practice - Railway, SSC, Banking, Placement Exams & CBSE Exams For FREE";
+	document.title = "Login" | isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
 
+	
 	// Don't redirect immediately when authenticated
 	const shouldRedirect = true;
 

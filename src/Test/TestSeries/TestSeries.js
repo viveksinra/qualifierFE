@@ -155,11 +155,11 @@ function TestSeries() {
 		<StyledDiv>
 			<Head>
 				<title>
-					Online Test Series | Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE
+					Online Test Series 
 				</title>
 				<meta
 					name="description"
-					content="Online Test Series | Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FRE. Specialy on Qualifier.co.in"
+					content="Online Test Series "
 				/>
 			</Head>
 			<FullNav />

@@ -100,7 +100,7 @@ export default function Invite() {
 						</Grid>
 						<Grid item size={{xs: 12}} >
 							<Typography variant="subtitle1" align="center">
-								Welcome to Qualifier : An Online Test & Practice Hub <br /> Get additional discount of {data.discount} %
+								Welcome to An Online Test & Practice Hub <br /> Get additional discount of {data.discount} %
 								{data.maxDiscount && ` upto ₹ ${data.maxDiscount}`} and thanks <b>{data.refName}</b> for it.
 								<br />
 								<FcExpand />

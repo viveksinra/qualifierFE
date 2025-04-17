@@ -27,6 +27,7 @@ import parse from "html-react-parser";
 import { MdBookmark, MdExpandMore } from "react-icons/md";
 import Autocomplete from "@mui/material/Autocomplete";
 import NoContent from "../../Components/NoContent";
+import { isQualifier } from "../../theme";
 
 const QCard = styled(Card)(({ theme }) => ({
 	minHeight: 170,
@@ -57,7 +58,7 @@ export default function SavedQuestion({ link }) {
 	const snackRef = useRef();
 
 	useEffect(() => {
-		document.title = "Saved Questions | Qualifier : Reattempt the save Questions FREE OF COST - Score All India Rank With Qualifier.co.in";
+		document.title = "Saved Questions | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
 
 		setLoading(true);
 		if (courseLink) {

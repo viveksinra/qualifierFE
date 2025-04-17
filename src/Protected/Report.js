@@ -26,6 +26,7 @@ import axios from "axios";
 import CourseAnalysis from "../Website/CourseDetails/CourseAnalysis";
 import { lighten } from "@mui/material/styles";
 import { useParams } from "react-router-dom";
+import { isQualifier } from "../theme";
 const MyDrawer = lazy(() => import("../Components/Navigation/MyDrawer"));
 
 const ReportRoot = styled('div')(({ theme }) => ({
@@ -188,7 +189,7 @@ export function SectionBreakdown(props) {
 	const [sectionData, setSectionData] = useState([]);
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
-		document.title = "Report | Qualifier : See your Daily Report & improve your weak zone - Score All India Rank For FREE";
+		document.title = "Report | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
 
 		setLoading(true);
 		if (props.data) {

@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { HideOnScroll, FullNav } from "../Components/Navigation/Nav";
 import { styled } from '@mui/material/styles';
+import { isQualifier } from "../theme";
 
 const StyledBox = styled(Box)(({ theme }) => ({
 	'.banner': {
@@ -135,7 +136,7 @@ const featureCards = [
 ];
 
 export default function About(props) {
-	document.title = "About - Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
+	document.title = "About - | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
 
 	return (
 		<StyledBox>

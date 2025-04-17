@@ -54,7 +54,7 @@ const StyledRoot = styled('div')(({ theme }) => ({
 }));
 
 export default function UserDashboard() {
-	document.title = "Dashboard | Qualifier : Online Test Series & Practice - Railway, SSC, Banking, Placement & CBSE Exams.";
+	document.title = "Dashboard | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
 
 	return (
 		<StyledRoot className={classes.root}>

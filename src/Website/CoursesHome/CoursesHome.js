@@ -5,6 +5,7 @@ import { FullNav, HideOnScroll } from "../../Components/Navigation/Nav";
 import Footer from "../../Components/Footer/Footer";
 import { Particles } from "react-tsparticles";
 import { loadFull } from "tsparticles";
+import { isQualifier } from "../../theme";
 
 const TopSection = styled('div')(({ theme }) => ({
 	position: "absolute",
@@ -36,7 +37,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 }));
 
 function CoursesHome() {
-	document.title = "Course List - Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
+	document.title = "Course List - | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE";
 
 	const particlesInit = async (engine) => {
 		await loadFull(engine);
