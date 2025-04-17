@@ -39,7 +39,7 @@ export default function Login() {
 	const { state, dispatch } = useContext(MainContext);
 	const snackRef = useRef();
 	const params = useParams();
-	document.title = "Login" | isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : Test Platform";
+	document.title = "Login" | isQualifier ? "Test Platform" : "Risk Hawk : Test Platform";
 
 	
 	// Don't redirect immediately when authenticated

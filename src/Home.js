@@ -161,7 +161,7 @@ function Home(props) {
 	return (
 		<Fragment>
 			<Head>
-				<title>{isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : Test Platform"}</title>
+				<title>{isQualifier ? "Test Platform" : "Risk Hawk : Test Platform"}</title>
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta name="keywords" content={isQualifier ? "Qualifier, online test & practice, online test for student." : "Risk Hawk, online test & practice, online test for student."} />
 				<meta name="copyright" content={isQualifier ? "Softechinfra" : "Risk Hawk"} />

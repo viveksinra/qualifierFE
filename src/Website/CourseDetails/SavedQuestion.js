@@ -58,7 +58,7 @@ export default function SavedQuestion({ link }) {
 	const snackRef = useRef();
 
 	useEffect(() => {
-		document.title = "Saved Questions | " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : Test Platform";
+		document.title = "Saved Questions | " +  isQualifier ? "Test Platform" : "Risk Hawk : Test Platform";
 
 		setLoading(true);
 		if (courseLink) {

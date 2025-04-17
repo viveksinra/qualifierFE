@@ -59,7 +59,7 @@ export default function Course() {
 	const [loading, setLoading] = useState(false);
 	const [notify, setNotify] = useState({ open: false, link: "" });
 	const theme = useTheme();
-	document.title = `${course.courseTitle}| ` +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : Test Platform";
+	document.title = `${course.courseTitle}| ` +  isQualifier ? "Test Platform" : "Risk Hawk : Test Platform";
 
 	useEffect(() => {
 		setLoading(true);

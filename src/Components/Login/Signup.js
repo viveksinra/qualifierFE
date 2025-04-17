@@ -37,7 +37,7 @@ export default function Signup() {
 	const { state, dispatch } = useContext(MainContext);
 	const [alert, setAlert] = useState({ open: false, message: "", variant: "success" });
 	document.title =
-		"Sign Up For FREE | Create a New Account - " +  isQualifier ? "Qualifier : FREE Online Test Series & Practice - Railway, SSC, Banking, Placement Papers & CBSE Exams For FREE" : "Risk Hawk : Test Platform";
+		"Sign Up For FREE | Create a New Account - " +  isQualifier ? "Test Platform" : "Risk Hawk : Test Platform";
 
 	const handleErr = (errIn) => {
 		switch (errIn) {
