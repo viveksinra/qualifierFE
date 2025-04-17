@@ -193,7 +193,7 @@ function TestSeries() {
 					</ErrorBoundary>
 				</div>
 				<Suspense fallback={<LoadingFallback />}>
-					<Features2 />
+			{ isQualifier &&		<Features2 />}
 					<Footer />
 				</Suspense>
 			</Suspense>
