@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import { 
 	Box, 
@@ -7,7 +7,9 @@ import {
 	Divider, 
 	Grid, 
 	Typography,
-	useTheme 
+	useTheme,
+	Button,
+	CircularProgress 
 } from "@mui/material";
 import { 
 	FcList, 
@@ -24,9 +26,32 @@ import {
 	FcHighPriority,
 	FcDataBackup
 } from "react-icons/fc";
+import { FcRefresh } from "react-icons/fc";
+import axios from "axios";
 
 export default function AdminDashboard() {
 	const theme = useTheme();
+	const [loading, setLoading] = useState(false);
+	
+	// Function to refresh FastAPI data
+	const refreshFastApis = async () => {
+		try {
+			setLoading(true);
+			
+			// Call the API endpoints
+			await axios.get('/api/fastapi/bigtest/seriesdata/waslink');
+			await axios.get('/api/fastapi/bigtest/main/get');
+			await axios.get('/api/fastapi/practice/getall/wascatlink');
+			
+			// Show success message (could be replaced with a proper toast notification)
+			alert("APIs refreshed successfully!");
+		} catch (error) {
+			console.error("Error refreshing APIs:", error);
+			alert("Failed to refresh APIs. Please try again.");
+		} finally {
+			setLoading(false);
+		}
+	};
 	
 	// Group data into categories
 	const categories = {
@@ -66,6 +91,16 @@ export default function AdminDashboard() {
 				<Typography variant="body1" color="textSecondary">
 					Manage your educational content and user interactions from this central dashboard
 				</Typography>
+				<Button 
+					variant="contained" 
+					color="primary"
+					onClick={refreshFastApis}
+					disabled={loading}
+					startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <FcRefresh />}
+					sx={{ mt: 2 }}
+				>
+					{loading ? "Refreshing..." : "Refresh FastAPIs"}
+				</Button>
 			</Box>
 			
 			{Object.entries(categories).map(([category, items]) => (
