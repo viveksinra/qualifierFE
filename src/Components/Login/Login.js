@@ -126,7 +126,7 @@ export default function Login() {
 			});
 	};
 
-	if (state.isAuthenticated && shouldRedirect) {
+	if (state.isAuthenticated && shouldRedirect && state.designation) {
 		switch (state.designation) {
 			case "User":
 				return <Navigate to="/dashboard" replace />;
