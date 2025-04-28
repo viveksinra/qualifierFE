@@ -77,6 +77,23 @@ export default function AddChapter() {
 	const [err] = useState({ errIn: "", msg: "" });
 	const snackRef = useRef();
 
+	// Function to generate URL from title
+	const generateLink = (text) => {
+		if (!text) return "";
+		// Convert to lowercase, replace spaces with hyphens, remove special characters
+		return text
+			.toLowerCase()
+			.trim()
+			.replace(/\s+/g, "-")
+			.replace(/[^\w-]/g, "");
+	};
+
+	// Handle title change and auto-generate link
+	const handleTitleChange = (value) => {
+		setTitle(value);
+		setLink(generateLink(value));
+	};
+
 	useEffect(() => {
 		getData("");
 		getCategory();
@@ -217,7 +234,7 @@ export default function AddChapter() {
 										label={err.errIn === "title" ? err.msg : "Chapter Title"}
 										placeholder="Name of the Chapter.."
 										value={title}
-										onChange={(e) => setTitle(e.target.value)}
+										onChange={(e) => handleTitleChange(e.target.value)}
 									/>
 								</Grid>
 								<Grid item size={{xs: 12}} >

@@ -24,7 +24,7 @@ import {
 } from "@mui/material";
 import MySnackbar from "../../Components/MySnackbar";
 import axios from "axios";
-import { MdSearch, MdDoneAll, MdClearAll, MdPanorama } from "react-icons/md";
+import { MdSearch, MdDoneAll, MdClearAll, MdPanorama, MdAutorenew } from "react-icons/md";
 
 // Styled components to replace useStyles
 const EntryAreaPaper = styled(Paper)(({ theme }) => ({
@@ -91,6 +91,31 @@ export default function AddTestSeries() {
 	useEffect(() => {
 		getData("");
 	}, []);
+	
+	// Function to generate slug from title
+	const generateSlug = (text) => {
+		return text
+			.toString()
+			.toLowerCase()
+			.trim()
+			.replace(/\s+/g, '-')        // Replace spaces with -
+			.replace(/[^\w\-]+/g, '')    // Remove all non-word chars
+			.replace(/\-\-+/g, '-')      // Replace multiple - with single -
+			.replace(/^-+/, '')          // Trim - from start of text
+			.replace(/-+$/, '');         // Trim - from end of text
+	};
+	
+	// Auto-generate link when title changes
+	const handleTitleChange = (e) => {
+		const newTitle = e.target.value;
+		setTitle(newTitle);
+		setLink(`/${generateSlug(newTitle)}`);
+	};
+	
+	// Function to manually generate link from current title
+	const regenerateLink = () => {
+		setLink(`/${generateSlug(title)}`);
+	};
 	
 	const getData = async (word) => {
 		setLoading(true);
@@ -224,7 +249,7 @@ export default function AddTestSeries() {
 										label="Series Title"
 										placeholder="State CGL 2020 Mock Test"
 										value={title}
-										onChange={(e) => setTitle(e.target.value)}
+										onChange={handleTitleChange}
 									/>
 								</Grid>
 								<Grid item size={{ xs: 12, sm: 3 }}>
@@ -257,15 +282,28 @@ export default function AddTestSeries() {
 									</TextField>
 								</Grid>
 								<Grid item size={{ xs: 6 }}>
-									<TextField
-										variant="outlined"
-										required
-										fullWidth
-										label="Link / URL"
-										placeholder="/"
-										value={link}
-										onChange={(e) => setLink(e.target.value)}
-									/>
+									<Box sx={{ display: 'flex', alignItems: 'center' }}>
+										<TextField
+											variant="outlined"
+											required
+											fullWidth
+											label="Link / URL"
+											placeholder="/"
+											value={link}
+											onChange={(e) => setLink(e.target.value)}
+										/>
+										<Tooltip title="Auto-generate from title">
+											<Fab 
+												size="small" 
+												color="primary" 
+												onClick={regenerateLink} 
+												sx={{ ml: 1 }}
+												disabled={!title}
+											>
+												<MdAutorenew />
+											</Fab>
+										</Tooltip>
+									</Box>
 								</Grid>
 								<Grid item size={{ xs: 4 }}>
 									<TextField

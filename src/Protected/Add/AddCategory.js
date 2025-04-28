@@ -58,6 +58,26 @@ export default function AddCategory() {
 	useEffect(() => {
 		getData("");
 	}, []);
+	
+	// Function to generate URL-friendly string from title
+	const generateLinkFromTitle = (titleText) => {
+		return titleText
+			.toLowerCase()
+			.replace(/[^\w\s-]/g, '') // Remove special characters
+			.replace(/\s+/g, '-') // Replace spaces with hyphens
+			.replace(/-+/g, '-') // Replace multiple hyphens with a single one
+			.trim(); // Remove whitespace from both ends
+	};
+	
+	// Handle title change and auto-generate link
+	const handleTitleChange = (e) => {
+		const newTitle = e.target.value;
+		setTitle(newTitle);
+		if (newTitle) {
+			setLink(`/${generateLinkFromTitle(newTitle)}`);
+		}
+	};
+	
 	const getData = async (word) => {
 		await axios
 			.get(`/api/test/category/allcategory/${word}`)
@@ -161,7 +181,7 @@ export default function AddCategory() {
 											label={err.errIn === "title" ? err.msg : "Category Title"}
 											placeholder="Name of the Category.."
 											value={title}
-											onChange={(e) => setTitle(e.target.value)}
+											onChange={handleTitleChange}
 											InputProps={{
 												startAdornment: (
 													<InputAdornment position="start">
@@ -178,7 +198,7 @@ export default function AddCategory() {
 											fullWidth
 											onBlur={() => handleErr("link")}
 											error={err.errIn === "link" ? true : false}
-											label={err.errIn === "link" ? err.msg : "Link / URL "}
+											label={err.errIn === "link" ? err.msg : "Link / URL (Auto-generated)"}
 											placeholder="/"
 											value={link}
 											onChange={(e) => setLink(e.target.value)}

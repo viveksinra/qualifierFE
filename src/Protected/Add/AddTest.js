@@ -98,6 +98,17 @@ export default function AddTest() {
 		}
 	}, [testBundle, subType]);
 
+	// Auto generate URL from test name
+	useEffect(() => {
+		if (testName) {
+			const generatedLink = testName
+				.toLowerCase()
+				.replace(/[^a-z0-9\s-]/g, "")
+				.replace(/\s+/g, "-");
+			setLink(generatedLink);
+		}
+	}, [testName]);
+
 	const getData = async (word) => {
 		await axios
 			.get(`/api/bigtest/mocktest/allmocktest/${word}`)
@@ -290,6 +301,7 @@ export default function AddTest() {
 										placeholder="/"
 										value={testLink}
 										onChange={(e) => setLink(e.target.value)}
+										helperText="Auto-generated from test name"
 									/>
 								</Grid>
 								<Grid item size={{xs: 6, sm:3 }}>

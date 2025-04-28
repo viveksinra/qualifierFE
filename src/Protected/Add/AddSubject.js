@@ -151,6 +151,28 @@ export default function AddSubject() {
 				.catch((err) => console.log(err));
 		}
 	};
+	
+	// Generate URL-friendly slug from title
+	const generateSlug = (text) => {
+		return text
+			.toString()
+			.toLowerCase()
+			.trim()
+			.replace(/\s+/g, '-')          // Replace spaces with -
+			.replace(/&/g, '-and-')         // Replace & with 'and'
+			.replace(/[^\w\-]+/g, '')      // Remove all non-word characters
+			.replace(/\-\-+/g, '-')         // Replace multiple - with single -
+			.replace(/^-+/, '')             // Trim - from start of text
+			.replace(/-+$/, '');            // Trim - from end of text
+	};
+	
+	// Handle title change and auto-generate link
+	const handleTitleChange = (e) => {
+		const newTitle = e.target.value;
+		setTitle(newTitle);
+		setLink(generateSlug(newTitle));
+	};
+	
 	const handleErr = (errIn) => {
 		switch (errIn) {
 			case "title":
@@ -191,7 +213,7 @@ export default function AddSubject() {
 										label={err.errIn === "title" ? err.msg : "Subject Title"}
 										placeholder="Name of the Subject.."
 										value={title}
-										onChange={(e) => setTitle(e.target.value)}
+										onChange={handleTitleChange}
 									/>
 								</Grid>
 								<Grid item size={{xs: 12}}>
@@ -222,7 +244,7 @@ export default function AddSubject() {
 										fullWidth
 										onBlur={() => handleErr("link")}
 										error={err.errIn === "link" ? true : false}
-										label={err.errIn === "link" ? err.msg : "Link / URL "}
+										label={err.errIn === "link" ? err.msg : "Link / URL (auto-generated)"}
 										placeholder="/"
 										value={link}
 										onChange={(e) => setLink(e.target.value)}

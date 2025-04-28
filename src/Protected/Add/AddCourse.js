@@ -77,6 +77,23 @@ export default function AddCourse() {
 		getData("");
 		getCategory();
 	}, []);
+	
+	// Generate URL-friendly string from title
+	const generateURLFromTitle = (title) => {
+		return title
+			.toLowerCase()
+			.replace(/[^\w\s-]/g, "") // Remove special characters
+			.replace(/\s+/g, "-") // Replace spaces with hyphens
+			.replace(/-+/g, "-"); // Remove consecutive hyphens
+	};
+	
+	// Update title and auto-generate link
+	const handleTitleChange = (e) => {
+		const newTitle = e.target.value;
+		setTitle(newTitle);
+		setLink(generateURLFromTitle(newTitle));
+	};
+	
 	const getData = async (word) => {
 		await axios
 			.get(`/api/test/course/allcourse/${word}`)
@@ -198,7 +215,7 @@ export default function AddCourse() {
 										label={err.errIn === "title" ? err.msg : "Course Title"}
 										placeholder="Name of the Course.."
 										value={title}
-										onChange={(e) => setTitle(e.target.value)}
+										onChange={handleTitleChange}
 									/>
 								</Grid>
 								<Grid item size={{xs: 12}} >
@@ -225,6 +242,7 @@ export default function AddCourse() {
 										placeholder="/"
 										value={link}
 										onChange={(e) => setLink(e.target.value)}
+										helperText="Auto-generated from title, but can be edited"
 									/>
 								</Grid>
 								<Grid item size={{xs: 6 }}>
